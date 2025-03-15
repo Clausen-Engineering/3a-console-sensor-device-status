@@ -1,0 +1,62 @@
+{
+  "latest_version": "No tags found",
+  "repo_name": "3a-console-esp32-template-sm",
+  "last_commit_date": "2025-03-15 20:42:28",
+  "last_updated": "2025-03-15 19:45:06",
+  "devices": [
+    {
+      "name": "humidity-display",
+      "version": "",
+      "status": "Needs update",
+      "location": "",
+      "last_updated": "",
+      "last_deployed": "",
+      "notes": ""
+    },
+    {
+      "name": "mog-tank-water-sensor",
+      "version": "v1.1.3",
+      "status": "Needs update",
+      "location": "",
+      "last_updated": "2025-03-15",
+      "last_deployed": "Never",
+      "notes": "Fixed log interval handling to ensure consistent timing"
+    },
+    {
+      "name": "sauna-power-consumption",
+      "version": "v1.1.3",
+      "status": "Needs update",
+      "location": "",
+      "last_updated": "2025-03-15",
+      "last_deployed": "Never",
+      "notes": "Fixed log interval handling to ensure consistent timing"
+    },
+    {
+      "name": "sauna-temperature-and-humidity",
+      "version": "v1.1.3",
+      "status": "Needs update",
+      "location": "",
+      "last_updated": "2025-03-15",
+      "last_deployed": "Never",
+      "notes": "Fixed log interval handling to ensure consistent timing"
+    },
+    {
+      "name": "water-heater-power-consumption",
+      "version": "v1.1.3",
+      "status": "Needs update",
+      "location": "",
+      "last_updated": "2025-03-15",
+      "last_deployed": "Never",
+      "notes": "Fixed log interval handling to ensure consistent timing"
+    },
+    {
+      "name": "water-system-temperatures",
+      "version": "v1.1.3",
+      "status": "Needs update",
+      "location": "",
+      "last_updated": "2025-03-15",
+      "last_deployed": "Never",
+      "notes": "Fixed log interval handling to ensure consistent timing"
+    }
+  ]
+}
