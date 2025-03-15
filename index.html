@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3A Console - ESP32 Sensor Device Status</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --info-color: #1abc9c;
+        }
+        body { 
+            padding-bottom: 2rem; 
+            background-color: #f8f9fa;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+        }
+        .card {
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            margin-bottom: 1.5rem;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            border-radius: 0.5rem 0.5rem 0 0 !important;
+            font-weight: bold;
+        }
+        .status-badge {
+            font-size: 0.85rem;
+            padding: 0.35rem 0.65rem;
+            border-radius: 1rem;
+        }
+        .up-to-date { background-color: var(--success-color); color: white; }
+        .needs-update { background-color: var(--warning-color); color: white; }
+        .unknown { background-color: var(--danger-color); color: white; }
+        
+        .version-tag {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 0.25rem;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 0;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-container.left {
+            left: 0;
+        }
+        .timeline-container.right {
+            left: 50%;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background-color: white;
+            border: 2px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-container.right::after {
+            left: -8px;
+        }
+        .timeline-content {
+            padding: 1rem;
+            background-color: white;
+            position: relative;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .last-update {
+            font-size: 0.85rem;
+            color: #6c757d;
+            text-align: right;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-container.right {
+                left: 0%;
+            }
+            .timeline-container.left::after, 
+            .timeline-container.right::after {
+                left: 23px;
+            }
+        }
+        
+        /* Search and filter */
+        .filter-section {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        .filter-badge {
+            cursor: pointer;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-cpu"></i> 3A Console - ESP32 Sensor Status
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#overview"><i class="bi bi-house"></i> Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#devices"><i class="bi bi-grid"></i> Devices</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#timeline"><i class="bi bi-calendar"></i> Timeline</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" id="overview">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <i class="bi bi-info-circle"></i> Template Information
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Latest Version: <span id="latest-version" class="version-tag"></span></h5>
+                        <p class="card-text"><i class="bi bi-github"></i> Repository: <span id="repo-name"></span></p>
+                        <p class="card-text"><i class="bi bi-clock"></i> Last commit: <span id="last-commit-date"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <i class="bi bi-pie-chart"></i> Status Overview
+                    </div>
+                    <div class="card-body">
+                        <canvas id="status-chart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <section id="devices">
+            <h2 class="mb-3"><i class="bi bi-grid"></i> Device Status</h2>
+            
+            <div class="filter-section mb-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" id="device-search" class="form-control" placeholder="Search devices...">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-end">
+                            <span class="filter-badge badge bg-success" data-filter="up-to-date">Up to date</span>
+                            <span class="filter-badge badge bg-warning text-dark" data-filter="needs-update">Needs update</span>
+                            <span class="filter-badge badge bg-danger" data-filter="unknown">Unknown</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" id="device-cards">
+                <!-- Device cards will be populated here -->
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading device data...</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="timeline" class="mt-5">
+            <h2 class="mb-4"><i class="bi bi-calendar"></i> Deployment Timeline</h2>
+            <div class="timeline">
+                <!-- Timeline will be populated here -->
+            </div>
+        </section>
+        
+        <p class="last-update">Dashboard updated: <span id="last-updated"></span></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Format date for display
+        function formatDate(dateStr) {
+            if (!dateStr || dateStr === 'Never' || dateStr === 'N/A') return dateStr;
+            const date = new Date(dateStr);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+        
+        // Load device status data
+        fetch('data/device-status.json')
+            .then(response => response.json())
+            .then(data => {
+                // Update header information
+                document.getElementById('latest-version').textContent = data.latest_version;
+                document.getElementById('repo-name').textContent = data.repo_name;
+                document.getElementById('last-commit-date').textContent = data.last_commit_date;
+                document.getElementById('last-updated').textContent = formatDate(data.last_updated);
+                
+                // Generate device cards
+                const deviceCardsContainer = document.getElementById('device-cards');
+                deviceCardsContainer.innerHTML = ''; // Clear loading spinner
+                
+                // Status counters for chart
+                let statusCounts = {
+                    'Up to date': 0,
+                    'Needs update': 0,
+                    'Unknown': 0
+                };
+                
+                // Sort devices by status (Up to date first, then Needs update, then Unknown)
+                const sortedDevices = [...data.devices].sort((a, b) => {
+                    const statusOrder = { 'Up to date': 0, 'Needs update': 1, 'Unknown': 2 };
+                    return statusOrder[a.status] - statusOrder[b.status];
+                });
+                
+                // Create device cards
+                sortedDevices.forEach(device => {
+                    // Count statuses for chart
+                    statusCounts[device.status]++;
+                    
+                    // Create card
+                    const col = document.createElement('div');
+                    col.className = 'col-md-6 col-lg-4 device-item';
+                    col.dataset.status = device.status.replace(/\s+/g, '-').toLowerCase();
+                    
+                    let statusClass = '';
+                    if (device.status === 'Up to date') statusClass = 'up-to-date';
+                    else if (device.status === 'Needs update') statusClass = 'needs-update';
+                    else statusClass = 'unknown';
+                    
+                    col.innerHTML = `
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>${device.name}</span>
+                                    <span class="status-badge ${statusClass}">${device.status}</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <small class="text-muted">Version:</small>
+                                    <div><span class="version-tag">${device.version}</span></div>
+                                </div>
+                                <div class="mb-3">
+                                    <small class="text-muted">Location:</small>
+                                    <div>${device.location || 'Unknown'}</div>
+                                </div>
+                                <div class="mb-3">
+                                    <small class="text-muted">Last Updated:</small>
+                                    <div>${device.last_updated}</div>
+                                </div>
+                                <div>
+                                    <small class="text-muted">Last Deployed:</small>
+                                    <div>${device.last_deployed}</div>
+                                </div>
+                                ${device.notes ? `
+                                <div class="mt-3 pt-3 border-top">
+                                    <small class="text-muted">Notes:</small>
+                                    <div>${device.notes}</div>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    deviceCardsContainer.appendChild(col);
+                });
+                
+                // Create status chart
+                const ctx = document.getElementById('status-chart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(statusCounts),
+                        datasets: [{
+                            data: Object.values(statusCounts),
+                            backgroundColor: [
+                                'rgba(46, 204, 113, 0.8)',  // Up to date - green
+                                'rgba(243, 156, 18, 0.8)',  // Needs update - orange
+                                'rgba(231, 76, 60, 0.8)'    // Unknown - red
+                            ],
+                            borderColor: [
+                                'rgba(46, 204, 113, 1)',
+                                'rgba(243, 156, 18, 1)',
+                                'rgba(231, 76, 60, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+                
+                // Create timeline
+                const timeline = document.querySelector('.timeline');
+                
+                // Get deployments with actual dates
+                const deployments = data.devices
+                    .filter(device => device.last_deployed && device.last_deployed !== 'Never')
+                    .map(device => ({
+                        device: device.name,
+                        date: device.last_deployed,
+                        version: device.version
+                    }))
+                    .sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                // Create timeline entries
+                deployments.forEach((deployment, index) => {
+                    const isLeft = index % 2 === 0;
+                    const container = document.createElement('div');
+                    container.className = `timeline-container ${isLeft ? 'left' : 'right'}`;
+                    
+                    container.innerHTML = `
+                        <div class="timeline-content">
+                            <h5>${deployment.device}</h5>
+                            <p class="timeline-date">${deployment.date}</p>
+                            <p>Deployed version <span class="version-tag">${deployment.version}</span></p>
+                        </div>
+                    `;
+                    
+                    timeline.appendChild(container);
+                });
+                
+                // If no deployments
+                if (deployments.length === 0) {
+                    timeline.innerHTML = '<div class="text-center py-4">No deployment history available</div>';
+                }
+                
+                // Set up search functionality
+                const searchInput = document.getElementById('device-search');
+                searchInput.addEventListener('input', filterDevices);
+                
+                // Set up filter badges
+                const filterBadges = document.querySelectorAll('.filter-badge');
+                filterBadges.forEach(badge => {
+                    badge.addEventListener('click', () => {
+                        if (badge.classList.contains('bg-secondary')) {
+                            // Reset the badge to its original color
+                            resetFilterBadges();
+                        } else {
+                            // Set all badges to secondary color first
+                            resetFilterBadges(true);
+                            
+                            // Restore this badge to its original color
+                            const filterClass = badge.dataset.filter;
+                            if (filterClass === 'up-to-date') {
+                                badge.classList.remove('bg-secondary');
+                                badge.classList.add('bg-success');
+                            } else if (filterClass === 'needs-update') {
+                                badge.classList.remove('bg-secondary');
+                                badge.classList.add('bg-warning', 'text-dark');
+                            } else if (filterClass === 'unknown') {
+                                badge.classList.remove('bg-secondary');
+                                badge.classList.add('bg-danger');
+                            }
+                            
+                            // Filter the devices
+                            filterDevicesByStatus(filterClass);
+                        }
+                    });
+                });
+                
+                function resetFilterBadges(greyOut = false) {
+                    filterBadges.forEach(b => {
+                        b.className = 'filter-badge badge';
+                        if (greyOut) {
+                            b.classList.add('bg-secondary');
+                        } else {
+                            const filterClass = b.dataset.filter;
+                            if (filterClass === 'up-to-date') {
+                                b.classList.add('bg-success');
+                            } else if (filterClass === 'needs-update') {
+                                b.classList.add('bg-warning', 'text-dark');
+                            } else if (filterClass === 'unknown') {
+                                b.classList.add('bg-danger');
+                            }
+                            
+                            // Show all devices
+                            const deviceItems = document.querySelectorAll('.device-item');
+                            deviceItems.forEach(item => {
+                                item.style.display = 'block';
+                            });
+                        }
+                    });
+                }
+                
+                function filterDevicesByStatus(statusClass) {
+                    const deviceItems = document.querySelectorAll('.device-item');
+                    deviceItems.forEach(item => {
+                        if (item.dataset.status === statusClass) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+                
+                function filterDevices() {
+                    const searchTerm = searchInput.value.toLowerCase();
+                    const deviceItems = document.querySelectorAll('.device-item');
+                    
+                    deviceItems.forEach(item => {
+                        const deviceName = item.querySelector('.card-header').textContent.toLowerCase();
+                        const deviceLocation = item.querySelector('.card-body').textContent.toLowerCase();
+                        
+                        if (deviceName.includes(searchTerm) || deviceLocation.includes(searchTerm)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error loading device status:', error);
+                document.getElementById('device-cards').innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle"></i> Error loading device status data.
+                            Please check if data/device-status.json exists.
+                        </div>
+                    </div>
+                `;
+            });
+    </script>
+</body>
+</html>
