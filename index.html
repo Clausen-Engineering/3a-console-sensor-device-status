@@ -145,6 +145,14 @@
             cursor: pointer;
             margin-right: 0.5rem;
         }
+        
+        /* Version info tooltip */
+        .version-info {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -183,6 +191,9 @@
                         <h5 class="card-title">Latest Version: <span id="latest-version" class="version-tag"></span></h5>
                         <p class="card-text"><i class="bi bi-github"></i> Repository: <span id="repo-name"></span></p>
                         <p class="card-text"><i class="bi bi-clock"></i> Last commit: <span id="last-commit-date"></span></p>
+                        <div class="version-info">
+                            <p><i class="bi bi-info-circle"></i> Updates are only required when major or minor version numbers change (X.Y in vX.Y.Z).</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -249,6 +260,34 @@
             return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
         }
         
+        // Function to check if a device needs to be updated based on version comparison
+        function needsUpdate(deviceVersion, latestVersion) {
+            // If no device version is available, it needs an update
+            if (!deviceVersion) return true;
+            
+            // Parse version strings (assuming format vX.Y.Z)
+            const parseVersion = (version) => {
+                const match = version.match(/v?(\d+)\.(\d+)\.(\d+)/);
+                if (!match) return null;
+                return {
+                    major: parseInt(match[1], 10),
+                    minor: parseInt(match[2], 10),
+                    patch: parseInt(match[3], 10)
+                };
+            };
+            
+            const deviceVer = parseVersion(deviceVersion);
+            const latestVer = parseVersion(latestVersion);
+            
+            // If parsing failed, conservatively assume update is needed
+            if (!deviceVer || !latestVer) return true;
+            
+            // Only consider major and minor versions for update requirement
+            // If major or minor versions differ, update is needed
+            return (deviceVer.major < latestVer.major) || 
+                   (deviceVer.major === latestVer.major && deviceVer.minor < latestVer.minor);
+        }
+        
         // Load device status data
         fetch('data/device-status.json')
             .then(response => response.json())
@@ -269,6 +308,17 @@
                     'Needs update': 0,
                     'Unknown': 0
                 };
+                
+                // Update device status based on version comparison logic
+                data.devices.forEach(device => {
+                    // Override the status based on our new version check logic
+                    if (!device.version) {
+                        device.status = 'Unknown';
+                    } else {
+                        device.status = needsUpdate(device.version, data.latest_version) ? 
+                            'Needs update' : 'Up to date';
+                    }
+                });
                 
                 // Sort devices by status (Up to date first, then Needs update, then Unknown)
                 const sortedDevices = [...data.devices].sort((a, b) => {
@@ -302,7 +352,7 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <small class="text-muted">Version:</small>
-                                    <div><span class="version-tag">${device.version}</span></div>
+                                    <div><span class="version-tag">${device.version || 'Unknown'}</span></div>
                                 </div>
                                 <div class="mb-3">
                                     <small class="text-muted">Location:</small>
@@ -310,11 +360,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <small class="text-muted">Last Updated:</small>
-                                    <div>${device.last_updated}</div>
+                                    <div>${device.last_updated || 'Never'}</div>
                                 </div>
                                 <div>
                                     <small class="text-muted">Last Deployed:</small>
-                                    <div>${device.last_deployed}</div>
+                                    <div>${device.last_deployed || 'Never'}</div>
                                 </div>
                                 ${device.notes ? `
                                 <div class="mt-3 pt-3 border-top">
