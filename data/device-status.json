@@ -1,8 +1,8 @@
 {
   "latest_version": "v1.2.1",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-03-19 10:45:40",
-  "last_updated": "2025-03-19 09:46:26",
+  "last_commit_date": "2025-03-19 10:59:40",
+  "last_updated": "2025-03-19 09:59:54",
   "devices": [
     {
       "name": "humidity-display",
@@ -15,48 +15,48 @@
     },
     {
       "name": "mog-tank-water-sensor",
-      "version": "v1.1.3",
-      "status": "Needs update",
-      "location": "",
-      "last_updated": "2025-03-15",
-      "last_deployed": "Never",
-      "notes": "Fixed log interval handling to ensure consistent timing"
+      "version": "v1.2.1",
+      "status": "Up to date",
+      "location": "Basement - right side (by MOG tank)",
+      "last_updated": "2025-03-18",
+      "last_deployed": "2025-03-18",
+      "notes": "Updated to v1.2.1"
     },
     {
       "name": "sauna-power-consumption",
-      "version": "v1.1.3",
-      "status": "Needs update",
-      "location": "",
-      "last_updated": "2025-03-15",
-      "last_deployed": "Never",
-      "notes": "Fixed log interval handling to ensure consistent timing (added this extra text for test)"
+      "version": "v1.2.1",
+      "status": "Up to date",
+      "location": "Basement - left side, in rear electrical box",
+      "last_updated": "2025-03-18",
+      "last_deployed": "2025-03-18",
+      "notes": "Updated to v1.2.1"
     },
     {
       "name": "sauna-temperature-and-humidity",
-      "version": "v1.1.3",
-      "status": "Needs update",
-      "location": "",
-      "last_updated": "2025-03-15",
-      "last_deployed": "Never",
-      "notes": "Fixed log interval handling to ensure consistent timing"
+      "version": "v1.2.1",
+      "status": "Up to date",
+      "location": "Basement - left side, on top of fridge",
+      "last_updated": "2025-03-18",
+      "last_deployed": "2025-03-18",
+      "notes": "Updated to v1.2.1"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "v1.1.3",
-      "status": "Needs update",
-      "location": "",
-      "last_updated": "2025-03-15",
-      "last_deployed": "Never",
-      "notes": "Fixed log interval handling to ensure consistent timing"
+      "version": "v1.2.1",
+      "status": "Up to date",
+      "location": "Technician room - inside electrical box next to power meter for heaters",
+      "last_updated": "2025-03-18",
+      "last_deployed": "2025-03-18",
+      "notes": "Updated to v1.2.1"
     },
     {
       "name": "water-system-temperatures",
-      "version": "v1.1.3",
-      "status": "Needs update",
-      "location": "",
-      "last_updated": "2025-03-15",
-      "last_deployed": "Never",
-      "notes": "Fixed log interval handling to ensure consistent timing"
+      "version": "v1.2.1",
+      "status": "Up to date",
+      "location": "Technician room - box left of door",
+      "last_updated": "2025-03-18",
+      "last_deployed": "2025-03-18",
+      "notes": "Updated to v1.2.1"
     }
   ]
 }
