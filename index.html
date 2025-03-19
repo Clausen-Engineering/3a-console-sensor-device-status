@@ -43,6 +43,7 @@
         }
         .up-to-date { background-color: var(--success-color); color: white; }
         .needs-update { background-color: var(--warning-color); color: white; }
+        .patch-available { background-color: var(--info-color); color: white; }
         .unknown { background-color: var(--danger-color); color: white; }
         
         .version-tag {
@@ -192,7 +193,7 @@
                         <p class="card-text"><i class="bi bi-github"></i> Repository: <span id="repo-name"></span></p>
                         <p class="card-text"><i class="bi bi-clock"></i> Last commit: <span id="last-commit-date"></span></p>
                         <div class="version-info">
-                            <p><i class="bi bi-info-circle"></i> Updates are only required when major or minor version numbers change (X.Y in vX.Y.Z).</p>
+                            <p><i class="bi bi-info-circle"></i> Updates are only required when major or minor version numbers change (X.Y in vX.Y.Z). Patch updates are optional.</p>
                         </div>
                     </div>
                 </div>
@@ -223,6 +224,7 @@
                     <div class="col-md-4">
                         <div class="d-flex justify-content-end">
                             <span class="filter-badge badge bg-success" data-filter="up-to-date">Up to date</span>
+                            <span class="filter-badge badge bg-info" data-filter="patch-available">Patch available</span>
                             <span class="filter-badge badge bg-warning text-dark" data-filter="needs-update">Needs update</span>
                             <span class="filter-badge badge bg-danger" data-filter="unknown">Unknown</span>
                         </div>
@@ -260,10 +262,10 @@
             return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
         }
         
-        // Function to check if a device needs to be updated based on version comparison
-        function needsUpdate(deviceVersion, latestVersion) {
+        // Function to check device update status based on version comparison
+        function getUpdateStatus(deviceVersion, latestVersion) {
             // If no device version is available, it needs an update
-            if (!deviceVersion) return true;
+            if (!deviceVersion) return 'Unknown';
             
             // Parse version strings (assuming format vX.Y.Z)
             const parseVersion = (version) => {
@@ -280,12 +282,19 @@
             const latestVer = parseVersion(latestVersion);
             
             // If parsing failed, conservatively assume update is needed
-            if (!deviceVer || !latestVer) return true;
+            if (!deviceVer || !latestVer) return 'Unknown';
             
-            // Only consider major and minor versions for update requirement
-            // If major or minor versions differ, update is needed
-            return (deviceVer.major < latestVer.major) || 
-                   (deviceVer.major === latestVer.major && deviceVer.minor < latestVer.minor);
+            // Check version differences
+            if (deviceVer.major < latestVer.major || 
+                (deviceVer.major === latestVer.major && deviceVer.minor < latestVer.minor)) {
+                return 'Needs update';  // Major or minor version behind
+            } else if (deviceVer.major === latestVer.major && 
+                      deviceVer.minor === latestVer.minor && 
+                      deviceVer.patch < latestVer.patch) {
+                return 'Patch available';  // Only patch version behind
+            } else {
+                return 'Up to date';  // Completely up to date
+            }
         }
         
         // Load device status data
@@ -305,6 +314,7 @@
                 // Status counters for chart
                 let statusCounts = {
                     'Up to date': 0,
+                    'Patch available': 0,
                     'Needs update': 0,
                     'Unknown': 0
                 };
@@ -312,17 +322,12 @@
                 // Update device status based on version comparison logic
                 data.devices.forEach(device => {
                     // Override the status based on our new version check logic
-                    if (!device.version) {
-                        device.status = 'Unknown';
-                    } else {
-                        device.status = needsUpdate(device.version, data.latest_version) ? 
-                            'Needs update' : 'Up to date';
-                    }
+                    device.status = getUpdateStatus(device.version, data.latest_version);
                 });
                 
-                // Sort devices by status (Up to date first, then Needs update, then Unknown)
+                // Sort devices by status (Up to date first, then Patch available, then Needs update, then Unknown)
                 const sortedDevices = [...data.devices].sort((a, b) => {
-                    const statusOrder = { 'Up to date': 0, 'Needs update': 1, 'Unknown': 2 };
+                    const statusOrder = { 'Up to date': 0, 'Patch available': 1, 'Needs update': 2, 'Unknown': 3 };
                     return statusOrder[a.status] - statusOrder[b.status];
                 });
                 
@@ -338,6 +343,7 @@
                     
                     let statusClass = '';
                     if (device.status === 'Up to date') statusClass = 'up-to-date';
+                    else if (device.status === 'Patch available') statusClass = 'patch-available';
                     else if (device.status === 'Needs update') statusClass = 'needs-update';
                     else statusClass = 'unknown';
                     
@@ -389,11 +395,13 @@
                             data: Object.values(statusCounts),
                             backgroundColor: [
                                 'rgba(46, 204, 113, 0.8)',  // Up to date - green
+                                'rgba(26, 188, 156, 0.8)',  // Patch available - teal
                                 'rgba(243, 156, 18, 0.8)',  // Needs update - orange
                                 'rgba(231, 76, 60, 0.8)'    // Unknown - red
                             ],
                             borderColor: [
                                 'rgba(46, 204, 113, 1)',
+                                'rgba(26, 188, 156, 1)',
                                 'rgba(243, 156, 18, 1)',
                                 'rgba(231, 76, 60, 1)'
                             ],
@@ -465,6 +473,9 @@
                             if (filterClass === 'up-to-date') {
                                 badge.classList.remove('bg-secondary');
                                 badge.classList.add('bg-success');
+                            } else if (filterClass === 'patch-available') {
+                                badge.classList.remove('bg-secondary');
+                                badge.classList.add('bg-info');
                             } else if (filterClass === 'needs-update') {
                                 badge.classList.remove('bg-secondary');
                                 badge.classList.add('bg-warning', 'text-dark');
@@ -488,6 +499,8 @@
                             const filterClass = b.dataset.filter;
                             if (filterClass === 'up-to-date') {
                                 b.classList.add('bg-success');
+                            } else if (filterClass === 'patch-available') {
+                                b.classList.add('bg-info');
                             } else if (filterClass === 'needs-update') {
                                 b.classList.add('bg-warning', 'text-dark');
                             } else if (filterClass === 'unknown') {
