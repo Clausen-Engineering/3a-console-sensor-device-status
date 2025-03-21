@@ -41,6 +41,12 @@
             padding: 0.35rem 0.65rem;
             border-radius: 1rem;
         }
+        .update-reason {
+            font-size: 0.85rem;
+            font-style: italic;
+            margin-top: 0.5rem;
+            color: #666;
+        }
         .up-to-date { background-color: var(--success-color); color: white; }
         .needs-update { background-color: var(--warning-color); color: white; }
         .patch-available { background-color: var(--info-color); color: white; }
@@ -54,6 +60,26 @@
             font-size: 0.85rem;
             font-family: monospace;
         }
+        
+        .component-tag {
+            background-color: #6c757d;
+            color: white;
+            border-radius: 0.25rem;
+            padding: 0.1rem 0.4rem;
+            font-size: 0.75rem;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+            display: inline-block;
+        }
+        .component-tag.modbus { background-color: #007bff; }
+        .component-tag.onewire { background-color: #28a745; }
+        .component-tag.digital { background-color: #6610f2; }
+        .component-tag.analog { background-color: #fd7e14; }
+        .component-tag.i2c { background-color: #20c997; }
+        .component-tag.wifi { background-color: #17a2b8; }
+        .component-tag.ble { background-color: #dc3545; }
+        .component-tag.api { background-color: #6c757d; }
+        .component-tag.core { background-color: #343a40; }
         
         .timeline {
             position: relative;
@@ -146,6 +172,10 @@
             cursor: pointer;
             margin-right: 0.5rem;
         }
+        .component-filter {
+            cursor: pointer;
+            margin: 0.25rem;
+        }
         
         /* Version info tooltip */
         .version-info {
@@ -153,6 +183,29 @@
             font-size: 0.8rem;
             color: #6c757d;
             font-style: italic;
+        }
+        
+        /* Version changes section */
+        .version-changes {
+            margin-top: 1.5rem;
+        }
+        .version-item {
+            padding: 0.75rem 1rem;
+            border-left: 3px solid var(--primary-color);
+            margin-bottom: 0.75rem;
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        .version-title {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .version-date {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-left: 0.5rem;
+        }
+        .version-description {
+            margin-top: 0.5rem;
         }
     </style>
 </head>
@@ -174,6 +227,9 @@
                         <a class="nav-link" href="#devices"><i class="bi bi-grid"></i> Devices</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#versions"><i class="bi bi-list-check"></i> Version History</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#timeline"><i class="bi bi-calendar"></i> Timeline</a>
                     </li>
                 </ul>
@@ -193,7 +249,7 @@
                         <p class="card-text"><i class="bi bi-github"></i> Repository: <span id="repo-name"></span></p>
                         <p class="card-text"><i class="bi bi-clock"></i> Last commit: <span id="last-commit-date"></span></p>
                         <div class="version-info">
-                            <p><i class="bi bi-info-circle"></i> Updates are only required when major or minor version numbers change (X.Y in vX.Y.Z). Patch updates are optional.</p>
+                            <p><i class="bi bi-info-circle"></i> The dashboard now shows which components need updates based on version changes.</p>
                         </div>
                     </div>
                 </div>
@@ -210,11 +266,27 @@
             </div>
         </div>
         
+        <section id="versions" class="mb-5">
+            <h2 class="mb-3"><i class="bi bi-list-check"></i> Version History</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="version-changes" id="version-changes-list">
+                        <!-- Version changes will be populated here -->
+                        <div class="text-center py-2">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section id="devices">
             <h2 class="mb-3"><i class="bi bi-grid"></i> Device Status</h2>
             
             <div class="filter-section mb-4">
-                <div class="row align-items-center">
+                <div class="row align-items-center mb-3">
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-search"></i></span>
@@ -227,6 +299,15 @@
                             <span class="filter-badge badge bg-info" data-filter="patch-available">Patch available</span>
                             <span class="filter-badge badge bg-warning text-dark" data-filter="needs-update">Needs update</span>
                             <span class="filter-badge badge bg-danger" data-filter="unknown">Unknown</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-1"><small>Filter by component:</small></p>
+                        <div id="component-filters">
+                            <!-- Component filters will be added here -->
                         </div>
                     </div>
                 </div>
@@ -297,6 +378,17 @@
             }
         }
         
+        // Generate component tags HTML
+        function generateComponentTags(components) {
+            if (!components || !Array.isArray(components) || components.length === 0) {
+                return '<span class="text-muted">None specified</span>';
+            }
+            
+            return components.map(component => 
+                `<span class="component-tag ${component.toLowerCase()}">${component}</span>`
+            ).join('');
+        }
+        
         // Load device status data
         fetch('data/device-status.json')
             .then(response => response.json())
@@ -319,11 +411,11 @@
                     'Unknown': 0
                 };
                 
-                // Update device status based on version comparison logic
-                data.devices.forEach(device => {
-                    // Override the status based on our new version check logic
-                    device.status = getUpdateStatus(device.version, data.latest_version);
-                });
+                // Create version history section
+                createVersionHistory(data.version_changes);
+                
+                // Create component filters
+                createComponentFilters(data.devices);
                 
                 // Sort devices by status (Up to date first, then Patch available, then Needs update, then Unknown)
                 const sortedDevices = [...data.devices].sort((a, b) => {
@@ -341,13 +433,20 @@
                     col.className = 'col-md-6 col-lg-4 device-item';
                     col.dataset.status = device.status.replace(/\s+/g, '-').toLowerCase();
                     
+                    // Add component data attributes for filtering
+                    if (device.components && Array.isArray(device.components)) {
+                        device.components.forEach(comp => {
+                            col.dataset[comp.toLowerCase()] = 'true';
+                        });
+                    }
+                    
                     let statusClass = '';
                     if (device.status === 'Up to date') statusClass = 'up-to-date';
                     else if (device.status === 'Patch available') statusClass = 'patch-available';
                     else if (device.status === 'Needs update') statusClass = 'needs-update';
                     else statusClass = 'unknown';
                     
-                    col.innerHTML = `
+                    let cardHtml = `
                         <div class="card">
                             <div class="card-header bg-light">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -360,6 +459,21 @@
                                     <small class="text-muted">Version:</small>
                                     <div><span class="version-tag">${device.version || 'Unknown'}</span></div>
                                 </div>
+                                <div class="mb-3">
+                                    <small class="text-muted">Components:</small>
+                                    <div>${generateComponentTags(device.components)}</div>
+                                </div>`;
+                                
+                    // Add update reason if available
+                    if (device.updateReason) {
+                        cardHtml += `
+                                <div class="mb-3">
+                                    <small class="text-muted">Update needed:</small>
+                                    <div class="update-reason">${device.updateReason}</div>
+                                </div>`;
+                    }
+                    
+                    cardHtml += `
                                 <div class="mb-3">
                                     <small class="text-muted">Location:</small>
                                     <div>${device.location || 'Unknown'}</div>
@@ -382,6 +496,7 @@
                         </div>
                     `;
                     
+                    col.innerHTML = cardHtml;
                     deviceCardsContainer.appendChild(col);
                 });
                 
@@ -419,39 +534,7 @@
                 });
                 
                 // Create timeline
-                const timeline = document.querySelector('.timeline');
-                
-                // Get deployments with actual dates
-                const deployments = data.devices
-                    .filter(device => device.last_deployed && device.last_deployed !== 'Never')
-                    .map(device => ({
-                        device: device.name,
-                        date: device.last_deployed,
-                        version: device.version
-                    }))
-                    .sort((a, b) => new Date(a.date) - new Date(b.date));
-                
-                // Create timeline entries
-                deployments.forEach((deployment, index) => {
-                    const isLeft = index % 2 === 0;
-                    const container = document.createElement('div');
-                    container.className = `timeline-container ${isLeft ? 'left' : 'right'}`;
-                    
-                    container.innerHTML = `
-                        <div class="timeline-content">
-                            <h5>${deployment.device}</h5>
-                            <p class="timeline-date">${deployment.date}</p>
-                            <p>Deployed version <span class="version-tag">${deployment.version}</span></p>
-                        </div>
-                    `;
-                    
-                    timeline.appendChild(container);
-                });
-                
-                // If no deployments
-                if (deployments.length === 0) {
-                    timeline.innerHTML = '<div class="text-center py-4">No deployment history available</div>';
-                }
+                createTimeline(data.devices);
                 
                 // Set up search functionality
                 const searchInput = document.getElementById('device-search');
@@ -489,59 +572,6 @@
                         }
                     });
                 });
-                
-                function resetFilterBadges(greyOut = false) {
-                    filterBadges.forEach(b => {
-                        b.className = 'filter-badge badge';
-                        if (greyOut) {
-                            b.classList.add('bg-secondary');
-                        } else {
-                            const filterClass = b.dataset.filter;
-                            if (filterClass === 'up-to-date') {
-                                b.classList.add('bg-success');
-                            } else if (filterClass === 'patch-available') {
-                                b.classList.add('bg-info');
-                            } else if (filterClass === 'needs-update') {
-                                b.classList.add('bg-warning', 'text-dark');
-                            } else if (filterClass === 'unknown') {
-                                b.classList.add('bg-danger');
-                            }
-                            
-                            // Show all devices
-                            const deviceItems = document.querySelectorAll('.device-item');
-                            deviceItems.forEach(item => {
-                                item.style.display = 'block';
-                            });
-                        }
-                    });
-                }
-                
-                function filterDevicesByStatus(statusClass) {
-                    const deviceItems = document.querySelectorAll('.device-item');
-                    deviceItems.forEach(item => {
-                        if (item.dataset.status === statusClass) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                }
-                
-                function filterDevices() {
-                    const searchTerm = searchInput.value.toLowerCase();
-                    const deviceItems = document.querySelectorAll('.device-item');
-                    
-                    deviceItems.forEach(item => {
-                        const deviceName = item.querySelector('.card-header').textContent.toLowerCase();
-                        const deviceLocation = item.querySelector('.card-body').textContent.toLowerCase();
-                        
-                        if (deviceName.includes(searchTerm) || deviceLocation.includes(searchTerm)) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                }
             })
             .catch(error => {
                 console.error('Error loading device status:', error);
@@ -554,6 +584,204 @@
                     </div>
                 `;
             });
+            
+        // Create version history section
+        function createVersionHistory(versionChanges) {
+            if (!versionChanges || !Array.isArray(versionChanges)) return;
+            
+            const container = document.getElementById('version-changes-list');
+            container.innerHTML = '';
+            
+            versionChanges.forEach(version => {
+                const versionItem = document.createElement('div');
+                versionItem.className = 'version-item';
+                
+                versionItem.innerHTML = `
+                    <div>
+                        <span class="version-title">${version.version}</span>
+                        <span class="version-date">${version.date}</span>
+                    </div>
+                    <div class="version-components my-2">
+                        ${generateComponentTags(version.components)}
+                    </div>
+                    <div class="version-description">
+                        ${version.description}
+                    </div>
+                `;
+                
+                container.appendChild(versionItem);
+            });
+            
+            if (versionChanges.length === 0) {
+                container.innerHTML = '<div class="text-center py-3">No version history available</div>';
+            }
+        }
+        
+        // Create component filters
+        function createComponentFilters(devices) {
+            const componentsSet = new Set();
+            
+            // Collect all unique components
+            devices.forEach(device => {
+                if (device.components && Array.isArray(device.components)) {
+                    device.components.forEach(comp => componentsSet.add(comp));
+                }
+            });
+            
+            // Create filter badges
+            const filterContainer = document.getElementById('component-filters');
+            filterContainer.innerHTML = '';
+            
+            const componentsList = Array.from(componentsSet).sort();
+            componentsList.forEach(comp => {
+                const badge = document.createElement('span');
+                badge.className = `component-filter component-tag ${comp.toLowerCase()}`;
+                badge.textContent = comp;
+                badge.dataset.component = comp.toLowerCase();
+                
+                badge.addEventListener('click', function() {
+                    const isActive = this.classList.contains('active');
+                    
+                    // Reset all filters
+                    document.querySelectorAll('.component-filter').forEach(b => {
+                        b.classList.remove('active');
+                        b.style.opacity = '1';
+                    });
+                    
+                    if (!isActive) {
+                        // Activate this filter
+                        this.classList.add('active');
+                        
+                        // Dim other filters
+                        document.querySelectorAll('.component-filter:not(.active)').forEach(b => {
+                            b.style.opacity = '0.5';
+                        });
+                        
+                        // Filter devices
+                        filterDevicesByComponent(comp.toLowerCase());
+                    } else {
+                        // Show all devices
+                        const deviceItems = document.querySelectorAll('.device-item');
+                        deviceItems.forEach(item => {
+                            item.style.display = 'block';
+                        });
+                    }
+                });
+                
+                filterContainer.appendChild(badge);
+            });
+            
+            if (componentsList.length === 0) {
+                filterContainer.innerHTML = '<div class="text-muted">No components defined</div>';
+            }
+        }
+        
+        // Create timeline visualization
+        function createTimeline(devices) {
+            const timeline = document.querySelector('.timeline');
+            
+            // Get deployments with actual dates
+            const deployments = devices
+                .filter(device => device.last_deployed && device.last_deployed !== 'Never')
+                .map(device => ({
+                    device: device.name,
+                    date: device.last_deployed,
+                    version: device.version,
+                    components: device.components
+                }))
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            // Create timeline entries
+            deployments.forEach((deployment, index) => {
+                const isLeft = index % 2 === 0;
+                const container = document.createElement('div');
+                container.className = `timeline-container ${isLeft ? 'left' : 'right'}`;
+                
+                container.innerHTML = `
+                    <div class="timeline-content">
+                        <h5>${deployment.device}</h5>
+                        <p class="timeline-date">${deployment.date}</p>
+                        <p>Deployed version <span class="version-tag">${deployment.version}</span></p>
+                        ${deployment.components ? `
+                        <div class="mt-2">
+                            ${generateComponentTags(deployment.components)}
+                        </div>` : ''}
+                    </div>
+                `;
+                
+                timeline.appendChild(container);
+            });
+            
+            // If no deployments
+            if (deployments.length === 0) {
+                timeline.innerHTML = '<div class="text-center py-4">No deployment history available</div>';
+            }
+        }
+        
+        function resetFilterBadges(greyOut = false) {
+            const filterBadges = document.querySelectorAll('.filter-badge');
+            filterBadges.forEach(b => {
+                b.className = 'filter-badge badge';
+                if (greyOut) {
+                    b.classList.add('bg-secondary');
+                } else {
+                    const filterClass = b.dataset.filter;
+                    if (filterClass === 'up-to-date') {
+                        b.classList.add('bg-success');
+                    } else if (filterClass === 'patch-available') {
+                        b.classList.add('bg-info');
+                    } else if (filterClass === 'needs-update') {
+                        b.classList.add('bg-warning', 'text-dark');
+                    } else if (filterClass === 'unknown') {
+                        b.classList.add('bg-danger');
+                    }
+                    
+                    // Show all devices
+                    const deviceItems = document.querySelectorAll('.device-item');
+                    deviceItems.forEach(item => {
+                        item.style.display = 'block';
+                    });
+                }
+            });
+        }
+        
+        function filterDevicesByStatus(statusClass) {
+            const deviceItems = document.querySelectorAll('.device-item');
+            deviceItems.forEach(item => {
+                if (item.dataset.status === statusClass) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        function filterDevicesByComponent(component) {
+            const deviceItems = document.querySelectorAll('.device-item');
+            deviceItems.forEach(item => {
+                if (item.dataset[component]) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        function filterDevices() {
+            const searchTerm = document.getElementById('device-search').value.toLowerCase();
+            const deviceItems = document.querySelectorAll('.device-item');
+            
+            deviceItems.forEach(item => {
+                const deviceName = item.querySelector('.card-header').textContent.toLowerCase();
+                const deviceLocation = item.querySelector('.card-body').textContent.toLowerCase();
+                
+                if (deviceName.includes(searchTerm) || deviceLocation.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
