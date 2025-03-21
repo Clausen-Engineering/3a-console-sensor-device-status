@@ -1,8 +1,8 @@
 {
   "latest_version": "v1.2.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-03-21 11:10:37",
-  "last_updated": "2025-03-21 10:12:32",
+  "last_commit_date": "2025-03-21 12:01:02",
+  "last_updated": "2025-03-21 11:01:32",
   "version_changes": [
     {
       "version": "v1.2.2",
@@ -62,11 +62,12 @@
         "core",
         "digital"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement - right side (by MOG tank)",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1"
+      "notes": "Updated to v1.2.1",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "sauna-power-consumption",
@@ -76,11 +77,12 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement - left side, in rear electrical box",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1"
+      "notes": "Updated to v1.2.1",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "sauna-temperature-and-humidity",
@@ -90,11 +92,12 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement - left side, on top of fridge",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1"
+      "notes": "Updated to v1.2.1",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "water-heater-power-consumption",
@@ -104,11 +107,12 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Technician room - inside electrical box next to power meter for heaters",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1"
+      "notes": "Updated to v1.2.1",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "water-system-temperatures",
@@ -118,11 +122,12 @@
         "core",
         "onewire"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Technician room - box left of door",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1"
+      "notes": "Updated to v1.2.1",
+      "updateReason": "Non-critical patch update available"
     }
   ]
 }
