@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root {
-            --primary-color: #3498db;
-            --success-color: #2ecc71;
-            --warning-color: #f39c12;
-            --danger-color: #e74c3c;
-            --info-color: #0dcaf0;
-        }
+    :root {
+        --primary-color: #3498db;
+        --success-color: #2ecc71;
+        --warning-color: #f39c12;
+        --danger-color: #e74c3c;
+        --info-color: #9b59b6;
+    }
         body { 
             padding-bottom: 2rem; 
             background-color: #f8f9fa;
@@ -296,7 +296,7 @@
                     <div class="col-md-4">
                         <div class="d-flex justify-content-end">
                             <span class="filter-badge badge bg-success" data-filter="up-to-date">Up to date</span>
-                            <span class="filter-badge badge bg-info" data-filter="patch-available">Patch available</span>
+                            <span class="filter-badge badge" style="background-color: var(--info-color); color: white;" data-filter="patch-available">Patch available</span>
                             <span class="filter-badge badge bg-warning text-dark" data-filter="needs-update">Needs update</span>
                             <span class="filter-badge badge bg-danger" data-filter="unknown">Unknown</span>
                         </div>
@@ -344,7 +344,7 @@
         }
         
         // Function to check device update status based on version comparison
-        function getUpdateStatus(deviceVersion, latestVersion) {
+        function getUpdateStatus(deviceVersion, latestVersion, deviceComponents, updateReason) {
             // If no device version is available, it needs an update
             if (!deviceVersion) return 'Unknown';
             
@@ -366,13 +366,24 @@
             if (!deviceVer || !latestVer) return 'Unknown';
             
             // Check version differences
-            if (deviceVer.major < latestVer.major || 
-                (deviceVer.major === latestVer.major && deviceVer.minor < latestVer.minor)) {
-                return 'Needs update';  // Major or minor version behind
+            if (deviceVer.major < latestVer.major) {
+                return 'Needs update';  // Major version behind - all sensors need update
+            } else if (deviceVer.major === latestVer.major && deviceVer.minor < latestVer.minor) {
+                // For minor version changes, only update if components match (or if we don't know)
+                if (!deviceComponents || !updateReason || updateReason.includes('core') || 
+                    deviceComponents.some(comp => updateReason.includes(comp))) {
+                    return 'Needs update';
+                }
+                return 'Up to date';
             } else if (deviceVer.major === latestVer.major && 
                       deviceVer.minor === latestVer.minor && 
                       deviceVer.patch < latestVer.patch) {
-                return 'Patch available';  // Only patch version behind
+                // For patch version, only show "Patch available" if components match
+                if (!deviceComponents || !updateReason || updateReason.includes('core') || 
+                    deviceComponents.some(comp => updateReason.includes(comp))) {
+                    return 'Patch available';
+                }
+                return 'Up to date';
             } else {
                 return 'Up to date';  // Completely up to date
             }
@@ -510,13 +521,13 @@
                             data: Object.values(statusCounts),
                             backgroundColor: [
                                 'rgba(46, 204, 113, 0.8)',  // Up to date - green
-                                'rgba(13, 202, 240, 0.8)',  // Patch available - teal
+                                'rgba(155, 89, 182, 0.8)',  // Patch available - purple
                                 'rgba(243, 156, 18, 0.8)',  // Needs update - orange
                                 'rgba(231, 76, 60, 0.8)'    // Unknown - red
                             ],
                             borderColor: [
                                 'rgba(46, 204, 113, 1)',
-                                'rgba(13, 202, 240, 1)',
+                                'rgba(155, 89, 182, 1)',
                                 'rgba(243, 156, 18, 1)',
                                 'rgba(231, 76, 60, 1)'
                             ],
