@@ -16,7 +16,7 @@
       "version": "v1.2.1",
       "date": "2025-03-19",
       "components": [
-        "ble"
+        "core"
       ],
       "description": "Version 1.2.1 - Stable version"
     },
@@ -40,7 +40,8 @@
       "version": "v1.1.0",
       "date": "2025-03-14",
       "components": [
-        "core"
+        "core",
+        "modbus"
       ],
       "description": "Implement device configuration management system"
     },
