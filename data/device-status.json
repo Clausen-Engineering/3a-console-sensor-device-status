@@ -1,8 +1,8 @@
 {
   "latest_version": "v1.2.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-03-21 12:01:02",
-  "last_updated": "2025-03-21 11:01:32",
+  "last_commit_date": "2025-03-21 13:45:53",
+  "last_updated": "2025-03-21 12:46:30",
   "version_changes": [
     {
       "version": "v1.2.2",
@@ -21,7 +21,7 @@
       "description": "Version 1.2.1 - Stable version"
     },
     {
-      "version": "v1.1.3",
+      "version": "v1.1.2",
       "date": "2025-03-15",
       "components": [
         "core"
@@ -29,7 +29,7 @@
       "description": "Fix inconsistent handling of log intervals"
     },
     {
-      "version": "v1.1.2",
+      "version": "v1.1.1",
       "date": "2025-03-15",
       "components": [
         "core"
@@ -40,8 +40,7 @@
       "version": "v1.1.0",
       "date": "2025-03-14",
       "components": [
-        "core",
-        "modbus"
+        "core"
       ],
       "description": "Implement device configuration management system"
     },
@@ -59,7 +58,6 @@
       "name": "mog-tank-water-sensor",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "digital"
       ],
@@ -74,7 +72,6 @@
       "name": "sauna-power-consumption",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "modbus"
       ],
@@ -89,7 +86,6 @@
       "name": "sauna-temperature-and-humidity",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "modbus"
       ],
@@ -104,7 +100,6 @@
       "name": "water-heater-power-consumption",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "modbus"
       ],
@@ -119,7 +114,6 @@
       "name": "water-system-temperatures",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "onewire"
       ],
