@@ -1,8 +1,8 @@
 {
   "latest_version": "v1.2.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-03-21 12:01:02",
-  "last_updated": "2025-03-21 11:01:32",
+  "last_commit_date": "2025-03-21 12:36:20",
+  "last_updated": "2025-03-21 11:44:08",
   "version_changes": [
     {
       "version": "v1.2.2",
@@ -21,7 +21,7 @@
       "description": "Version 1.2.1 - Stable version"
     },
     {
-      "version": "v1.1.3",
+      "version": "v1.1.2",
       "date": "2025-03-15",
       "components": [
         "core"
@@ -29,7 +29,7 @@
       "description": "Fix inconsistent handling of log intervals"
     },
     {
-      "version": "v1.1.2",
+      "version": "v1.1.1",
       "date": "2025-03-15",
       "components": [
         "core"
@@ -40,8 +40,7 @@
       "version": "v1.1.0",
       "date": "2025-03-14",
       "components": [
-        "core",
-        "modbus"
+        "core"
       ],
       "description": "Implement device configuration management system"
     },
@@ -59,76 +58,66 @@
       "name": "mog-tank-water-sensor",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "digital"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Basement - right side (by MOG tank)",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to v1.2.1"
     },
     {
       "name": "sauna-power-consumption",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Basement - left side, in rear electrical box",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to v1.2.1"
     },
     {
       "name": "sauna-temperature-and-humidity",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Basement - left side, on top of fridge",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to v1.2.1"
     },
     {
       "name": "water-heater-power-consumption",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Technician room - inside electrical box next to power meter for heaters",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to v1.2.1"
     },
     {
       "name": "water-system-temperatures",
       "version": "v1.2.1",
       "components": [
-        "api",
         "core",
         "onewire"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Technician room - box left of door",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to v1.2.1"
     }
   ]
 }
