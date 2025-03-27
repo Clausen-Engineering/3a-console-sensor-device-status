@@ -1,8 +1,8 @@
 {
   "latest_version": "v1.2.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-03-25 15:08:34",
-  "last_updated": "2025-03-25 14:08:49",
+  "last_commit_date": "2025-03-27 11:18:54",
+  "last_updated": "2025-03-27 10:19:09",
   "version_changes": [
     {
       "version": "v1.2.2",
@@ -112,7 +112,7 @@
     },
     {
       "name": "water-system-temperatures",
-      "version": "v1.2.1",
+      "version": "v1.3.1",
       "components": [
         "core",
         "onewire"
@@ -120,8 +120,8 @@
       "status": "Patch available",
       "location": "Technician room - box left of door",
       "last_updated": "2025-03-18",
-      "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1",
+      "last_deployed": "2025-03-25",
+      "notes": "Updated to v1.3.1",
       "updateReason": "Non-critical patch update available"
     }
   ]
