@@ -1,6 +1,7 @@
 # ESP32 Sensor Monitoring - Device Status Dashboard
 
 This dashboard provides a visual overview of all ESP32 sensor devices in the 3A console monitoring system. It helps you track the deployment status, template versions, and update requirements for your IoT sensor network.
+
 [Device status website](https://clausen-engineering.github.io/3a-console-sensor-device-status/)
 
 ## Features
