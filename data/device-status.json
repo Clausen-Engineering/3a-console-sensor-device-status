@@ -1,9 +1,17 @@
 {
-  "latest_version": "v1.3.0",
+  "latest_version": "v1.3.1",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-03-27 12:45:53",
-  "last_updated": "2025-03-27 11:46:44",
+  "last_commit_date": "2025-03-28 12:38:11",
+  "last_updated": "2025-03-28 11:40:23",
   "version_changes": [
+    {
+      "version": "v1.3.1",
+      "date": "2025-03-28",
+      "components": [
+        "digital"
+      ],
+      "description": "Updated interrupt, edge and state handling for digital sensors"
+    },
     {
       "version": "v1.3.0",
       "date": "2025-03-27",
@@ -126,11 +134,12 @@
         "onewire",
         "virtual"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Technician room - box left of door",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-25",
-      "notes": "Updated to v1.3.0"
+      "notes": "Updated to v1.3.0",
+      "updateReason": "Non-critical patch update available"
     }
   ]
 }
