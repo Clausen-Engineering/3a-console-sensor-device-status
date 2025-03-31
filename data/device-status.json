@@ -1,8 +1,8 @@
 {
   "latest_version": "v1.3.1",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-03-28 12:38:11",
-  "last_updated": "2025-03-28 11:40:23",
+  "last_commit_date": "2025-03-31 10:19:44",
+  "last_updated": "2025-03-31 08:19:59",
   "version_changes": [
     {
       "version": "v1.3.1",
@@ -10,7 +10,7 @@
       "components": [
         "digital"
       ],
-      "description": "Updated interrupt, edge and state handling for digital sensors"
+      "description": "Patched problem with edge, state detection of digital sensors"
     },
     {
       "version": "v1.3.0",
@@ -72,17 +72,16 @@
   "devices": [
     {
       "name": "mog-tank-water-sensor",
-      "version": "v1.2.1",
+      "version": "v1.3.1",
       "components": [
         "core",
         "digital"
       ],
-      "status": "Needs update",
+      "status": "Up to date",
       "location": "Basement - right side (by MOG tank)",
       "last_updated": "2025-03-18",
-      "last_deployed": "2025-03-18",
-      "notes": "Updated to v1.2.1",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "2025-03-28",
+      "notes": "Updated to v1.3.1"
     },
     {
       "name": "sauna-power-consumption",
