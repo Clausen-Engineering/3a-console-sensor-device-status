@@ -1,9 +1,17 @@
 {
-  "latest_version": "v1.3.1",
+  "latest_version": "v1.3.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-03-31 10:19:44",
-  "last_updated": "2025-04-02 11:35:01",
+  "last_commit_date": "2025-04-23 17:53:58",
+  "last_updated": "2025-04-23 15:54:32",
   "version_changes": [
+    {
+      "version": "v1.3.2",
+      "date": "2025-04-23",
+      "components": [
+        "virtual"
+      ],
+      "description": "git commit -m \"Fixed virtual device settings fetching\""
+    },
     {
       "version": "v1.3.1",
       "date": "2025-03-28",
@@ -77,11 +85,12 @@
         "core",
         "digital"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement - right side (by MOG tank)",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-28",
-      "notes": "Updated to v1.3.1"
+      "notes": "Updated to v1.3.1",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "sauna-power-consumption",
@@ -133,12 +142,12 @@
         "onewire",
         "virtual"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "Technician room - box left of door",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-03-25",
       "notes": "Updated to v1.3.0",
-      "updateReason": "Non-critical patch update available"
+      "updateReason": "Updates for: virtual "
     }
   ]
 }
