@@ -1,8 +1,8 @@
 {
   "latest_version": "v1.3.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-04-23 17:53:58",
-  "last_updated": "2025-04-23 15:54:32",
+  "last_commit_date": "2025-04-25 12:45:41",
+  "last_updated": "2025-04-25 10:45:54",
   "version_changes": [
     {
       "version": "v1.3.2",
@@ -10,7 +10,7 @@
       "components": [
         "virtual"
       ],
-      "description": "git commit -m \"Fixed virtual device settings fetching\""
+      "description": "Fixed virtual device settings fetching"
     },
     {
       "version": "v1.3.1",
@@ -136,18 +136,17 @@
     },
     {
       "name": "water-system-temperatures",
-      "version": "v1.3.0",
+      "version": "v1.3.2",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Needs update",
-      "location": "Technician room - box left of door",
-      "last_updated": "2025-03-18",
-      "last_deployed": "2025-03-25",
-      "notes": "Updated to v1.3.0",
-      "updateReason": "Updates for: virtual "
+      "status": "Up to date",
+      "location": "",
+      "last_updated": "2025-04-23",
+      "last_deployed": "Never",
+      "notes": "Fixed virtual device settings fetching"
     }
   ]
 }
