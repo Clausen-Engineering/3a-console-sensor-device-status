@@ -1,8 +1,8 @@
 {
   "latest_version": "v1.3.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-04-25 12:45:41",
-  "last_updated": "2025-04-25 10:45:54",
+  "last_commit_date": "2025-05-09 10:20:03",
+  "last_updated": "2025-05-09 08:20:17",
   "version_changes": [
     {
       "version": "v1.3.2",
@@ -78,6 +78,19 @@
     }
   ],
   "devices": [
+    {
+      "name": "humidity-display",
+      "version": "",
+      "components": [
+        "core",
+        "unknown"
+      ],
+      "status": "Unknown",
+      "location": "",
+      "last_updated": "",
+      "last_deployed": "",
+      "notes": ""
+    },
     {
       "name": "mog-tank-water-sensor",
       "version": "v1.3.1",
