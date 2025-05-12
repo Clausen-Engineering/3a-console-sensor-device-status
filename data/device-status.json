@@ -1,8 +1,8 @@
 {
   "latest_version": "v1.3.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-09 10:20:03",
-  "last_updated": "2025-05-09 08:20:17",
+  "last_commit_date": "2025-05-12 09:56:49",
+  "last_updated": "2025-05-12 07:57:04",
   "version_changes": [
     {
       "version": "v1.3.2",
@@ -78,6 +78,19 @@
     }
   ],
   "devices": [
+    {
+      "name": "algae-monitor",
+      "version": "",
+      "components": [
+        "core",
+        "modbus"
+      ],
+      "status": "Unknown",
+      "location": "",
+      "last_updated": "",
+      "last_deployed": "",
+      "notes": ""
+    },
     {
       "name": "humidity-display",
       "version": "",
