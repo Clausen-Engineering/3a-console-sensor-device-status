@@ -1,9 +1,17 @@
 {
-  "latest_version": "v1.3.2",
+  "latest_version": "v2.0.0",
   "repo_name": "3a-console-esp32-template-sm",
   "last_commit_date": "2025-05-12 13:15:54",
-  "last_updated": "2025-05-12 11:28:37",
+  "last_updated": "2025-05-12 11:52:31",
   "version_changes": [
+    {
+      "version": "v2.0.0",
+      "date": "2025-05-12",
+      "components": [
+        "core"
+      ],
+      "description": "Virtual devices now uses master and slave devices, and hardware config is implemented to prevent wrong pin config"
+    },
     {
       "version": "v1.3.2",
       "date": "2025-04-23",
@@ -111,12 +119,12 @@
         "core",
         "digital"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "Basement - right side (by MOG tank)",
       "last_updated": "2025-03-18",
       "last_deployed": "2025-04-25",
       "notes": "Updated to v1.3.1",
-      "updateReason": "Non-critical patch update available"
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "sauna-power-consumption",
@@ -168,11 +176,12 @@
         "onewire",
         "virtual"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Technician room - box left of door",
       "last_updated": "2025-04-23",
       "last_deployed": "2025-05-09",
-      "notes": "Fixed virtual device settings fetching"
+      "notes": "Fixed virtual device settings fetching",
+      "updateReason": "Major or minor version change"
     }
   ]
 }
