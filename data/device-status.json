@@ -100,19 +100,6 @@
       "notes": ""
     },
     {
-      "name": "humidity-display",
-      "version": "",
-      "components": [
-        "core",
-        "unknown"
-      ],
-      "status": "Unknown",
-      "location": "",
-      "last_updated": "",
-      "last_deployed": "",
-      "notes": ""
-    },
-    {
       "name": "mog-tank-water-sensor",
       "version": "v1.3.1",
       "components": [
