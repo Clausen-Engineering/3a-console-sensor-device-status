@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.1.1",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-13 18:08:23",
-  "last_updated": "2025-05-13 16:09:28",
+  "last_commit_date": "2025-05-13 18:09:43",
+  "last_updated": "2025-05-13 16:09:56",
   "version_changes": [
     {
       "version": "v2.1.1",
@@ -10,7 +10,7 @@
       "components": [
         "core"
       ],
-      "description": "Updated MODBUS implementation to also support directional TTL to RS485 converters"
+      "description": "MODBUS now supports TTL to RS485 with direction pin"
     },
     {
       "version": "v2.1.0",
@@ -104,117 +104,109 @@
   "devices": [
     {
       "name": "_test-device-no-virtual-devices",
-      "version": "v2.1.0",
+      "version": "v2.1.1",
       "components": [
         "analog",
         "core"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "_test-device-virtual-devices",
-      "version": "v2.1.0",
+      "version": "v2.1.1",
       "components": [
         "analog",
         "core",
         "virtual"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "algae-monitor",
-      "version": "v2.1.0",
+      "version": "v2.1.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "mog-tank-water-sensor",
-      "version": "v2.1.0",
+      "version": "v2.1.1",
       "components": [
         "core",
         "digital"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "sauna-power-consumption",
-      "version": "v2.1.0",
+      "version": "v2.1.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "sauna-temperature-and-humidity",
-      "version": "v2.1.0",
+      "version": "v2.1.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "v2.1.0",
+      "version": "v2.1.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "water-system-temperatures",
-      "version": "v2.1.0",
+      "version": "v2.1.1",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0",
-      "updateReason": "Non-critical patch update available"
+      "notes": "Updated to template version v2.1.1"
     }
   ]
 }
