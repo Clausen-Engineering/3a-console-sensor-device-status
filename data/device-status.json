@@ -1,9 +1,17 @@
 {
-  "latest_version": "v2.1.1",
+  "latest_version": "v2.1.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-13 18:09:43",
-  "last_updated": "2025-05-13 16:09:56",
+  "last_commit_date": "2025-05-13 18:40:18",
+  "last_updated": "2025-05-13 16:40:47",
   "version_changes": [
+    {
+      "version": "v2.1.2",
+      "date": "2025-05-13",
+      "components": [
+        "virtual"
+      ],
+      "description": "Only add (master) suffix when multiple virtual devices exist"
+    },
     {
       "version": "v2.1.1",
       "date": "2025-05-13",
@@ -101,40 +109,11 @@
       "description": "Initial consolidated template"
     }
   ],
-  Based on your GitHub workflow and the current issues, it looks like there are two problems we need to fix:
-
-The current device-status.json file is incorrect
-The script that generates it needs to be modified
-
-1. Here's the corrected device-status.json:
-json{
-  "latest_version": "v2.1.1",
-  "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-13 18:09:43",
-  "last_updated": "2025-05-13 18:09:43",
-  "version_changes": [
-    {
-      "version": "v2.1.1",
-      "date": "2025-05-13",
-      "components": [
-        "core"
-      ],
-      "description": "MODBUS now supports TTL to RS485 with direction pin"
-    },
-    {
-      "version": "v2.1.0",
-      "date": "2025-05-13",
-      "components": [
-        "core"
-      ],
-      "description": "Updated wifi credential initialization"
-    },
-    // ...other version entries remain the same...
-  ],
   "devices": [
     {
       "name": "_test-device-no-virtual-devices",
       "version": "",
+      "template_version": "v2.1.1",
       "components": [
         "analog",
         "core"
@@ -148,6 +127,7 @@ json{
     {
       "name": "_test-device-virtual-devices",
       "version": "",
+      "template_version": "v2.1.1",
       "components": [
         "analog",
         "core",
@@ -162,6 +142,7 @@ json{
     {
       "name": "algae-monitor",
       "version": "",
+      "template_version": "v2.1.1",
       "components": [
         "core",
         "modbus"
@@ -174,74 +155,74 @@ json{
     },
     {
       "name": "mog-tank-water-sensor",
-      "version": "v1.3.1",
+      "version": "",
+      "template_version": "v2.1.1",
       "components": [
         "core",
         "digital"
       ],
-      "status": "Needs update",
-      "location": "Basement - right side (by MOG tank)",
+      "status": "Unknown",
+      "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "2025-04-25",
-      "notes": "Updated to template version v2.1.1",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "Never",
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "sauna-power-consumption",
-      "version": "v1.2.1",
+      "version": "",
+      "template_version": "v2.1.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
-      "location": "Basement - left side, in rear electrical box",
+      "status": "Unknown",
+      "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "2025-04-25",
-      "notes": "Updated to template version v2.1.1",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "Never",
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "sauna-temperature-and-humidity",
-      "version": "v1.2.1",
+      "version": "",
+      "template_version": "v2.1.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
-      "location": "Basement - left side, on top of fridge",
+      "status": "Unknown",
+      "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "2025-04-25",
-      "notes": "Updated to template version v2.1.1",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "Never",
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "v1.2.1",
+      "version": "",
+      "template_version": "v2.1.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
-      "location": "Technician room - inside electrical box next to power meter for heaters",
+      "status": "Unknown",
+      "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "2025-04-25",
-      "notes": "Updated to template version v2.1.1",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "Never",
+      "notes": "Updated to template version v2.1.1"
     },
     {
       "name": "water-system-temperatures",
-      "version": "v1.3.2",
+      "version": "",
+      "template_version": "v2.1.1",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Needs update",
-      "location": "Technician room - box left of door",
+      "status": "Unknown",
+      "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "2025-05-09",
-      "notes": "Updated to template version v2.1.1",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "Never",
+      "notes": "Updated to template version v2.1.1"
     }
   ]
 }
