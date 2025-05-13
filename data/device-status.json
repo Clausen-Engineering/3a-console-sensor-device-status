@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.1.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-13 18:41:52",
-  "last_updated": "2025-05-13 16:42:10",
+  "last_commit_date": "2025-05-13 18:20:17",
+  "last_updated": "2025-05-13 18:20:17",
   "version_changes": [
     {
       "version": "v2.1.2",
@@ -18,7 +18,7 @@
       "components": [
         "core"
       ],
-      "description": "MODBUS now supports TTL to RS485 with direction pin"
+      "description": "Updated MODBUS implementation"
     },
     {
       "version": "v2.1.0",
@@ -111,12 +111,13 @@
   ],
   "devices": [
     {
-      "name": "_test-device-no-virtual-devices",
+      "name": "_test-device-virtual-devices",
       "version": "",
       "template_version": "v2.1.2",
       "components": [
         "analog",
-        "core"
+        "core",
+        "virtual"
       ],
       "status": "Unknown",
       "location": "",
@@ -125,13 +126,12 @@
       "notes": "Updated to template version v2.1.2"
     },
     {
-      "name": "_test-device-virtual-devices",
+      "name": "_test-device-no-virtual-devices",
       "version": "",
       "template_version": "v2.1.2",
       "components": [
         "analog",
-        "core",
-        "virtual"
+        "core"
       ],
       "status": "Unknown",
       "location": "",
@@ -155,74 +155,79 @@
     },
     {
       "name": "mog-tank-water-sensor",
-      "version": "",
+      "version": "v1.3.1",
       "template_version": "v2.1.2",
       "components": [
         "core",
         "digital"
       ],
-      "status": "Unknown",
-      "location": "",
+      "status": "Needs update",
+      "location": "Basement - right side (by MOG tank)",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "2025-04-25",
+      "notes": "Updated to template version v2.1.2",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "sauna-power-consumption",
-      "version": "",
+      "version": "v1.2.1",
       "template_version": "v2.1.2",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Unknown",
-      "location": "",
+      "status": "Needs update",
+      "location": "Basement - left side, in rear electrical box",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "2025-04-25",
+      "notes": "Updated to template version v2.1.2",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "sauna-temperature-and-humidity",
-      "version": "",
+      "version": "v1.2.1",
       "template_version": "v2.1.2",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Unknown",
-      "location": "",
+      "status": "Needs update",
+      "location": "Basement - left side, on top of fridge",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "2025-04-25",
+      "notes": "Updated to template version v2.1.2",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "",
+      "version": "v1.2.1",
       "template_version": "v2.1.2",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Unknown",
-      "location": "",
+      "status": "Needs update",
+      "location": "Technician room - inside electrical box next to power meter for heaters",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "2025-04-25",
+      "notes": "Updated to template version v2.1.2",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "water-system-temperatures",
-      "version": "",
+      "version": "v1.3.2",
       "template_version": "v2.1.2",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Unknown",
-      "location": "",
+      "status": "Needs update",
+      "location": "Technician room - box left of door",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "2025-05-09",
+      "notes": "Updated to template version v2.1.2",
+      "updateReason": "Major or minor version change"
     }
   ]
 }
