@@ -96,12 +96,12 @@
   "devices": [
     {
       "name": "_test-device-no-virtual-devices",
-      "version": "v2.1.0",
+      "version": "", 
       "components": [
         "analog",
         "core"
       ],
-      "status": "Up to date",
+      "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
@@ -109,13 +109,13 @@
     },
     {
       "name": "_test-device-virtual-devices",
-      "version": "v2.1.0",
+      "version": "", 
       "components": [
         "analog",
         "core",
         "virtual"
       ],
-      "status": "Up to date",
+      "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
@@ -123,12 +123,12 @@
     },
     {
       "name": "algae-monitor",
-      "version": "v2.1.0",
+      "version": "", 
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
@@ -136,69 +136,74 @@
     },
     {
       "name": "mog-tank-water-sensor",
-      "version": "v2.1.0",
+      "version": "v1.3.1",
       "components": [
         "core",
         "digital"
       ],
-      "status": "Up to date",
-      "location": "",
+      "status": "Needs update",
+      "location": "Basement - right side (by MOG tank)",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0"
+      "last_deployed": "2025-04-25",
+      "notes": "Updated to template version v2.1.0",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "sauna-power-consumption",
-      "version": "v2.1.0",
+      "version": "v1.2.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Up to date",
-      "location": "",
+      "status": "Needs update",
+      "location": "Basement - left side, in rear electrical box",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0"
+      "last_deployed": "2025-04-25",
+      "notes": "Updated to template version v2.1.0",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "sauna-temperature-and-humidity",
-      "version": "v2.1.0",
+      "version": "v1.2.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Up to date",
-      "location": "",
+      "status": "Needs update",
+      "location": "Basement - left side, on top of fridge",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0"
+      "last_deployed": "2025-04-25", 
+      "notes": "Updated to template version v2.1.0",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "v2.1.0",
+      "version": "v1.2.1",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Up to date",
-      "location": "",
+      "status": "Needs update",
+      "location": "Technician room - inside electrical box next to power meter for heaters",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0"
+      "last_deployed": "2025-04-25",
+      "notes": "Updated to template version v2.1.0",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "water-system-temperatures",
-      "version": "v2.1.0",
+      "version": "v1.3.2",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Up to date",
-      "location": "",
-      "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0"
+      "status": "Needs update",
+      "location": "Technician room - box left of door",
+      "last_updated": "2025-05-13", 
+      "last_deployed": "2025-05-09",
+      "notes": "Updated to template version v2.1.0",
+      "updateReason": "Major or minor version change"
     }
   ]
 }
