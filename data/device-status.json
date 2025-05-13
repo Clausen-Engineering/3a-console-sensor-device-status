@@ -1,17 +1,9 @@
 {
   "latest_version": "v2.1.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-13 19:10:27",
-  "last_updated": "2025-05-13 17:11:05",
+  "last_commit_date": "2025-05-13 20:01:30",
+  "last_updated": "2025-05-13 18:01:43",
   "version_changes": [
-    {
-      "version": "v2.1.3",
-      "date": "2025-05-13",
-      "components": [
-        "core"
-      ],
-      "description": "Updated scripts"
-    },
     {
       "version": "v2.1.2",
       "date": "2025-05-13",
@@ -119,18 +111,27 @@
   ],
   "devices": [
     {
+      "name": "_test-device-no-virtual-devices",
+      "version": "v2.1.3",
+      "components": [
+        "analog",
+        "core"
+      ],
+      "status": "Up to date",
+      "location": "FO",
+      "last_deployed": "2025-05-13"
+    },
+    {
       "name": "_test-device-virtual-devices",
-      "version": "",
+      "version": "v2.1.3",
       "components": [
         "analog",
         "core",
         "virtual"
       ],
-      "status": "Unknown",
-      "location": "",
-      "last_updated": "",
-      "last_deployed": "",
-      "notes": ""
+      "status": "Up to date",
+      "location": "FO",
+      "last_deployed": "2025-05-13"
     },
     {
       "name": "algae-monitor",
@@ -139,11 +140,10 @@
         "core",
         "modbus"
       ],
-      "status": "Unknown",
+      "status": "Never deployed",
       "location": "",
-      "last_updated": "",
       "last_deployed": "",
-      "notes": ""
+      "updateReason": "Device not yet deployed"
     },
     {
       "name": "mog-tank-water-sensor",
@@ -154,9 +154,7 @@
       ],
       "status": "Needs update",
       "location": "Basement - right side (by MOG tank)",
-      "last_updated": "2025-03-18",
-      "last_deployed": "2025-04-25",
-      "notes": "Updated to v1.3.1",
+      "last_deployed": "2025-03-28",
       "updateReason": "Major or minor version change"
     },
     {
@@ -168,9 +166,7 @@
       ],
       "status": "Needs update",
       "location": "Basement - left side, in rear electrical box",
-      "last_updated": "2025-03-18",
-      "last_deployed": "2025-04-25",
-      "notes": "Updated to v1.2.1",
+      "last_deployed": "2025-03-18",
       "updateReason": "Major or minor version change"
     },
     {
@@ -182,24 +178,20 @@
       ],
       "status": "Needs update",
       "location": "Basement - left side, on top of fridge",
-      "last_updated": "2025-03-18",
-      "last_deployed": "2025-04-25",
-      "notes": "Updated to v1.2.1",
+      "last_deployed": "2025-03-18",
       "updateReason": "Major or minor version change"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "v1.2.1",
+      "version": "",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
+      "status": "Never deployed",
       "location": "Technician room - inside electrical box next to power meter for heaters",
-      "last_updated": "2025-03-18",
-      "last_deployed": "2025-04-25",
-      "notes": "Updated to v1.2.1",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "",
+      "updateReason": "Device not yet deployed"
     },
     {
       "name": "water-system-temperatures",
@@ -210,10 +202,8 @@
         "virtual"
       ],
       "status": "Needs update",
-      "location": "Technician room - box left of door",
-      "last_updated": "2025-04-23",
-      "last_deployed": "2025-05-09",
-      "notes": "Fixed virtual device settings fetching",
+      "location": "echnician room - box left of door",
+      "last_deployed": "2025-03-28",
       "updateReason": "Major or minor version change"
     }
   ]
