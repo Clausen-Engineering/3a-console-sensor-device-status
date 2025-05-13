@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.1.3",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-13 19:10:27",
-  "last_updated": "2025-05-13 17:13:35",
+  "last_commit_date": "2025-05-13 19:13:57",
+  "last_updated": "2025-05-13 17:14:10",
   "version_changes": [
     {
       "version": "v2.1.3",
@@ -10,7 +10,7 @@
       "components": [
         "core"
       ],
-      "description": "Updated scripts"
+      "description": "Test tag - new implementation of scripts"
     },
     {
       "version": "v2.1.2",
@@ -121,7 +121,7 @@
     {
       "name": "_test-device-no-virtual-devices",
       "version": "",
-      "template_version": "v2.1.2",
+      "template_version": "v2.1.3",
       "components": [
         "analog",
         "core"
@@ -129,13 +129,13 @@
       "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "",
+      "notes": "Updated to template version v2.1.3"
     },
     {
       "name": "_test-device-virtual-devices",
       "version": "",
-      "template_version": "v2.1.2",
+      "template_version": "v2.1.3",
       "components": [
         "analog",
         "core",
@@ -144,13 +144,13 @@
       "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "",
+      "notes": "Updated to template version v2.1.3"
     },
     {
       "name": "algae-monitor",
       "version": "",
-      "template_version": "v2.1.2",
+      "template_version": "v2.1.3",
       "components": [
         "core",
         "modbus"
@@ -158,13 +158,13 @@
       "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "",
+      "notes": "Updated to template version v2.1.3"
     },
     {
       "name": "mog-tank-water-sensor",
       "version": "",
-      "template_version": "v2.1.2",
+      "template_version": "v2.1.3",
       "components": [
         "core",
         "digital"
@@ -172,13 +172,13 @@
       "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "",
+      "notes": "Updated to template version v2.1.3"
     },
     {
       "name": "sauna-power-consumption",
       "version": "",
-      "template_version": "v2.1.2",
+      "template_version": "v2.1.3",
       "components": [
         "core",
         "modbus"
@@ -186,13 +186,13 @@
       "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "",
+      "notes": "Updated to template version v2.1.3"
     },
     {
       "name": "sauna-temperature-and-humidity",
       "version": "",
-      "template_version": "v2.1.2",
+      "template_version": "v2.1.3",
       "components": [
         "core",
         "modbus"
@@ -200,13 +200,13 @@
       "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "",
+      "notes": "Updated to template version v2.1.3"
     },
     {
       "name": "water-heater-power-consumption",
       "version": "",
-      "template_version": "v2.1.2",
+      "template_version": "v2.1.3",
       "components": [
         "core",
         "modbus"
@@ -214,13 +214,13 @@
       "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "",
+      "notes": "Updated to template version v2.1.3"
     },
     {
       "name": "water-system-temperatures",
       "version": "",
-      "template_version": "v2.1.2",
+      "template_version": "v2.1.3",
       "components": [
         "core",
         "onewire",
@@ -229,8 +229,8 @@
       "status": "Unknown",
       "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.2"
+      "last_deployed": "",
+      "notes": "Updated to template version v2.1.3"
     }
   ]
 }
