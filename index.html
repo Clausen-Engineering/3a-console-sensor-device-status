@@ -215,15 +215,20 @@
         font-style: italic;
       }
 
-      /* Version changes section */
+      /* Version changes section - UPDATED FOR COMPACT DISPLAY */
       .version-changes {
-        margin-top: 1.5rem;
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
       }
       .version-item {
-        padding: 0.75rem 1rem;
+        padding: 0.5rem 1rem;
         border-left: 3px solid var(--primary-color);
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.5rem;
         background-color: rgba(52, 152, 219, 0.05);
+        flex: 1 1 30%;
+        min-width: 250px;
       }
       .version-title {
         font-weight: bold;
@@ -235,7 +240,8 @@
         margin-left: 0.5rem;
       }
       .version-description {
-        margin-top: 0.5rem;
+        margin-top: 0.25rem;
+        font-size: 0.9rem;
       }
     </style>
   </head>
@@ -300,12 +306,6 @@
                 <i class="bi bi-clock"></i> Last commit:
                 <span id="last-commit-date"></span>
               </p>
-              <div class="version-info">
-                <p>
-                  <i class="bi bi-info-circle"></i> The dashboard now shows
-                  which components need updates based on version changes.
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -567,65 +567,46 @@
               statusClass = "needs-update";
             else statusClass = "unknown";
 
+            // UPDATED CARD HTML - Displaying template version and deployment date, removing notes and last_updated
             let cardHtml = `
-        <div class="card">
-            <div class="card-header bg-light">
-                <div class="d-flex justify-content-between align-items-center">
+              <div class="card">
+                <div class="card-header bg-light">
+                  <div class="d-flex justify-content-between align-items-center">
                     <span>${device.name}</span>
                     <span class="status-badge ${statusClass}">${calculatedStatus}</span>
+                  </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <small class="text-muted">Version:</small>
-                    <div><span class="version-tag">${
-                      device.version || "Unknown"
-                    }</span></div>
-                </div>
-                                <div class="mb-3">
-                                    <small class="text-muted">Components:</small>
-                                    <div>${generateComponentTags(
-                                      device.components
-                                    )}</div>
-                                </div>`;
+                <div class="card-body">
+                  <div class="mb-3">
+                    <small class="text-muted">Template Version:</small>
+                    <div><span class="version-tag">${device.template_version || device.version || "Unknown"}</span></div>
+                  </div>
+                  <div class="mb-3">
+                    <small class="text-muted">Components:</small>
+                    <div>${generateComponentTags(device.components)}</div>
+                  </div>`;
 
             // Add update reason if available
             if (device.updateReason) {
               cardHtml += `
-                                <div class="mb-3">
-                                    <small class="text-muted">Update needed:</small>
-                                    <div class="update-reason">${device.updateReason}</div>
-                                </div>`;
+                  <div class="mb-3">
+                    <small class="text-muted">Update needed:</small>
+                    <div class="update-reason">${device.updateReason}</div>
+                  </div>`;
             }
 
             cardHtml += `
-                                <div class="mb-3">
-                                    <small class="text-muted">Location:</small>
-                                    <div>${device.location || "Unknown"}</div>
-                                </div>
-                                <div class="mb-3">
-                                    <small class="text-muted">Last Updated:</small>
-                                    <div>${device.last_updated || "Never"}</div>
-                                </div>
-                                <div>
-                                    <small class="text-muted">Last Deployed:</small>
-                                    <div>${
-                                      device.last_deployed || "Never"
-                                    }</div>
-                                </div>
-                                ${
-                                  device.notes
-                                    ? `
-                                <div class="mt-3 pt-3 border-top">
-                                    <small class="text-muted">Notes:</small>
-                                    <div>${device.notes}</div>
-                                </div>
-                                `
-                                    : ""
-                                }
-                            </div>
-                        </div>
-                    `;
+                  <div class="mb-3">
+                    <small class="text-muted">Location:</small>
+                    <div>${device.location || "Unknown"}</div>
+                  </div>
+                  <div>
+                    <small class="text-muted">Last Deployed:</small>
+                    <div><strong>${device.last_deployed || "Never"}</strong></div>
+                  </div>
+                </div>
+              </div>
+            `;
 
             col.innerHTML = cardHtml;
             deviceCardsContainer.appendChild(col);
@@ -709,45 +690,96 @@
         .catch((error) => {
           console.error("Error loading device status:", error);
           document.getElementById("device-cards").innerHTML = `
-                    <div class="col-12 text-center py-5">
-                        <div class="alert alert-danger">
-                            <i class="bi bi-exclamation-triangle"></i> Error loading device status data.
-                            Please check if data/device-status.json exists.
-                        </div>
-                    </div>
-                `;
+            <div class="col-12 text-center py-5">
+              <div class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle"></i> Error loading device status data.
+                Please check if data/device-status.json exists.
+              </div>
+            </div>
+          `;
         });
 
-      // Create version history section
+      // Create version history section - UPDATED FOR COMPACT DISPLAY
       function createVersionHistory(versionChanges) {
         if (!versionChanges || !Array.isArray(versionChanges)) return;
 
         const container = document.getElementById("version-changes-list");
         container.innerHTML = "";
 
-        versionChanges.forEach((version) => {
+        // Only show the most recent 9 versions to keep it compact
+        const recentChanges = versionChanges.slice(0, 9);
+        
+        recentChanges.forEach((version) => {
           const versionItem = document.createElement("div");
           versionItem.className = "version-item";
 
           versionItem.innerHTML = `
-                    <div>
-                        <span class="version-title">${version.version}</span>
-                        <span class="version-date">${version.date}</span>
-                    </div>
-                    <div class="version-components my-2">
-                        ${generateComponentTags(version.components)}
-                    </div>
-                    <div class="version-description">
-                        ${version.description}
-                    </div>
-                `;
+            <div>
+              <span class="version-title">${version.version}</span>
+              <span class="version-date">${version.date}</span>
+            </div>
+            <div class="version-components my-1">
+              ${generateComponentTags(version.components)}
+            </div>
+            <div class="version-description">
+              ${version.description}
+            </div>
+          `;
 
           container.appendChild(versionItem);
         });
 
+        // Add a "Show more" button if there are more versions
+        if (versionChanges.length > 9) {
+          const showMoreBtn = document.createElement("button");
+          showMoreBtn.className = "btn btn-sm btn-outline-primary mt-2";
+          showMoreBtn.textContent = `Show ${versionChanges.length - 9} more versions`;
+          showMoreBtn.onclick = function() {
+            createFullVersionHistory(versionChanges);
+            this.style.display = "none";
+          };
+          
+          container.appendChild(showMoreBtn);
+        }
+
         if (versionChanges.length === 0) {
           container.innerHTML =
             '<div class="text-center py-3">No version history available</div>';
+        }
+      }
+      
+      // Show all version history when "Show more" is clicked
+      function createFullVersionHistory(versionChanges) {
+        const container = document.getElementById("version-changes-list");
+        
+        // Keep the first 9 items that are already displayed
+        const existingItems = container.querySelectorAll(".version-item");
+        const showMoreBtn = container.querySelector("button");
+        
+        if (showMoreBtn) {
+          container.removeChild(showMoreBtn);
+        }
+        
+        // Add the remaining versions
+        for (let i = 9; i < versionChanges.length; i++) {
+          const version = versionChanges[i];
+          const versionItem = document.createElement("div");
+          versionItem.className = "version-item";
+
+          versionItem.innerHTML = `
+            <div>
+              <span class="version-title">${version.version}</span>
+              <span class="version-date">${version.date}</span>
+            </div>
+            <div class="version-components my-1">
+              ${generateComponentTags(version.components)}
+            </div>
+            <div class="version-description">
+              ${version.description}
+            </div>
+          `;
+
+          container.appendChild(versionItem);
         }
       }
 
@@ -825,7 +857,7 @@
           .map((device) => ({
             device: device.name,
             date: device.last_deployed,
-            version: device.version,
+            version: device.template_version || device.version,
             components: device.components,
           }))
           .sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -839,22 +871,22 @@
           }`;
 
           container.innerHTML = `
-                    <div class="timeline-content">
-                        <h5>${deployment.device}</h5>
-                        <p class="timeline-date">${deployment.date}</p>
-                        <p>Deployed version <span class="version-tag">${
-                          deployment.version
-                        }</span></p>
-                        ${
-                          deployment.components
-                            ? `
-                        <div class="mt-2">
-                            ${generateComponentTags(deployment.components)}
-                        </div>`
-                            : ""
-                        }
-                    </div>
-                `;
+            <div class="timeline-content">
+              <h5>${deployment.device}</h5>
+              <p class="timeline-date">${deployment.date}</p>
+              <p>Deployed version <span class="version-tag">${
+                deployment.version || "Unknown"
+              }</span></p>
+              ${
+                deployment.components
+                  ? `
+              <div class="mt-2">
+                  ${generateComponentTags(deployment.components)}
+              </div>`
+                  : ""
+              }
+            </div>
+          `;
 
           timeline.appendChild(container);
         });
