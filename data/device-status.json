@@ -1,9 +1,17 @@
 {
-  "latest_version": "v2.1.0",
+  "latest_version": "v2.1.1",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-13 17:57:49",
-  "last_updated": "2025-05-13 15:58:02",
+  "last_commit_date": "2025-05-13 18:08:23",
+  "last_updated": "2025-05-13 16:09:28",
   "version_changes": [
+    {
+      "version": "v2.1.1",
+      "date": "2025-05-13",
+      "components": [
+        "core"
+      ],
+      "description": "Updated MODBUS implementation to also support directional TTL to RS485 converters"
+    },
     {
       "version": "v2.1.0",
       "date": "2025-05-13",
@@ -96,114 +104,117 @@
   "devices": [
     {
       "name": "_test-device-no-virtual-devices",
-      "version": "", 
+      "version": "v2.1.0",
       "components": [
         "analog",
         "core"
       ],
-      "status": "Unknown",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0"
+      "notes": "Updated to template version v2.1.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "_test-device-virtual-devices",
-      "version": "", 
+      "version": "v2.1.0",
       "components": [
         "analog",
         "core",
         "virtual"
       ],
-      "status": "Unknown",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0"
+      "notes": "Updated to template version v2.1.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "algae-monitor",
-      "version": "", 
+      "version": "v2.1.0",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Unknown",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.1.0"
+      "notes": "Updated to template version v2.1.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "mog-tank-water-sensor",
-      "version": "v1.3.1",
+      "version": "v2.1.0",
       "components": [
         "core",
         "digital"
       ],
-      "status": "Needs update",
-      "location": "Basement - right side (by MOG tank)",
+      "status": "Patch available",
+      "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "2025-04-25",
+      "last_deployed": "Never",
       "notes": "Updated to template version v2.1.0",
-      "updateReason": "Major or minor version change"
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "sauna-power-consumption",
-      "version": "v1.2.1",
+      "version": "v2.1.0",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
-      "location": "Basement - left side, in rear electrical box",
+      "status": "Patch available",
+      "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "2025-04-25",
+      "last_deployed": "Never",
       "notes": "Updated to template version v2.1.0",
-      "updateReason": "Major or minor version change"
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "sauna-temperature-and-humidity",
-      "version": "v1.2.1",
+      "version": "v2.1.0",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
-      "location": "Basement - left side, on top of fridge",
+      "status": "Patch available",
+      "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "2025-04-25", 
+      "last_deployed": "Never",
       "notes": "Updated to template version v2.1.0",
-      "updateReason": "Major or minor version change"
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "v1.2.1",
+      "version": "v2.1.0",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
-      "location": "Technician room - inside electrical box next to power meter for heaters",
+      "status": "Patch available",
+      "location": "",
       "last_updated": "2025-05-13",
-      "last_deployed": "2025-04-25",
+      "last_deployed": "Never",
       "notes": "Updated to template version v2.1.0",
-      "updateReason": "Major or minor version change"
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "water-system-temperatures",
-      "version": "v1.3.2",
+      "version": "v2.1.0",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Needs update",
-      "location": "Technician room - box left of door",
-      "last_updated": "2025-05-13", 
-      "last_deployed": "2025-05-09",
+      "status": "Patch available",
+      "location": "",
+      "last_updated": "2025-05-13",
+      "last_deployed": "Never",
       "notes": "Updated to template version v2.1.0",
-      "updateReason": "Major or minor version change"
+      "updateReason": "Non-critical patch update available"
     }
   ]
 }
