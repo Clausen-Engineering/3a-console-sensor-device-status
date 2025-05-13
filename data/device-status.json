@@ -1,16 +1,16 @@
 {
-  "latest_version": "v2.2.0",
+  "latest_version": "v2.1.0",
   "repo_name": "3a-console-esp32-template-sm",
   "last_commit_date": "2025-05-13 17:49:15",
-  "last_updated": "2025-05-13 15:49:30",
+  "last_updated": "2025-05-13 15:53:28",
   "version_changes": [
     {
-      "version": "v2.2.0",
+      "version": "v2.1.0",
       "date": "2025-05-13",
       "components": [
         "core"
       ],
-      "description": "Version bump"
+      "description": "Update devices to v2.2.0"
     },
     {
       "version": "v2.0.0",
@@ -101,11 +101,12 @@
         "analog",
         "core"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.2.0"
+      "notes": "Updated to template version v2.2.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "_test-device-virtual-devices",
@@ -115,11 +116,12 @@
         "core",
         "virtual"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.2.0"
+      "notes": "Updated to template version v2.2.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "algae-monitor",
@@ -128,11 +130,12 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.2.0"
+      "notes": "Updated to template version v2.2.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "mog-tank-water-sensor",
@@ -141,11 +144,12 @@
         "core",
         "digital"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.2.0"
+      "notes": "Updated to template version v2.2.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "sauna-power-consumption",
@@ -154,11 +158,12 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.2.0"
+      "notes": "Updated to template version v2.2.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "sauna-temperature-and-humidity",
@@ -167,11 +172,12 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.2.0"
+      "notes": "Updated to template version v2.2.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "water-heater-power-consumption",
@@ -180,11 +186,12 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.2.0"
+      "notes": "Updated to template version v2.2.0",
+      "updateReason": "Non-critical patch update available"
     },
     {
       "name": "water-system-temperatures",
@@ -194,11 +201,12 @@
         "onewire",
         "virtual"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "",
       "last_updated": "2025-05-13",
       "last_deployed": "Never",
-      "notes": "Updated to template version v2.2.0"
+      "notes": "Updated to template version v2.2.0",
+      "updateReason": "Non-critical patch update available"
     }
   ]
 }
