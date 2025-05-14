@@ -1,16 +1,24 @@
 {
-  "latest_version": "v2.1.5",
+  "latest_version": "v2.1.6",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-14 15:07:21",
-  "last_updated": "2025-05-14 13:10:47",
+  "last_commit_date": "2025-05-14 15:15:13",
+  "last_updated": "2025-05-14 13:16:06",
   "version_changes": [
+    {
+      "version": "v2.1.6",
+      "date": "2025-05-14",
+      "components": [
+        "core"
+      ],
+      "description": "Total count gets saved non volatile memory"
+    },
     {
       "version": "v2.1.5",
       "date": "2025-05-14",
       "components": [
         "core"
       ],
-      "description": "Updated deploy device script"
+      "description": "Onewire mapping send as event and minor log layout change"
     },
     {
       "version": "v2.1.4",
