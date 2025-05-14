@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.1.6",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-14 15:15:13",
-  "last_updated": "2025-05-14 13:16:06",
+  "last_commit_date": "2025-05-14 15:19:18",
+  "last_updated": "2025-05-14 13:19:31",
   "version_changes": [
     {
       "version": "v2.1.6",
@@ -10,7 +10,7 @@
       "components": [
         "core"
       ],
-      "description": "Total count gets saved non volatile memory"
+      "description": "Digital sensor now saves total count in non volatile memory"
     },
     {
       "version": "v2.1.5",
@@ -181,64 +181,62 @@
     },
     {
       "name": "mog-tank-water-sensor",
-      "version": "v1.3.1",
+      "version": "v2.1.6",
       "components": [
         "core",
         "digital"
       ],
-      "status": "Needs update",
+      "status": "Up to date",
       "location": "Basement - right side (by MOG tank)",
-      "last_deployed": "2025-03-28",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "2025-05-14"
     },
     {
       "name": "sauna-power-consumption",
-      "version": "v1.2.1",
+      "version": "v2.1.4",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
-      "location": "Basement - left side, in rear electrical box",
-      "last_deployed": "2025-03-18",
-      "updateReason": "Major or minor version change"
+      "status": "Patch available",
+      "location": "Basement (left side) - Rear electrical box",
+      "last_deployed": "2025-05-14",
+      "updateReason": "Patch update available"
     },
     {
       "name": "sauna-temperature-and-humidity",
-      "version": "v1.2.1",
+      "version": "v2.1.4",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
-      "location": "Basement - left side, on top of fridge",
-      "last_deployed": "2025-03-18",
-      "updateReason": "Major or minor version change"
+      "status": "Patch available",
+      "location": "Basement (left side) - On top of box next to fridge",
+      "last_deployed": "2025-05-14",
+      "updateReason": "Patch update available"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "",
+      "version": "v2.1.2",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Never deployed",
-      "location": "Technician room - inside electrical box next to power meter for heaters",
-      "last_deployed": "",
-      "updateReason": "Device not yet deployed"
+      "status": "Patch available",
+      "location": "Technician room - Inside electrical box next to power meter for heaters",
+      "last_deployed": "2025-05-14",
+      "updateReason": "Patch update available"
     },
     {
       "name": "water-system-temperatures",
-      "version": "v1.3.2",
+      "version": "v2.1.6",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Needs update",
-      "location": "echnician room - box left of door",
-      "last_deployed": "2025-03-28",
-      "updateReason": "Major or minor version change"
+      "status": "Up to date",
+      "location": "Technician room - Box left of door",
+      "last_deployed": "2025-05-14"
     }
   ]
 }
