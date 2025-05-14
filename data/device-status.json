@@ -1,16 +1,24 @@
 {
-  "latest_version": "v2.1.4",
+  "latest_version": "v2.1.5",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-14 11:19:12",
-  "last_updated": "2025-05-14 09:21:13",
+  "last_commit_date": "2025-05-14 15:07:21",
+  "last_updated": "2025-05-14 13:10:47",
   "version_changes": [
+    {
+      "version": "v2.1.5",
+      "date": "2025-05-14",
+      "components": [
+        "core"
+      ],
+      "description": "Updated deploy device script"
+    },
     {
       "version": "v2.1.4",
       "date": "2025-05-14",
       "components": [
-        "onewire"
+        "core"
       ],
-      "description": "Fixed sensor index for addres based onewire sensors"
+      "description": "Version bump: patch"
     },
     {
       "version": "v2.1.3",
