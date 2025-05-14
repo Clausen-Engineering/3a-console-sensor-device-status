@@ -64,7 +64,7 @@
       "version": "v2.0.0",
       "date": "2025-05-12",
       "components": [
-        "Virtual"
+        "virtual"
       ],
       "description": "Virtual devices uses master/slave configuration and hardware config is implemented to prevent wrong pin configuration"
     },
@@ -72,7 +72,8 @@
       "version": "v1.3.2",
       "date": "2025-04-23",
       "components": [
-        "virtual"
+        "virtual",
+        "core"
       ],
       "description": "Fixed virtual device settings fetching"
     },
