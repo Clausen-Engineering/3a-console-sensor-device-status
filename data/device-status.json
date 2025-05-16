@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.1.7",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-16 18:51:41",
-  "last_updated": "2025-05-16 16:57:31",
+  "last_commit_date": "2025-05-16 19:00:28",
+  "last_updated": "2025-05-16 17:00:41",
   "version_changes": [
     {
       "version": "v2.1.7",
@@ -177,15 +177,14 @@
     },
     {
       "name": "algae-monitor",
-      "version": "",
+      "version": "v2.1.7",
       "components": [
-        "core",
-        "modbus"
+        "algae",
+        "core"
       ],
-      "status": "Never deployed",
-      "location": "",
-      "last_deployed": "",
-      "updateReason": "Device not yet deployed"
+      "status": "Up to date",
+      "location": "Under floor next to pool filter",
+      "last_deployed": "2025-05-15"
     },
     {
       "name": "mog-tank-water-sensor",
@@ -201,52 +200,48 @@
     },
     {
       "name": "sauna-power-consumption",
-      "version": "v2.1.4",
+      "version": "v2.1.7",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Basement (left side) - Rear electrical box",
-      "last_deployed": "2025-05-14",
-      "updateReason": "Patch update available"
+      "last_deployed": "2025-05-16"
     },
     {
       "name": "sauna-temperature-and-humidity",
-      "version": "v2.1.4",
+      "version": "v2.1.7",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Basement (left side) - On top of box next to fridge",
-      "last_deployed": "2025-05-14",
-      "updateReason": "Patch update available"
+      "last_deployed": "2025-05-16"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "v2.1.2",
+      "version": "v2.1.7",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
-      "last_deployed": "2025-05-14",
-      "updateReason": "Patch update available"
+      "last_deployed": "2025-05-16"
     },
     {
       "name": "water-system-temperatures",
-      "version": "v2.1.6",
+      "version": "v2.1.7",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Technician room - Box left of door",
-      "last_deployed": "2025-05-14",
-      "updateReason": "Patch update available"
+      "last_deployed": "2025-05-16"
     }
   ]
 }
