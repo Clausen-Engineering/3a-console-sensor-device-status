@@ -8,7 +8,7 @@
       "version": "v2.1.7",
       "date": "2025-05-16",
       "components": [
-        "core"
+        "algea"
       ],
       "description": "Added algae sensor"
     },
