@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.2.0",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-19 16:09:08",
-  "last_updated": "2025-05-19 14:11:41",
+  "last_commit_date": "2025-05-19 16:17:01",
+  "last_updated": "2025-05-19 14:17:27",
   "version_changes": [
     {
       "version": "v2.2.0",
@@ -10,7 +10,7 @@
       "components": [
         "core"
       ],
-      "description": "Added deep comparison for sensor, to trigger reinitialization, if anything in settings has changed"
+      "description": "Version bump: minor"
     },
     {
       "version": "v2.1.7",
@@ -158,31 +158,6 @@
     }
   ],
   "devices": [
-    {
-      "name": "_test-device-no-virtual-devices",
-      "version": "v2.1.3",
-      "components": [
-        "analog",
-        "core"
-      ],
-      "status": "Needs update",
-      "location": "FO",
-      "last_deployed": "2025-05-13",
-      "updateReason": "Major or minor version change"
-    },
-    {
-      "name": "_test-device-virtual-devices",
-      "version": "v2.1.3",
-      "components": [
-        "analog",
-        "core",
-        "virtual"
-      ],
-      "status": "Needs update",
-      "location": "FO",
-      "last_deployed": "2025-05-13",
-      "updateReason": "Major or minor version change"
-    },
     {
       "name": "algae-monitor",
       "version": "v2.1.7",
