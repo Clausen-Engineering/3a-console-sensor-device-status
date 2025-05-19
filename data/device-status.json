@@ -1,14 +1,14 @@
 {
   "latest_version": "v2.1.7",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-16 19:00:28",
-  "last_updated": "2025-05-16 17:00:41",
+  "last_commit_date": "2025-05-19 16:09:08",
+  "last_updated": "2025-05-19 14:09:18",
   "version_changes": [
     {
       "version": "v2.1.7",
       "date": "2025-05-16",
       "components": [
-        "algea"
+        "core"
       ],
       "description": "Added algae sensor"
     },
@@ -188,7 +188,7 @@
     },
     {
       "name": "mog-tank-water-sensor",
-      "version": "v2.1.6",
+      "version": "v2.1.5",
       "components": [
         "core",
         "digital"
