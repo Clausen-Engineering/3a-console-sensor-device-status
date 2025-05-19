@@ -1,9 +1,17 @@
 {
-  "latest_version": "v2.1.7",
+  "latest_version": "v2.2.0",
   "repo_name": "3a-console-esp32-template-sm",
   "last_commit_date": "2025-05-19 16:09:08",
-  "last_updated": "2025-05-19 14:09:18",
+  "last_updated": "2025-05-19 14:11:41",
   "version_changes": [
+    {
+      "version": "v2.2.0",
+      "date": "2025-05-19",
+      "components": [
+        "core"
+      ],
+      "description": "Added deep comparison for sensor, to trigger reinitialization, if anything in settings has changed"
+    },
     {
       "version": "v2.1.7",
       "date": "2025-05-16",
@@ -157,10 +165,10 @@
         "analog",
         "core"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "FO",
       "last_deployed": "2025-05-13",
-      "updateReason": "Patch update available"
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "_test-device-virtual-devices",
@@ -170,10 +178,10 @@
         "core",
         "virtual"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "FO",
       "last_deployed": "2025-05-13",
-      "updateReason": "Patch update available"
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "algae-monitor",
@@ -182,9 +190,10 @@
         "algae",
         "core"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Under floor next to pool filter",
-      "last_deployed": "2025-05-15"
+      "last_deployed": "2025-05-15",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "mog-tank-water-sensor",
@@ -193,10 +202,10 @@
         "core",
         "digital"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "Basement - right side (by MOG tank)",
       "last_deployed": "2025-05-14",
-      "updateReason": "Patch update available"
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "sauna-power-consumption",
@@ -205,9 +214,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Basement (left side) - Rear electrical box",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "sauna-temperature-and-humidity",
@@ -216,9 +226,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Basement (left side) - On top of box next to fridge",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "water-heater-power-consumption",
@@ -227,9 +238,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "water-system-temperatures",
@@ -239,9 +251,10 @@
         "onewire",
         "virtual"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Technician room - Box left of door",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Major or minor version change"
     }
   ]
 }
