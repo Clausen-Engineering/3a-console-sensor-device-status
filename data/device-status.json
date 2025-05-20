@@ -1,9 +1,17 @@
 {
-  "latest_version": "v2.2.0",
+  "latest_version": "v2.2.1",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-20 10:55:31",
-  "last_updated": "2025-05-20 08:55:40",
+  "last_commit_date": "2025-05-20 10:56:18",
+  "last_updated": "2025-05-20 09:00:39",
   "version_changes": [
+    {
+      "version": "v2.2.1",
+      "date": "2025-05-20",
+      "components": [
+        "onewire"
+      ],
+      "description": "Added onewire bus scan upon initialization for easier debugging"
+    },
     {
       "version": "v2.2.0",
       "date": "2025-05-19",
@@ -269,9 +277,10 @@
         "core",
         "digital"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement - right side (by MOG tank)",
-      "last_deployed": "2025-05-14"
+      "last_deployed": "2025-05-14",
+      "updateReason": "Patch update available"
     },
     {
       "name": "sauna-power-consumption",
@@ -280,9 +289,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement (left side) - Rear electrical box",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Patch update available"
     },
     {
       "name": "sauna-temperature-and-humidity",
@@ -291,9 +301,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement (left side) - On top of box next to fridge",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Patch update available"
     },
     {
       "name": "water-heater-power-consumption",
@@ -302,9 +313,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Patch update available"
     },
     {
       "name": "water-system-temperatures",
