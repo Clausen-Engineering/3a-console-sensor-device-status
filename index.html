@@ -4,16 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3A Console - ESP32 Sensor Device Status</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+      /* ========== VARIABLES ========== */
       :root {
         --primary-color: #3498db;
         --success-color: #2ecc71;
@@ -21,55 +16,78 @@
         --danger-color: #e74c3c;
         --info-color: #9b59b6;
       }
+
+      /* ========== GENERAL STYLES ========== */
       body {
         padding-bottom: 2rem;
         background-color: #f8f9fa;
       }
+
       .navbar-brand {
         font-weight: bold;
         color: var(--primary-color) !important;
       }
+
+      .last-update {
+        font-size: 0.85rem;
+        color: #6c757d;
+        text-align: right;
+        margin-top: 2rem;
+      }
+
+      /* ========== CARDS ========== */
       .card {
         border-radius: 0.5rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: transform 0.2s;
         margin-bottom: 1.5rem;
       }
+
       .card:hover {
         transform: translateY(-5px);
       }
+
       .card-header {
         border-radius: 0.5rem 0.5rem 0 0 !important;
         font-weight: bold;
       }
+
+      /* ========== STATUS INDICATORS ========== */
       .status-badge {
         font-size: 0.85rem;
         padding: 0.35rem 0.65rem;
         border-radius: 1rem;
       }
+
       .update-reason {
         font-size: 0.85rem;
         font-style: italic;
         margin-top: 0.5rem;
         color: #666;
       }
+
+      /* Status colors - consistent across all elements */
       .up-to-date {
         background-color: var(--success-color);
         color: white;
       }
+
       .needs-update {
         background-color: var(--warning-color);
         color: white;
       }
+
       .patch-available {
         background-color: var(--info-color);
         color: white;
       }
+
       .unknown {
         background-color: var(--danger-color);
         color: white;
       }
 
+      /* ========== COMPONENT TAGS ========== */
       .version-tag {
         background-color: var(--primary-color);
         color: white;
@@ -89,34 +107,196 @@
         margin-bottom: 0.25rem;
         display: inline-block;
       }
-      .component-tag.modbus {
-        background-color: #007bff;
-      }
-      .component-tag.onewire {
-        background-color: #28a745;
-      }
-      .component-tag.digital {
-        background-color: #6610f2;
-      }
-      .component-tag.analog {
-        background-color: #fd7e14;
-      }
-      .component-tag.i2c {
-        background-color: #20c997;
-      }
-      .component-tag.virtual {
-        background-color: #9c27b0;
-      }
-      .component-tag.core {
-        background-color: #343a40;
+
+      /* Component colors */
+      .component-tag.modbus { background-color: #007bff; }
+      .component-tag.onewire { background-color: #28a745; }
+      .component-tag.digital { background-color: #6610f2; }
+      .component-tag.analog { background-color: #fd7e14; }
+      .component-tag.i2c { background-color: #20c997; }
+      .component-tag.virtual { background-color: #9c27b0; }
+      .component-tag.core { background-color: #343a40; }
+      .component-tag.algae { background-color: #17a2b8; }
+
+      /* ========== SEARCH & FILTER ========== */
+      .filter-section {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
       }
 
+      .filter-badge {
+        cursor: pointer;
+        margin-right: 0.5rem;
+      }
+
+      .component-filter {
+        cursor: pointer;
+        margin: 0.25rem;
+      }
+
+      /* ========== VERSION HISTORY ========== */
+      .version-info {
+        margin-top: 10px;
+        font-size: 0.8rem;
+        color: #6c757d;
+        font-style: italic;
+      }
+
+      .version-changes {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .version-item {
+        padding: 0.5rem 1rem;
+        border-left: 3px solid var(--primary-color);
+        margin-bottom: 0.5rem;
+        background-color: rgba(52, 152, 219, 0.05);
+        flex: 1 1 30%;
+        min-width: 250px;
+      }
+
+      .version-title {
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .version-date {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-left: 0.5rem;
+      }
+
+      .version-description {
+        margin-top: 0.25rem;
+        font-size: 0.9rem;
+      }
+
+      /* ========== DEVICE LIST VIEW ========== */
+      .device-list-header {
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 5px 5px 0 0;
+        font-weight: bold;
+      }
+
+      .device-list-item {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+
+      /* List item status colors */
+      .device-list-item.needs-update {
+        background-color: rgba(243, 156, 18, 0.15);
+        border-left: 4px solid var(--warning-color);
+      }
+
+      .device-list-item.patch-available {
+        background-color: rgba(155, 89, 182, 0.15);
+        border-left: 4px solid var(--info-color);
+      }
+
+      .device-list-item.up-to-date {
+        background-color: rgba(46, 204, 113, 0.15);
+        border-left: 4px solid var(--success-color);
+      }
+
+      /* Hover effects for list items */
+      .device-list-item.needs-update:hover {
+        background-color: rgba(243, 156, 18, 0.3);
+        transition: background-color 0.2s ease;
+      }
+
+      .device-list-item.patch-available:hover {
+        background-color: rgba(155, 89, 182, 0.3);
+        transition: background-color 0.2s ease;
+      }
+
+      .device-list-item.up-to-date:hover {
+        background-color: rgba(46, 204, 113, 0.3);
+        transition: background-color 0.2s ease;
+      }
+
+      /* List status text styling */
+      .device-list-item .col-md-2:nth-child(3) {
+        font-weight: bold;
+      }
+
+      .device-list-item.needs-update .col-md-2:nth-child(3) {
+        color: var(--warning-color);
+      }
+
+      .device-list-item.patch-available .col-md-2:nth-child(3) {
+        color: var(--info-color);
+      }
+
+      .device-list-item.up-to-date .col-md-2:nth-child(3) {
+        color: var(--success-color);
+      }
+
+      /* ========== SORTING CONTROLS ========== */
+      .sorting-controls {
+        margin: 20px 0;
+      }
+
+      .sort-btn.active {
+        background-color: #0d6efd;
+        color: white;
+      }
+
+      /* View toggle buttons */
+      .view-toggle {
+        margin-bottom: 1rem;
+      }
+
+      /* ========== TIMELINE STYLES ========== */
+      /* Enhanced timeline */
+      .timeline-month {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+      }
+      
+      .timeline-month h3 {
+        margin: 0;
+        padding: 10px 15px;
+        font-size: 1.2rem;
+      }
+      
+      .date-header {
+        font-size: 1rem;
+      }
+      
+      .list-group-item.event-initial_deployment {
+        background-color: rgba(40, 167, 69, 0.05);
+      }
+      
+      .list-group-item.event-update_deployment {
+        background-color: rgba(0, 123, 255, 0.05);
+      }
+      
+      .list-group-item.event-previous_deployment {
+        background-color: rgba(108, 117, 125, 0.05);
+      }
+      
+      .list-group-item.event-deployment {
+        background-color: rgba(40, 167, 69, 0.05);
+      }
+
+      /* Legacy timeline (keeping for backward compatibility) */
       .timeline {
         position: relative;
         max-width: 1200px;
         margin: 0 auto;
         padding: 1rem 0;
       }
+      
       .timeline::after {
         content: "";
         position: absolute;
@@ -127,18 +307,22 @@
         left: 50%;
         margin-left: -1px;
       }
+      
       .timeline-container {
         padding: 10px 40px;
         position: relative;
         background-color: inherit;
         width: 50%;
       }
+      
       .timeline-container.left {
         left: 0;
       }
+      
       .timeline-container.right {
         left: 50%;
       }
+      
       .timeline-container::after {
         content: "";
         position: absolute;
@@ -151,9 +335,11 @@
         border-radius: 50%;
         z-index: 1;
       }
+      
       .timeline-container.right::after {
         left: -8px;
       }
+      
       .timeline-content {
         padding: 1rem;
         background-color: white;
@@ -161,15 +347,10 @@
         border-radius: 0.5rem;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
+      
       .timeline-date {
         font-weight: bold;
         color: var(--primary-color);
-      }
-      .last-update {
-        font-size: 0.85rem;
-        color: #6c757d;
-        text-align: right;
-        margin-top: 2rem;
       }
 
       @media (max-width: 768px) {
@@ -189,174 +370,6 @@
           left: 23px;
         }
       }
-
-      /* Search and filter */
-      .filter-section {
-        background-color: white;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin-bottom: 1.5rem;
-      }
-      .filter-badge {
-        cursor: pointer;
-        margin-right: 0.5rem;
-      }
-      .component-filter {
-        cursor: pointer;
-        margin: 0.25rem;
-      }
-
-      /* Version info tooltip */
-      .version-info {
-        margin-top: 10px;
-        font-size: 0.8rem;
-        color: #6c757d;
-        font-style: italic;
-      }
-
-      /* Version changes section - UPDATED FOR COMPACT DISPLAY */
-      .version-changes {
-        margin-top: 1rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-      .version-item {
-        padding: 0.5rem 1rem;
-        border-left: 3px solid var(--primary-color);
-        margin-bottom: 0.5rem;
-        background-color: rgba(52, 152, 219, 0.05);
-        flex: 1 1 30%;
-        min-width: 250px;
-      }
-      .version-title {
-        font-weight: bold;
-        color: var(--primary-color);
-      }
-      .version-date {
-        font-size: 0.85rem;
-        color: #6c757d;
-        margin-left: 0.5rem;
-      }
-      .version-description {
-        margin-top: 0.25rem;
-        font-size: 0.9rem;
-      }
-
-      /* Device List Styles */
-      .device-list-header {
-        background-color: #f5f5f5;
-        padding: 10px;
-        border-radius: 5px 5px 0 0;
-        font-weight: bold;
-      }
-
-      .device-list-item {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-      }
-
-      .device-list-item:hover {
-        background-color: #f9f9f9;
-      }
-
-      .needs-update {
-        background-color: rgba(255, 200, 200, 0.2);
-      }
-
-      .patch-available {
-        background-color: rgba(255, 240, 200, 0.2);
-      }
-
-      .up-to-date {
-        background-color: rgba(200, 255, 200, 0.2);
-      }
-
-      /* Sorting Controls */
-      .sorting-controls {
-        margin: 20px 0;
-      }
-
-      .sort-btn.active {
-        background-color: #0d6efd;
-        color: white;
-      }
-
-      /* Timeline Styles */
-      .timeline-month {
-        margin-bottom: 30px;
-      }
-
-      .timeline-month h3 {
-        color: #555;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 5px;
-      }
-
-      .timeline-events {
-        list-style-type: none;
-        padding-left: 15px;
-        position: relative;
-      }
-
-      .timeline-events::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 2px;
-        background-color: #ddd;
-      }
-
-      .timeline-event {
-        position: relative;
-        padding: 10px 0 10px 20px;
-        margin-bottom: 10px;
-      }
-
-      .timeline-event::before {
-        content: "";
-        position: absolute;
-        left: -4px;
-        top: 14px;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: #0d6efd;
-      }
-
-      .event-initial_deployment::before {
-        background-color: #28a745;
-      }
-
-      .event-update_deployment::before {
-        background-color: #007bff;
-      }
-
-      .event-previous_deployment::before {
-        background-color: #6c757d;
-      }
-
-      .event-date {
-        font-weight: bold;
-        margin-right: 10px;
-      }
-
-      .event-device {
-        color: #555;
-        margin-right: 10px;
-      }
-
-      .event-description {
-        display: inline-block;
-      }
-
-      /* View toggle buttons */
-      .view-toggle {
-        margin-bottom: 1rem;
-      }
     </style>
   </head>
   <body>
@@ -365,35 +378,22 @@
         <a class="navbar-brand" href="#">
           <i class="bi bi-cpu"></i> 3A Console - ESP32 Sensor Status
         </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#overview"
-                ><i class="bi bi-house"></i> Overview</a
-              >
+              <a class="nav-link" href="#overview"><i class="bi bi-house"></i> Overview</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#devices"
-                ><i class="bi bi-grid"></i> Devices</a
-              >
+              <a class="nav-link" href="#devices"><i class="bi bi-grid"></i> Devices</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#versions"
-                ><i class="bi bi-list-check"></i> Version History</a
-              >
+              <a class="nav-link" href="#versions"><i class="bi bi-list-check"></i> Version History</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#timeline"
-                ><i class="bi bi-calendar"></i> Timeline</a
-              >
+              <a class="nav-link" href="#timeline"><i class="bi bi-calendar"></i> Timeline</a>
             </li>
           </ul>
         </div>
@@ -401,6 +401,7 @@
     </nav>
 
     <div class="container" id="overview">
+      <!-- Overview Cards -->
       <div class="row mb-4">
         <div class="col-md-6">
           <div class="card">
@@ -435,6 +436,7 @@
         </div>
       </div>
 
+      <!-- Version History Section -->
       <section id="versions" class="mb-5">
         <h2 class="mb-3"><i class="bi bi-list-check"></i> Version History</h2>
         <div class="card">
@@ -451,45 +453,25 @@
         </div>
       </section>
 
+      <!-- Device Status Section -->
       <section id="devices">
         <h2 class="mb-3"><i class="bi bi-grid"></i> Device Status</h2>
 
+        <!-- Filters -->
         <div class="filter-section mb-4">
           <div class="row align-items-center mb-3">
             <div class="col-md-8">
               <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="bi bi-search"></i
-                ></span>
-                <input
-                  type="text"
-                  id="device-search"
-                  class="form-control"
-                  placeholder="Search devices..."
-                />
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" id="device-search" class="form-control" placeholder="Search devices..." />
               </div>
             </div>
             <div class="col-md-4">
               <div class="d-flex justify-content-end">
-                <span
-                  class="filter-badge badge bg-success"
-                  data-filter="up-to-date"
-                  >Up to date</span
-                >
-                <span
-                  class="filter-badge badge"
-                  style="background-color: var(--info-color); color: white"
-                  data-filter="patch-available"
-                  >Patch available</span
-                >
-                <span
-                  class="filter-badge badge bg-warning text-dark"
-                  data-filter="needs-update"
-                  >Needs update</span
-                >
-                <span class="filter-badge badge bg-danger" data-filter="unknown"
-                  >Unknown</span
-                >
+                <span class="filter-badge badge bg-success" data-filter="up-to-date">Up to date</span>
+                <span class="filter-badge badge" style="background-color: var(--info-color); color: white" data-filter="patch-available">Patch available</span>
+                <span class="filter-badge badge bg-warning text-dark" data-filter="needs-update">Needs update</span>
+                <span class="filter-badge badge bg-danger" data-filter="unknown">Unknown</span>
               </div>
             </div>
           </div>
@@ -506,52 +488,25 @@
 
         <!-- View Toggle Buttons -->
         <div class="view-toggle btn-group mb-3" role="group">
-          <button
-            id="card-view-btn"
-            class="btn btn-sm btn-outline-primary active"
-          >
-            Card View
-          </button>
-          <button id="list-view-btn" class="btn btn-sm btn-outline-primary">
-            List View
-          </button>
+          <button id="card-view-btn" class="btn btn-sm btn-outline-primary active">Card View</button>
+          <button id="list-view-btn" class="btn btn-sm btn-outline-primary">List View</button>
         </div>
 
-        <!-- Device Sorting Controls (new) -->
+        <!-- Device Sorting Controls -->
         <div class="sorting-controls mb-3">
           <label>Sort devices by: </label>
           <div class="btn-group" role="group">
-            <button
-              id="sort-by-date"
-              class="btn btn-sm btn-outline-primary sort-btn active"
-            >
-              Date Updated
-            </button>
-            <button
-              id="sort-by-name"
-              class="btn btn-sm btn-outline-primary sort-btn"
-            >
-              Name
-            </button>
-            <button
-              id="sort-by-status"
-              class="btn btn-sm btn-outline-primary sort-btn"
-            >
-              Status
-            </button>
-            <button
-              id="sort-by-location"
-              class="btn btn-sm btn-outline-primary sort-btn"
-            >
-              Location
-            </button>
+            <button id="sort-by-date" class="btn btn-sm btn-outline-primary sort-btn active">Date Updated</button>
+            <button id="sort-by-name" class="btn btn-sm btn-outline-primary sort-btn">Name</button>
+            <button id="sort-by-status" class="btn btn-sm btn-outline-primary sort-btn">Status</button>
+            <button id="sort-by-location" class="btn btn-sm btn-outline-primary sort-btn">Location</button>
           </div>
         </div>
 
-        <!-- Device List Container (new) -->
+        <!-- Device List Container -->
         <div id="device-list" class="mb-5" style="display: none"></div>
 
-        <!-- Original Device Cards Container -->
+        <!-- Device Cards Container -->
         <div class="row" id="device-cards">
           <!-- Device cards will be populated here -->
           <div class="col-12 text-center py-5">
@@ -563,9 +518,9 @@
         </div>
       </section>
 
+      <!-- Timeline Section -->
       <section id="timeline" class="mt-5">
         <h2 class="mb-4"><i class="bi bi-calendar"></i> Deployment Timeline</h2>
-        <!-- New Timeline Container -->
         <div id="timeline-container" class="mt-3"></div>
       </section>
 
@@ -576,78 +531,37 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      function addTimelineStyles() {
-        const styleEl = document.createElement("style");
-        styleEl.innerHTML = `
-.timeline-month {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.timeline-month h3 {
-  margin: 0;
-  padding: 10px 15px;
-  font-size: 1.2rem;
-}
-
-.date-header {
-  font-size: 1rem;
-}
-
-.list-group-item.event-initial_deployment {
-  background-color: rgba(40, 167, 69, 0.05);
-}
-
-.list-group-item.event-update_deployment {
-  background-color: rgba(0, 123, 255, 0.05);
-}
-
-.list-group-item.event-previous_deployment {
-  background-color: rgba(108, 117, 125, 0.05);
-}
-
-.list-group-item.event-deployment {
-  background-color: rgba(40, 167, 69, 0.05);
-}
-`;
-
-        document.head.appendChild(styleEl);
-      }
-
-      // Main initialization function
+      // Main initialization
       document.addEventListener("DOMContentLoaded", () => {
-        addTimelineStyles();
         initDashboard();
       });
 
-      // Initialize the dashboard
+      /**
+       * Initialize the dashboard by loading data and creating components
+       */
       async function initDashboard() {
         try {
           // Fetch device status data
           const response = await fetch("data/device-status.json");
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
           const dashboardData = await response.json();
 
           // Update header information
-          document.getElementById("latest-version").textContent =
-            dashboardData.latest_version;
-          document.getElementById("repo-name").textContent =
-            dashboardData.repo_name;
-          document.getElementById("last-commit-date").textContent =
-            dashboardData.last_commit_date;
-          document.getElementById("last-updated").textContent = formatDate(
-            dashboardData.last_updated
-          );
+          document.getElementById("latest-version").textContent = dashboardData.latest_version;
+          document.getElementById("repo-name").textContent = dashboardData.repo_name;
+          document.getElementById("last-commit-date").textContent = dashboardData.last_commit_date;
+          document.getElementById("last-updated").textContent = formatDate(dashboardData.last_updated);
 
-          // Status counters for chart
+          // Process devices and count statuses for chart
           let statusCounts = {
             "Up to date": 0,
             "Patch available": 0,
             "Needs update": 0,
-            Unknown: 0,
+            "Unknown": 0,
           };
 
-          // Process devices to count statuses
           dashboardData.devices.forEach((device) => {
             // Calculate status
             const calculatedStatus = getUpdateStatus(
@@ -664,62 +578,52 @@
             device.calculatedStatus = calculatedStatus;
           });
 
-          // Create version history section
+          // Initialize all dashboard components
           createVersionHistory(dashboardData.version_changes);
-
-          // Create component filters
           createComponentFilters(dashboardData.devices);
-
-          // Create device list (new)
           renderDeviceList(dashboardData.devices, "date");
-
-          // Create original card view
-          createDeviceCards(
-            dashboardData.devices,
-            dashboardData.latest_version
-          );
-
-          // Create timeline (new)
+          createDeviceCards(dashboardData.devices, dashboardData.latest_version);
+          
+          // Create timeline based on available data
           if (dashboardData.timeline_events) {
             renderTimeline(dashboardData.timeline_events);
           } else {
-            // Use old timeline if timeline_events not available
             createOriginalTimeline(dashboardData.devices);
           }
 
-          // Create status chart
           createStatusChart(statusCounts);
-
-          // Set up event listeners
           setupEventListeners(dashboardData);
         } catch (error) {
           console.error("Error initializing dashboard:", error);
           document.getElementById("device-cards").innerHTML = `
             <div class="col-12 text-center py-5">
-              <div class="alert alert-danger">
-                <i class="bi bi-exclamation-triangle"></i> Error loading device status data.
-                Please check if data/device-status.json exists.
+              <div class="alert alert-warning">
+                <h4><i class="bi bi-exclamation-triangle"></i> Error Loading Data</h4>
+                <p>Unable to load device-status.json: ${error.message}</p>
+                <p>If running locally, please use a web server:</p>
+                <ul class="text-start">
+                  <li>Python: <code>python -m http.server</code></li>
+                  <li>Node.js: <code>npx http-server</code></li>
+                </ul>
               </div>
             </div>
           `;
         }
       }
 
-      // Format date for display
+      /**
+       * Format a date string for display
+       */
       function formatDate(dateStr) {
-        if (!dateStr || dateStr === "Never" || dateStr === "N/A")
-          return dateStr;
+        if (!dateStr || dateStr === "Never" || dateStr === "N/A") return dateStr;
         const date = new Date(dateStr);
         return date.toLocaleDateString() + " " + date.toLocaleTimeString();
       }
 
-      // Function to check device update status based on version comparison
-      function getUpdateStatus(
-        deviceVersion,
-        latestVersion,
-        deviceComponents,
-        updateReason
-      ) {
+      /**
+       * Determine if a device needs an update based on semantic versioning
+       */
+      function getUpdateStatus(deviceVersion, latestVersion, deviceComponents, updateReason) {
         // If no device version is available, it needs an update
         if (!deviceVersion) return "Unknown";
 
@@ -753,33 +657,28 @@
           deviceVer.minor === latestVer.minor &&
           deviceVer.patch < latestVer.patch
         ) {
-          // For patch version, always show "Patch available"
-          // This is a patch-level update, which should be indicated regardless of component
-          return "Patch available";
+          return "Patch available"; // Patch-level update available
         } else {
           return "Up to date"; // Completely up to date
         }
       }
 
-      // Generate component tags HTML
+      /**
+       * Generate HTML for component tags
+       */
       function generateComponentTags(components) {
-        if (
-          !components ||
-          !Array.isArray(components) ||
-          components.length === 0
-        ) {
+        if (!components || !Array.isArray(components) || components.length === 0) {
           return '<span class="text-muted">None specified</span>';
         }
 
         return components
-          .map(
-            (component) =>
-              `<span class="component-tag ${component.toLowerCase()}">${component}</span>`
-          )
+          .map(component => `<span class="component-tag ${component.toLowerCase()}">${component}</span>`)
           .join("");
       }
 
-      // Create version history section
+      /**
+       * Create the version history section
+       */
       function createVersionHistory(versionChanges) {
         if (!versionChanges || !Array.isArray(versionChanges)) return;
 
@@ -813,9 +712,7 @@
         if (versionChanges.length > 9) {
           const showMoreBtn = document.createElement("button");
           showMoreBtn.className = "btn btn-sm btn-outline-primary mt-2";
-          showMoreBtn.textContent = `Show ${
-            versionChanges.length - 9
-          } more versions`;
+          showMoreBtn.textContent = `Show ${versionChanges.length - 9} more versions`;
           showMoreBtn.onclick = function () {
             createFullVersionHistory(versionChanges);
             this.style.display = "none";
@@ -825,17 +722,15 @@
         }
 
         if (versionChanges.length === 0) {
-          container.innerHTML =
-            '<div class="text-center py-3">No version history available</div>';
+          container.innerHTML = '<div class="text-center py-3">No version history available</div>';
         }
       }
 
-      // Show all version history when "Show more" is clicked
+      /**
+       * Show all version history when "Show more" is clicked
+       */
       function createFullVersionHistory(versionChanges) {
         const container = document.getElementById("version-changes-list");
-
-        // Keep the first 9 items that are already displayed
-        const existingItems = container.querySelectorAll(".version-item");
         const showMoreBtn = container.querySelector("button");
 
         if (showMoreBtn) {
@@ -865,7 +760,9 @@
         }
       }
 
-      // Create component filters
+      /**
+       * Create component filter badges
+       */
       function createComponentFilters(devices) {
         const componentsSet = new Set();
 
@@ -901,25 +798,15 @@
               this.classList.add("active");
 
               // Dim other filters
-              document
-                .querySelectorAll(".component-filter:not(.active)")
-                .forEach((b) => {
-                  b.style.opacity = "0.5";
-                });
+              document.querySelectorAll(".component-filter:not(.active)").forEach((b) => {
+                b.style.opacity = "0.5";
+              });
 
               // Filter devices
               filterDevicesByComponent(comp.toLowerCase());
             } else {
               // Show all devices
-              const deviceItems = document.querySelectorAll(".device-item");
-              deviceItems.forEach((item) => {
-                item.style.display = "block";
-              });
-
-              // Show all devices in list view too
-              document.querySelectorAll(".device-list-item").forEach((item) => {
-                item.style.display = "";
-              });
+              showAllDevices();
             }
           });
 
@@ -927,49 +814,47 @@
         });
 
         if (componentsList.length === 0) {
-          filterContainer.innerHTML =
-            '<div class="text-muted">No components defined</div>';
+          filterContainer.innerHTML = '<div class="text-muted">No components defined</div>';
         }
       }
 
-      // Sort function mapping
-      const sortFunctions = {
-        // Sort by deployment date (newest first)
-        date: (a, b) => {
-          if (!a.last_deployed) return 1;
-          if (!b.last_deployed) return -1;
-          return new Date(b.last_deployed) - new Date(a.last_deployed);
-        },
-
-        // Sort by name (alphabetical)
-        name: (a, b) => a.name.localeCompare(b.name),
-
-        // Sort by status (priority order)
-        status: (a, b) => {
-          const statusPriority = {
-            "Needs update": 0,
-            "Patch available": 1,
-            "Up to date": 2,
-            "Never deployed": 3,
-            Unknown: 4,
-          };
-          const statusA = a.calculatedStatus || a.status;
-          const statusB = b.calculatedStatus || b.status;
-          return statusPriority[statusA] - statusPriority[statusB];
-        },
-
-        // Sort by location
-        location: (a, b) => {
-          if (!a.location) return 1;
-          if (!b.location) return -1;
-          return a.location.localeCompare(b.location);
-        },
-      };
-
-      // Render the device list with sorting
+      /**
+       * Render the device list with sorting
+       */
       function renderDeviceList(devices, sortBy = "date") {
         const container = document.getElementById("device-list");
         if (!container) return;
+
+        // Sort functions for different sort types
+        const sortFunctions = {
+          // Sort by deployment date (newest first)
+          date: (a, b) => {
+            if (!a.last_deployed) return 1;
+            if (!b.last_deployed) return -1;
+            return new Date(b.last_deployed) - new Date(a.last_deployed);
+          },
+          // Sort by name (alphabetical)
+          name: (a, b) => a.name.localeCompare(b.name),
+          // Sort by status (priority order)
+          status: (a, b) => {
+            const statusPriority = {
+              "Needs update": 0,
+              "Patch available": 1,
+              "Up to date": 2,
+              "Never deployed": 3,
+              "Unknown": 4,
+            };
+            const statusA = a.calculatedStatus || a.status;
+            const statusB = b.calculatedStatus || b.status;
+            return statusPriority[statusA] - statusPriority[statusB];
+          },
+          // Sort by location
+          location: (a, b) => {
+            if (!a.location) return 1;
+            if (!b.location) return -1;
+            return a.location.localeCompare(b.location);
+          },
+        };
 
         // Clone and sort the devices array
         const sortedDevices = [...devices].sort(sortFunctions[sortBy]);
@@ -1006,15 +891,11 @@
             row.classList.add("up-to-date");
           }
 
-          const date = device.last_deployed
-            ? new Date(device.last_deployed).toLocaleDateString()
-            : "Never";
+          const date = device.last_deployed ? new Date(device.last_deployed).toLocaleDateString() : "Never";
 
           row.innerHTML = `
             <div class="col-md-3">${device.name}</div>
-            <div class="col-md-2">${
-              device.version || device.template_version || "-"
-            }</div>
+            <div class="col-md-2">${device.version || device.template_version || "-"}</div>
             <div class="col-md-2">${status}</div>
             <div class="col-md-3">${device.location || "-"}</div>
             <div class="col-md-2">${date}</div>
@@ -1030,7 +911,9 @@
         document.getElementById(`sort-by-${sortBy}`).classList.add("active");
       }
 
-      // Create device cards (original function)
+      /**
+       * Create device cards
+       */
       function createDeviceCards(devices, latestVersion) {
         const deviceCardsContainer = document.getElementById("device-cards");
         deviceCardsContainer.innerHTML = ""; // Clear loading spinner
@@ -1054,8 +937,7 @@
 
           let statusClass = "";
           if (status === "Up to date") statusClass = "up-to-date";
-          else if (status === "Patch available")
-            statusClass = "patch-available";
+          else if (status === "Patch available") statusClass = "patch-available";
           else if (status === "Needs update") statusClass = "needs-update";
           else statusClass = "unknown";
 
@@ -1070,9 +952,7 @@
               <div class="card-body">
                 <div class="mb-3">
                   <small class="text-muted">Template Version:</small>
-                  <div><span class="version-tag">${
-                    device.template_version || device.version || "Unknown"
-                  }</span></div>
+                  <div><span class="version-tag">${device.template_version || device.version || "Unknown"}</span></div>
                 </div>
                 <div class="mb-3">
                   <small class="text-muted">Components:</small>
@@ -1106,7 +986,9 @@
         });
       }
 
-      // Create status chart
+      /**
+       * Create the status chart
+       */
       function createStatusChart(statusCounts) {
         const ctx = document.getElementById("status-chart").getContext("2d");
         new Chart(ctx, {
@@ -1143,16 +1025,15 @@
         });
       }
 
-      // Create original timeline (for backward compatibility)
+      /**
+       * Original timeline (for backward compatibility)
+       */
       function createOriginalTimeline(devices) {
         const timeline = document.querySelector(".timeline");
         if (timeline) {
           // Get deployments with actual dates
           const deployments = devices
-            .filter(
-              (device) =>
-                device.last_deployed && device.last_deployed !== "Never"
-            )
+            .filter((device) => device.last_deployed && device.last_deployed !== "Never")
             .map((device) => ({
               device: device.name,
               date: device.last_deployed,
@@ -1168,25 +1049,17 @@
           deployments.forEach((deployment, index) => {
             const isLeft = index % 2 === 0;
             const container = document.createElement("div");
-            container.className = `timeline-container ${
-              isLeft ? "left" : "right"
-            }`;
+            container.className = `timeline-container ${isLeft ? "left" : "right"}`;
 
             container.innerHTML = `
               <div class="timeline-content">
                 <h5>${deployment.device}</h5>
                 <p class="timeline-date">${deployment.date}</p>
-                <p>Deployed version <span class="version-tag">${
-                  deployment.version || "Unknown"
-                }</span></p>
-                ${
-                  deployment.components
-                    ? `
+                <p>Deployed version <span class="version-tag">${deployment.version || "Unknown"}</span></p>
+                ${deployment.components ? `
                 <div class="mt-2">
                     ${generateComponentTags(deployment.components)}
-                </div>`
-                    : ""
-                }
+                </div>` : ""}
               </div>
             `;
 
@@ -1195,18 +1068,18 @@
 
           // If no deployments
           if (deployments.length === 0) {
-            timeline.innerHTML =
-              '<div class="text-center py-4">No deployment history available</div>';
+            timeline.innerHTML = '<div class="text-center py-4">No deployment history available</div>';
           }
         }
       }
 
-      // Render timeline of events
+      /**
+       * Enhanced timeline renderer
+       */
       function renderTimeline(events) {
         const timelineContainer = document.getElementById("timeline-container");
         if (!timelineContainer || !events || events.length === 0) {
-          timelineContainer.innerHTML =
-            '<div class="text-center py-4">No deployment history available</div>';
+          timelineContainer.innerHTML = '<div class="text-center py-4">No deployment history available</div>';
           return;
         }
 
@@ -1244,8 +1117,7 @@
             dateGroup.className = "date-group";
 
             const dateHeader = document.createElement("h5");
-            dateHeader.className =
-              "date-header bg-light p-2 m-0 border-top border-bottom";
+            dateHeader.className = "date-header bg-light p-2 m-0 border-top border-bottom";
             dateHeader.innerHTML = `<i class="bi bi-calendar-date"></i> ${date}`;
             dateGroup.appendChild(dateHeader);
 
@@ -1258,9 +1130,7 @@
 
               // Fix version display - Remove 'v' prefix if it already exists in the version
               const versionText = event.version || "";
-              const displayVersion = versionText.startsWith("v")
-                ? versionText
-                : `v${versionText}`;
+              const displayVersion = versionText.startsWith("v") ? versionText : `v${versionText}`;
 
               const deviceName = event.device_name || event.device;
               const location = event.location
@@ -1286,19 +1156,19 @@
               }
 
               eventItem.innerHTML = `
-          <div class="d-flex align-items-center">
-            <div class="me-3">
-              <i class="bi ${eventIcon} ${eventClass}" style="font-size: 1.5rem;"></i>
-            </div>
-            <div class="flex-grow-1">
-              <div class="fw-bold">${deviceName}</div>
-              <div>${event.description} 
-                <span class="badge bg-info">${displayVersion}</span>
-              </div>
-              <div class="mt-1">${location}</div>
-            </div>
-          </div>
-        `;
+                <div class="d-flex align-items-center">
+                  <div class="me-3">
+                    <i class="bi ${eventIcon} ${eventClass}" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="fw-bold">${deviceName}</div>
+                    <div>${event.description} 
+                      <span class="badge bg-info">${displayVersion}</span>
+                    </div>
+                    <div class="mt-1">${location}</div>
+                  </div>
+                </div>
+              `;
 
               dateEvents.appendChild(eventItem);
             });
@@ -1312,7 +1182,9 @@
         });
       }
 
-      // Group events by month/year
+      /**
+       * Group events by month/year
+       */
       function groupEventsByMonth(events) {
         const groups = {};
 
@@ -1343,6 +1215,9 @@
         return Object.values(groups).sort((a, b) => b.timestamp - a.timestamp);
       }
 
+      /**
+       * Reset filter badges to their original state
+       */
       function resetFilterBadges(greyOut = false) {
         const filterBadges = document.querySelectorAll(".filter-badge");
         filterBadges.forEach((b) => {
@@ -1362,116 +1237,90 @@
             }
 
             // Show all devices
-            const deviceItems = document.querySelectorAll(".device-item");
-            deviceItems.forEach((item) => {
-              item.style.display = "block";
-            });
-
-            // Show all devices in list view too
-            document.querySelectorAll(".device-list-item").forEach((item) => {
-              item.style.display = "";
-            });
+            showAllDevices();
           }
         });
       }
 
+      /**
+       * Show all devices in both card and list views
+       */
+      function showAllDevices() {
+        // Show all devices in card view
+        document.querySelectorAll(".device-item").forEach((item) => {
+          item.style.display = "block";
+        });
+        
+        // Show all devices in list view
+        document.querySelectorAll(".device-list-item").forEach((item) => {
+          item.style.display = "";
+        });
+      }
+
+      /**
+       * Filter devices by status class
+       */
       function filterDevicesByStatus(statusClass) {
         // Filter card view
-        const deviceItems = document.querySelectorAll(".device-item");
-        deviceItems.forEach((item) => {
-          if (item.dataset.status === statusClass) {
-            item.style.display = "block";
-          } else {
-            item.style.display = "none";
-          }
+        document.querySelectorAll(".device-item").forEach((item) => {
+          item.style.display = item.dataset.status === statusClass ? "block" : "none";
         });
 
         // Filter list view
-        const listItems = document.querySelectorAll(".device-list-item");
-        listItems.forEach((item) => {
-          if (item.classList.contains(statusClass)) {
-            item.style.display = "";
-          } else {
-            item.style.display = "none";
-          }
+        document.querySelectorAll(".device-list-item").forEach((item) => {
+          item.style.display = item.classList.contains(statusClass) ? "" : "none";
         });
       }
 
+      /**
+       * Filter devices by component
+       */
       function filterDevicesByComponent(component) {
         // Filter card view
         const deviceItems = document.querySelectorAll(".device-item");
         deviceItems.forEach((item) => {
-          if (item.dataset[component]) {
-            item.style.display = "block";
-          } else {
-            item.style.display = "none";
-          }
+          item.style.display = item.dataset[component] ? "block" : "none";
         });
 
         // Filter list view
-        const listItems = document.querySelectorAll(".device-list-item");
-        listItems.forEach((item) => {
-          // Use data attribute from parent card to determine if it has the component
+        document.querySelectorAll(".device-list-item").forEach((item) => {
           const deviceName = item.querySelector(".col-md-3").textContent;
           const matchingCard = Array.from(deviceItems).find((card) =>
             card.querySelector(".card-header").textContent.includes(deviceName)
           );
 
-          if (matchingCard && matchingCard.dataset[component]) {
-            item.style.display = "";
-          } else {
-            item.style.display = "none";
-          }
+          item.style.display = (matchingCard && matchingCard.dataset[component]) ? "" : "none";
         });
       }
 
+      /**
+       * Filter devices based on search term
+       */
       function filterDevices() {
-        const searchTerm = document
-          .getElementById("device-search")
-          .value.toLowerCase();
+        const searchTerm = document.getElementById("device-search").value.toLowerCase();
 
         // Filter card view
-        const deviceItems = document.querySelectorAll(".device-item");
-        deviceItems.forEach((item) => {
-          const deviceName = item
-            .querySelector(".card-header")
-            .textContent.toLowerCase();
-          const deviceLocation = item
-            .querySelector(".card-body")
-            .textContent.toLowerCase();
-
-          if (
-            deviceName.includes(searchTerm) ||
-            deviceLocation.includes(searchTerm)
-          ) {
-            item.style.display = "block";
-          } else {
-            item.style.display = "none";
-          }
+        document.querySelectorAll(".device-item").forEach((item) => {
+          const deviceText = item.textContent.toLowerCase();
+          item.style.display = deviceText.includes(searchTerm) ? "block" : "none";
         });
 
         // Filter list view
-        const listItems = document.querySelectorAll(".device-list-item");
-        listItems.forEach((item) => {
+        document.querySelectorAll(".device-list-item").forEach((item) => {
           const text = item.textContent.toLowerCase();
-
-          if (text.includes(searchTerm)) {
-            item.style.display = "";
-          } else {
-            item.style.display = "none";
-          }
+          item.style.display = text.includes(searchTerm) ? "" : "none";
         });
       }
 
-      // Set up all event listeners
+      /**
+       * Set up all event listeners
+       */
       function setupEventListeners(data) {
         // Set up search functionality
-        const searchInput = document.getElementById("device-search");
-        searchInput.addEventListener("input", filterDevices);
+        document.getElementById("device-search").addEventListener("input", filterDevices);
 
         // Set up filter badges
-        const filterBadges = document.querySelectorAll(".filter-badge");
-        filterBadges.forEach((badge) => {
+        document.querySelectorAll(".filter-badge").forEach((badge) => {
           badge.addEventListener("click", () => {
             if (badge.classList.contains("bg-secondary")) {
               // Reset the badge to its original color
@@ -1503,48 +1352,36 @@
         });
 
         // Set up view toggle buttons
-        document
-          .getElementById("card-view-btn")
-          .addEventListener("click", () => {
-            document.getElementById("device-cards").style.display = "flex";
-            document.getElementById("device-list").style.display = "none";
-            document.getElementById("card-view-btn").classList.add("active");
-            document.getElementById("list-view-btn").classList.remove("active");
-          });
+        document.getElementById("card-view-btn").addEventListener("click", () => {
+          document.getElementById("device-cards").style.display = "flex";
+          document.getElementById("device-list").style.display = "none";
+          document.getElementById("card-view-btn").classList.add("active");
+          document.getElementById("list-view-btn").classList.remove("active");
+        });
 
-        document
-          .getElementById("list-view-btn")
-          .addEventListener("click", () => {
-            document.getElementById("device-cards").style.display = "none";
-            document.getElementById("device-list").style.display = "block";
-            document.getElementById("card-view-btn").classList.remove("active");
-            document.getElementById("list-view-btn").classList.add("active");
-          });
+        document.getElementById("list-view-btn").addEventListener("click", () => {
+          document.getElementById("device-cards").style.display = "none";
+          document.getElementById("device-list").style.display = "block";
+          document.getElementById("card-view-btn").classList.remove("active");
+          document.getElementById("list-view-btn").classList.add("active");
+        });
 
         // Set up sort buttons
-        document
-          .getElementById("sort-by-date")
-          .addEventListener("click", () => {
-            renderDeviceList(data.devices, "date");
-          });
+        document.getElementById("sort-by-date").addEventListener("click", () => {
+          renderDeviceList(data.devices, "date");
+        });
 
-        document
-          .getElementById("sort-by-name")
-          .addEventListener("click", () => {
-            renderDeviceList(data.devices, "name");
-          });
+        document.getElementById("sort-by-name").addEventListener("click", () => {
+          renderDeviceList(data.devices, "name");
+        });
 
-        document
-          .getElementById("sort-by-status")
-          .addEventListener("click", () => {
-            renderDeviceList(data.devices, "status");
-          });
+        document.getElementById("sort-by-status").addEventListener("click", () => {
+          renderDeviceList(data.devices, "status");
+        });
 
-        document
-          .getElementById("sort-by-location")
-          .addEventListener("click", () => {
-            renderDeviceList(data.devices, "location");
-          });
+        document.getElementById("sort-by-location").addEventListener("click", () => {
+          renderDeviceList(data.devices, "location");
+        });
       }
     </script>
   </body>
