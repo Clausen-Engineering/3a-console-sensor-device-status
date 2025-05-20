@@ -1,16 +1,16 @@
 {
   "latest_version": "v2.2.1",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-20 10:56:18",
-  "last_updated": "2025-05-20 09:00:39",
+  "last_commit_date": "2025-05-20 11:01:11",
+  "last_updated": "2025-05-20 09:01:22",
   "version_changes": [
     {
       "version": "v2.2.1",
       "date": "2025-05-20",
       "components": [
-        "onewire"
+        "core"
       ],
-      "description": "Added onewire bus scan upon initialization for easier debugging"
+      "description": "Version bump: patch"
     },
     {
       "version": "v2.2.0",
@@ -170,10 +170,19 @@
       "device": "water-system-temperatures",
       "device_name": "Water System Temperatures",
       "date": "2025-05-16",
-      "version": "v2.1.7",
+      "version": "v2.2.1",
       "location": "Technician room - Box left of door",
-      "event_type": "deployment",
-      "description": "Device deployed"
+      "event_type": "previous_deployment",
+      "description": "Previous deployment"
+    },
+    {
+      "device": "water-system-temperatures",
+      "device_name": "Water System Temperatures",
+      "date": "2025-05-16",
+      "version": "v2.2.1",
+      "location": "Technician room - Box left of door",
+      "event_type": "update_deployment",
+      "description": "Device updated (production)"
     },
     {
       "device": "water-heater-power-consumption",
@@ -320,16 +329,15 @@
     },
     {
       "name": "water-system-temperatures",
-      "version": "v2.1.7",
+      "version": "v2.2.1",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Needs update",
+      "status": "Up to date",
       "location": "Technician room - Box left of door",
-      "last_deployed": "2025-05-16",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "2025-05-16"
     }
   ]
 }
