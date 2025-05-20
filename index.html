@@ -506,23 +506,50 @@
 
         <!-- View Toggle Buttons -->
         <div class="view-toggle btn-group mb-3" role="group">
-          <button id="card-view-btn" class="btn btn-sm btn-outline-primary active">Card View</button>
-          <button id="list-view-btn" class="btn btn-sm btn-outline-primary">List View</button>
+          <button
+            id="card-view-btn"
+            class="btn btn-sm btn-outline-primary active"
+          >
+            Card View
+          </button>
+          <button id="list-view-btn" class="btn btn-sm btn-outline-primary">
+            List View
+          </button>
         </div>
 
         <!-- Device Sorting Controls (new) -->
         <div class="sorting-controls mb-3">
           <label>Sort devices by: </label>
           <div class="btn-group" role="group">
-            <button id="sort-by-date" class="btn btn-sm btn-outline-primary sort-btn active">Date Updated</button>
-            <button id="sort-by-name" class="btn btn-sm btn-outline-primary sort-btn">Name</button>
-            <button id="sort-by-status" class="btn btn-sm btn-outline-primary sort-btn">Status</button>
-            <button id="sort-by-location" class="btn btn-sm btn-outline-primary sort-btn">Location</button>
+            <button
+              id="sort-by-date"
+              class="btn btn-sm btn-outline-primary sort-btn active"
+            >
+              Date Updated
+            </button>
+            <button
+              id="sort-by-name"
+              class="btn btn-sm btn-outline-primary sort-btn"
+            >
+              Name
+            </button>
+            <button
+              id="sort-by-status"
+              class="btn btn-sm btn-outline-primary sort-btn"
+            >
+              Status
+            </button>
+            <button
+              id="sort-by-location"
+              class="btn btn-sm btn-outline-primary sort-btn"
+            >
+              Location
+            </button>
           </div>
         </div>
 
         <!-- Device List Container (new) -->
-        <div id="device-list" class="mb-5" style="display: none;"></div>
+        <div id="device-list" class="mb-5" style="display: none"></div>
 
         <!-- Original Device Cards Container -->
         <div class="row" id="device-cards">
@@ -549,8 +576,48 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+      function addTimelineStyles() {
+        const styleEl = document.createElement("style");
+        styleEl.innerHTML = `
+.timeline-month {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.timeline-month h3 {
+  margin: 0;
+  padding: 10px 15px;
+  font-size: 1.2rem;
+}
+
+.date-header {
+  font-size: 1rem;
+}
+
+.list-group-item.event-initial_deployment {
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+.list-group-item.event-update_deployment {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.list-group-item.event-previous_deployment {
+  background-color: rgba(108, 117, 125, 0.05);
+}
+
+.list-group-item.event-deployment {
+  background-color: rgba(40, 167, 69, 0.05);
+}
+`;
+
+        document.head.appendChild(styleEl);
+      }
+
       // Main initialization function
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
+        addTimelineStyles();
         initDashboard();
       });
 
@@ -558,25 +625,30 @@
       async function initDashboard() {
         try {
           // Fetch device status data
-          const response = await fetch('data/device-status.json');
+          const response = await fetch("data/device-status.json");
           const dashboardData = await response.json();
-          
+
           // Update header information
-          document.getElementById("latest-version").textContent = dashboardData.latest_version;
-          document.getElementById("repo-name").textContent = dashboardData.repo_name;
-          document.getElementById("last-commit-date").textContent = dashboardData.last_commit_date;
-          document.getElementById("last-updated").textContent = formatDate(dashboardData.last_updated);
-          
+          document.getElementById("latest-version").textContent =
+            dashboardData.latest_version;
+          document.getElementById("repo-name").textContent =
+            dashboardData.repo_name;
+          document.getElementById("last-commit-date").textContent =
+            dashboardData.last_commit_date;
+          document.getElementById("last-updated").textContent = formatDate(
+            dashboardData.last_updated
+          );
+
           // Status counters for chart
           let statusCounts = {
             "Up to date": 0,
             "Patch available": 0,
             "Needs update": 0,
-            "Unknown": 0
+            Unknown: 0,
           };
-          
+
           // Process devices to count statuses
-          dashboardData.devices.forEach(device => {
+          dashboardData.devices.forEach((device) => {
             // Calculate status
             const calculatedStatus = getUpdateStatus(
               device.version,
@@ -584,26 +656,29 @@
               device.components,
               device.updateReason
             );
-            
+
             // Count statuses for chart
             statusCounts[calculatedStatus]++;
-            
+
             // Add calculated status to device
             device.calculatedStatus = calculatedStatus;
           });
-          
+
           // Create version history section
           createVersionHistory(dashboardData.version_changes);
-          
+
           // Create component filters
           createComponentFilters(dashboardData.devices);
-          
+
           // Create device list (new)
-          renderDeviceList(dashboardData.devices, 'date');
-          
+          renderDeviceList(dashboardData.devices, "date");
+
           // Create original card view
-          createDeviceCards(dashboardData.devices, dashboardData.latest_version);
-          
+          createDeviceCards(
+            dashboardData.devices,
+            dashboardData.latest_version
+          );
+
           // Create timeline (new)
           if (dashboardData.timeline_events) {
             renderTimeline(dashboardData.timeline_events);
@@ -611,16 +686,15 @@
             // Use old timeline if timeline_events not available
             createOriginalTimeline(dashboardData.devices);
           }
-          
+
           // Create status chart
           createStatusChart(statusCounts);
-          
+
           // Set up event listeners
           setupEventListeners(dashboardData);
-          
         } catch (error) {
-          console.error('Error initializing dashboard:', error);
-          document.getElementById('device-cards').innerHTML = `
+          console.error("Error initializing dashboard:", error);
+          document.getElementById("device-cards").innerHTML = `
             <div class="col-12 text-center py-5">
               <div class="alert alert-danger">
                 <i class="bi bi-exclamation-triangle"></i> Error loading device status data.
@@ -630,10 +704,11 @@
           `;
         }
       }
-      
+
       // Format date for display
       function formatDate(dateStr) {
-        if (!dateStr || dateStr === "Never" || dateStr === "N/A") return dateStr;
+        if (!dateStr || dateStr === "Never" || dateStr === "N/A")
+          return dateStr;
         const date = new Date(dateStr);
         return date.toLocaleDateString() + " " + date.toLocaleTimeString();
       }
@@ -840,9 +915,9 @@
               deviceItems.forEach((item) => {
                 item.style.display = "block";
               });
-              
+
               // Show all devices in list view too
-              document.querySelectorAll(".device-list-item").forEach(item => {
+              document.querySelectorAll(".device-list-item").forEach((item) => {
                 item.style.display = "";
               });
             }
@@ -865,10 +940,10 @@
           if (!b.last_deployed) return -1;
           return new Date(b.last_deployed) - new Date(a.last_deployed);
         },
-        
+
         // Sort by name (alphabetical)
         name: (a, b) => a.name.localeCompare(b.name),
-        
+
         // Sort by status (priority order)
         status: (a, b) => {
           const statusPriority = {
@@ -876,35 +951,35 @@
             "Patch available": 1,
             "Up to date": 2,
             "Never deployed": 3,
-            "Unknown": 4
+            Unknown: 4,
           };
           const statusA = a.calculatedStatus || a.status;
           const statusB = b.calculatedStatus || b.status;
           return statusPriority[statusA] - statusPriority[statusB];
         },
-        
+
         // Sort by location
         location: (a, b) => {
           if (!a.location) return 1;
           if (!b.location) return -1;
           return a.location.localeCompare(b.location);
-        }
+        },
       };
 
       // Render the device list with sorting
-      function renderDeviceList(devices, sortBy = 'date') {
-        const container = document.getElementById('device-list');
+      function renderDeviceList(devices, sortBy = "date") {
+        const container = document.getElementById("device-list");
         if (!container) return;
-        
+
         // Clone and sort the devices array
         const sortedDevices = [...devices].sort(sortFunctions[sortBy]);
-        
+
         // Clear the container
-        container.innerHTML = '';
-        
+        container.innerHTML = "";
+
         // Add header row
-        const headerRow = document.createElement('div');
-        headerRow.className = 'device-list-header row';
+        const headerRow = document.createElement("div");
+        headerRow.className = "device-list-header row";
         headerRow.innerHTML = `
           <div class="col-md-3 fw-bold">Device Name</div>
           <div class="col-md-2 fw-bold">Version</div>
@@ -913,54 +988,58 @@
           <div class="col-md-2 fw-bold">Last Updated</div>
         `;
         container.appendChild(headerRow);
-        
+
         // Add device rows
-        sortedDevices.forEach(device => {
-          const row = document.createElement('div');
-          row.className = 'device-list-item row';
-          
+        sortedDevices.forEach((device) => {
+          const row = document.createElement("div");
+          row.className = "device-list-item row";
+
           // Calculate status if not already set
           const status = device.calculatedStatus || device.status || "Unknown";
-          
+
           // Add status-based class
-          if (status === 'Needs update') {
-            row.classList.add('needs-update');
-          } else if (status === 'Patch available') {
-            row.classList.add('patch-available');
-          } else if (status === 'Up to date') {
-            row.classList.add('up-to-date');
+          if (status === "Needs update") {
+            row.classList.add("needs-update");
+          } else if (status === "Patch available") {
+            row.classList.add("patch-available");
+          } else if (status === "Up to date") {
+            row.classList.add("up-to-date");
           }
-          
-          const date = device.last_deployed ? new Date(device.last_deployed).toLocaleDateString() : 'Never';
-          
+
+          const date = device.last_deployed
+            ? new Date(device.last_deployed).toLocaleDateString()
+            : "Never";
+
           row.innerHTML = `
             <div class="col-md-3">${device.name}</div>
-            <div class="col-md-2">${device.version || device.template_version || '-'}</div>
+            <div class="col-md-2">${
+              device.version || device.template_version || "-"
+            }</div>
             <div class="col-md-2">${status}</div>
-            <div class="col-md-3">${device.location || '-'}</div>
+            <div class="col-md-3">${device.location || "-"}</div>
             <div class="col-md-2">${date}</div>
           `;
-          
+
           container.appendChild(row);
         });
-        
+
         // Update active sort button
-        document.querySelectorAll('.sort-btn').forEach(btn => {
-          btn.classList.remove('active');
+        document.querySelectorAll(".sort-btn").forEach((btn) => {
+          btn.classList.remove("active");
         });
-        document.getElementById(`sort-by-${sortBy}`).classList.add('active');
+        document.getElementById(`sort-by-${sortBy}`).classList.add("active");
       }
 
       // Create device cards (original function)
       function createDeviceCards(devices, latestVersion) {
         const deviceCardsContainer = document.getElementById("device-cards");
         deviceCardsContainer.innerHTML = ""; // Clear loading spinner
-        
+
         // Create device cards
         devices.forEach((device) => {
           // Get status (either from calculated status or from device.status)
           const status = device.calculatedStatus || device.status || "Unknown";
-          
+
           // Create card
           const col = document.createElement("div");
           col.className = "col-md-6 col-lg-4 device-item";
@@ -977,8 +1056,7 @@
           if (status === "Up to date") statusClass = "up-to-date";
           else if (status === "Patch available")
             statusClass = "patch-available";
-          else if (status === "Needs update")
-            statusClass = "needs-update";
+          else if (status === "Needs update") statusClass = "needs-update";
           else statusClass = "unknown";
 
           let cardHtml = `
@@ -1017,9 +1095,7 @@
                 </div>
                 <div>
                   <small class="text-muted">Last Deployed:</small>
-                  <div><strong>${
-                    device.last_deployed || "Never"
-                  }</strong></div>
+                  <div><strong>${device.last_deployed || "Never"}</strong></div>
                 </div>
               </div>
             </div>
@@ -1074,7 +1150,8 @@
           // Get deployments with actual dates
           const deployments = devices
             .filter(
-              (device) => device.last_deployed && device.last_deployed !== "Never"
+              (device) =>
+                device.last_deployed && device.last_deployed !== "Never"
             )
             .map((device) => ({
               device: device.name,
@@ -1124,49 +1201,112 @@
         }
       }
 
-      // Render timeline of events (new function)
+      // Render timeline of events
       function renderTimeline(events) {
-        const timelineContainer = document.getElementById('timeline-container');
+        const timelineContainer = document.getElementById("timeline-container");
         if (!timelineContainer || !events || events.length === 0) {
-          timelineContainer.innerHTML = '<div class="text-center py-4">No deployment history available</div>';
+          timelineContainer.innerHTML =
+            '<div class="text-center py-4">No deployment history available</div>';
           return;
         }
-        
-        timelineContainer.innerHTML = '';
-        
+
+        timelineContainer.innerHTML = "";
+
         // Group events by month/year for a cleaner timeline
         const groupedEvents = groupEventsByMonth(events);
-        
+
         // Create timeline elements
-        groupedEvents.forEach(group => {
-          const monthSection = document.createElement('div');
-          monthSection.className = 'timeline-month';
-          
-          const monthHeader = document.createElement('h3');
-          monthHeader.textContent = group.month;
+        groupedEvents.forEach((group) => {
+          const monthSection = document.createElement("div");
+          monthSection.className = "timeline-month card mb-4";
+
+          const monthHeader = document.createElement("h3");
+          monthHeader.className = "card-header bg-primary text-white";
+          monthHeader.innerHTML = `<i class="bi bi-calendar-month"></i> ${group.month}`;
           monthSection.appendChild(monthHeader);
-          
-          const eventsList = document.createElement('ul');
-          eventsList.className = 'timeline-events';
-          
-          group.events.forEach(event => {
-            const eventItem = document.createElement('li');
-            eventItem.className = `timeline-event event-${event.event_type}`;
-            
+
+          const eventsList = document.createElement("div");
+          eventsList.className = "timeline-events card-body p-0";
+
+          // Group by date
+          const eventsByDate = {};
+          group.events.forEach((event) => {
             const date = new Date(event.date).toLocaleDateString();
-            const deviceName = event.device_name || event.device;
-            const location = event.location ? ` at ${event.location}` : '';
-            const version = event.version ? ` (v${event.version})` : '';
-            
-            eventItem.innerHTML = `
-              <span class="event-date">${date}</span>
-              <span class="event-device">${deviceName}</span>
-              <span class="event-description">${event.description}${location}${version}</span>
-            `;
-            
-            eventsList.appendChild(eventItem);
+            if (!eventsByDate[date]) {
+              eventsByDate[date] = [];
+            }
+            eventsByDate[date].push(event);
           });
-          
+
+          // Create date groups
+          Object.keys(eventsByDate).forEach((date) => {
+            const dateGroup = document.createElement("div");
+            dateGroup.className = "date-group";
+
+            const dateHeader = document.createElement("h5");
+            dateHeader.className =
+              "date-header bg-light p-2 m-0 border-top border-bottom";
+            dateHeader.innerHTML = `<i class="bi bi-calendar-date"></i> ${date}`;
+            dateGroup.appendChild(dateHeader);
+
+            const dateEvents = document.createElement("ul");
+            dateEvents.className = "list-group list-group-flush";
+
+            eventsByDate[date].forEach((event) => {
+              const eventItem = document.createElement("li");
+              eventItem.className = `list-group-item event-${event.event_type} border-0`;
+
+              // Fix version display - Remove 'v' prefix if it already exists in the version
+              const versionText = event.version || "";
+              const displayVersion = versionText.startsWith("v")
+                ? versionText
+                : `v${versionText}`;
+
+              const deviceName = event.device_name || event.device;
+              const location = event.location
+                ? `<span class="text-muted"><i class="bi bi-geo-alt"></i> ${event.location}</span>`
+                : "";
+
+              // Use different styles based on event type
+              let eventIcon = "bi-arrow-repeat";
+              let eventClass = "text-primary";
+
+              if (event.event_type === "initial_deployment") {
+                eventIcon = "bi-plus-circle";
+                eventClass = "text-success";
+              } else if (event.event_type === "update_deployment") {
+                eventIcon = "bi-arrow-up-circle";
+                eventClass = "text-primary";
+              } else if (event.event_type === "previous_deployment") {
+                eventIcon = "bi-clock-history";
+                eventClass = "text-secondary";
+              } else if (event.event_type === "deployment") {
+                eventIcon = "bi-check-circle";
+                eventClass = "text-success";
+              }
+
+              eventItem.innerHTML = `
+          <div class="d-flex align-items-center">
+            <div class="me-3">
+              <i class="bi ${eventIcon} ${eventClass}" style="font-size: 1.5rem;"></i>
+            </div>
+            <div class="flex-grow-1">
+              <div class="fw-bold">${deviceName}</div>
+              <div>${event.description} 
+                <span class="badge bg-info">${displayVersion}</span>
+              </div>
+              <div class="mt-1">${location}</div>
+            </div>
+          </div>
+        `;
+
+              dateEvents.appendChild(eventItem);
+            });
+
+            dateGroup.appendChild(dateEvents);
+            eventsList.appendChild(dateGroup);
+          });
+
           monthSection.appendChild(eventsList);
           timelineContainer.appendChild(monthSection);
         });
@@ -1175,27 +1315,30 @@
       // Group events by month/year
       function groupEventsByMonth(events) {
         const groups = {};
-        
-        events.forEach(event => {
+
+        events.forEach((event) => {
           const date = new Date(event.date);
-          const monthYear = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-          
+          const monthYear = date.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric",
+          });
+
           if (!groups[monthYear]) {
             groups[monthYear] = {
               month: monthYear,
               timestamp: date.getTime(), // For sorting
-              events: []
+              events: [],
             };
           }
-          
+
           groups[monthYear].events.push(event);
         });
-        
+
         // Sort events within each group by date (newest first)
-        Object.values(groups).forEach(group => {
+        Object.values(groups).forEach((group) => {
           group.events.sort((a, b) => new Date(b.date) - new Date(a.date));
         });
-        
+
         // Convert to array and sort by date (newest first)
         return Object.values(groups).sort((a, b) => b.timestamp - a.timestamp);
       }
@@ -1223,9 +1366,9 @@
             deviceItems.forEach((item) => {
               item.style.display = "block";
             });
-            
+
             // Show all devices in list view too
-            document.querySelectorAll(".device-list-item").forEach(item => {
+            document.querySelectorAll(".device-list-item").forEach((item) => {
               item.style.display = "";
             });
           }
@@ -1242,7 +1385,7 @@
             item.style.display = "none";
           }
         });
-        
+
         // Filter list view
         const listItems = document.querySelectorAll(".device-list-item");
         listItems.forEach((item) => {
@@ -1264,16 +1407,16 @@
             item.style.display = "none";
           }
         });
-        
+
         // Filter list view
         const listItems = document.querySelectorAll(".device-list-item");
         listItems.forEach((item) => {
           // Use data attribute from parent card to determine if it has the component
-          const deviceName = item.querySelector('.col-md-3').textContent;
-          const matchingCard = Array.from(deviceItems).find(card => 
-            card.querySelector('.card-header').textContent.includes(deviceName)
+          const deviceName = item.querySelector(".col-md-3").textContent;
+          const matchingCard = Array.from(deviceItems).find((card) =>
+            card.querySelector(".card-header").textContent.includes(deviceName)
           );
-          
+
           if (matchingCard && matchingCard.dataset[component]) {
             item.style.display = "";
           } else {
@@ -1286,7 +1429,7 @@
         const searchTerm = document
           .getElementById("device-search")
           .value.toLowerCase();
-          
+
         // Filter card view
         const deviceItems = document.querySelectorAll(".device-item");
         deviceItems.forEach((item) => {
@@ -1306,12 +1449,12 @@
             item.style.display = "none";
           }
         });
-        
+
         // Filter list view
         const listItems = document.querySelectorAll(".device-list-item");
         listItems.forEach((item) => {
           const text = item.textContent.toLowerCase();
-          
+
           if (text.includes(searchTerm)) {
             item.style.display = "";
           } else {
@@ -1319,7 +1462,7 @@
           }
         });
       }
-      
+
       // Set up all event listeners
       function setupEventListeners(data) {
         // Set up search functionality
@@ -1358,38 +1501,50 @@
             }
           });
         });
-        
+
         // Set up view toggle buttons
-        document.getElementById('card-view-btn').addEventListener('click', () => {
-          document.getElementById('device-cards').style.display = 'flex';
-          document.getElementById('device-list').style.display = 'none';
-          document.getElementById('card-view-btn').classList.add('active');
-          document.getElementById('list-view-btn').classList.remove('active');
-        });
-        
-        document.getElementById('list-view-btn').addEventListener('click', () => {
-          document.getElementById('device-cards').style.display = 'none';
-          document.getElementById('device-list').style.display = 'block';
-          document.getElementById('card-view-btn').classList.remove('active');
-          document.getElementById('list-view-btn').classList.add('active');
-        });
-        
+        document
+          .getElementById("card-view-btn")
+          .addEventListener("click", () => {
+            document.getElementById("device-cards").style.display = "flex";
+            document.getElementById("device-list").style.display = "none";
+            document.getElementById("card-view-btn").classList.add("active");
+            document.getElementById("list-view-btn").classList.remove("active");
+          });
+
+        document
+          .getElementById("list-view-btn")
+          .addEventListener("click", () => {
+            document.getElementById("device-cards").style.display = "none";
+            document.getElementById("device-list").style.display = "block";
+            document.getElementById("card-view-btn").classList.remove("active");
+            document.getElementById("list-view-btn").classList.add("active");
+          });
+
         // Set up sort buttons
-        document.getElementById('sort-by-date').addEventListener('click', () => {
-          renderDeviceList(data.devices, 'date');
-        });
-        
-        document.getElementById('sort-by-name').addEventListener('click', () => {
-          renderDeviceList(data.devices, 'name');
-        });
-        
-        document.getElementById('sort-by-status').addEventListener('click', () => {
-          renderDeviceList(data.devices, 'status');
-        });
-        
-        document.getElementById('sort-by-location').addEventListener('click', () => {
-          renderDeviceList(data.devices, 'location');
-        });
+        document
+          .getElementById("sort-by-date")
+          .addEventListener("click", () => {
+            renderDeviceList(data.devices, "date");
+          });
+
+        document
+          .getElementById("sort-by-name")
+          .addEventListener("click", () => {
+            renderDeviceList(data.devices, "name");
+          });
+
+        document
+          .getElementById("sort-by-status")
+          .addEventListener("click", () => {
+            renderDeviceList(data.devices, "status");
+          });
+
+        document
+          .getElementById("sort-by-location")
+          .addEventListener("click", () => {
+            renderDeviceList(data.devices, "location");
+          });
       }
     </script>
   </body>
