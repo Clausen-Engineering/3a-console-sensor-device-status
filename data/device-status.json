@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.1.3",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-20 11:01:11",
-  "last_updated": "2025-05-20 14:36:11",
+  "last_commit_date": "2025-05-30 12:49:41",
+  "last_updated": "2025-05-30 10:52:21",
   "version_changes": [
     {
       "version": "v2.2.1",
@@ -24,7 +24,7 @@
       "version": "v2.1.7",
       "date": "2025-05-20",
       "components": [
-        "core"
+        "algae"
       ],
       "description": "Added algae sensor"
     },
@@ -32,7 +32,7 @@
       "version": "v2.1.6",
       "date": "2025-05-14",
       "components": [
-        "Digital"
+        "digital"
       ],
       "description": "Digital sensor now saves total count in non volatile memory"
     },
@@ -40,7 +40,7 @@
       "version": "v2.1.5",
       "date": "2025-05-14",
       "components": [
-        "Onewire"
+        "OneWire"
       ],
       "description": "Onewire mapping send as event and minor log layout change"
     },
@@ -48,7 +48,7 @@
       "version": "v2.1.4",
       "date": "2025-05-20",
       "components": [
-        "onewire"
+        "OneWire"
       ],
       "description": "Fixed sensor index for address based onewire sensor initialization"
     },
@@ -88,7 +88,7 @@
       "version": "v2.0.0",
       "date": "2025-05-12",
       "components": [
-        "Virtual"
+        "virtual"
       ],
       "description": "Virtual devices uses master/slave configuration and hardware config is implemented to prevent wrong pin configuration"
     },
