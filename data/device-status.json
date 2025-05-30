@@ -1,8 +1,8 @@
 {
-  "latest_version": "v2.1.3",
+  "latest_version": "v2.2.1",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-05-30 12:49:41",
-  "last_updated": "2025-05-30 10:52:21",
+  "last_commit_date": "2025-05-30 15:22:48",
+  "last_updated": "2025-05-30 13:23:40",
   "version_changes": [
     {
       "version": "v2.2.1",
@@ -274,9 +274,10 @@
         "algae",
         "core"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Under floor next to pool filter",
-      "last_deployed": "2025-05-15"
+      "last_deployed": "2025-05-15",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "mog-tank-water-sensor",
@@ -285,9 +286,10 @@
         "core",
         "digital"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement - right side (by MOG tank)",
-      "last_deployed": "2025-05-14"
+      "last_deployed": "2025-05-14",
+      "updateReason": "Patch update available"
     },
     {
       "name": "sauna-power-consumption",
@@ -296,9 +298,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement (left side) - Rear electrical box",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Patch update available"
     },
     {
       "name": "sauna-temperature-and-humidity",
@@ -307,9 +310,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement (left side) - On top of box next to fridge",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Patch update available"
     },
     {
       "name": "water-heater-power-consumption",
@@ -318,9 +322,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "updateReason": "Patch update available"
     },
     {
       "name": "water-system-temperatures",
