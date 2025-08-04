@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.5.0",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-08-04 21:09:19",
-  "last_updated": "2025-08-04 19:18:41",
+  "last_commit_date": "2025-08-04 21:21:10",
+  "last_updated": "2025-08-04 19:21:21",
   "version_changes": [
     {
       "version": "v2.5.0",
@@ -10,7 +10,7 @@
       "components": [
         "core"
       ],
-      "description": "SSL Memory Optimization Implementation"
+      "description": "Version bump: minor"
     },
     {
       "version": "v2.4.1",
