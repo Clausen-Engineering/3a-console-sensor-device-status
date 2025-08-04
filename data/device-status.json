@@ -1,9 +1,17 @@
 {
-  "latest_version": "v2.4.1",
+  "latest_version": "v2.5.0",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-07-31 17:34:04",
-  "last_updated": "2025-07-31 15:34:18",
+  "last_commit_date": "2025-08-04 21:09:19",
+  "last_updated": "2025-08-04 19:18:41",
   "version_changes": [
+    {
+      "version": "v2.5.0",
+      "date": "2025-08-04",
+      "components": [
+        "core"
+      ],
+      "description": "SSL Memory Optimization Implementation"
+    },
     {
       "version": "v2.4.1",
       "date": "2025-07-31",
@@ -244,7 +252,7 @@
     {
       "device": "sauna-power-consumption",
       "device_name": "Sauna Power Consumption",
-      "date": "2025-07-31",
+      "date": "2025-08-04",
       "version": "v2.4.1",
       "location": "Basement (left side) - Rear electrical box",
       "event_type": "update_deployment",
@@ -253,7 +261,7 @@
     {
       "device": "sauna-power-consumption",
       "device_name": "Sauna Power Consumption",
-      "date": "2025-05-16",
+      "date": "2025-08-04",
       "version": "v2.4.1",
       "location": "Basement (left side) - Rear electrical box",
       "event_type": "previous_deployment",
@@ -319,8 +327,8 @@
       "name": "algae-monitor",
       "version": "v2.1.7",
       "components": [
-        "algae",
-        "core"
+        "core",
+        "modbus"
       ],
       "status": "Needs update",
       "location": "Under floor next to pool filter",
@@ -357,9 +365,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Basement (left side) - Rear electrical box",
-      "last_deployed": "2025-07-31"
+      "last_deployed": "2025-08-04",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "sauna-temperature-and-humidity",
@@ -368,9 +377,10 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Basement (left side) - On top of box next to fridge",
-      "last_deployed": "2025-07-31"
+      "last_deployed": "2025-07-31",
+      "updateReason": "Major or minor version change"
     },
     {
       "name": "water-heater-power-consumption",
