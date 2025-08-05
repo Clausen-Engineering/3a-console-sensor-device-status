@@ -1,16 +1,16 @@
 {
   "latest_version": "v3.4.0",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-08-04 21:21:10",
-  "last_updated": "2025-08-04 21:25:04",
+  "last_commit_date": "2025-08-05 22:20:54",
+  "last_updated": "2025-08-05 20:22:44",
   "version_changes": [
     {
       "version": "v3.4.0",
-      "date": "2025-08-04",
+      "date": "2025-08-05",
       "components": [
         "core"
       ],
-      "description": "Global SSL client with auto-recovery"
+      "description": "Fix HTTP 405 errors by adding User-Agent header to POST requests"
     },
     {
       "version": "v3.3.0",
