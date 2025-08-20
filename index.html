@@ -530,7 +530,9 @@
               <i class="bi bi-pie-chart"></i> Status Overview
             </div>
             <div class="card-body">
-              <canvas id="status-chart" height="200"></canvas>
+              <div style="height: 250px; width: 250px; margin: 0 auto;">
+                <canvas id="status-chart"></canvas>
+              </div>
             </div>
           </div>
         </div>
@@ -685,13 +687,6 @@
 
             // Add calculated status to device
             device.calculatedStatus = calculatedStatus;
-            
-            // Create template version display with arrow if update available
-            if (calculatedStatus === "Needs update" || calculatedStatus === "Patch available") {
-              device.templateVersionDisplay = `${device.version || device.template_version} → ${dashboardData.latest_version}`;
-            } else {
-              device.templateVersionDisplay = device.template_version || device.version || "Unknown";
-            }
           });
 
           // Initialize all dashboard components
@@ -972,12 +967,9 @@
       }
 
       /**
-       * Render the device list with sorting
+       * Sort devices array by specified criteria
        */
-      function renderDeviceList(devices, sortBy = "date") {
-        const container = document.getElementById("device-list");
-        if (!container) return;
-
+      function sortDevices(devices, sortBy = "date") {
         // Sort functions for different sort types
         const sortFunctions = {
           // Sort by deployment date (newest first)
@@ -1009,8 +1001,18 @@
           },
         };
 
-        // Clone and sort the devices array
-        const sortedDevices = [...devices].sort(sortFunctions[sortBy]);
+        return [...devices].sort(sortFunctions[sortBy]);
+      }
+
+      /**
+       * Render the device list with sorting
+       */
+      function renderDeviceList(devices, sortBy = "date") {
+        const container = document.getElementById("device-list");
+        if (!container) return;
+
+        // Sort the devices
+        const sortedDevices = sortDevices(devices, sortBy);
 
         // Clear the container
         container.innerHTML = "";
@@ -1105,7 +1107,7 @@
               <div class="card-body">
                 <div class="mb-3">
                   <small class="text-muted">Template Version:</small>
-                  <div><span class="version-tag">${device.templateVersionDisplay || device.template_version || device.version || "Unknown"}</span></div>
+                  <div><span class="version-tag">${device.template_version || device.version || "Unknown"}</span></div>
                 </div>
                 <div class="mb-3">
                   <small class="text-muted">Components:</small>
@@ -1161,9 +1163,14 @@
           },
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               legend: {
                 position: "bottom",
+                labels: {
+                  fontSize: 12,
+                  padding: 10
+                }
               },
             },
           },
@@ -1535,18 +1542,22 @@
         // Set up sort buttons
         document.getElementById("sort-by-date").addEventListener("click", () => {
           renderDeviceList(data.devices, "date");
+          createDeviceCards(sortDevices(data.devices, "date"), data.latest_version);
         });
 
         document.getElementById("sort-by-name").addEventListener("click", () => {
           renderDeviceList(data.devices, "name");
+          createDeviceCards(sortDevices(data.devices, "name"), data.latest_version);
         });
 
         document.getElementById("sort-by-status").addEventListener("click", () => {
           renderDeviceList(data.devices, "status");
+          createDeviceCards(sortDevices(data.devices, "status"), data.latest_version);
         });
 
         document.getElementById("sort-by-location").addEventListener("click", () => {
           renderDeviceList(data.devices, "location");
+          createDeviceCards(sortDevices(data.devices, "location"), data.latest_version);
         });
       }
     </script>
