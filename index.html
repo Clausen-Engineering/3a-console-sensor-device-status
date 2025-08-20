@@ -59,12 +59,6 @@
         border-radius: 1rem;
       }
 
-      .update-reason {
-        font-size: 0.85rem;
-        font-style: italic;
-        margin-top: 0.5rem;
-        color: #666;
-      }
 
       /* Status colors - consistent across all elements */
       .up-to-date {
@@ -691,6 +685,13 @@
 
             // Add calculated status to device
             device.calculatedStatus = calculatedStatus;
+            
+            // Create template version display with arrow if update available
+            if (calculatedStatus === "Needs update" || calculatedStatus === "Patch available") {
+              device.templateVersionDisplay = `${device.version || device.template_version} → ${dashboardData.latest_version}`;
+            } else {
+              device.templateVersionDisplay = device.template_version || device.version || "Unknown";
+            }
           });
 
           // Initialize all dashboard components
@@ -733,6 +734,43 @@
         if (!dateStr || dateStr === "Never" || dateStr === "N/A") return dateStr;
         const date = new Date(dateStr);
         return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+      }
+
+      /**
+       * Parse date string which can be in dd-mm-yyyy or yyyy-mm-dd format
+       */
+      function parseDateString(dateStr) {
+        if (!dateStr || dateStr === "Never") return "Never";
+        
+        // Check if it's in dd-mm-yyyy format (new format from script)
+        if (dateStr.match(/^\d{2}-\d{2}-\d{4}$/)) {
+          return dateStr; // Already formatted for display
+        }
+        
+        // Otherwise assume it's a standard date format and convert to dd-mm-yyyy
+        const date = new Date(dateStr);
+        if (isNaN(date.getTime())) return dateStr; // Invalid date, return as-is
+        
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+      }
+
+      /**
+       * Parse date string for sorting purposes
+       */
+      function parseDateForSort(dateStr) {
+        if (!dateStr || dateStr === "Never") return new Date(0); // Very old date for sorting
+        
+        // Check if it's in dd-mm-yyyy format
+        if (dateStr.match(/^\d{2}-\d{2}-\d{4}$/)) {
+          const [day, month, year] = dateStr.split('-');
+          return new Date(year, month - 1, day);
+        }
+        
+        // Otherwise parse as standard date format
+        return new Date(dateStr);
       }
 
       /**
@@ -944,9 +982,9 @@
         const sortFunctions = {
           // Sort by deployment date (newest first)
           date: (a, b) => {
-            if (!a.last_deployed) return 1;
-            if (!b.last_deployed) return -1;
-            return new Date(b.last_deployed) - new Date(a.last_deployed);
+            if (!a.last_deployed || a.last_deployed === "Never") return 1;
+            if (!b.last_deployed || b.last_deployed === "Never") return -1;
+            return parseDateForSort(b.last_deployed) - parseDateForSort(a.last_deployed);
           },
           // Sort by name (alphabetical)
           name: (a, b) => a.name.localeCompare(b.name),
@@ -1006,7 +1044,7 @@
             row.classList.add("up-to-date");
           }
 
-          const date = device.last_deployed ? new Date(device.last_deployed).toLocaleDateString() : "Never";
+          const date = device.last_deployed ? parseDateString(device.last_deployed) : "Never";
 
           row.innerHTML = `
             <div class="col-md-3">${device.name}</div>
@@ -1067,21 +1105,13 @@
               <div class="card-body">
                 <div class="mb-3">
                   <small class="text-muted">Template Version:</small>
-                  <div><span class="version-tag">${device.template_version || device.version || "Unknown"}</span></div>
+                  <div><span class="version-tag">${device.templateVersionDisplay || device.template_version || device.version || "Unknown"}</span></div>
                 </div>
                 <div class="mb-3">
                   <small class="text-muted">Components:</small>
                   <div>${generateComponentTags(device.components)}</div>
                 </div>`;
 
-          // Add update reason if available
-          if (device.updateReason) {
-            cardHtml += `
-                <div class="mb-3">
-                  <small class="text-muted">Update needed:</small>
-                  <div class="update-reason">${device.updateReason}</div>
-                </div>`;
-          }
 
           cardHtml += `
                 <div class="mb-3">
@@ -1155,7 +1185,7 @@
               version: device.template_version || device.version,
               components: device.components,
             }))
-            .sort((a, b) => new Date(a.date) - new Date(b.date));
+            .sort((a, b) => parseDateForSort(a.date) - parseDateForSort(b.date));
 
           // Clear timeline
           timeline.innerHTML = "";

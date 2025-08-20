@@ -2,7 +2,7 @@
   "latest_version": "v2.6.3",
   "repo_name": "3a-console-esp32-template-sm",
   "last_commit_date": "2025-08-20 14:03:54",
-  "last_updated": "2025-08-20 15:06:05",
+  "last_updated": "2025-08-20 15:17:59",
   "version_changes": [
     {
       "version": "v2.6.3",
@@ -314,8 +314,7 @@
       ],
       "status": "Needs update",
       "location": "Under floor next to pool filter",
-      "last_deployed": "2025-05-15",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "2025-05-15"
     },
     {
       "name": "audio-switcher",
@@ -326,8 +325,7 @@
       ],
       "status": "Never deployed",
       "location": "",
-      "last_deployed": "",
-      "updateReason": "Device not yet deployed"
+      "last_deployed": ""
     },
     {
       "name": "emergency-door",
@@ -338,8 +336,7 @@
       ],
       "status": "Never deployed",
       "location": "",
-      "last_deployed": "",
-      "updateReason": "Device not yet deployed"
+      "last_deployed": ""
     },
     {
       "name": "mog-tank-water-sensor",
@@ -350,8 +347,7 @@
       ],
       "status": "Needs update",
       "location": "Basement - right side (by MOG tank)",
-      "last_deployed": "2025-05-14",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "2025-05-14"
     },
     {
       "name": "sauna-power-consumption",
@@ -362,8 +358,7 @@
       ],
       "status": "Patch available",
       "location": "Basement (left side) - Rear electrical box",
-      "last_deployed": "2025-05-16",
-      "updateReason": "Patch update available"
+      "last_deployed": "2025-05-16"
     },
     {
       "name": "sauna-temperature-and-humidity",
@@ -374,8 +369,7 @@
       ],
       "status": "Needs update",
       "location": "Basement (left side) - On top of box next to fridge",
-      "last_deployed": "2025-05-16",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "2025-05-16"
     },
     {
       "name": "water-heater-power-consumption",
@@ -386,8 +380,7 @@
       ],
       "status": "Needs update",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
-      "last_deployed": "2025-05-16",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "2025-05-16"
     },
     {
       "name": "water-system-temperatures",
@@ -399,8 +392,7 @@
       ],
       "status": "Needs update",
       "location": "Technician room - Box left of door",
-      "last_deployed": "2025-05-16",
-      "updateReason": "Major or minor version change"
+      "last_deployed": "2025-05-16"
     }
   ]
 }
