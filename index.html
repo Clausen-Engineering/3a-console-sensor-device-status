@@ -633,7 +633,7 @@
             <input type="radio" class="btn-check" name="timeline-view" id="compact-view" autocomplete="off" checked>
             <label class="btn btn-outline-primary" for="compact-view">Compact</label>
             <input type="radio" class="btn-check" name="timeline-view" id="detailed-view" autocomplete="off">
-            <label class="btn btn-outline-primary" for="detailed-view">Detailed</label>
+            <label class="btn btn-outline-primary" for="detailed-view">Show Details</label>
           </div>
         </div>
         <div id="timeline-container" class="mt-3"></div>
@@ -1202,7 +1202,7 @@
         setupTimelineViewToggle(events);
 
         // Render with default compact view
-        renderTimelineView(events, true);
+        renderCompactTimeline(events, timelineContainer);
       }
 
       /**
@@ -1211,40 +1211,29 @@
       function setupTimelineViewToggle(events) {
         const compactRadio = document.getElementById('compact-view');
         const detailedRadio = document.getElementById('detailed-view');
+        const timelineContainer = document.getElementById("timeline-container");
 
         if (compactRadio && detailedRadio) {
           compactRadio.addEventListener('change', () => {
             if (compactRadio.checked) {
-              renderTimelineView(events, true);
+              renderCompactTimeline(events, timelineContainer, false);
             }
           });
 
           detailedRadio.addEventListener('change', () => {
             if (detailedRadio.checked) {
-              renderTimelineView(events, false);
+              renderCompactTimeline(events, timelineContainer, true);
             }
           });
-        }
-      }
-
-      /**
-       * Render timeline view based on selected mode
-       */
-      function renderTimelineView(events, isCompact) {
-        const timelineContainer = document.getElementById("timeline-container");
-        timelineContainer.innerHTML = "";
-
-        if (isCompact) {
-          renderCompactTimeline(events, timelineContainer);
-        } else {
-          renderDetailedTimeline(events, timelineContainer);
         }
       }
 
       /**
        * Render compact timeline view
        */
-      function renderCompactTimeline(events, container) {
+      function renderCompactTimeline(events, container, showDetails = false) {
+        container.innerHTML = "";
+        
         const compactDiv = document.createElement('div');
         compactDiv.className = 'timeline-compact';
 
@@ -1271,18 +1260,26 @@
             const displayVersion = version.startsWith('v') ? version : `v${version}`;
 
             let typeClass = 'update';
-            let typeLabel = 'Update';
+            let typeLabel = 'Deploy';
             if (event.event_type === 'initial_deployment') {
               typeClass = 'initial';
               typeLabel = 'Initial';
-            } else if (event.event_type === 'previous_deployment') {
-              typeClass = 'previous';
-              typeLabel = 'Previous';
+            } else if (event.event_type === 'update_deployment') {
+              typeClass = 'update';
+              typeLabel = 'Update';
             }
+
+            const location = event.location && event.location !== "null" ? event.location : '';
+            const locationText = showDetails && location ? `<div class="deployment-location">${location}</div>` : '';
+            const descriptionText = showDetails && event.description ? `<div class="deployment-description">${event.description}</div>` : '';
 
             item.innerHTML = `
               <div class="deployment-date">${dateStr}</div>
-              <div class="deployment-device">${deviceName}</div>
+              <div class="deployment-device">
+                ${deviceName}
+                ${locationText}
+                ${descriptionText}
+              </div>
               <div class="deployment-version">${displayVersion}</div>
               <div class="deployment-type ${typeClass}">${typeLabel}</div>
             `;
@@ -1297,14 +1294,29 @@
       }
 
       /**
-       * Render detailed timeline view (original enhanced view)
+       * Add CSS styles for detailed timeline view
        */
-      function renderDetailedTimeline(events, container) {
-        // Group events by month/year for a cleaner timeline
-        const groupedEvents = groupEventsByMonth(events);
-
-        // Create timeline elements
-        groupedEvents.forEach((group) => {
+      function addDetailedTimelineStyles() {
+        // Add styles for location and description when showing details
+        const style = document.createElement('style');
+        style.textContent = `
+          .deployment-location { 
+            font-size: 0.8rem; 
+            color: #6c757d; 
+            font-style: italic; 
+            margin-top: 0.2rem; 
+          }
+          .deployment-description { 
+            font-size: 0.8rem; 
+            color: #495057; 
+            margin-top: 0.2rem; 
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      
+      // Initialize detailed styles
+      addDetailedTimelineStyles();
           const monthSection = document.createElement("div");
           monthSection.className = "timeline-month card mb-4";
 
