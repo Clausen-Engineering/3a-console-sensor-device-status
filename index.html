@@ -117,7 +117,9 @@
       .component-tag.virtual { background-color: #9c27b0; }
       .component-tag.core { background-color: #343a40; }
       .component-tag.algae { background-color: #17a2b8; }
-      .component-tag.digital-switch { background-color: #ff6b35; }
+      .component-tag.switch { background-color: #ff6b35; }
+      .component-tag.digital_switch { background-color: #ff6b35; }
+      .component-tag.digital-switch { background-color: #ff6b35; } /* Support both formats */
 
       /* ========== SEARCH & FILTER ========== */
       .filter-section {
@@ -272,7 +274,94 @@
       }
 
       /* ========== TIMELINE STYLES ========== */
-      /* Enhanced timeline */
+      /* Timeline controls */
+      .timeline-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      /* Compact timeline styles */
+      .timeline-compact {
+        margin-bottom: 2rem;
+      }
+
+      .timeline-compact .month-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .timeline-compact .month-header {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.75rem;
+        padding: 0.5rem 0.75rem;
+        background-color: #f8f9fa;
+        border-left: 4px solid #007bff;
+        border-radius: 4px;
+      }
+
+      .timeline-compact .deployment-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        margin-bottom: 0.5rem;
+        background-color: white;
+        border-radius: 6px;
+        border: 1px solid #e9ecef;
+        transition: all 0.2s ease;
+      }
+
+      .timeline-compact .deployment-item:hover {
+        border-color: #007bff;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+      }
+
+      .timeline-compact .deployment-date {
+        font-size: 0.85rem;
+        color: #6c757d;
+        min-width: 80px;
+        margin-right: 1rem;
+      }
+
+      .timeline-compact .deployment-device {
+        font-weight: 500;
+        color: #212529;
+        flex: 1;
+      }
+
+      .timeline-compact .deployment-version {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-left: 1rem;
+      }
+
+      .timeline-compact .deployment-type {
+        display: inline-block;
+        font-size: 0.75rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 12px;
+        margin-left: 1rem;
+        min-width: 80px;
+        text-align: center;
+      }
+
+      .timeline-compact .deployment-type.initial {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+      }
+
+      .timeline-compact .deployment-type.update {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: #007bff;
+      }
+
+      .timeline-compact .deployment-type.previous {
+        background-color: rgba(108, 117, 125, 0.1);
+        color: #6c757d;
+      }
+
+      /* Enhanced timeline (detailed view) */
       .timeline-month {
         border-radius: 8px;
         overflow: hidden;
@@ -407,10 +496,10 @@
               <a class="nav-link" href="#devices"><i class="bi bi-grid"></i> Devices</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#versions"><i class="bi bi-list-check"></i> Version History</a>
+              <a class="nav-link" href="#versions"><i class="bi bi-list-check"></i> Version Timeline</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#timeline"><i class="bi bi-calendar"></i> Timeline</a>
+              <a class="nav-link" href="#timeline"><i class="bi bi-calendar"></i> Deployments</a>
             </li>
           </ul>
         </div>
@@ -453,22 +542,6 @@
         </div>
       </div>
 
-      <!-- Version History Section -->
-      <section id="versions" class="mb-5">
-        <h2 class="mb-3"><i class="bi bi-list-check"></i> Version History</h2>
-        <div class="card">
-          <div class="card-body">
-            <div class="version-changes" id="version-changes-list">
-              <!-- Version changes will be populated here -->
-              <div class="text-center py-2">
-                <div class="spinner-border text-primary" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- Device Status Section -->
       <section id="devices">
@@ -535,9 +608,34 @@
         </div>
       </section>
 
-      <!-- Timeline Section -->
+      <!-- Version Timeline Section -->
+      <section id="versions" class="mb-5">
+        <h2 class="mb-3"><i class="bi bi-list-check"></i> Version Timeline</h2>
+        <div class="card">
+          <div class="card-body">
+            <div class="version-changes" id="version-changes-list">
+              <!-- Version changes will be populated here -->
+              <div class="text-center py-2">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deployment Timeline Section -->
       <section id="timeline" class="mt-5">
         <h2 class="mb-4"><i class="bi bi-calendar"></i> Deployment Timeline</h2>
+        <div class="timeline-controls mb-3">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="timeline-view" id="compact-view" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="compact-view">Compact</label>
+            <input type="radio" class="btn-check" name="timeline-view" id="detailed-view" autocomplete="off">
+            <label class="btn btn-outline-primary" for="detailed-view">Detailed</label>
+          </div>
+        </div>
         <div id="timeline-container" class="mt-3"></div>
       </section>
 
@@ -1100,8 +1198,108 @@
           return;
         }
 
+        // Set up event listeners for view toggle
+        setupTimelineViewToggle(events);
+
+        // Render with default compact view
+        renderTimelineView(events, true);
+      }
+
+      /**
+       * Setup timeline view toggle event listeners
+       */
+      function setupTimelineViewToggle(events) {
+        const compactRadio = document.getElementById('compact-view');
+        const detailedRadio = document.getElementById('detailed-view');
+
+        if (compactRadio && detailedRadio) {
+          compactRadio.addEventListener('change', () => {
+            if (compactRadio.checked) {
+              renderTimelineView(events, true);
+            }
+          });
+
+          detailedRadio.addEventListener('change', () => {
+            if (detailedRadio.checked) {
+              renderTimelineView(events, false);
+            }
+          });
+        }
+      }
+
+      /**
+       * Render timeline view based on selected mode
+       */
+      function renderTimelineView(events, isCompact) {
+        const timelineContainer = document.getElementById("timeline-container");
         timelineContainer.innerHTML = "";
 
+        if (isCompact) {
+          renderCompactTimeline(events, timelineContainer);
+        } else {
+          renderDetailedTimeline(events, timelineContainer);
+        }
+      }
+
+      /**
+       * Render compact timeline view
+       */
+      function renderCompactTimeline(events, container) {
+        const compactDiv = document.createElement('div');
+        compactDiv.className = 'timeline-compact';
+
+        // Group events by month/year
+        const groupedEvents = groupEventsByMonth(events);
+
+        groupedEvents.forEach((group) => {
+          const monthGroup = document.createElement('div');
+          monthGroup.className = 'month-group';
+
+          const monthHeader = document.createElement('div');
+          monthHeader.className = 'month-header';
+          monthHeader.innerHTML = `<i class="bi bi-calendar-month"></i> ${group.month}`;
+          monthGroup.appendChild(monthHeader);
+
+          group.events.forEach((event) => {
+            const item = document.createElement('div');
+            item.className = 'deployment-item';
+
+            const date = new Date(event.date);
+            const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            const deviceName = event.device_name || event.device;
+            const version = event.version || '';
+            const displayVersion = version.startsWith('v') ? version : `v${version}`;
+
+            let typeClass = 'update';
+            let typeLabel = 'Update';
+            if (event.event_type === 'initial_deployment') {
+              typeClass = 'initial';
+              typeLabel = 'Initial';
+            } else if (event.event_type === 'previous_deployment') {
+              typeClass = 'previous';
+              typeLabel = 'Previous';
+            }
+
+            item.innerHTML = `
+              <div class="deployment-date">${dateStr}</div>
+              <div class="deployment-device">${deviceName}</div>
+              <div class="deployment-version">${displayVersion}</div>
+              <div class="deployment-type ${typeClass}">${typeLabel}</div>
+            `;
+
+            monthGroup.appendChild(item);
+          });
+
+          compactDiv.appendChild(monthGroup);
+        });
+
+        container.appendChild(compactDiv);
+      }
+
+      /**
+       * Render detailed timeline view (original enhanced view)
+       */
+      function renderDetailedTimeline(events, container) {
         // Group events by month/year for a cleaner timeline
         const groupedEvents = groupEventsByMonth(events);
 
