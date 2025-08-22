@@ -267,209 +267,6 @@
         margin-bottom: 1rem;
       }
 
-      /* ========== TIMELINE STYLES ========== */
-      /* Timeline controls */
-      .timeline-controls {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      /* Compact timeline styles */
-      .timeline-compact {
-        margin-bottom: 2rem;
-      }
-
-      .timeline-compact .month-group {
-        margin-bottom: 1.5rem;
-      }
-
-      .timeline-compact .month-header {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #495057;
-        margin-bottom: 0.75rem;
-        padding: 0.5rem 0.75rem;
-        background-color: #f8f9fa;
-        border-left: 4px solid #007bff;
-        border-radius: 4px;
-      }
-
-      .timeline-compact .deployment-item {
-        display: flex;
-        align-items: center;
-        padding: 0.5rem 0.75rem;
-        margin-bottom: 0.5rem;
-        background-color: white;
-        border-radius: 6px;
-        border: 1px solid #e9ecef;
-        transition: all 0.2s ease;
-      }
-
-      .timeline-compact .deployment-item:hover {
-        border-color: #007bff;
-        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
-      }
-
-      .timeline-compact .deployment-date {
-        font-size: 0.85rem;
-        color: #6c757d;
-        min-width: 80px;
-        margin-right: 1rem;
-      }
-
-      .timeline-compact .deployment-device {
-        font-weight: 500;
-        color: #212529;
-        flex: 1;
-      }
-
-      .timeline-compact .deployment-version {
-        font-size: 0.85rem;
-        color: #6c757d;
-        margin-left: 1rem;
-      }
-
-      .timeline-compact .deployment-type {
-        display: inline-block;
-        font-size: 0.75rem;
-        padding: 0.2rem 0.5rem;
-        border-radius: 12px;
-        margin-left: 1rem;
-        min-width: 80px;
-        text-align: center;
-      }
-
-      .timeline-compact .deployment-type.initial {
-        background-color: rgba(40, 167, 69, 0.1);
-        color: #28a745;
-      }
-
-      .timeline-compact .deployment-type.update {
-        background-color: rgba(0, 123, 255, 0.1);
-        color: #007bff;
-      }
-
-      .timeline-compact .deployment-type.previous {
-        background-color: rgba(108, 117, 125, 0.1);
-        color: #6c757d;
-      }
-
-      /* Enhanced timeline (detailed view) */
-      .timeline-month {
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        margin-bottom: 30px;
-      }
-      
-      .timeline-month h3 {
-        margin: 0;
-        padding: 10px 15px;
-        font-size: 1.2rem;
-      }
-      
-      .date-header {
-        font-size: 1rem;
-      }
-      
-      .list-group-item.event-initial_deployment {
-        background-color: rgba(40, 167, 69, 0.05);
-      }
-      
-      .list-group-item.event-update_deployment {
-        background-color: rgba(0, 123, 255, 0.05);
-      }
-      
-      .list-group-item.event-previous_deployment {
-        background-color: rgba(108, 117, 125, 0.05);
-      }
-      
-      .list-group-item.event-deployment {
-        background-color: rgba(40, 167, 69, 0.05);
-      }
-
-      /* Legacy timeline (keeping for backward compatibility) */
-      .timeline {
-        position: relative;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 1rem 0;
-      }
-      
-      .timeline::after {
-        content: "";
-        position: absolute;
-        width: 2px;
-        background-color: var(--primary-color);
-        top: 0;
-        bottom: 0;
-        left: 50%;
-        margin-left: -1px;
-      }
-      
-      .timeline-container {
-        padding: 10px 40px;
-        position: relative;
-        background-color: inherit;
-        width: 50%;
-      }
-      
-      .timeline-container.left {
-        left: 0;
-      }
-      
-      .timeline-container.right {
-        left: 50%;
-      }
-      
-      .timeline-container::after {
-        content: "";
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        right: -8px;
-        background-color: white;
-        border: 2px solid var(--primary-color);
-        top: 15px;
-        border-radius: 50%;
-        z-index: 1;
-      }
-      
-      .timeline-container.right::after {
-        left: -8px;
-      }
-      
-      .timeline-content {
-        padding: 1rem;
-        background-color: white;
-        position: relative;
-        border-radius: 0.5rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      
-      .timeline-date {
-        font-weight: bold;
-        color: var(--primary-color);
-      }
-
-      @media (max-width: 768px) {
-        .timeline::after {
-          left: 31px;
-        }
-        .timeline-container {
-          width: 100%;
-          padding-left: 70px;
-          padding-right: 25px;
-        }
-        .timeline-container.right {
-          left: 0%;
-        }
-        .timeline-container.left::after,
-        .timeline-container.right::after {
-          left: 23px;
-        }
-      }
     </style>
   </head>
   <body>
@@ -491,9 +288,6 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#versions"><i class="bi bi-list-check"></i> Version Timeline</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#timeline"><i class="bi bi-calendar"></i> Deployments</a>
             </li>
           </ul>
         </div>
@@ -621,19 +415,6 @@
         </div>
       </section>
 
-      <!-- Deployment Timeline Section -->
-      <section id="timeline" class="mt-5">
-        <h2 class="mb-4"><i class="bi bi-calendar"></i> Deployment Timeline</h2>
-        <div class="timeline-controls mb-3">
-          <div class="btn-group" role="group">
-            <input type="radio" class="btn-check" name="timeline-view" id="compact-view" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="compact-view">Compact</label>
-            <input type="radio" class="btn-check" name="timeline-view" id="detailed-view" autocomplete="off">
-            <label class="btn btn-outline-primary" for="detailed-view">Show Details</label>
-          </div>
-        </div>
-        <div id="timeline-container" class="mt-3"></div>
-      </section>
 
       <p class="last-update">
         Dashboard updated: <span id="last-updated"></span>
@@ -695,12 +476,6 @@
           renderDeviceList(dashboardData.devices, "date");
           createDeviceCards(dashboardData.devices, dashboardData.latest_version);
           
-          // Create timeline based on available data
-          if (dashboardData.timeline_events) {
-            renderTimeline(dashboardData.timeline_events);
-          } else {
-            createOriginalTimeline(dashboardData.devices);
-          }
 
           createStatusChart(statusCounts);
           setupEventListeners(dashboardData);
@@ -1120,9 +895,13 @@
                   <small class="text-muted">Location:</small>
                   <div>${device.location || "Unknown"}</div>
                 </div>
-                <div>
+                <div class="mb-2">
                   <small class="text-muted">Last Deployed:</small>
                   <div><strong>${device.last_deployed || "Never"}</strong></div>
+                </div>
+                <div>
+                  <small class="text-muted">Initial Deployment:</small>
+                  <div><strong>${device.initial_deployed || "Never"}</strong></div>
                 </div>
               </div>
             </div>
@@ -1177,216 +956,6 @@
         });
       }
 
-      /**
-       * Original timeline (for backward compatibility)
-       */
-      function createOriginalTimeline(devices) {
-        const timeline = document.querySelector(".timeline");
-        if (timeline) {
-          // Get deployments with actual dates
-          const deployments = devices
-            .filter((device) => device.last_deployed && device.last_deployed !== "Never")
-            .map((device) => ({
-              device: device.name,
-              date: device.last_deployed,
-              version: device.template_version || device.version,
-              components: device.components,
-            }))
-            .sort((a, b) => parseDateForSort(a.date) - parseDateForSort(b.date));
-
-          // Clear timeline
-          timeline.innerHTML = "";
-
-          // Create timeline entries
-          deployments.forEach((deployment, index) => {
-            const isLeft = index % 2 === 0;
-            const container = document.createElement("div");
-            container.className = `timeline-container ${isLeft ? "left" : "right"}`;
-
-            container.innerHTML = `
-              <div class="timeline-content">
-                <h5>${deployment.device}</h5>
-                <p class="timeline-date">${deployment.date}</p>
-                <p>Deployed version <span class="version-tag">${deployment.version || "Unknown"}</span></p>
-                ${deployment.components ? `
-                <div class="mt-2">
-                    ${generateComponentTags(deployment.components)}
-                </div>` : ""}
-              </div>
-            `;
-
-            timeline.appendChild(container);
-          });
-
-          // If no deployments
-          if (deployments.length === 0) {
-            timeline.innerHTML = '<div class="text-center py-4">No deployment history available</div>';
-          }
-        }
-      }
-
-      /**
-       * Enhanced timeline renderer
-       */
-      function renderTimeline(events) {
-        const timelineContainer = document.getElementById("timeline-container");
-        if (!timelineContainer || !events || events.length === 0) {
-          timelineContainer.innerHTML = '<div class="text-center py-4">No deployment history available</div>';
-          return;
-        }
-
-        // Set up event listeners for view toggle
-        setupTimelineViewToggle(events);
-
-        // Render with default compact view
-        renderCompactTimeline(events, timelineContainer);
-      }
-
-      /**
-       * Setup timeline view toggle event listeners
-       */
-      function setupTimelineViewToggle(events) {
-        const compactRadio = document.getElementById('compact-view');
-        const detailedRadio = document.getElementById('detailed-view');
-        const timelineContainer = document.getElementById("timeline-container");
-
-        if (compactRadio && detailedRadio) {
-          compactRadio.addEventListener('change', () => {
-            if (compactRadio.checked) {
-              renderCompactTimeline(events, timelineContainer, false);
-            }
-          });
-
-          detailedRadio.addEventListener('change', () => {
-            if (detailedRadio.checked) {
-              renderCompactTimeline(events, timelineContainer, true);
-            }
-          });
-        }
-      }
-
-      /**
-       * Render compact timeline view
-       */
-      function renderCompactTimeline(events, container, showDetails = false) {
-        container.innerHTML = "";
-        
-        const compactDiv = document.createElement('div');
-        compactDiv.className = 'timeline-compact';
-
-        // Group events by month/year
-        const groupedEvents = groupEventsByMonth(events);
-
-        groupedEvents.forEach((group) => {
-          const monthGroup = document.createElement('div');
-          monthGroup.className = 'month-group';
-
-          const monthHeader = document.createElement('div');
-          monthHeader.className = 'month-header';
-          monthHeader.innerHTML = `<i class="bi bi-calendar-month"></i> ${group.month}`;
-          monthGroup.appendChild(monthHeader);
-
-          group.events.forEach((event) => {
-            const item = document.createElement('div');
-            item.className = 'deployment-item';
-
-            const date = new Date(event.date);
-            const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            const deviceName = event.device_name || event.device;
-            const version = event.version || '';
-            const displayVersion = version.startsWith('v') ? version : `v${version}`;
-
-            let typeClass = 'update';
-            let typeLabel = 'Deploy';
-            if (event.event_type === 'initial_deployment') {
-              typeClass = 'initial';
-              typeLabel = 'Initial';
-            } else if (event.event_type === 'update_deployment') {
-              typeClass = 'update';
-              typeLabel = 'Update';
-            }
-
-            const location = event.location && event.location !== "null" ? event.location : '';
-            const locationText = showDetails && location ? `<div class="deployment-location">${location}</div>` : '';
-            const descriptionText = showDetails && event.description ? `<div class="deployment-description">${event.description}</div>` : '';
-
-            item.innerHTML = `
-              <div class="deployment-date">${dateStr}</div>
-              <div class="deployment-device">
-                ${deviceName}
-                ${locationText}
-                ${descriptionText}
-              </div>
-              <div class="deployment-version">${displayVersion}</div>
-              <div class="deployment-type ${typeClass}">${typeLabel}</div>
-            `;
-
-            monthGroup.appendChild(item);
-          });
-
-          compactDiv.appendChild(monthGroup);
-        });
-
-        container.appendChild(compactDiv);
-      }
-
-      /**
-       * Add CSS styles for detailed timeline view
-       */
-      function addDetailedTimelineStyles() {
-        // Add styles for location and description when showing details
-        const style = document.createElement('style');
-        style.textContent = `
-          .deployment-location { 
-            font-size: 0.8rem; 
-            color: #6c757d; 
-            font-style: italic; 
-            margin-top: 0.2rem; 
-          }
-          .deployment-description { 
-            font-size: 0.8rem; 
-            color: #495057; 
-            margin-top: 0.2rem; 
-          }
-        `;
-        document.head.appendChild(style);
-      }
-      
-      // Initialize detailed styles
-      addDetailedTimelineStyles();
-
-      /**
-       * Group events by month/year
-       */
-      function groupEventsByMonth(events) {
-        const groups = {};
-
-        events.forEach((event) => {
-          const date = new Date(event.date);
-          const monthYear = date.toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric",
-          });
-
-          if (!groups[monthYear]) {
-            groups[monthYear] = {
-              month: monthYear,
-              timestamp: date.getTime(), // For sorting
-              events: [],
-            };
-          }
-
-          groups[monthYear].events.push(event);
-        });
-
-        // Sort events within each group by date (newest first)
-        Object.values(groups).forEach((group) => {
-          group.events.sort((a, b) => new Date(b.date) - new Date(a.date));
-        });
-
-        // Convert to array and sort by date (newest first)
-        return Object.values(groups).sort((a, b) => b.timestamp - a.timestamp);
-      }
 
       /**
        * Reset filter badges to their original state

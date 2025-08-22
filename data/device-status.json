@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.6.3",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-08-20 14:03:54",
-  "last_updated": "2025-08-20 15:17:59",
+  "last_commit_date": "2025-08-20 15:35:14",
+  "last_updated": "2025-08-21 16:28:44",
   "version_changes": [
     {
       "version": "v2.6.3",
@@ -248,62 +248,6 @@
       "description": "Initial consolidated template"
     }
   ],
-  "timeline_events": [
-    {
-      "device": "water-system-temperatures",
-      "device_name": "Water System Temperatures",
-      "date": "2025-05-16",
-      "version": "v2.2.1",
-      "location": "Technician room - Box left of door",
-      "event_type": "update_deployment",
-      "description": "Device updated (production)"
-    },
-    {
-      "device": "water-heater-power-consumption",
-      "device_name": "Water Heater Power Consumption",
-      "date": "2025-05-16",
-      "version": "v2.2.0",
-      "location": "Technician room - Inside electrical box next to power meter for heaters",
-      "event_type": "update_deployment",
-      "description": "Device updated (production)"
-    },
-    {
-      "device": "sauna-temperature-and-humidity",
-      "device_name": "Sauna Temperature and Humidity",
-      "date": "2025-05-16",
-      "version": "v2.2.0",
-      "location": "Basement (left side) - On top of box next to fridge",
-      "event_type": "update_deployment",
-      "description": "Device updated (production)"
-    },
-    {
-      "device": "sauna-power-consumption",
-      "device_name": "Sauna Power Consumption",
-      "date": "2025-05-16",
-      "version": "v2.6.0",
-      "location": "Basement (left side) - Rear electrical box",
-      "event_type": "update_deployment",
-      "description": "Device updated (production)"
-    },
-    {
-      "device": "algae-monitor",
-      "device_name": "Algae Sensor",
-      "date": "2025-05-15",
-      "version": "v2.1.7",
-      "location": "Under floor next to pool filter",
-      "event_type": "deployment",
-      "description": "Device deployed"
-    },
-    {
-      "device": "mog-tank-water-sensor",
-      "device_name": "MOG Tank Water Sensor",
-      "date": "2025-05-14",
-      "version": "v2.2.0",
-      "location": "Basement - right side (by MOG tank)",
-      "event_type": "update_deployment",
-      "description": "Device updated (production)"
-    }
-  ],
   "devices": [
     {
       "name": "algae-monitor",
@@ -314,18 +258,20 @@
       ],
       "status": "Needs update",
       "location": "Under floor next to pool filter",
-      "last_deployed": "2025-05-15"
+      "last_deployed": "2025-05-15",
+      "initial_deployed": "2025-05-15"
     },
     {
       "name": "audio-switcher",
-      "version": "",
+      "version": "v2.6.3",
       "components": [
         "core",
         "digital_switch"
       ],
-      "status": "Never deployed",
-      "location": "",
-      "last_deployed": ""
+      "status": "Up to date",
+      "location": "Technician room - Inside music cupboard",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-08-21"
     },
     {
       "name": "emergency-door",
@@ -336,7 +282,8 @@
       ],
       "status": "Never deployed",
       "location": "",
-      "last_deployed": ""
+      "last_deployed": "",
+      "initial_deployed": ""
     },
     {
       "name": "mog-tank-water-sensor",
@@ -347,7 +294,8 @@
       ],
       "status": "Needs update",
       "location": "Basement - right side (by MOG tank)",
-      "last_deployed": "2025-05-14"
+      "last_deployed": "2025-05-14",
+      "initial_deployed": "2025-03-28"
     },
     {
       "name": "sauna-power-consumption",
@@ -358,7 +306,8 @@
       ],
       "status": "Patch available",
       "location": "Basement (left side) - Rear electrical box",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "initial_deployed": "2025-03-18"
     },
     {
       "name": "sauna-temperature-and-humidity",
@@ -369,30 +318,33 @@
       ],
       "status": "Needs update",
       "location": "Basement (left side) - On top of box next to fridge",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-05-16",
+      "initial_deployed": "2025-03-18"
     },
     {
       "name": "water-heater-power-consumption",
-      "version": "v2.2.0",
+      "version": "v2.6.3",
       "components": [
         "core",
         "modbus"
       ],
-      "status": "Needs update",
+      "status": "Up to date",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-18"
     },
     {
       "name": "water-system-temperatures",
-      "version": "v2.2.1",
+      "version": "v2.6.3",
       "components": [
         "core",
         "onewire",
         "virtual"
       ],
-      "status": "Needs update",
+      "status": "Up to date",
       "location": "Technician room - Box left of door",
-      "last_deployed": "2025-05-16"
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-28"
     }
   ]
 }
