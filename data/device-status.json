@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.6.3",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-08-22 17:24:23",
-  "last_updated": "2025-08-22 15:24:35",
+  "last_commit_date": "2025-08-29 15:15:02",
+  "last_updated": "2025-08-29 13:15:17",
   "version_changes": [
     {
       "version": "v2.6.3",
@@ -275,15 +275,15 @@
     },
     {
       "name": "emergency-door",
-      "version": "",
+      "version": "v2.6.3",
       "components": [
         "core",
         "digital"
       ],
-      "status": "Never deployed",
+      "status": "Up to date",
       "location": "",
-      "last_deployed": "",
-      "initial_deployed": ""
+      "last_deployed": "2025-08-25",
+      "initial_deployed": "2025-08-25"
     },
     {
       "name": "mog-tank-water-sensor",
