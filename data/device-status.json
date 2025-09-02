@@ -1,16 +1,17 @@
 {
   "latest_version": "v2.6.4",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-08-29 15:15:02",
-  "last_updated": "2025-09-02 08:25:35",
+  "last_commit_date": "2025-09-02 11:41:18",
+  "last_updated": "2025-09-02 09:41:32",
   "version_changes": [
     {
       "version": "v2.6.4",
       "date": "2025-08-29",
       "components": [
-        "core"
+        "digital",
+        "switch"
       ],
-      "description": "Other minor changes and version log for new sensor"
+      "description": "Patch for digital switchTimezone and scheduling patch for digital switch"
     },
     {
       "version": "v2.6.3",
@@ -271,14 +272,14 @@
     },
     {
       "name": "audio-switcher",
-      "version": "v2.6.3",
+      "version": "v2.6.4",
       "components": [
         "core",
         "digital_switch"
       ],
-      "status": "Patch available",
+      "status": "Up to date",
       "location": "Technician room - Inside music cupboard",
-      "last_deployed": "2025-08-21",
+      "last_deployed": "2025-09-02",
       "initial_deployed": "2025-08-21"
     },
     {
