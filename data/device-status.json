@@ -1,9 +1,17 @@
 {
-  "latest_version": "v2.6.3",
+  "latest_version": "v2.6.4",
   "repo_name": "3a-console-esp32-template-sm",
   "last_commit_date": "2025-08-29 15:15:02",
-  "last_updated": "2025-08-29 13:15:17",
+  "last_updated": "2025-09-02 08:25:35",
   "version_changes": [
+    {
+      "version": "v2.6.4",
+      "date": "2025-08-29",
+      "components": [
+        "core"
+      ],
+      "description": "Other minor changes and version log for new sensor"
+    },
     {
       "version": "v2.6.3",
       "date": "2025-08-19",
@@ -268,7 +276,7 @@
         "core",
         "digital_switch"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Technician room - Inside music cupboard",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-08-21"
@@ -280,7 +288,7 @@
         "core",
         "digital"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "",
       "last_deployed": "2025-08-25",
       "initial_deployed": "2025-08-25"
@@ -304,7 +312,7 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement (left side) - Rear electrical box",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18"
@@ -316,7 +324,7 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Basement (left side) - On top of box next to fridge",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18"
@@ -328,7 +336,7 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18"
@@ -341,7 +349,7 @@
         "onewire",
         "virtual"
       ],
-      "status": "Up to date",
+      "status": "Patch available",
       "location": "Technician room - Box left of door",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-28"
