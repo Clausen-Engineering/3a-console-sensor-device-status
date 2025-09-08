@@ -1,16 +1,40 @@
 {
-  "latest_version": "v2.6.5",
+  "latest_version": "v2.8.0",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-09-04 12:48:46",
-  "last_updated": "2025-09-04 11:09:32",
+  "last_commit_date": "2025-09-08 13:17:28",
+  "last_updated": "2025-09-08 13:09:10",
   "version_changes": [
+    {
+      "version": "v2.8.0",
+      "date": "2025-09-08",
+      "components": [
+        "core"
+      ],
+      "description": "Implement universal sensor frequent checking system and update documentation"
+    },
+    {
+      "version": "v2.7.1",
+      "date": "2025-09-08",
+      "components": [
+        "core"
+      ],
+      "description": "Fix timezone handling with automatic DST calculation for Copenhagen time"
+    },
+    {
+      "version": "v2.7.0",
+      "date": "2025-09-08",
+      "components": [
+        "core"
+      ],
+      "description": "Fix JSON parsing preventing log interval configuration"
+    },
     {
       "version": "v2.6.5",
       "date": "2025-09-04",
       "components": [
         "core"
       ],
-      "description": "Improve NTP time sync event logging for better schedule verification"
+      "description": "Version bump: patch"
     },
     {
       "version": "v2.6.4",
@@ -285,7 +309,7 @@
         "core",
         "digital_switch"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "Technician room - Inside music cupboard",
       "last_deployed": "2025-09-02",
       "initial_deployed": "2025-08-21"
@@ -297,7 +321,7 @@
         "core",
         "digital"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "",
       "last_deployed": "2025-08-25",
       "initial_deployed": "2025-08-25"
@@ -321,7 +345,7 @@
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "Basement (left side) - Rear electrical box",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18"
@@ -333,7 +357,7 @@
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "Basement (left side) - On top of box next to fridge",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18"
@@ -345,7 +369,7 @@
         "core",
         "modbus"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18"
@@ -358,7 +382,7 @@
         "onewire",
         "virtual"
       ],
-      "status": "Patch available",
+      "status": "Needs update",
       "location": "Technician room - Box left of door",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-28"
