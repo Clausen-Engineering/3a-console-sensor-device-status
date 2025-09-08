@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.8.0",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-09-08 13:17:28",
-  "last_updated": "2025-09-08 13:09:10",
+  "last_commit_date": "2025-09-08 15:10:30",
+  "last_updated": "2025-09-08 13:10:44",
   "version_changes": [
     {
       "version": "v2.8.0",
@@ -16,9 +16,10 @@
       "version": "v2.7.1",
       "date": "2025-09-08",
       "components": [
-        "core"
+        "digital",
+        "switch"
       ],
-      "description": "Fix timezone handling with automatic DST calculation for Copenhagen time"
+      "description": "Fix digital switch timezone handling with automatic DST calculation"
     },
     {
       "version": "v2.7.0",
@@ -304,14 +305,14 @@
     },
     {
       "name": "audio-switcher",
-      "version": "v2.6.4",
+      "version": "v2.6.5",
       "components": [
         "core",
         "digital_switch"
       ],
       "status": "Needs update",
       "location": "Technician room - Inside music cupboard",
-      "last_deployed": "2025-09-02",
+      "last_deployed": "2025-09-04",
       "initial_deployed": "2025-08-21"
     },
     {
