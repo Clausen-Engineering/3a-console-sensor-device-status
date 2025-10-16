@@ -1,9 +1,17 @@
 {
-  "latest_version": "v2.10.1",
+  "latest_version": "v2.11.0",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-09-16 11:49:46",
-  "last_updated": "2025-09-16 09:49:57",
+  "last_commit_date": "2025-10-16 14:11:38",
+  "last_updated": "2025-10-16 12:18:43",
   "version_changes": [
+    {
+      "version": "v2.11.0",
+      "date": "2025-10-16",
+      "components": [
+        "core"
+      ],
+      "description": "Enhance task scheduler diagnostics with comprehensive error reporting"
+    },
     {
       "version": "v2.10.1",
       "date": "2025-09-16",
@@ -334,7 +342,7 @@
         "core",
         "digital_switch"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Technician room - Inside music cupboard",
       "last_deployed": "2025-09-16",
       "initial_deployed": "2025-08-21"
