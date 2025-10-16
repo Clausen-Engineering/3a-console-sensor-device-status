@@ -1,16 +1,24 @@
 {
-  "latest_version": "v2.11.1",
+  "latest_version": "v2.11.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-10-16 14:35:26",
-  "last_updated": "2025-10-16 12:35:57",
+  "last_commit_date": "2025-10-16 15:11:40",
+  "last_updated": "2025-10-16 13:13:13",
   "version_changes": [
+    {
+      "version": "v2.11.2",
+      "date": "2025-10-16",
+      "components": [
+        "core"
+      ],
+      "description": "Guard SPIFFS init and reuse JSON buffers"
+    },
     {
       "version": "v2.11.1",
       "date": "2025-10-16",
       "components": [
         "core"
       ],
-      "description": "Commit Message"
+      "description": "Fix critical bug where devices stop sending logs after connecting to new WiFi network via BLE"
     },
     {
       "version": "v2.11.0",
