@@ -1,16 +1,24 @@
 {
-  "latest_version": "v2.11.0",
+  "latest_version": "v2.11.1",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-10-16 14:11:38",
-  "last_updated": "2025-10-16 12:18:43",
+  "last_commit_date": "2025-10-16 14:35:26",
+  "last_updated": "2025-10-16 12:35:57",
   "version_changes": [
+    {
+      "version": "v2.11.1",
+      "date": "2025-10-16",
+      "components": [
+        "core"
+      ],
+      "description": "Commit Message"
+    },
     {
       "version": "v2.11.0",
       "date": "2025-10-16",
       "components": [
         "core"
       ],
-      "description": "Enhance task scheduler diagnostics with comprehensive error reporting"
+      "description": "Improve system reliability with WiFi reconnection handling and enhanced diagnostics"
     },
     {
       "version": "v2.10.1",
