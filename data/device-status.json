@@ -1,8 +1,8 @@
 {
   "latest_version": "v2.11.2",
   "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-10-16 15:11:40",
-  "last_updated": "2025-10-16 13:13:13",
+  "last_commit_date": "2025-12-03 13:04:48",
+  "last_updated": "2025-12-03 12:05:00",
   "version_changes": [
     {
       "version": "v2.11.2",
@@ -10,7 +10,7 @@
       "components": [
         "core"
       ],
-      "description": "Guard SPIFFS init and reuse JSON buffers"
+      "description": "Stability/Perf tuning: guard SPIFFS init, flatten sensor caches, stream config hashing, and reuse shared JSON buffers"
     },
     {
       "version": "v2.11.1",
@@ -352,16 +352,40 @@
       "initial_deployed": "2025-05-15"
     },
     {
-      "name": "audio-switcher",
-      "version": "v2.10.1",
+      "name": "audio-switcher-lounge",
+      "version": "v2.11.2",
       "components": [
         "core",
         "digital_switch"
       ],
-      "status": "Needs update",
+      "status": "Up to date",
       "location": "Technician room - Inside music cupboard",
-      "last_deployed": "2025-09-16",
+      "last_deployed": "2025-12-02",
       "initial_deployed": "2025-08-21"
+    },
+    {
+      "name": "audio-switcher-sauna",
+      "version": "v2.11.2",
+      "components": [
+        "core",
+        "digital_switch"
+      ],
+      "status": "Up to date",
+      "location": "Technician room - Inside music cupboard",
+      "last_deployed": "2025-12-02",
+      "initial_deployed": "2025-08-21"
+    },
+    {
+      "name": "dB",
+      "version": "",
+      "components": [
+        "analog",
+        "core"
+      ],
+      "status": "Unknown",
+      "location": "",
+      "last_deployed": "",
+      "initial_deployed": ""
     },
     {
       "name": "emergency-door",
@@ -388,11 +412,47 @@
       "initial_deployed": "2025-03-28"
     },
     {
-      "name": "pressure-sensor-example",
+      "name": "pressure-sensor-hallway",
       "version": "",
       "components": [
         "analog",
         "core"
+      ],
+      "status": "Unknown",
+      "location": "",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "pressure-sensor-lounge",
+      "version": "",
+      "components": [
+        "analog",
+        "core"
+      ],
+      "status": "Unknown",
+      "location": "",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "roof-temperature-and-humidity",
+      "version": "v2.11.2",
+      "components": [
+        "core",
+        "modbus"
+      ],
+      "status": "Up to date",
+      "location": "roof",
+      "last_deployed": "2025-12-02",
+      "initial_deployed": "2025-12-01"
+    },
+    {
+      "name": "sauna-occupancy",
+      "version": "",
+      "components": [
+        "core",
+        "occupancy_counter"
       ],
       "status": "Unknown",
       "location": "",
@@ -447,6 +507,31 @@
       "location": "Technician room - Box left of door",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-28"
+    },
+    {
+      "name": "water-tank-temperatures",
+      "version": "v2.11.2",
+      "components": [
+        "core",
+        "onewire",
+        "virtual"
+      ],
+      "status": "Up to date",
+      "location": "Technician room",
+      "last_deployed": "2025-12-02",
+      "initial_deployed": "2025-03-28"
+    },
+    {
+      "name": "wroom-test",
+      "version": "v2.11.2",
+      "components": [
+        "analog",
+        "core"
+      ],
+      "status": "Up to date",
+      "location": "",
+      "last_deployed": "2025-11-17",
+      "initial_deployed": "2025-11-17"
     }
   ]
 }
