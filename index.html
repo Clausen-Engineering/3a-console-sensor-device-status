@@ -287,7 +287,7 @@
       }
 
       .hero-metrics {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
       .metric-card,
@@ -501,6 +501,15 @@
 
       .controls-surface {
         position: static;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        overflow: visible;
+      }
+
+      .controls-surface::before {
+        display: none;
       }
 
       .controls-grid {
@@ -779,7 +788,7 @@
         content: "";
         position: absolute;
         left: 50%;
-        bottom: 2.75rem;
+        bottom: 3.35rem;
         transform: translateX(-50%);
         width: 0.72rem;
         height: 0.72rem;
@@ -825,7 +834,7 @@
         width: 100%;
         min-height: 92px;
         margin: 0 auto;
-        padding-bottom: 2.9rem;
+        padding-bottom: 3.45rem;
       }
 
       .timeline-node__column {
@@ -852,19 +861,6 @@
         letter-spacing: -0.01em;
       }
 
-      .timeline-node__scope {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 1.6rem;
-        height: 1.6rem;
-        margin-top: 0.35rem;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.06);
-        color: var(--muted);
-        font-size: 0.72rem;
-      }
-
       .timeline-spotlight {
         position: relative;
         overflow: hidden;
@@ -877,6 +873,12 @@
         height: 120px;
         background: radial-gradient(circle at top center, rgba(28, 114, 218, 0.2), rgba(28, 114, 218, 0) 70%);
         pointer-events: none;
+        z-index: 0;
+      }
+
+      .timeline-spotlight > * {
+        position: relative;
+        z-index: 1;
       }
 
       .timeline-detail {
@@ -1013,6 +1015,10 @@
         .timeline-detail {
           grid-template-columns: 1fr;
         }
+
+        .hero-metrics {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
       }
 
       @media (max-width: 991.98px) {
@@ -1081,7 +1087,7 @@
       <main class="container dashboard-main">
         <section id="overview" class="surface hero-panel fade-in">
           <div class="row g-4">
-            <div class="col-lg-8">
+            <div class="col-lg-7">
               <span class="eyebrow">Device Command View</span>
               <h1 class="hero-title">3A Console sensor status</h1>
               <p class="hero-copy">
@@ -1115,7 +1121,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-5">
               <aside class="surface hero-aside fade-in delay-2">
                 <div class="section-heading">
                   <div>
@@ -1441,11 +1447,11 @@
         const firmwareBuildDate = firmwareData?.buildDate || "";
 
         return {
-          name: deviceData.deviceName || fallbackLabel || mac,
+          name: fallbackLabel || deviceData.deviceName || mac,
           mac: deviceData.macAddress || mac,
           version: firmwareVersion ? `v${firmwareVersion.replace(/^v/, "")}` : "",
           components,
-          location: deviceData.location?.name || deviceData.settings?.sensorLocation?.description || "",
+          location: deviceData.settings?.sensorLocation?.description || deviceData.location?.name || "",
           last_deployed: firmwareBuildDate ? firmwareBuildDate.split("T")[0] : "",
           initial_deployed: "",
         };
@@ -1876,7 +1882,6 @@
                   <div class="timeline-node__column" style="height: ${getReleaseColumnHeight(version, index, visibleChanges.length)}px;"></div>
                 </div>
                 <div class="timeline-node__version mono">${escapeHtml(version.version || "Unknown")}</div>
-                <div class="timeline-node__scope">${Array.isArray(version.components) ? version.components.length : 0}</div>
                 <span class="timeline-node__date">${escapeHtml(formatTimelineDate(version.date))}</span>
                 <div class="timeline-node__copy">${escapeHtml(truncateText(version.description || "No description provided", 34))}</div>
               </button>
