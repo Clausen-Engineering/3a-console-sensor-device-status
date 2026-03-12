@@ -1,0 +1,737 @@
+{
+  "latest_version": "v3.7.1",
+  "repo_name": "glaecier-sensorhub-data-collector",
+  "last_commit_date": "2026-03-12 16:13:46",
+  "last_updated": "2026-03-12 16:28:29",
+  "version_changes": [
+    {
+      "version": "v3.7.1",
+      "date": "2026-03-12",
+      "components": [
+        "core"
+      ],
+      "description": "Remove legacy code and align codebase to fixed PCB pin layout"
+    },
+    {
+      "version": "v3.7.0",
+      "date": "2026-03-11",
+      "components": [
+        "core"
+      ],
+      "description": "Add automatic event and error creation upon registration and remove old code remedies"
+    },
+    {
+      "version": "v3.6.1",
+      "date": "2026-03-11",
+      "components": [
+        "core"
+      ],
+      "description": "Add canvas buffering, key-value line wrapping, and dirty-flag display rendering"
+    },
+    {
+      "version": "v3.6.0",
+      "date": "2026-03-11",
+      "components": [
+        "core"
+      ],
+      "description": "Add memory lifecycle management, BLE availability policy, sensor tests, and resilience improvements"
+    },
+    {
+      "version": "v3.5.2",
+      "date": "2026-03-06",
+      "components": [
+        "core"
+      ],
+      "description": "Add detailed WiFi state display, restart reason screen, and display padding/rotation"
+    },
+    {
+      "version": "v3.5.1",
+      "date": "2026-03-05",
+      "components": [
+        "core"
+      ],
+      "description": "Drop multi-board support, add early Hardware pin init, auto-resolve sensor pins from config.h, and define missing PCB pins."
+    },
+    {
+      "version": "v3.5.0",
+      "date": "2026-03-05",
+      "components": [
+        "core"
+      ],
+      "description": "Add display state machine with provisioning screens and config-driven runtime pages"
+    },
+    {
+      "version": "v3.4.0",
+      "date": "2026-03-05",
+      "components": [
+        "core"
+      ],
+      "description": "Add OTA firmware update support"
+    },
+    {
+      "version": "v3.3.1",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Extract reusable ApiClient class from api.cpp"
+    },
+    {
+      "version": "v3.3.0",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Add diagnostic serial commands, connection soak test, and SPIFFS health monitoring"
+    },
+    {
+      "version": "v3.2.0",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Eliminate blocking delays and add watchdog-safe WdtGuard wrapper"
+    },
+    {
+      "version": "v3.1.1",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Replace String with stack buffers and remove unused device-side timestamps"
+    },
+    {
+      "version": "v3.1.0",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Embed firmware version at build time with startup banner"
+    },
+    {
+      "version": "v3.0.1",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Migrate to ArduinoJson v7 and move credentials to git-ignored file"
+    },
+    {
+      "version": "v3.0.0",
+      "date": "2026-02-11",
+      "components": [
+        "core"
+      ],
+      "description": "Target sensor hub v1.4 only  removes all multi-hardware support"
+    },
+    {
+      "version": "v2.16.1",
+      "date": "2026-02-11",
+      "components": [
+        "MODBUS"
+      ],
+      "description": "More robust MODBUS and simpler device settings fetch"
+    },
+    {
+      "version": "v2.16.0",
+      "date": "2025-12-11",
+      "components": [
+        "core"
+      ],
+      "description": "Improved error reporting with more detailed failure messages"
+    },
+    {
+      "version": "v2.15.2",
+      "date": "2025-12-11",
+      "components": [
+        "OneWire"
+      ],
+      "description": "Fix OneWire pin parsing, sensor init hang, and WiFi error messages"
+    },
+    {
+      "version": "v2.15.1",
+      "date": "2025-12-05",
+      "components": [
+        "core"
+      ],
+      "description": "Config validation and WiFi manager consolidation fixes"
+    },
+    {
+      "version": "v2.15.0",
+      "date": "2025-12-04",
+      "components": [
+        "virtual"
+      ],
+      "description": "Virtual device membership from config and cached display readings"
+    },
+    {
+      "version": "v2.14.0",
+      "date": "2025-12-04",
+      "components": [
+        "core"
+      ],
+      "description": "Add telemetry wrappers for log uploads and restart reporting"
+    },
+    {
+      "version": "v2.13.1",
+      "date": "2025-12-04",
+      "components": [
+        "core"
+      ],
+      "description": "JSON buffer pre-sizing and compile warning fixes"
+    },
+    {
+      "version": "v2.13.0",
+      "date": "2025-12-04",
+      "components": [
+        "core"
+      ],
+      "description": "Safer config reload with hash-based change detection and strict SPIFFS validation"
+    },
+    {
+      "version": "v2.12.1",
+      "date": "2025-12-04",
+      "components": [
+        "core"
+      ],
+      "description": "Refactor main.cpp into focused modules (no behavior change)"
+    },
+    {
+      "version": "v2.12.0",
+      "date": "2025-12-03",
+      "components": [
+        "core"
+      ],
+      "description": "Add Wroom support, new sensors, and configurable sample delay"
+    },
+    {
+      "version": "v2.11.2",
+      "date": "2025-10-16",
+      "components": [
+        "core"
+      ],
+      "description": "Stability/Perf tuning: guard SPIFFS init, flatten sensor caches, stream config hashing, and reuse shared JSON buffers"
+    },
+    {
+      "version": "v2.11.1",
+      "date": "2025-10-16",
+      "components": [
+        "core"
+      ],
+      "description": "Fix critical bug where devices stop sending logs after connecting to new WiFi network via BLE"
+    },
+    {
+      "version": "v2.11.0",
+      "date": "2025-10-16",
+      "components": [
+        "core"
+      ],
+      "description": "Improve system reliability with WiFi reconnection handling and enhanced diagnostics"
+    },
+    {
+      "version": "v2.10.1",
+      "date": "2025-09-16",
+      "components": [
+        "core"
+      ],
+      "description": "Add pressure sensor device example with 4-20mA current loop"
+    },
+    {
+      "version": "v2.10.0",
+      "date": "2025-09-16",
+      "components": [
+        "core"
+      ],
+      "description": "Implement ESP32-S3 TFT display system for real-time monitoring"
+    },
+    {
+      "version": "v2.9.0",
+      "date": "2025-09-16",
+      "components": [
+        "core"
+      ],
+      "description": "Add 4-20mA current loop sensor conversion support"
+    },
+    {
+      "version": "v2.8.0",
+      "date": "2025-09-08",
+      "components": [
+        "core"
+      ],
+      "description": "Implement universal sensor frequent checking system and update documentation"
+    },
+    {
+      "version": "v2.7.1",
+      "date": "2025-09-08",
+      "components": [
+        "digital",
+        "switch"
+      ],
+      "description": "Fix digital switch timezone handling with automatic DST calculation"
+    },
+    {
+      "version": "v2.7.0",
+      "date": "2025-09-08",
+      "components": [
+        "core"
+      ],
+      "description": "Fix JSON parsing preventing log interval configuration"
+    },
+    {
+      "version": "v2.6.5",
+      "date": "2025-09-04",
+      "components": [
+        "core"
+      ],
+      "description": "Version bump: patch"
+    },
+    {
+      "version": "v2.6.4",
+      "date": "2025-08-29",
+      "components": [
+        "digital",
+        "switch"
+      ],
+      "description": "Patch for digital switchTimezone and scheduling patch for digital switch"
+    },
+    {
+      "version": "v2.6.3",
+      "date": "2025-08-19",
+      "components": [
+        "virtual"
+      ],
+      "description": "Implement sensor-specific error tracking and virtual device attribution"
+    },
+    {
+      "version": "v2.6.2",
+      "date": "2025-08-18",
+      "components": [
+        "digital"
+      ],
+      "description": "Added timestamps to audio-switcher log / digital sensor logs"
+    },
+    {
+      "version": "v2.6.1",
+      "date": "2025-08-12",
+      "components": [
+        "digital",
+        "switch"
+      ],
+      "description": "Added hold time to digital switch"
+    },
+    {
+      "version": "v2.6.0",
+      "date": "2025-08-07",
+      "components": [
+        "core"
+      ],
+      "description": "Implement SSL memory failure recovery with automatic restartSL memory failure recovery with automatic restart"
+    },
+    {
+      "version": "v2.5.0",
+      "date": "2025-08-07",
+      "components": [
+        "MODBUS"
+      ],
+      "description": "Data priorization for MODBUS sensors"
+    },
+    {
+      "version": "v2.4.0",
+      "date": "2025-08-07",
+      "components": [
+        "core"
+      ],
+      "description": "Memory logging and mock data for easier testing and debugging"
+    },
+    {
+      "version": "v2.3.2",
+      "date": "2025-07-09",
+      "components": [
+        "MODBUS"
+      ],
+      "description": "Fixed MODBUS directional control implementation"
+    },
+    {
+      "version": "v2.3.1",
+      "date": "2025-06-19",
+      "components": [
+        "digital",
+        "switch"
+      ],
+      "description": "Enhanced digital switch with configurable labels and immediate logging"
+    },
+    {
+      "version": "v2.3.0",
+      "date": "2025-06-17",
+      "components": [
+        "core"
+      ],
+      "description": "More robust wifi initialization implemented"
+    },
+    {
+      "version": "v2.2.2",
+      "date": "2025-06-17",
+      "components": [
+        "digital",
+        "switch"
+      ],
+      "description": "Added support for digital switches ()digital switches, relays etc.)"
+    },
+    {
+      "version": "v2.2.1",
+      "date": "2025-05-20",
+      "components": [
+        "OneWire"
+      ],
+      "description": "OneWire bus scan upon sensor initialization for easier debugging"
+    },
+    {
+      "version": "v2.2.0",
+      "date": "2025-05-20",
+      "components": [
+        "core"
+      ],
+      "description": "Deep setting comparison to trigger sensor reinitialization on all sensor setting updates"
+    },
+    {
+      "version": "v2.1.7",
+      "date": "2025-05-20",
+      "components": [
+        "algae"
+      ],
+      "description": "Added algae sensor"
+    },
+    {
+      "version": "v2.1.6",
+      "date": "2025-05-14",
+      "components": [
+        "digital"
+      ],
+      "description": "Digital sensor now saves total count in non volatile memory"
+    },
+    {
+      "version": "v2.1.5",
+      "date": "2025-05-14",
+      "components": [
+        "OneWire"
+      ],
+      "description": "Onewire mapping send as event and minor log layout change"
+    },
+    {
+      "version": "v2.1.4",
+      "date": "2025-05-20",
+      "components": [
+        "OneWire"
+      ],
+      "description": "Fixed sensor index for address based onewire sensor initialization"
+    },
+    {
+      "version": "v2.1.3",
+      "date": "2025-05-20",
+      "components": [
+        "core"
+      ],
+      "description": "Optimized version tracking for easier management"
+    },
+    {
+      "version": "v2.1.2",
+      "date": "2025-05-13",
+      "components": [
+        "core"
+      ],
+      "description": "Improved handling of device naming for single device configurations"
+    },
+    {
+      "version": "v2.1.1",
+      "date": "2025-05-13",
+      "components": [
+        "MODBUS"
+      ],
+      "description": "MODBUS now supports TTL to RS485 with direction pin"
+    },
+    {
+      "version": "v2.1.0",
+      "date": "2025-05-13",
+      "components": [
+        "core"
+      ],
+      "description": "Updated wifi credential initialization"
+    },
+    {
+      "version": "v2.0.0",
+      "date": "2025-05-12",
+      "components": [
+        "virtual"
+      ],
+      "description": "Virtual devices uses master/slave configuration and hardware config is implemented to prevent wrong pin configuration"
+    },
+    {
+      "version": "v1.3.2",
+      "date": "2025-04-23",
+      "components": [
+        "virtual"
+      ],
+      "description": "Fixed virtual device settings fetching"
+    },
+    {
+      "version": "v1.3.1",
+      "date": "2025-03-28",
+      "components": [
+        "digital"
+      ],
+      "description": "Patched problem with edge, state detection of digital sensors"
+    },
+    {
+      "version": "v1.3.0",
+      "date": "2025-03-27",
+      "components": [
+        "virtual"
+      ],
+      "description": "Added support for virtual devices"
+    },
+    {
+      "version": "v1.2.2",
+      "date": "2025-03-19",
+      "components": [
+        "core"
+      ],
+      "description": "Updated event send logic, to lessen trafic"
+    },
+    {
+      "version": "v1.2.1",
+      "date": "2025-03-19",
+      "components": [
+        "core"
+      ],
+      "description": "Version 1.2.1 - Stable version"
+    },
+    {
+      "version": "v1.1.2",
+      "date": "2025-03-15",
+      "components": [
+        "core"
+      ],
+      "description": "Fix inconsistent handling of log intervals"
+    },
+    {
+      "version": "v1.1.1",
+      "date": "2025-03-15",
+      "components": [
+        "MODBUS"
+      ],
+      "description": "Improved MODBUS sensor implementation"
+    },
+    {
+      "version": "v1.1.0",
+      "date": "2025-03-14",
+      "components": [
+        "core"
+      ],
+      "description": "Implement device configuration management system"
+    },
+    {
+      "version": "v1.0.0",
+      "date": "2025-03-14",
+      "components": [
+        "core"
+      ],
+      "description": "Initial consolidated template"
+    }
+  ],
+  "devices": [
+    {
+      "name": "Carbonated water CO2 Tank Pressure (hallway)",
+      "mac": "64:e8:33:74:70:8c",
+      "version": "",
+      "components": [
+        "analog",
+        "core"
+      ],
+      "location": "Cupboard next to pool door",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Carbonated water CO2 Tank Pressure (lounge)",
+      "mac": "b8:f8:62:d5:d0:88",
+      "version": "",
+      "components": [
+        "analog",
+        "core"
+      ],
+      "location": "Cupboard under coffee machine",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Water System Temperatures",
+      "mac": "68:fe:71:16:a7:58",
+      "version": "",
+      "components": [
+        "onewire",
+        "virtual",
+        "core"
+      ],
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Lounge Floor Temperature",
+      "mac": "68:fe:71:16:a9:78",
+      "version": "",
+      "components": [
+        "modbus",
+        "core"
+      ],
+      "location": "Underneath top bench in lounge",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Main Power In",
+      "mac": "64:e8:33:74:76:fc",
+      "version": "",
+      "components": [
+        "modbus",
+        "core"
+      ],
+      "location": "Main power cabinet (cleaning basement)",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "MOG Tank Cycle Count",
+      "mac": "18:8b:0e:2f:d6:a0",
+      "version": "",
+      "components": [
+        "digital",
+        "core"
+      ],
+      "location": "Top of MOG tank in crawl space",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Music Switch Lounge",
+      "mac": "3c:84:27:af:4c:f0",
+      "version": "",
+      "components": [
+        "digital_switch",
+        "core"
+      ],
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Music Switch Sauna",
+      "mac": "3c:84:27:ad:71:9c",
+      "version": "",
+      "components": [
+        "digital_switch",
+        "core"
+      ],
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Sauna floor temperature",
+      "mac": "68:fe:71:16:86:78",
+      "version": "",
+      "components": [
+        "onewire",
+        "core"
+      ],
+      "location": "Under sauna benches",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Sauna Power",
+      "mac": "3c:84:27:ae:eb:e0",
+      "version": "",
+      "components": [
+        "modbus",
+        "core"
+      ],
+      "location": "Last cabinet in cleaning basement",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Sauna Temperature and Humidity",
+      "mac": "d8:3b:da:34:fa:74",
+      "version": "",
+      "components": [
+        "modbus",
+        "core"
+      ],
+      "location": "On top of fridge in cleaning basement",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Water flow - Pre heater in",
+      "mac": "68:fe:71:16:bf:60",
+      "version": "",
+      "components": [
+        "digital",
+        "core"
+      ],
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Water Heater Power",
+      "mac": "64:e8:33:88:c3:e4",
+      "version": "",
+      "components": [
+        "modbus",
+        "core"
+      ],
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Water Heater Power Consumption",
+      "mac": "64:e8:33:74:74:48",
+      "version": "",
+      "components": [
+        "modbus",
+        "core"
+      ],
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Water System Temperatures",
+      "mac": "3c:84:27:ad:43:bc",
+      "version": "",
+      "components": [
+        "onewire",
+        "virtual",
+        "core"
+      ],
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "Water Heater Temperatures",
+      "mac": "68:fe:71:16:85:68",
+      "version": "",
+      "components": [
+        "onewire",
+        "core"
+      ],
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": ""
+    }
+  ]
+}
