@@ -1,6 +1,21 @@
 {
   "api_base": "https://monitoring-api.3aentreprise.com",
   "devices": [
-    { "mac": "68:FE:71:16:86:78", "label": "sauna-floor-temperatures" }
+    { "mac": "64:E8:33:74:70:8C", "label": "Carbonated water CO2 Tank Pressure (hallway)" },
+    { "mac": "B8:F8:62:D5:D0:88", "label": "Carbonated water CO2 Tank Pressure (lounge)" },
+    { "mac": "68:FE:71:16:A7:58", "label": "Water System Temperatures" },
+    { "mac": "68:FE:71:16:A9:78", "label": "Lounge Floor Temperature" },
+    { "mac": "64:E8:33:74:76:FC", "label": "Main Power In" },
+    { "mac": "18:8B:0E:2F:D6:A0", "label": "MOG Tank Cycle Count" },
+    { "mac": "3C:84:27:AF:4C:F0", "label": "Music Switch Lounge" },
+    { "mac": "3C:84:27:AD:71:9C", "label": "Music Switch Sauna" },
+    { "mac": "68:FE:71:16:86:78", "label": "Sauna floor temperature" },
+    { "mac": "3C:84:27:AE:EB:E0", "label": "Sauna Power" },
+    { "mac": "D8:3B:DA:34:FA:74", "label": "Sauna Temperature and Humidity" },
+    { "mac": "68:FE:71:16:BF:60", "label": "Water flow - Pre heater in" },
+    { "mac": "64:E8:33:88:C3:E4", "label": "Water Heater Power" },
+    { "mac": "64:E8:33:74:74:48", "label": "Water Heater Power Consumption" },
+    { "mac": "3C:84:27:AD:43:BC", "label": "Water System Temperatures" },
+    { "mac": "68:FE:71:16:85:68", "label": "Water Heater Temperatures" }
   ]
 }
