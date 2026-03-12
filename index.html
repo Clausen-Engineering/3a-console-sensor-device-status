@@ -166,6 +166,7 @@
       .table-surface,
       .hero-aside {
         padding: 1.5rem;
+        align-self: end;
       }
 
       .dashboard-section {
@@ -363,8 +364,15 @@
         font-weight: 700;
       }
 
+      .device-card__title {
+        min-height: 2.4em;
+      }
+
+      .section-heading {
+        margin-bottom: 1.2rem;
+      }
+
       .repo-meta,
-      .attention-list,
       .insight-list,
       .status-breakdown,
       .version-grid {
@@ -468,7 +476,13 @@
 
       .overview-grid {
         grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.9fr);
+        align-items: stretch;
         margin-top: 1.6rem;
+      }
+
+      .overview-grid .chart-surface,
+      .overview-grid .insight-surface {
+        align-self: stretch;
       }
 
       .chart-layout {
@@ -591,6 +605,8 @@
 
       .device-card {
         height: 100%;
+        display: flex;
+        flex-direction: column;
         padding: 0.95rem;
         border-radius: var(--radius-lg);
         background: linear-gradient(180deg, rgba(46, 46, 47, 0.98), rgba(36, 37, 37, 0.98));
@@ -635,7 +651,7 @@
 
       .device-card__section,
       .attention-panel {
-        margin-top: 0.8rem;
+        margin-top: auto;
         padding-top: 0.8rem;
         border-top: 1px solid var(--line);
       }
@@ -729,6 +745,7 @@
         display: grid;
         gap: 1rem;
         padding: 1.25rem;
+        overflow: visible;
       }
 
       .timeline-intro {
@@ -742,189 +759,282 @@
 
       .timeline-track {
         position: relative;
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: minmax(72px, 1fr);
-        align-items: end;
-        gap: 0.75rem;
-        overflow-x: auto;
-        min-height: 320px;
-        padding: 1.2rem 0 0.85rem;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(28, 114, 218, 0.55) rgba(255, 255, 255, 0.04);
-        background:
-          linear-gradient(180deg, rgba(28, 114, 218, 0.06), rgba(28, 114, 218, 0) 35%),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        background-size: auto, 72px 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem 0.75rem;
         border-radius: 14px;
         border: 1px solid rgba(67, 67, 68, 0.95);
+        background: rgba(28, 28, 29, 0.6);
+        overflow: visible;
       }
 
-      .timeline-track::before {
+      .timeline-row {
+        position: relative;
+        display: flex;
+        align-items: stretch;
+      }
+
+      .timeline-row.reverse {
+        flex-direction: row-reverse;
+      }
+
+      .timeline-row::before {
         content: "";
         position: absolute;
-        left: 0.8rem;
+        top: calc(0.6rem + 0.375rem);
+        left: 0;
         right: 0;
         height: 2px;
-        bottom: 3.2rem;
-        background: linear-gradient(90deg, rgba(28, 114, 218, 0.18), rgba(28, 114, 218, 0.5), rgba(28, 114, 218, 0.18));
+        background: rgba(28, 114, 218, 0.22);
+        z-index: 1;
+      }
+
+      .timeline-bend {
+        display: flex;
+        height: 1.6rem;
+        position: relative;
+      }
+
+      .timeline-bend::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: rgba(28, 114, 218, 0.22);
+      }
+
+      .timeline-bend.bend-right::before {
+        right: calc(0.5rem + 50% / var(--cols));
+      }
+
+      .timeline-bend.bend-left::before {
+        left: calc(0.5rem + 50% / var(--cols));
       }
 
       .timeline-node {
         position: relative;
-        min-width: 72px;
-        padding: 0.55rem 0.4rem 0.35rem;
-        border-radius: var(--radius-lg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0.6rem 0.3rem 0.7rem;
         border: none;
         background: transparent;
         text-align: center;
         color: var(--text);
-        z-index: 1;
         cursor: pointer;
-        transition: transform 0.18s ease, filter 0.18s ease;
+        transition: background 0.2s ease;
+        border-radius: var(--radius-lg);
+        z-index: 2;
       }
 
-      .timeline-node::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        bottom: 3.35rem;
-        transform: translateX(-50%);
-        width: 0.72rem;
-        height: 0.72rem;
+      .timeline-node:hover {
+        background: rgba(28, 114, 218, 0.08);
+      }
+
+      .timeline-node__dot {
+        width: 0.75rem;
+        height: 0.75rem;
         border-radius: 999px;
-        background: rgba(28, 114, 218, 0.55);
-        border: 2px solid #1f1f20;
-        box-shadow: 0 0 0 3px rgba(28, 114, 218, 0.16);
-      }
-
-      .timeline-node.active {
-        filter: brightness(1.1);
-      }
-
-      .timeline-node:hover,
-      .timeline-node:focus-visible {
-        transform: translateY(-3px);
-      }
-
-      .timeline-node.active::before {
-        background: var(--accent);
-        box-shadow: 0 0 0 4px rgba(28, 114, 218, 0.22);
-      }
-
-      .timeline-node__date {
-        display: block;
-        margin-top: 0.55rem;
-        color: var(--muted);
-        font-size: 0.7rem;
-      }
-
-      .timeline-node__copy {
-        margin-top: 0.45rem;
-        color: var(--muted);
-        font-size: 0.72rem;
-        line-height: 1.3;
-      }
-
-      .timeline-node__bar {
-        position: relative;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        width: 100%;
-        min-height: 92px;
-        margin: 0 auto;
-        padding-bottom: 3.45rem;
-      }
-
-      .timeline-node__column {
-        width: min(42px, 100%);
-        border-radius: 12px 12px 6px 6px;
-        background:
-          linear-gradient(180deg, rgba(77, 148, 238, 0.95), rgba(28, 114, 218, 0.78) 55%, rgba(20, 63, 120, 0.8));
-        border: 1px solid rgba(87, 159, 255, 0.42);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 10px 18px rgba(3, 8, 18, 0.34);
-      }
-
-      .timeline-node__beam {
-        position: absolute;
-        bottom: 2.5rem;
-        width: 1px;
-        background: linear-gradient(180deg, rgba(87, 159, 255, 0.34), rgba(87, 159, 255, 0));
-        opacity: 0.9;
+        background: rgba(28, 114, 218, 0.5);
+        border: 2px solid rgba(40, 40, 41, 0.98);
+        box-shadow: 0 0 0 3px rgba(28, 114, 218, 0.14);
+        flex-shrink: 0;
+        z-index: 2;
+        transition: all 0.2s ease;
       }
 
       .timeline-node__version {
         display: block;
+        margin-top: 0.55rem;
         font-size: 0.78rem;
         font-weight: 700;
         letter-spacing: -0.01em;
+        white-space: nowrap;
       }
 
-      .timeline-spotlight {
-        position: relative;
-        overflow: hidden;
+      .timeline-node__date {
+        display: block;
+        margin-top: 0.2rem;
+        color: var(--muted);
+        font-size: 0.68rem;
       }
 
-      .timeline-spotlight::before {
+      .timeline-node__scope {
+        display: flex;
+        justify-content: center;
+        gap: 3px;
+        margin-top: 0.4rem;
+        flex-wrap: wrap;
+      }
+
+      .timeline-node__scope-pip {
+        width: 6px;
+        height: 6px;
+        border-radius: 2px;
+        opacity: 0.7;
+      }
+
+      .timeline-node.major-bump .timeline-node__dot {
+        width: 0.95rem;
+        height: 0.95rem;
+        background: rgba(28, 114, 218, 0.72);
+        box-shadow: 0 0 0 3px rgba(28, 114, 218, 0.22);
+      }
+
+      .timeline-node.in-use .timeline-node__dot {
+        box-shadow: 0 0 0 3px rgba(88, 229, 165, 0.35), 0 0 10px rgba(88, 229, 165, 0.18);
+      }
+
+
+      .timeline-node__in-use-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.2rem;
+        height: 1.2rem;
+        padding: 0 0.3rem;
+        margin-top: 0.3rem;
+        border-radius: 999px;
+        background: rgba(88, 229, 165, 0.16);
+        border: 1px solid rgba(88, 229, 165, 0.28);
+        color: #a5f0d0;
+        font-size: 0.6rem;
+        font-weight: 700;
+      }
+
+      .timeline-month-marker {
+        display: flex;
+        align-items: center;
+        flex: 0 0 auto;
+        padding: 0 0.15rem;
+        z-index: 3;
+      }
+
+      .timeline-month-marker__label {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.2rem 0.55rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--muted);
+      }
+
+      .timeline-year-divider {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.65rem 0.5rem;
+      }
+
+      .timeline-year-divider::before,
+      .timeline-year-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(28, 114, 218, 0.08), rgba(28, 114, 218, 0.3), rgba(28, 114, 218, 0.08));
+      }
+
+      .timeline-year-divider__label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: var(--radius-sm);
+        background: rgba(28, 114, 218, 0.14);
+        border: 1px solid rgba(28, 114, 218, 0.3);
+        color: var(--accent-soft);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+      }
+
+      .timeline-popover {
+        position: absolute;
+        z-index: 9999;
+        width: 340px;
+        max-width: calc(100vw - 2rem);
+        padding: 1rem 1.1rem;
+        border-radius: var(--radius-lg);
+        background: rgba(28, 30, 32, 0.98);
+        border: 1px solid rgba(28, 114, 218, 0.3);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(28, 114, 218, 0.08);
+        backdrop-filter: blur(12px);
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+
+      .timeline-popover.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .timeline-popover::after {
         content: "";
         position: absolute;
-        inset: 0 0 auto;
-        height: 120px;
-        background: radial-gradient(circle at top center, rgba(28, 114, 218, 0.2), rgba(28, 114, 218, 0) 70%);
-        pointer-events: none;
-        z-index: 0;
+        bottom: -6px;
+        left: var(--arrow-left, 50%);
+        transform: translateX(-50%) rotate(45deg);
+        width: 12px;
+        height: 12px;
+        background: rgba(28, 30, 32, 0.98);
+        border-right: 1px solid rgba(28, 114, 218, 0.3);
+        border-bottom: 1px solid rgba(28, 114, 218, 0.3);
       }
 
-      .timeline-spotlight > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      .timeline-detail {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(220px, 0.55fr);
-        gap: 1rem;
-        padding: 1.15rem;
-        border-radius: var(--radius-lg);
-        background: rgba(32, 32, 33, 0.96);
-        border: 1px solid rgba(67, 67, 68, 0.95);
-      }
-
-      .timeline-detail__meta {
-        display: grid;
-        gap: 0.7rem;
-        align-content: start;
-      }
-
-      .timeline-detail__label {
-        color: var(--muted);
-        font-size: 0.78rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .timeline-detail__title {
-        margin: 0.2rem 0 0;
-        font-size: 1.35rem;
-      }
-
-      .timeline-detail__description {
+      .timeline-popover__title {
         margin: 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      .timeline-popover__desc {
+        margin: 0.4rem 0 0;
         color: var(--muted);
-        line-height: 1.65;
+        font-size: 0.88rem;
+        line-height: 1.55;
       }
 
-      .timeline-metrics {
-        display: grid;
-        gap: 0.75rem;
+      .timeline-popover__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.7rem;
       }
 
-      .timeline-metric {
-        padding: 0.85rem 0.95rem;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(67, 67, 68, 0.95);
+      .timeline-popover__chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.2rem 0.55rem;
+        border-radius: var(--radius-sm);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(67, 67, 68, 0.7);
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .timeline-popover__chip i {
+        font-size: 0.68rem;
+        opacity: 0.7;
+      }
+
+      .timeline-popover__chip.in-use {
+        background: rgba(88, 229, 165, 0.12);
+        border-color: rgba(88, 229, 165, 0.25);
+        color: #a5f0d0;
       }
 
       .version-card__head {
@@ -1009,10 +1119,13 @@
         }
       }
 
+      .hero-panel .col-lg-5 {
+        align-self: flex-end;
+      }
+
       @media (max-width: 1199.98px) {
         .overview-grid,
-        .chart-layout,
-        .timeline-detail {
+        .chart-layout {
           grid-template-columns: 1fr;
         }
 
@@ -1021,11 +1134,6 @@
         }
       }
 
-      @media (max-width: 991.98px) {
-        .timeline-node {
-          min-width: 200px;
-        }
-      }
 
       @media (max-width: 767.98px) {
         .hero-title {
@@ -1091,7 +1199,7 @@
               <span class="eyebrow">Device Command View</span>
               <h1 class="hero-title">3A Console sensor status</h1>
               <p class="hero-copy">
-                Template alignment, deployment readiness, and release history for the full 3A Console sensor fleet.
+                Template alignment, deployment readiness, and release history for the ESP32 based part of the 3A Console sensor fleet.
               </p>
               <div class="hero-actions">
                 <a class="cta-button" href="#devices"><i class="bi bi-grid-1x2-fill"></i> Inspect devices</a>
@@ -1148,12 +1256,6 @@
                     <dd id="last-updated">--</dd>
                   </div>
                 </dl>
-                <div class="attention-panel">
-                  <div class="panel-title">Priority queue</div>
-                  <div id="attention-list" class="attention-list">
-                    <div class="attention-item">Loading device priorities...</div>
-                  </div>
-                </div>
               </aside>
             </div>
           </div>
@@ -1291,7 +1393,6 @@
               <span class="eyebrow">Release Intelligence</span>
               <h2>Version timeline</h2>
             </div>
-            <button id="toggle-version-history" type="button" class="secondary-button" hidden>Show more</button>
           </div>
           <div class="surface timeline-shell">
             <div class="timeline-intro">
@@ -1301,12 +1402,7 @@
             <div id="version-changes-list" class="timeline-track">
               <div class="version-card">Loading version history...</div>
             </div>
-            <div id="version-detail-panel" class="timeline-detail timeline-spotlight">
-              <div class="empty-state">
-                <h3>Loading release detail</h3>
-                <p>Preparing the selected version.</p>
-              </div>
-            </div>
+            <div id="timeline-popover" class="timeline-popover"></div>
           </div>
         </section>
 
@@ -1347,8 +1443,6 @@
         Unknown: "rgba(255, 122, 155, 0.9)",
       };
 
-      const VERSION_PREVIEW_COUNT = 9;
-
       const dashboardState = {
         latestVersion: "",
         repoName: "",
@@ -1368,8 +1462,6 @@
           component: "all",
           sortBy: "date",
           view: "card",
-          showAllVersions: false,
-          selectedVersionIndex: 0,
         },
       };
 
@@ -1564,10 +1656,6 @@
           applyFiltersAndRender();
         });
 
-        document.getElementById("toggle-version-history").addEventListener("click", () => {
-          dashboardState.ui.showAllVersions = !dashboardState.ui.showAllVersions;
-          renderVersionHistory();
-        });
       }
 
       function populateOverview() {
@@ -1600,7 +1688,6 @@
 
         populateStatusCounts();
         renderStatusBreakdown(metrics.totalDevices);
-        renderPriorityQueue();
         renderInsights(metrics);
       }
 
@@ -1640,48 +1727,6 @@
         document.getElementById("status-count-patch-available").textContent = dashboardState.statusCounts["Patch available"];
         document.getElementById("status-count-needs-update").textContent = dashboardState.statusCounts["Needs update"];
         document.getElementById("status-count-unknown").textContent = dashboardState.statusCounts.Unknown;
-      }
-
-      function renderPriorityQueue() {
-        const container = document.getElementById("attention-list");
-        const priorityDevices = [...dashboardState.devices]
-          .filter((device) => device.calculatedStatus !== "Up to date")
-          .sort((left, right) => {
-            const statusDiff = STATUS_ORDER[left.calculatedStatus] - STATUS_ORDER[right.calculatedStatus];
-            if (statusDiff !== 0) {
-              return statusDiff;
-            }
-            return parseDateForSort(left.last_deployed) - parseDateForSort(right.last_deployed);
-          })
-          .slice(0, 4);
-
-        if (!priorityDevices.length) {
-          container.innerHTML = `
-            <div class="attention-item">
-              <div class="attention-name">Fleet aligned</div>
-              <div class="attention-meta">All tracked devices are on the current release.</div>
-            </div>
-          `;
-          return;
-        }
-
-        container.innerHTML = priorityDevices
-          .map((device) => {
-            const statusClass = STATUS_LABELS[device.calculatedStatus];
-            return `
-              <div class="attention-item">
-                <div class="attention-head">
-                  <div class="attention-name">${escapeHtml(device.name || "Unnamed device")}</div>
-                  <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
-                </div>
-                <div class="attention-meta">
-                  <span class="mono">${escapeHtml(device.versionDisplay)}</span>
-                  · ${escapeHtml(getDisplayLocation(device.location))}
-                </div>
-              </div>
-            `;
-          })
-          .join("");
       }
 
       function renderInsights(metrics) {
@@ -1824,7 +1869,7 @@
             const statusClass = STATUS_LABELS[device.calculatedStatus];
             const versionMarkup = `<span class="version-badge">${escapeHtml(device.versionDisplay)}</span>`;
             return `
-              <div class="col-sm-6 col-xl-3">
+              <div class="col-sm-6 col-xl-4">
                 <article class="device-card status-${statusClass}">
                   <div class="device-card__top">
                     <div>
@@ -1878,92 +1923,260 @@
 
       function renderVersionHistory() {
         const container = document.getElementById("version-changes-list");
-        const detailPanel = document.getElementById("version-detail-panel");
-        const toggleButton = document.getElementById("toggle-version-history");
+        const popover = document.getElementById("timeline-popover");
         const summary = document.getElementById("timeline-summary");
         const countBadge = document.getElementById("timeline-count");
         const changes = dashboardState.versionChanges;
 
         if (!changes.length) {
           container.innerHTML = `<div class="empty-state"><h3>No version history</h3><p>The dashboard data does not include release notes yet.</p></div>`;
-          detailPanel.innerHTML = `<div class="empty-state"><h3>No release selected</h3><p>Add version history to enable the interactive timeline.</p></div>`;
           summary.textContent = "No releases available yet.";
           countBadge.textContent = "0 releases";
-          toggleButton.hidden = true;
           return;
         }
 
-        const visibleChanges = dashboardState.ui.showAllVersions ? changes : changes.slice(0, VERSION_PREVIEW_COUNT);
-        dashboardState.ui.selectedVersionIndex = Math.min(
-          dashboardState.ui.selectedVersionIndex,
-          visibleChanges.length - 1
-        );
+        const SCOPE_COLORS = {
+          core: "#d5e8ff", modbus: "#67c1ff", onewire: "#58e5a5",
+          digital: "#ffbf66", analog: "#ff9470", i2c: "#85f6ff",
+          virtual: "#9aa6ff", algae: "#5ad8c7", switch: "#ffd37a",
+          "digital-switch": "#ffd37a", digital_switch: "#ffd37a",
+        };
 
-        container.innerHTML = visibleChanges
-          .map(
-            (version, index) => `
-              <button
-                type="button"
-                class="timeline-node ${index === dashboardState.ui.selectedVersionIndex ? "active" : ""}"
-                data-version-index="${index}"
-                aria-pressed="${index === dashboardState.ui.selectedVersionIndex ? "true" : "false"}"
-              >
-                <div class="timeline-node__bar">
-                  <div class="timeline-node__beam" style="height: ${getReleaseBeamHeight(version, index, visibleChanges.length)}px;"></div>
-                  <div class="timeline-node__column" style="height: ${getReleaseColumnHeight(version, index, visibleChanges.length)}px;"></div>
-                </div>
-                <div class="timeline-node__version mono">${escapeHtml(version.version || "Unknown")}</div>
-                <span class="timeline-node__date">${escapeHtml(formatTimelineDate(version.date))}</span>
-                <div class="timeline-node__copy">${escapeHtml(truncateText(version.description || "No description provided", 34))}</div>
-              </button>
-            `
-          )
-          .join("");
+        const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const COLS = 8;
+
+        // Build set of in-use versions and their device counts
+        const inUseVersionCounts = new Map();
+        dashboardState.devices.forEach((device) => {
+          const v = (device.version || "").trim();
+          if (v) {
+            inUseVersionCounts.set(v, (inUseVersionCounts.get(v) || 0) + 1);
+          }
+        });
+
+        // Detect major/minor bumps by comparing each version with its successor (next in list = older)
+        const majorBumpSet = new Set();
+        for (let i = 0; i < changes.length - 1; i++) {
+          const curr = parseVersion(changes[i].version);
+          const prev = parseVersion(changes[i + 1].version);
+          if (curr && prev && (curr.major !== prev.major || curr.minor !== prev.minor)) {
+            majorBumpSet.add(i);
+          }
+        }
+
+        // Opacity fade: newest (index 0) = 1.0, oldest = 0.35
+        const totalCount = changes.length;
+        function getNodeOpacity(index) {
+          if (totalCount <= 1) return 1;
+          return 1 - (index / (totalCount - 1)) * 0.65;
+        }
+
+        // Group versions into year sections, with month markers within each section
+        const yearSections = [];
+        let currentSection = null;
+        let prevMonth = null;
+
+        for (let i = 0; i < changes.length; i++) {
+          const version = changes[i];
+          const date = parseDate(version.date);
+          const year = date ? date.getFullYear() : null;
+          const month = date ? date.getMonth() : null;
+          const yearLabel = year !== null ? String(year) : "Unknown";
+
+          if (!currentSection || currentSection.year !== yearLabel) {
+            currentSection = { year: yearLabel, items: [] };
+            yearSections.push(currentSection);
+            prevMonth = null;
+          }
+
+          if (month !== null && prevMonth !== null && month !== prevMonth) {
+            currentSection.items.push({ type: "month", label: MONTH_NAMES[month] });
+          }
+
+          prevMonth = month;
+          currentSection.items.push({ type: "node", index: i, version });
+        }
+
+        // Build HTML
+        container.style.setProperty("--cols", COLS);
+        let html = "";
+
+        for (let sIdx = 0; sIdx < yearSections.length; sIdx++) {
+          const section = yearSections[sIdx];
+
+          if (sIdx > 0) {
+            html += `<div class="timeline-year-divider"><span class="timeline-year-divider__label"><i class="bi bi-calendar3"></i> ${escapeHtml(section.year)}</span></div>`;
+          }
+
+          const rows = [];
+          let currentRow = [];
+          let nodeCount = 0;
+
+          for (const item of section.items) {
+            if (item.type === "node") {
+              nodeCount++;
+            }
+            currentRow.push(item);
+            if (nodeCount === COLS) {
+              rows.push(currentRow);
+              currentRow = [];
+              nodeCount = 0;
+            }
+          }
+          if (currentRow.length) {
+            rows.push(currentRow);
+          }
+
+          rows.forEach((row, rowIndex) => {
+            const isReverse = rowIndex % 2 === 1;
+            const rowItems = isReverse ? [...row].reverse() : row;
+
+            html += `<div class="timeline-row${isReverse ? " reverse" : ""}">`;
+            for (const item of rowItems) {
+              if (item.type === "month") {
+                html += `<div class="timeline-month-marker"><span class="timeline-month-marker__label">${escapeHtml(item.label)}</span></div>`;
+              } else {
+                const version = item.version;
+                const idx = item.index;
+                const opacity = getNodeOpacity(idx);
+                const isMajorBump = majorBumpSet.has(idx);
+                const normalizedVersion = (version.version || "").trim();
+                const deviceCount = inUseVersionCounts.get(normalizedVersion) || 0;
+                const isInUse = deviceCount > 0;
+                const components = Array.isArray(version.components) ? version.components : [];
+                const scopePips = components.map((c) => {
+                  const slug = slugify(c);
+                  const color = SCOPE_COLORS[slug] || "var(--muted)";
+                  return `<span class="timeline-node__scope-pip" style="background:${color}" title="${escapeHtml(c)}"></span>`;
+                }).join("");
+
+                const classes = [
+                  "timeline-node",
+                  isMajorBump ? "major-bump" : "",
+                  isInUse ? "in-use" : "",
+                ].filter(Boolean).join(" ");
+
+                const inUseBadge = isInUse
+                  ? `<span class="timeline-node__in-use-badge" title="${deviceCount} device${deviceCount !== 1 ? "s" : ""} on this version">${deviceCount}</span>`
+                  : "";
+
+                html += `
+                  <button
+                    type="button"
+                    class="${classes}"
+                    data-version-index="${idx}"
+                    style="opacity:${opacity.toFixed(2)}"
+                  >
+                    <span class="timeline-node__dot"></span>
+                    <span class="timeline-node__version mono">${escapeHtml(version.version || "Unknown")}</span>
+                    <span class="timeline-node__date">${escapeHtml(formatTimelineDate(version.date))}</span>
+                    <div class="timeline-node__scope">${scopePips}</div>
+                    ${inUseBadge}
+                  </button>
+                `;
+              }
+            }
+            html += `</div>`;
+
+            if (rowIndex < rows.length - 1) {
+              const bendSide = isReverse ? "bend-left" : "bend-right";
+              html += `<div class="timeline-bend ${bendSide}"></div>`;
+            }
+          });
+        }
+
+        container.innerHTML = html;
+
+        // Hover popover logic
+        let hideTimeout = null;
+
+        function showPopover(button) {
+          const idx = Number(button.dataset.versionIndex);
+          const version = changes[idx];
+          if (!version) return;
+
+          const normalizedV = (version.version || "").trim();
+          const deviceCount = inUseVersionCounts.get(normalizedV) || 0;
+          const components = Array.isArray(version.components) ? version.components : [];
+
+          let chips = `<span class="timeline-popover__chip"><i class="bi bi-calendar3"></i> ${escapeHtml(formatTimelineDate(version.date))}</span>`;
+          chips += `<span class="timeline-popover__chip"><i class="bi bi-clock-history"></i> ${escapeHtml(getRelativeReleaseAge(version.date))}</span>`;
+          if (components.length) {
+            chips += `<span class="timeline-popover__chip"><i class="bi bi-puzzle"></i> ${components.length} component${components.length !== 1 ? "s" : ""}</span>`;
+          }
+          if (deviceCount > 0) {
+            chips += `<span class="timeline-popover__chip in-use"><i class="bi bi-cpu"></i> ${deviceCount} device${deviceCount !== 1 ? "s" : ""}</span>`;
+          }
+
+          popover.innerHTML = `
+            <h4 class="timeline-popover__title mono">${escapeHtml(version.version || "Unknown")}</h4>
+            <p class="timeline-popover__desc">${escapeHtml(version.description || "No description provided")}</p>
+            <div class="component-tags" style="margin-top:0.5rem">${generateComponentTags(components)}</div>
+            <div class="timeline-popover__meta">${chips}</div>
+          `;
+
+          // Position above the button
+          const containerRect = container.getBoundingClientRect();
+          const buttonRect = button.getBoundingClientRect();
+          const popoverWidth = 340;
+
+          const buttonCenterX = buttonRect.left + buttonRect.width / 2 - containerRect.left;
+          let left = buttonCenterX - popoverWidth / 2;
+
+          // Clamp to container bounds
+          const maxLeft = container.clientWidth - popoverWidth - 8;
+          left = Math.max(8, Math.min(left, maxLeft));
+
+          // Arrow position tracks the button center
+          const arrowLeft = Math.max(20, Math.min(buttonCenterX - left, popoverWidth - 20));
+
+          const top = buttonRect.top - containerRect.top - 10;
+
+          popover.style.left = `${left}px`;
+          popover.style.bottom = `${container.clientHeight - top}px`;
+          popover.style.top = "auto";
+          popover.style.setProperty("--arrow-left", `${arrowLeft}px`);
+          popover.classList.add("visible");
+        }
+
+        function hidePopover() {
+          popover.classList.remove("visible");
+        }
 
         container.querySelectorAll("[data-version-index]").forEach((button) => {
-          button.addEventListener("click", () => {
-            dashboardState.ui.selectedVersionIndex = Number(button.dataset.versionIndex);
-            renderVersionHistory();
+          button.addEventListener("mouseenter", () => {
+            if (hideTimeout) {
+              clearTimeout(hideTimeout);
+              hideTimeout = null;
+            }
+            showPopover(button);
+          });
+
+          button.addEventListener("mouseleave", () => {
+            hideTimeout = setTimeout(hidePopover, 120);
+          });
+
+          // Touch support: tap to toggle
+          button.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (popover.classList.contains("visible") && popover.dataset.activeIndex === button.dataset.versionIndex) {
+              hidePopover();
+            } else {
+              popover.dataset.activeIndex = button.dataset.versionIndex;
+              showPopover(button);
+            }
           });
         });
 
-        const selectedVersion = visibleChanges[dashboardState.ui.selectedVersionIndex] || visibleChanges[0];
-        detailPanel.innerHTML = `
-          <div>
-            <div class="timeline-detail__label">Selected release</div>
-            <h3 class="timeline-detail__title mono">${escapeHtml(selectedVersion.version || "Unknown")}</h3>
-            <p class="timeline-detail__description">${escapeHtml(selectedVersion.description || "No description provided")}</p>
-            <div class="component-tags mt-3">${generateComponentTags(selectedVersion.components)}</div>
-          </div>
-          <div class="timeline-detail__meta">
-            <div class="timeline-metric">
-              <div class="timeline-detail__label">Release date</div>
-              <div>${escapeHtml(formatTimelineDate(selectedVersion.date))}</div>
-            </div>
-            <div class="timeline-metric">
-              <div class="timeline-detail__label">Relative age</div>
-              <div>${escapeHtml(getRelativeReleaseAge(selectedVersion.date))}</div>
-            </div>
-            <div class="timeline-metric">
-              <div class="timeline-detail__label">Component scope</div>
-              <div>${Array.isArray(selectedVersion.components) ? selectedVersion.components.length : 0} tracked area(s)</div>
-            </div>
-            <div class="timeline-metric">
-              <div class="timeline-detail__label">Release position</div>
-              <div>#${dashboardState.ui.selectedVersionIndex + 1} in the visible spectrum</div>
-            </div>
-          </div>
-        `;
+        // Hide popover when clicking outside
+        document.addEventListener("click", (e) => {
+          if (!container.contains(e.target)) {
+            hidePopover();
+          }
+        }, { once: false });
 
-        summary.textContent = dashboardState.ui.showAllVersions
-          ? "Release spectrum across the full template history. Heights hint at recency and scope."
-          : `Release spectrum of the newest ${visibleChanges.length} milestones. Select any signal for details.`;
+        summary.textContent = `Full release history across ${changes.length} versions. Hover over any node for details.`;
         countBadge.textContent = `${changes.length} releases`;
-
-        toggleButton.hidden = changes.length <= VERSION_PREVIEW_COUNT;
-        toggleButton.textContent = dashboardState.ui.showAllVersions
-          ? "Show less"
-          : `Show ${changes.length - VERSION_PREVIEW_COUNT} more`;
       }
 
       function formatTimelineDate(value) {
@@ -1990,25 +2203,6 @@
         }
 
         return `Released ${diffInDays} days ago`;
-      }
-
-      function truncateText(text, maxLength) {
-        if (!text || text.length <= maxLength) {
-          return text;
-        }
-
-        return `${text.slice(0, maxLength - 3).trimEnd()}...`;
-      }
-
-      function getReleaseColumnHeight(version, index, totalVisible) {
-        const componentCount = Array.isArray(version.components) ? version.components.length : 0;
-        const descriptionWeight = Math.min(28, Math.ceil((version.description || "").length / 18));
-        const recencyBoost = Math.max(0, (totalVisible - index - 1) * 7);
-        return 68 + componentCount * 14 + descriptionWeight + recencyBoost;
-      }
-
-      function getReleaseBeamHeight(version, index, totalVisible) {
-        return getReleaseColumnHeight(version, index, totalVisible) + 22;
       }
 
       function syncControlStates() {
@@ -2077,7 +2271,7 @@
                   STATUS_COLORS["Needs update"],
                   STATUS_COLORS.Unknown,
                 ],
-                borderColor: "#07162a",
+                borderColor: "rgba(40, 40, 41, 0.98)",
                 borderWidth: 4,
                 hoverOffset: 5,
               },
@@ -2113,13 +2307,11 @@
           </div>
         `;
 
-        document.getElementById("attention-list").innerHTML = errorMarkup;
         document.getElementById("status-breakdown").innerHTML = errorMarkup;
         document.getElementById("insight-list").innerHTML = errorMarkup;
         document.getElementById("device-cards").innerHTML = `<div class="col-12">${errorMarkup}</div>`;
         document.getElementById("device-table-body").innerHTML = `<tr><td colspan="6">${errorMarkup}</td></tr>`;
         document.getElementById("version-changes-list").innerHTML = errorMarkup;
-        document.getElementById("version-detail-panel").innerHTML = errorMarkup;
       }
 
       function getUpdateStatus(deviceVersion, latestVersion) {
