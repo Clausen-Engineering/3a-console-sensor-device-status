@@ -1,9 +1,209 @@
 {
-  "latest_version": "v2.11.2",
-  "repo_name": "3a-console-esp32-template-sm",
-  "last_commit_date": "2025-12-18 14:36:50",
-  "last_updated": "2025-12-18 13:37:25",
+  "latest_version": "v3.7.1",
+  "repo_name": "glaecier-sensorhub-data-collector",
+  "last_commit_date": "2026-03-12 10:46:15",
+  "last_updated": "2026-03-12 13:28:48",
   "version_changes": [
+    {
+      "version": "v3.7.1",
+      "date": "2026-03-12",
+      "components": [
+        "core"
+      ],
+      "description": "Remove legacy code and align codebase to fixed PCB pin layout"
+    },
+    {
+      "version": "v3.7.0",
+      "date": "2026-03-11",
+      "components": [
+        "core"
+      ],
+      "description": "Add automatic event and error creation upon registration and remove old code remedies"
+    },
+    {
+      "version": "v3.6.1",
+      "date": "2026-03-11",
+      "components": [
+        "core"
+      ],
+      "description": "Add canvas buffering, key-value line wrapping, and dirty-flag display rendering"
+    },
+    {
+      "version": "v3.6.0",
+      "date": "2026-03-11",
+      "components": [
+        "core"
+      ],
+      "description": "Add memory lifecycle management, BLE availability policy, sensor tests, and resilience improvements"
+    },
+    {
+      "version": "v3.5.2",
+      "date": "2026-03-06",
+      "components": [
+        "core"
+      ],
+      "description": "Add detailed WiFi state display, restart reason screen, and display padding/rotation"
+    },
+    {
+      "version": "v3.5.1",
+      "date": "2026-03-05",
+      "components": [
+        "core"
+      ],
+      "description": "Remove multi-board conditionals (ESP32-C3 ifdefs, feather_tft env, CUSTOM_PCB define) since the project now exclusively targets the custom PCB with ESP32S3. Add Hardware namespace for board-level pin initialization (power, boost, LED, buzzer, relays) called early in setup(). Auto-resolve sensor pins from config.h based on sensor type instead of requiring them in JSON config. Add missing PCB pin definitions (IO36, IO37, RELAY1, RELAY2, DISPLAY_RST)."
+    },
+    {
+      "version": "v3.5.0",
+      "date": "2026-03-05",
+      "components": [
+        "core"
+      ],
+      "description": "Add display state machine with provisioning screens and config-driven runtime pages"
+    },
+    {
+      "version": "v3.4.0",
+      "date": "2026-03-05",
+      "components": [
+        "core"
+      ],
+      "description": "Add OTA firmware update support"
+    },
+    {
+      "version": "v3.3.1",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Extract reusable ApiClient class from api.cpp"
+    },
+    {
+      "version": "v3.3.0",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Add diagnostic serial commands, connection soak test, and SPIFFS health monitoring"
+    },
+    {
+      "version": "v3.2.0",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Eliminate blocking delays and add watchdog-safe WdtGuard wrapper"
+    },
+    {
+      "version": "v3.1.1",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Replace String with stack buffers and remove unused device-side timestamps"
+    },
+    {
+      "version": "v3.1.0",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Embed firmware version at build time with startup banner"
+    },
+    {
+      "version": "v3.0.1",
+      "date": "2026-02-12",
+      "components": [
+        "core"
+      ],
+      "description": "Migrate to ArduinoJson v7 and move credentials to git-ignored file"
+    },
+    {
+      "version": "v3.0.0",
+      "date": "2026-02-11",
+      "components": [
+        "core"
+      ],
+      "description": "Target sensor hub v1.4 only  removes all multi-hardware support"
+    },
+    {
+      "version": "v2.16.1",
+      "date": "2026-02-11",
+      "components": [
+        "MODBUS"
+      ],
+      "description": "More robust MODBUS and simpler device settings fetch"
+    },
+    {
+      "version": "v2.16.0",
+      "date": "2025-12-11",
+      "components": [
+        "core"
+      ],
+      "description": "Improved error reporting with more detailed failure messages"
+    },
+    {
+      "version": "v2.15.2",
+      "date": "2025-12-11",
+      "components": [
+        "OneWire"
+      ],
+      "description": "Fix OneWire pin parsing, sensor init hang, and WiFi error messages"
+    },
+    {
+      "version": "v2.15.1",
+      "date": "2025-12-05",
+      "components": [
+        "core"
+      ],
+      "description": "Config validation and WiFi manager consolidation fixes"
+    },
+    {
+      "version": "v2.15.0",
+      "date": "2025-12-04",
+      "components": [
+        "virtual"
+      ],
+      "description": "Virtual device membership from config and cached display readings"
+    },
+    {
+      "version": "v2.14.0",
+      "date": "2025-12-04",
+      "components": [
+        "core"
+      ],
+      "description": "Add telemetry wrappers for log uploads and restart reporting"
+    },
+    {
+      "version": "v2.13.1",
+      "date": "2025-12-04",
+      "components": [
+        "core"
+      ],
+      "description": "JSON buffer pre-sizing and compile warning fixes"
+    },
+    {
+      "version": "v2.13.0",
+      "date": "2025-12-04",
+      "components": [
+        "core"
+      ],
+      "description": "Safer config reload with hash-based change detection and strict SPIFFS validation"
+    },
+    {
+      "version": "v2.12.1",
+      "date": "2025-12-04",
+      "components": [
+        "core"
+      ],
+      "description": "Refactor main.cpp into focused modules (no behavior change)"
+    },
+    {
+      "version": "v2.12.0",
+      "date": "2025-12-03",
+      "components": [
+        "core"
+      ],
+      "description": "Add Wroom support, new sensors, and configurable sample delay"
+    },
     {
       "version": "v2.11.2",
       "date": "2025-10-16",
@@ -358,7 +558,7 @@
         "core",
         "digital_switch"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Technician room - Inside music cupboard",
       "last_deployed": "2025-12-02",
       "initial_deployed": "2025-08-21"
@@ -370,7 +570,7 @@
         "core",
         "digital_switch"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Technician room - Inside music cupboard",
       "last_deployed": "2025-12-02",
       "initial_deployed": "2025-08-21"
@@ -398,6 +598,30 @@
       "location": "",
       "last_deployed": "2025-08-25",
       "initial_deployed": "2025-08-25"
+    },
+    {
+      "name": "lounge-floor",
+      "version": "",
+      "components": [
+        "core",
+        "modbus"
+      ],
+      "status": "Never deployed",
+      "location": "",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
+      "name": "main-power-in",
+      "version": "v2.6.3",
+      "components": [
+        "core",
+        "modbus"
+      ],
+      "status": "Needs update",
+      "location": "Technician room - Inside electrical box next to power meter for heaters",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-18"
     },
     {
       "name": "mog-tank-water-sensor",
@@ -442,7 +666,7 @@
         "core",
         "modbus"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "roof",
       "last_deployed": "2025-12-02",
       "initial_deployed": "2025-12-01"
@@ -472,6 +696,30 @@
       "initial_deployed": "2025-03-18"
     },
     {
+      "name": "sauna-power-consumption",
+      "version": "v2.6.3",
+      "components": [
+        "core",
+        "modbus"
+      ],
+      "status": "Needs update",
+      "location": "Basement (left side) - Rear electrical box",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-18"
+    },
+    {
+      "name": "sauna-temperature-and-humidity",
+      "version": "v2.6.3",
+      "components": [
+        "core",
+        "modbus"
+      ],
+      "status": "Needs update",
+      "location": "Basement (left side) - On top of box next to fridge",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-18"
+    },
+    {
       "name": "sauna-temperature-and-humidity",
       "version": "v2.6.3",
       "components": [
@@ -496,6 +744,18 @@
       "initial_deployed": "2025-03-18"
     },
     {
+      "name": "water-meter",
+      "version": "",
+      "components": [
+        "core",
+        "digital"
+      ],
+      "status": "Never deployed",
+      "location": "",
+      "last_deployed": "",
+      "initial_deployed": ""
+    },
+    {
       "name": "water-system-temperatures",
       "version": "v2.6.3",
       "components": [
@@ -516,22 +776,10 @@
         "onewire",
         "virtual"
       ],
-      "status": "Up to date",
+      "status": "Needs update",
       "location": "Technician room",
       "last_deployed": "2025-12-02",
       "initial_deployed": "2025-03-28"
-    },
-    {
-      "name": "wroom-test",
-      "version": "v2.11.2",
-      "components": [
-        "analog",
-        "core"
-      ],
-      "status": "Up to date",
-      "location": "",
-      "last_deployed": "2025-11-17",
-      "initial_deployed": "2025-11-17"
     }
   ]
 }
