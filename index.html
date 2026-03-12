@@ -1381,31 +1381,39 @@
 
       async function initializeDashboard() {
         try {
-          const [versionResponse, registryResponse] = await Promise.all([
-            fetch("data/version-changes.json"),
-            fetch("data/devices.json"),
-          ]);
+          const staticResponse = await fetch("data/dashboard-data.json", { cache: "no-store" });
 
-          if (!versionResponse.ok) {
-            throw new Error(`Failed to load version-changes.json: HTTP ${versionResponse.status}`);
+          if (staticResponse.ok) {
+            const dashboardData = await staticResponse.json();
+            hydrateVersionState(dashboardData);
+            hydrateStaticDeviceState(dashboardData.devices);
+          } else {
+            const [versionResponse, registryResponse] = await Promise.all([
+              fetch("data/version-changes.json"),
+              fetch("data/devices.json"),
+            ]);
+
+            if (!versionResponse.ok) {
+              throw new Error(`Failed to load version-changes.json: HTTP ${versionResponse.status}`);
+            }
+            if (!registryResponse.ok) {
+              throw new Error(`Failed to load devices.json: HTTP ${registryResponse.status}`);
+            }
+
+            const versionData = await versionResponse.json();
+            const deviceRegistry = await registryResponse.json();
+
+            hydrateVersionState(versionData);
+
+            const apiBase = deviceRegistry.api_base;
+            const deviceEntries = Array.isArray(deviceRegistry.devices) ? deviceRegistry.devices : [];
+
+            const settledResults = await Promise.allSettled(
+              deviceEntries.map((entry) => fetchDeviceFromApi(apiBase, entry.mac, entry.label))
+            );
+
+            hydrateDeviceState(settledResults);
           }
-          if (!registryResponse.ok) {
-            throw new Error(`Failed to load devices.json: HTTP ${registryResponse.status}`);
-          }
-
-          const versionData = await versionResponse.json();
-          const deviceRegistry = await registryResponse.json();
-
-          hydrateVersionState(versionData);
-
-          const apiBase = deviceRegistry.api_base;
-          const deviceEntries = Array.isArray(deviceRegistry.devices) ? deviceRegistry.devices : [];
-
-          const settledResults = await Promise.allSettled(
-            deviceEntries.map((entry) => fetchDeviceFromApi(apiBase, entry.mac, entry.label))
-          );
-
-          hydrateDeviceState(settledResults);
 
           populateOverview();
           renderComponentFilters();
@@ -1493,6 +1501,29 @@
             });
           }
         }
+
+        dashboardState.devices = devices;
+        dashboardState.statusCounts = countStatuses(devices);
+      }
+
+      function hydrateStaticDeviceState(devicesData) {
+        const devices = Array.isArray(devicesData)
+          ? devicesData.map((device) => {
+              const components = Array.isArray(device.components)
+                ? device.components.map((component) => String(component).trim()).filter(Boolean)
+                : [];
+              const versionDisplay = device.version || device.versionDisplay || "Unknown";
+              const calculatedStatus =
+                device.calculatedStatus || getUpdateStatus(device.version, dashboardState.latestVersion);
+
+              return {
+                ...device,
+                components,
+                versionDisplay,
+                calculatedStatus,
+              };
+            })
+          : [];
 
         dashboardState.devices = devices;
         dashboardState.statusCounts = countStatuses(devices);
@@ -2077,7 +2108,8 @@
           <div class="error-card">
             <h3><i class="bi bi-exclamation-triangle"></i> Unable to load dashboard data</h3>
             <p>Loading dashboard data failed with: ${message}</p>
-            <p>Check that <span class="mono">data/version-changes.json</span> and <span class="mono">data/devices.json</span> are accessible, and that the API at the configured base URL allows CORS from this origin.</p>
+            <p>Preferred source: <span class="mono">data/dashboard-data.json</span>. Fallback sources: <span class="mono">data/version-changes.json</span> and <span class="mono">data/devices.json</span>.</p>
+            <p>For GitHub Pages, generate the dashboard data ahead of deployment instead of calling the protected API from browser code.</p>
           </div>
         `;
 

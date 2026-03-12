@@ -28,14 +28,23 @@ This dashboard provides a visual overview of all ESP32 sensor devices in the 3A 
 
 ### Updating Device Data
 
-The dashboard reads device data from `data/device-status.json`. This file should be updated whenever:
+For GitHub Pages, the dashboard should read from `data/dashboard-data.json`.
 
-- New devices are added to the system
-- Devices are deployed with new firmware
-- Template versions are updated
-- Device configurations change
+Do not put private monitoring API credentials in `index.html` or any committed JSON file. GitHub Pages is a static public site, so any browser-side secret would be exposed.
 
-You can update this file manually or set up automated generation using the `scripts/compare-versions.sh` script from the ESP32 template repository.
+Use the workflow in [`.github/workflows/update-dashboard-data.yml`](/C:/Programming%20Projects/ESP32%20-%20Sensor%20hub%20and%20more/3a-console-sensor-device-status/.github/workflows/update-dashboard-data.yml) instead:
+
+1. Store credentials in GitHub repository secrets
+2. Let the workflow run [`scripts/build_dashboard_data.py`](/C:/Programming%20Projects/ESP32%20-%20Sensor%20hub%20and%20more/3a-console-sensor-device-status/scripts/build_dashboard_data.py)
+3. Commit the generated `data/dashboard-data.json`
+4. Let GitHub Pages serve that static file
+
+Supported secrets:
+
+- `API_USERNAME`
+- `API_PASSWORD`
+
+These credentials are used by GitHub Actions to send an `Authorization: Basic ...` header when fetching from the monitoring API. They stay server-side in the workflow and are never exposed to the browser.
 
 ## Understanding Status Indicators
 
