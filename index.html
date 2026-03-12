@@ -4,1130 +4,2227 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3A Console - ESP32 Sensor Device Status</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-      /* ========== VARIABLES ========== */
       :root {
-        --primary-color: #3498db;
-        --success-color: #2ecc71;
-        --warning-color: #f39c12;
-        --danger-color: #e74c3c;
-        --info-color: #9b59b6;
+        --bg: #1e1e1e;
+        --panel-border: rgba(67, 67, 68, 0.95);
+        --text: #e2e8f0;
+        --muted: #a6adb7;
+        --line: rgba(76, 78, 82, 0.82);
+        --accent: #1c72da;
+        --accent-soft: #2d86f5;
+        --success: #44d62c;
+        --warning: #ed8936;
+        --danger: #db313d;
+        --info: #4299e1;
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
+        --radius-xl: 18px;
+        --radius-lg: 12px;
+        --radius-sm: 999px;
       }
 
-      /* ========== GENERAL STYLES ========== */
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        padding-bottom: 2rem;
-        background-color: #f8f9fa;
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Noto Sans", sans-serif;
+        color: var(--text);
+        background: linear-gradient(180deg, #1b1b1c 0%, #222323 100%);
+        padding-bottom: 3rem;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      body::before {
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 80px 80px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+        opacity: 0.14;
+      }
+
+      body::after {
+        background:
+          radial-gradient(circle at 12% 10%, rgba(28, 114, 218, 0.11), transparent 16%),
+          radial-gradient(circle at 88% 6%, rgba(28, 114, 218, 0.08), transparent 18%);
+        z-index: -1;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(18px);
+        background: rgba(30, 30, 30, 0.94);
+        border-bottom: 1px solid rgba(67, 67, 68, 0.95);
       }
 
       .navbar-brand {
-        font-weight: bold;
-        color: var(--primary-color) !important;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-weight: 700;
+        color: var(--text) !important;
+        letter-spacing: 0.02em;
       }
 
-      .last-update {
-        font-size: 0.85rem;
-        color: #6c757d;
-        text-align: right;
+      .brand-mark {
+        display: inline-grid;
+        place-items: center;
+        width: 2.55rem;
+        height: 2.55rem;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(28, 114, 218, 0.15), rgba(28, 114, 218, 0.22));
+        border: 1px solid rgba(28, 114, 218, 0.34);
+        color: var(--accent);
+      }
+
+      .navbar-toggler {
+        border-color: rgba(67, 67, 68, 0.95);
+      }
+
+      .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(28, 114, 218, 0.18);
+      }
+
+      .topbar .nav-link {
+        color: var(--muted);
+        font-weight: 500;
+        padding: 0.8rem 1rem !important;
+      }
+
+      .topbar .nav-link:hover,
+      .topbar .nav-link:focus {
+        color: var(--text);
+      }
+
+      .dashboard-main {
+        padding-top: 2rem;
+      }
+
+      .surface {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(180deg, rgba(40, 40, 41, 0.98), rgba(34, 35, 35, 0.98));
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow);
+      }
+
+      .surface::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0), rgba(28, 114, 218, 0.1));
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0.85;
+        pointer-events: none;
+      }
+
+      .hero-panel,
+      .chart-surface,
+      .insight-surface,
+      .controls-surface,
+      .table-surface,
+      .hero-aside {
+        padding: 1.5rem;
+      }
+
+      .dashboard-section {
         margin-top: 2rem;
       }
 
-      /* ========== CARDS ========== */
-      .card {
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s;
-        margin-bottom: 1.5rem;
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
       }
 
-      .card:hover {
-        transform: translateY(-5px);
+      .eyebrow::before {
+        content: "";
+        width: 1.2rem;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(28, 114, 218, 0), rgba(28, 114, 218, 0.95));
       }
 
-      .card-header {
-        border-radius: 0.5rem 0.5rem 0 0 !important;
-        font-weight: bold;
+      .hero-title {
+        max-width: none;
+        margin: 0.5rem 0 0.8rem;
+        font-size: clamp(2rem, 4vw, 3.1rem);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
       }
 
-      /* ========== STATUS INDICATORS ========== */
-      .status-badge {
-        font-size: 0.85rem;
-        padding: 0.35rem 0.65rem;
-        border-radius: 1rem;
+      .hero-copy,
+      .section-note,
+      .repo-description,
+      .empty-state p,
+      .version-description,
+      .insight-copy {
+        color: var(--muted);
       }
 
-
-      /* Status colors - consistent across all elements */
-      .up-to-date {
-        background-color: var(--success-color);
-        color: white;
+      .hero-copy {
+        max-width: 52ch;
+        font-size: 0.96rem;
+        line-height: 1.55;
       }
 
-      .needs-update {
-        background-color: var(--warning-color);
-        color: white;
-      }
-
-      .patch-available {
-        background-color: var(--info-color);
-        color: white;
-      }
-
-      .unknown {
-        background-color: var(--danger-color);
-        color: white;
-      }
-
-      /* ========== COMPONENT TAGS ========== */
-      .version-tag {
-        background-color: var(--primary-color);
-        color: white;
-        border-radius: 0.25rem;
-        padding: 0.2rem 0.5rem;
-        font-size: 0.85rem;
-        font-family: monospace;
-      }
-
-      .component-tag {
-        background-color: #6c757d;
-        color: white;
-        border-radius: 0.25rem;
-        padding: 0.1rem 0.4rem;
-        font-size: 0.75rem;
-        margin-right: 0.25rem;
-        margin-bottom: 0.25rem;
-        display: inline-block;
-      }
-
-      /* Component colors */
-      .component-tag.modbus { background-color: #007bff; }
-      .component-tag.onewire { background-color: #28a745; }
-      .component-tag.digital { background-color: #6610f2; }
-      .component-tag.analog { background-color: #fd7e14; }
-      .component-tag.i2c { background-color: #20c997; }
-      .component-tag.virtual { background-color: #9c27b0; }
-      .component-tag.core { background-color: #343a40; }
-      .component-tag.algae { background-color: #17a2b8; }
-      .component-tag.switch { background-color: #ff6b35; }
-      .component-tag.digital_switch { background-color: #ff6b35; }
-      .component-tag.digital-switch { background-color: #ff6b35; } /* Support both formats */
-
-      /* ========== SEARCH & FILTER ========== */
-      .filter-section {
-        background-color: white;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin-bottom: 1.5rem;
-      }
-
-      .filter-badge {
-        cursor: pointer;
-        margin-right: 0.5rem;
-      }
-
-      .component-filter {
-        cursor: pointer;
-        margin: 0.25rem;
-      }
-
-      /* ========== VERSION HISTORY ========== */
-      .version-info {
-        margin-top: 10px;
-        font-size: 0.8rem;
-        color: #6c757d;
-        font-style: italic;
-      }
-
-      .version-changes {
-        margin-top: 1rem;
+      .hero-actions,
+      .status-filter-row,
+      .component-filter-row,
+      .toggle-cluster,
+      .sort-cluster,
+      .component-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 0.7rem;
       }
 
-      .version-item {
-        padding: 0.5rem 1rem;
-        border-left: 3px solid var(--primary-color);
-        margin-bottom: 0.5rem;
-        background-color: rgba(52, 152, 219, 0.05);
-        flex: 1 1 30%;
-        min-width: 250px;
+      .hero-actions {
+        margin: 1rem 0 1.35rem;
       }
 
-      .version-title {
-        font-weight: bold;
-        color: var(--primary-color);
+      .cta-button,
+      .secondary-button,
+      .text-button,
+      .filter-chip,
+      .toggle-button,
+      .sort-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, color 0.22s ease;
       }
 
-      .version-date {
-        font-size: 0.85rem;
-        color: #6c757d;
-        margin-left: 0.5rem;
+      .cta-button,
+      .secondary-button {
+        min-height: 2.6rem;
+        padding: 0 0.95rem;
       }
 
-      .version-description {
-        margin-top: 0.25rem;
+      .cta-button {
+        background: linear-gradient(135deg, var(--accent), var(--accent-soft) 75%);
+        color: #f7fbff;
+        font-weight: 700;
+      }
+
+      .secondary-button,
+      .filter-chip,
+      .toggle-button,
+      .sort-button {
+        background: rgba(50, 50, 50, 0.82);
+        border-color: rgba(67, 67, 68, 0.95);
+        color: var(--text);
+      }
+
+      .cta-button:hover,
+      .secondary-button:hover,
+      .filter-chip:hover,
+      .toggle-button:hover,
+      .sort-button:hover,
+      .cta-button:focus-visible,
+      .secondary-button:focus-visible,
+      .filter-chip:focus-visible,
+      .toggle-button:focus-visible,
+      .sort-button:focus-visible {
+        transform: translateY(-1px);
+        border-color: rgba(28, 114, 218, 0.42);
+      }
+
+      .hero-metrics,
+      .device-card__meta,
+      .overview-grid,
+      .chart-layout {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .hero-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .metric-card,
+      .attention-item,
+      .insight-item,
+      .status-row,
+      .version-card,
+      .empty-state,
+      .error-card {
+        padding: 1rem 1.05rem;
+        border-radius: var(--radius-lg);
+        background: rgba(44, 44, 45, 0.94);
+        border: 1px solid rgba(67, 67, 68, 0.95);
+      }
+
+      .metric-card {
+        position: relative;
+      }
+
+      .metric-label,
+      .control-label,
+      .panel-title,
+      .device-card__eyebrow,
+      .device-card__section h3,
+      .repo-detail dt,
+      .section-badge,
+      .chart-center span {
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .metric-value {
+        margin: 0.45rem 0 0.2rem;
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        line-height: 1;
+        font-weight: 700;
+      }
+
+      .metric-context,
+      .attention-meta,
+      .status-copy,
+      .device-card__detail-label,
+      .table-subtle,
+      .component-count,
+      .footer-note {
+        color: var(--muted);
         font-size: 0.9rem;
       }
 
-      /* ========== DEVICE LIST VIEW ========== */
-      .device-list-header {
-        background-color: #f5f5f5;
-        padding: 10px;
-        border-radius: 5px 5px 0 0;
-        font-weight: bold;
+      .hero-aside .section-heading,
+      .overview-grid .section-heading,
+      .dashboard-section .section-heading,
+      .attention-head,
+      .status-row,
+      .table-status,
+      .device-card__top,
+      .control-head,
+      .control-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
       }
 
-      .device-list-item {
-        color: #333; /* Default dark text color for all list items */
-        padding: 10px;
-        border-bottom: 1px solid #eee;
+      .section-heading h2,
+      .device-card__title,
+      .attention-name {
+        margin: 0.35rem 0 0;
+        font-size: 1.05rem;
+        font-weight: 700;
       }
 
-      .device-list-item.needs-update {
-        background-color: rgba(243, 156, 18, 0.15); /* Light orange background */
-        border-left: 4px solid var(--warning-color);
+      .repo-meta,
+      .attention-list,
+      .insight-list,
+      .status-breakdown,
+      .version-grid {
+        display: grid;
+        gap: 0.9rem;
       }
 
-      .device-list-item.patch-available {
-        background-color: rgba(155, 89, 182, 0.15); /* Light purple background */
-        border-left: 4px solid var(--info-color);
+      .repo-detail {
+        display: grid;
+        grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr);
+        gap: 0.85rem;
+        align-items: baseline;
+        padding-bottom: 0.9rem;
+        border-bottom: 1px solid var(--line);
       }
 
-      .device-list-item.up-to-date {
-        background-color: rgba(46, 204, 113, 0.15); /* Light green background */
-        border-left: 4px solid var(--success-color);
+      .repo-detail:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
       }
 
-      /* Status column text should be dark but colored */
-      .device-list-item.needs-update .col-md-2:nth-child(3) {
-        color: #c87000; /* Dark orange */
-        font-weight: bold;
+      .repo-detail dd,
+      .status-row strong,
+      .status-row span {
+        margin: 0;
+        display: block;
       }
 
-      .device-list-item.patch-available .col-md-2:nth-child(3) {
-        color: #6a1b9a; /* Dark purple */
-        font-weight: bold;
+      .mono {
+        font-family: "JetBrains Mono", monospace;
       }
 
-      .device-list-item.up-to-date .col-md-2:nth-child(3) {
-        color: #1b5e20; /* Dark green */
-        font-weight: bold;
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        min-height: 2rem;
+        padding: 0 0.8rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        font-weight: 700;
+        border: 1px solid transparent;
       }
 
-      /* Hover effects for list items - slightly darker but still light backgrounds */
-      .device-list-item.needs-update:hover {
-        background-color: rgba(243, 156, 18, 0.25);
-        transition: background-color 0.2s ease;
+      .status-pill::before,
+      .status-dot {
+        content: "";
+        display: inline-block;
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 999px;
       }
 
-      .device-list-item.patch-available:hover {
-        background-color: rgba(155, 89, 182, 0.25);
-        transition: background-color 0.2s ease;
+      .up-to-date {
+        color: #dffff1;
+        background: rgba(88, 229, 165, 0.14);
+        border-color: rgba(88, 229, 165, 0.24);
       }
 
-      .device-list-item.up-to-date:hover {
-        background-color: rgba(46, 204, 113, 0.25);
-        transition: background-color 0.2s ease;
+      .up-to-date::before,
+      .status-dot.up-to-date {
+        background: var(--success);
+        box-shadow: 0 0 12px rgba(88, 229, 165, 0.52);
       }
 
-      /* List status text styling */
-      .device-list-item .col-md-2:nth-child(3) {
-        font-weight: bold;
+      .patch-available {
+        color: #edf0ff;
+        background: rgba(142, 160, 255, 0.14);
+        border-color: rgba(142, 160, 255, 0.24);
       }
 
-      .device-list-item.needs-update .col-md-2:nth-child(3) {
-        color: var(--warning-color);
+      .patch-available::before,
+      .status-dot.patch-available {
+        background: var(--info);
+        box-shadow: 0 0 12px rgba(142, 160, 255, 0.52);
       }
 
-      .device-list-item.patch-available .col-md-2:nth-child(3) {
-        color: var(--info-color);
+      .needs-update {
+        color: #fff4de;
+        background: rgba(255, 191, 102, 0.14);
+        border-color: rgba(255, 191, 102, 0.24);
       }
 
-      .device-list-item.up-to-date .col-md-2:nth-child(3) {
-        color: var(--success-color);
+      .needs-update::before,
+      .status-dot.needs-update {
+        background: var(--warning);
+        box-shadow: 0 0 12px rgba(255, 191, 102, 0.52);
       }
 
-      /* ========== SORTING CONTROLS ========== */
-      .sorting-controls {
-        margin: 20px 0;
+      .unknown {
+        color: #ffe8ee;
+        background: rgba(255, 122, 155, 0.15);
+        border-color: rgba(255, 122, 155, 0.24);
       }
 
-      .sort-btn.active {
-        background-color: #0d6efd;
-        color: white;
+      .unknown::before,
+      .status-dot.unknown {
+        background: var(--danger);
+        box-shadow: 0 0 12px rgba(255, 122, 155, 0.52);
       }
 
-      /* View toggle buttons */
-      .view-toggle {
-        margin-bottom: 1rem;
+      .overview-grid {
+        grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.9fr);
+        margin-top: 1.6rem;
       }
 
+      .chart-layout {
+        grid-template-columns: minmax(280px, 0.88fr) minmax(220px, 1fr);
+        align-items: center;
+      }
+
+      .chart-shell {
+        position: relative;
+        max-width: 320px;
+        aspect-ratio: 1;
+        margin: 0 auto;
+      }
+
+      .chart-center {
+        position: absolute;
+        inset: 50% auto auto 50%;
+        transform: translate(-50%, -50%);
+        display: grid;
+        place-items: center;
+        text-align: center;
+        pointer-events: none;
+      }
+
+      .chart-center strong,
+      .status-value strong {
+        font-size: clamp(1.4rem, 3vw, 2.6rem);
+        line-height: 1;
+      }
+
+      .controls-surface {
+        position: static;
+      }
+
+      .controls-grid {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .search-shell {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 0 1rem;
+        min-height: 3.65rem;
+        border-radius: var(--radius-lg);
+        background: rgba(37, 37, 38, 0.94);
+        border: 1px solid rgba(67, 67, 68, 0.95);
+      }
+
+      .search-shell i {
+        color: var(--accent);
+        font-size: 1.05rem;
+      }
+
+      .search-shell input {
+        flex: 1;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: var(--text);
+      }
+
+      .search-shell input::placeholder {
+        color: #7f95a8;
+      }
+
+      .filter-chip,
+      .toggle-button,
+      .sort-button {
+        min-height: 2.8rem;
+        padding: 0 0.95rem;
+      }
+
+      .filter-chip.active,
+      .toggle-button.active,
+      .sort-button.active {
+        background: rgba(28, 114, 218, 0.18);
+        border-color: rgba(28, 114, 218, 0.46);
+      }
+
+      .filter-chip strong,
+      .component-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.65rem;
+        height: 1.65rem;
+        padding: 0 0.45rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 0.82rem;
+      }
+
+      .text-button {
+        min-height: 2rem;
+        padding: 0;
+        background: transparent;
+        border: none;
+        color: var(--accent);
+      }
+
+      .text-button[disabled] {
+        opacity: 0.42;
+        cursor: not-allowed;
+      }
+
+      .device-grid {
+        margin-top: 1.35rem;
+      }
+
+      .device-card {
+        height: 100%;
+        padding: 0.95rem;
+        border-radius: var(--radius-lg);
+        background: linear-gradient(180deg, rgba(46, 46, 47, 0.98), rgba(36, 37, 37, 0.98));
+        border: 1px solid rgba(67, 67, 68, 0.95);
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+      }
+
+      .device-card.status-up-to-date {
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(88, 229, 165, 0.1);
+      }
+
+      .device-card.status-patch-available {
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(142, 160, 255, 0.1);
+      }
+
+      .device-card.status-needs-update {
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(255, 191, 102, 0.1);
+      }
+
+      .device-card.status-unknown {
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(255, 122, 155, 0.12);
+      }
+
+      .device-card__meta {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 0.8rem;
+        gap: 0.65rem;
+      }
+
+      .device-card__detail {
+        padding: 0.65rem 0.75rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid rgba(67, 67, 68, 0.8);
+      }
+
+      .device-card__detail-value {
+        margin-top: 0.2rem;
+        font-size: 0.9rem;
+        word-break: break-word;
+      }
+
+      .device-card__section,
+      .attention-panel {
+        margin-top: 0.8rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .component-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        min-height: 1.7rem;
+        padding: 0 0.58rem;
+        border-radius: var(--radius-sm);
+        background: rgba(255, 255, 255, 0.055);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        font-size: 0.76rem;
+        color: var(--text);
+      }
+
+      .component-tag::before {
+        content: "";
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 999px;
+        background: currentColor;
+        opacity: 0.7;
+      }
+
+      .component-tag.modbus { color: #67c1ff; }
+      .component-tag.onewire { color: #58e5a5; }
+      .component-tag.digital { color: #ffbf66; }
+      .component-tag.analog { color: #ff9470; }
+      .component-tag.i2c { color: #85f6ff; }
+      .component-tag.virtual { color: #9aa6ff; }
+      .component-tag.core { color: #d5e8ff; }
+      .component-tag.algae { color: #5ad8c7; }
+      .component-tag.switch,
+      .component-tag.digital-switch,
+      .component-tag.digital_switch { color: #ffd37a; }
+
+      .table-surface {
+        margin-top: 1.35rem;
+      }
+
+      .device-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      .device-table thead th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        padding: 0.95rem 1rem;
+        background: rgba(8, 24, 41, 0.95);
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .device-table tbody td {
+        padding: 1rem;
+        vertical-align: top;
+        border-bottom: 1px solid rgba(137, 182, 212, 0.1);
+      }
+
+      .device-table tbody tr:hover {
+        background: rgba(107, 232, 255, 0.04);
+      }
+
+      .version-badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2rem;
+        padding: 0 0.75rem;
+        border-radius: var(--radius-sm);
+        background: rgba(107, 232, 255, 0.09);
+        border: 1px solid rgba(107, 232, 255, 0.16);
+        color: #dcfbff;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+      }
+
+      .version-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .timeline-shell {
+        display: grid;
+        gap: 1rem;
+        padding: 1.25rem;
+      }
+
+      .timeline-intro {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .timeline-track {
+        position: relative;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(72px, 1fr);
+        align-items: end;
+        gap: 0.75rem;
+        overflow-x: auto;
+        min-height: 320px;
+        padding: 1.2rem 0 0.85rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(28, 114, 218, 0.55) rgba(255, 255, 255, 0.04);
+        background:
+          linear-gradient(180deg, rgba(28, 114, 218, 0.06), rgba(28, 114, 218, 0) 35%),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: auto, 72px 100%;
+        border-radius: 14px;
+        border: 1px solid rgba(67, 67, 68, 0.95);
+      }
+
+      .timeline-track::before {
+        content: "";
+        position: absolute;
+        left: 0.8rem;
+        right: 0;
+        height: 2px;
+        bottom: 3.2rem;
+        background: linear-gradient(90deg, rgba(28, 114, 218, 0.18), rgba(28, 114, 218, 0.5), rgba(28, 114, 218, 0.18));
+      }
+
+      .timeline-node {
+        position: relative;
+        min-width: 72px;
+        padding: 0.55rem 0.4rem 0.35rem;
+        border-radius: var(--radius-lg);
+        border: none;
+        background: transparent;
+        text-align: center;
+        color: var(--text);
+        z-index: 1;
+        cursor: pointer;
+        transition: transform 0.18s ease, filter 0.18s ease;
+      }
+
+      .timeline-node::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 2.75rem;
+        transform: translateX(-50%);
+        width: 0.72rem;
+        height: 0.72rem;
+        border-radius: 999px;
+        background: rgba(28, 114, 218, 0.55);
+        border: 2px solid #1f1f20;
+        box-shadow: 0 0 0 3px rgba(28, 114, 218, 0.16);
+      }
+
+      .timeline-node.active {
+        filter: brightness(1.1);
+      }
+
+      .timeline-node:hover,
+      .timeline-node:focus-visible {
+        transform: translateY(-3px);
+      }
+
+      .timeline-node.active::before {
+        background: var(--accent);
+        box-shadow: 0 0 0 4px rgba(28, 114, 218, 0.22);
+      }
+
+      .timeline-node__date {
+        display: block;
+        margin-top: 0.55rem;
+        color: var(--muted);
+        font-size: 0.7rem;
+      }
+
+      .timeline-node__copy {
+        margin-top: 0.45rem;
+        color: var(--muted);
+        font-size: 0.72rem;
+        line-height: 1.3;
+      }
+
+      .timeline-node__bar {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+        min-height: 92px;
+        margin: 0 auto;
+        padding-bottom: 2.9rem;
+      }
+
+      .timeline-node__column {
+        width: min(42px, 100%);
+        border-radius: 12px 12px 6px 6px;
+        background:
+          linear-gradient(180deg, rgba(77, 148, 238, 0.95), rgba(28, 114, 218, 0.78) 55%, rgba(20, 63, 120, 0.8));
+        border: 1px solid rgba(87, 159, 255, 0.42);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 10px 18px rgba(3, 8, 18, 0.34);
+      }
+
+      .timeline-node__beam {
+        position: absolute;
+        bottom: 2.5rem;
+        width: 1px;
+        background: linear-gradient(180deg, rgba(87, 159, 255, 0.34), rgba(87, 159, 255, 0));
+        opacity: 0.9;
+      }
+
+      .timeline-node__version {
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      .timeline-node__scope {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.6rem;
+        height: 1.6rem;
+        margin-top: 0.35rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--muted);
+        font-size: 0.72rem;
+      }
+
+      .timeline-spotlight {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .timeline-spotlight::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 120px;
+        background: radial-gradient(circle at top center, rgba(28, 114, 218, 0.2), rgba(28, 114, 218, 0) 70%);
+        pointer-events: none;
+      }
+
+      .timeline-detail {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 0.55fr);
+        gap: 1rem;
+        padding: 1.15rem;
+        border-radius: var(--radius-lg);
+        background: rgba(32, 32, 33, 0.96);
+        border: 1px solid rgba(67, 67, 68, 0.95);
+      }
+
+      .timeline-detail__meta {
+        display: grid;
+        gap: 0.7rem;
+        align-content: start;
+      }
+
+      .timeline-detail__label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .timeline-detail__title {
+        margin: 0.2rem 0 0;
+        font-size: 1.35rem;
+      }
+
+      .timeline-detail__description {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .timeline-metrics {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .timeline-metric {
+        padding: 0.85rem 0.95rem;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(67, 67, 68, 0.95);
+      }
+
+      .version-card__head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .version-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+
+      .version-date {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+      .section-heading h2 {
+        font-size: clamp(1.45rem, 2vw, 2rem);
+        letter-spacing: -0.03em;
+      }
+
+      .device-card__title,
+      .attention-name {
+        font-size: 1rem;
+      }
+
+      .section-badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.2rem;
+        padding: 0 0.9rem;
+        border-radius: var(--radius-sm);
+        background: rgba(11, 29, 49, 0.78);
+        border: 1px solid rgba(126, 221, 255, 0.14);
+      }
+
+      .panel-title {
+        margin-bottom: 0.75rem;
+      }
+
+      .table-device-name {
+        font-weight: 700;
+      }
+
+      .empty-state,
+      .error-card {
+        text-align: center;
+      }
+
+      .footer-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding: 1rem 0.2rem 0;
+        border-top: 1px solid rgba(137, 182, 212, 0.12);
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .fade-in {
+        animation: rise-in 0.65s ease both;
+      }
+
+      .delay-1 { animation-delay: 0.05s; }
+      .delay-2 { animation-delay: 0.1s; }
+      .delay-3 { animation-delay: 0.15s; }
+      .delay-4 { animation-delay: 0.2s; }
+
+      @keyframes rise-in {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 1199.98px) {
+        .overview-grid,
+        .chart-layout,
+        .timeline-detail {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 991.98px) {
+        .timeline-node {
+          min-width: 200px;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .hero-title {
+          max-width: none;
+        }
+
+        .hero-metrics,
+        .device-card__meta {
+          grid-template-columns: 1fr;
+        }
+
+        .section-heading,
+        .hero-aside .section-heading,
+        .overview-grid .section-heading,
+        .dashboard-section .section-heading,
+        .control-footer,
+        .repo-detail,
+        .footer-bar {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4 shadow-sm">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <i class="bi bi-cpu"></i> 3A Console - ESP32 Sensor Status
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#overview"><i class="bi bi-house"></i> Overview</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#devices"><i class="bi bi-grid"></i> Devices</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#versions"><i class="bi bi-list-check"></i> Version Timeline</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container" id="overview">
-      <!-- Overview Cards -->
-      <div class="row mb-4">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header bg-primary text-white">
-              <i class="bi bi-info-circle"></i> Template Information
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">
-                Latest Version:
-                <span id="latest-version" class="version-tag"></span>
-              </h5>
-              <p class="card-text">
-                <i class="bi bi-github"></i> Repository:
-                <span id="repo-name"></span>
-              </p>
-              <p class="card-text">
-                <i class="bi bi-clock"></i> Last commit:
-                <span id="last-commit-date"></span>
-              </p>
-            </div>
+    <div class="page-shell">
+      <nav class="topbar navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+          <a class="navbar-brand" href="#overview">
+            <span class="brand-mark"><i class="bi bi-cpu"></i></span>
+            <span>3A Console Sensor Status</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link" href="#overview">Overview</a></li>
+              <li class="nav-item"><a class="nav-link" href="#devices">Devices</a></li>
+              <li class="nav-item"><a class="nav-link" href="#versions">Timeline</a></li>
+            </ul>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header bg-info text-white">
-              <i class="bi bi-pie-chart"></i> Status Overview
+      </nav>
+
+      <main class="container dashboard-main">
+        <section id="overview" class="surface hero-panel fade-in">
+          <div class="row g-4">
+            <div class="col-lg-8">
+              <span class="eyebrow">Device Command View</span>
+              <h1 class="hero-title">3A Console sensor status</h1>
+              <p class="hero-copy">
+                Template alignment, deployment readiness, and release history for the full 3A Console sensor fleet.
+              </p>
+              <div class="hero-actions">
+                <a class="cta-button" href="#devices"><i class="bi bi-grid-1x2-fill"></i> Inspect devices</a>
+                <a class="secondary-button" href="#versions"><i class="bi bi-bezier2"></i> Review timeline</a>
+              </div>
+              <div class="hero-metrics">
+                <article class="metric-card fade-in delay-1">
+                  <div class="metric-label">Total devices</div>
+                  <div id="stat-total-devices" class="metric-value">--</div>
+                  <div id="stat-total-context" class="metric-context">Loading fleet inventory</div>
+                </article>
+                <article class="metric-card fade-in delay-2">
+                  <div class="metric-label">Latest release coverage</div>
+                  <div id="stat-coverage" class="metric-value">--</div>
+                  <div id="stat-coverage-context" class="metric-context">Checking alignment</div>
+                </article>
+                <article class="metric-card fade-in delay-3">
+                  <div class="metric-label">Needs attention</div>
+                  <div id="stat-attention" class="metric-value">--</div>
+                  <div id="stat-attention-context" class="metric-context">Review queue</div>
+                </article>
+                <article class="metric-card fade-in delay-4">
+                  <div class="metric-label">Tracked components</div>
+                  <div id="stat-components" class="metric-value">--</div>
+                  <div id="stat-components-context" class="metric-context">Across the active fleet</div>
+                </article>
+              </div>
             </div>
-            <div class="card-body">
-              <div style="height: 250px; width: 250px; margin: 0 auto;">
+
+            <div class="col-lg-4">
+              <aside class="surface hero-aside fade-in delay-2">
+                <div class="section-heading">
+                  <div>
+                    <span class="eyebrow">Repo</span>
+                    <h2>Release info</h2>
+                  </div>
+                  <span id="health-badge" class="status-pill patch-available">Loading</span>
+                </div>
+                <dl class="repo-meta">
+                  <div class="repo-detail">
+                    <dt>Latest release</dt>
+                    <dd id="latest-version" class="mono">--</dd>
+                  </div>
+                  <div class="repo-detail">
+                    <dt>Repository</dt>
+                    <dd id="repo-name">--</dd>
+                  </div>
+                  <div class="repo-detail">
+                    <dt>Last commit</dt>
+                    <dd id="last-commit-date">--</dd>
+                  </div>
+                  <div class="repo-detail">
+                    <dt>Dashboard sync</dt>
+                    <dd id="last-updated">--</dd>
+                  </div>
+                </dl>
+                <div class="attention-panel">
+                  <div class="panel-title">Priority queue</div>
+                  <div id="attention-list" class="attention-list">
+                    <div class="attention-item">Loading device priorities...</div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section class="overview-grid fade-in delay-3">
+          <div class="surface chart-surface">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Fleet Readiness</span>
+                <h2>Status balance</h2>
+              </div>
+              <span id="snapshot-note" class="section-badge">Awaiting snapshot</span>
+            </div>
+            <div class="chart-layout">
+              <div class="chart-shell">
                 <canvas id="status-chart"></canvas>
+                <div class="chart-center">
+                  <strong id="status-chart-total">0</strong>
+                  <span>Devices tracked</span>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Device Status Section -->
-      <section id="devices">
-        <h2 class="mb-3"><i class="bi bi-grid"></i> Device Status</h2>
-
-        <!-- Filters -->
-        <div class="filter-section mb-4">
-          <div class="row align-items-center mb-3">
-            <div class="col-md-8">
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-search"></i></span>
-                <input type="text" id="device-search" class="form-control" placeholder="Search devices..." />
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="d-flex justify-content-end">
-                <span class="filter-badge badge bg-success" data-filter="up-to-date">Up to date</span>
-                <span class="filter-badge badge" style="background-color: var(--info-color); color: white" data-filter="patch-available">Patch available</span>
-                <span class="filter-badge badge bg-warning text-dark" data-filter="needs-update">Needs update</span>
-                <span class="filter-badge badge bg-danger" data-filter="unknown">Unknown</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12">
-              <p class="mb-1"><small>Filter by component:</small></p>
-              <div id="component-filters">
-                <!-- Component filters will be added here -->
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- View Toggle Buttons -->
-        <div class="view-toggle btn-group mb-3" role="group">
-          <button id="card-view-btn" class="btn btn-sm btn-outline-primary active">Card View</button>
-          <button id="list-view-btn" class="btn btn-sm btn-outline-primary">List View</button>
-        </div>
-
-        <!-- Device Sorting Controls -->
-        <div class="sorting-controls mb-3">
-          <label>Sort devices by: </label>
-          <div class="btn-group" role="group">
-            <button id="sort-by-date" class="btn btn-sm btn-outline-primary sort-btn active">Date Updated</button>
-            <button id="sort-by-name" class="btn btn-sm btn-outline-primary sort-btn">Name</button>
-            <button id="sort-by-status" class="btn btn-sm btn-outline-primary sort-btn">Status</button>
-            <button id="sort-by-location" class="btn btn-sm btn-outline-primary sort-btn">Location</button>
-          </div>
-        </div>
-
-        <!-- Device List Container -->
-        <div id="device-list" class="mb-5" style="display: none"></div>
-
-        <!-- Device Cards Container -->
-        <div class="row" id="device-cards">
-          <!-- Device cards will be populated here -->
-          <div class="col-12 text-center py-5">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-2">Loading device data...</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Version Timeline Section -->
-      <section id="versions" class="mb-5">
-        <h2 class="mb-3"><i class="bi bi-list-check"></i> Version Timeline</h2>
-        <div class="card">
-          <div class="card-body">
-            <div class="version-changes" id="version-changes-list">
-              <!-- Version changes will be populated here -->
-              <div class="text-center py-2">
-                <div class="spinner-border text-primary" role="status">
-                  <span class="visually-hidden">Loading...</span>
+              <div id="status-breakdown" class="status-breakdown">
+                <div class="status-row">
+                  <div><span class="status-copy">Loading status distribution</span></div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
+          <div class="surface insight-surface">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Operational Readout</span>
+                <h2>Deployment posture</h2>
+              </div>
+            </div>
+            <div id="insight-list" class="insight-list">
+              <div class="insight-item">
+                <div class="insight-copy">Loading deployment insights...</div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <p class="last-update">
-        Dashboard updated: <span id="last-updated"></span>
-      </p>
+        <section id="devices" class="dashboard-section fade-in delay-4">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Fleet Browser</span>
+              <h2>Device status</h2>
+            </div>
+            <p id="results-summary" class="section-note">Loading device inventory...</p>
+          </div>
+
+          <div class="surface controls-surface">
+            <div class="controls-grid">
+              <label class="search-shell" for="device-search">
+                <i class="bi bi-search"></i>
+                <input
+                  type="text"
+                  id="device-search"
+                  placeholder="Search by device, location, status, or component"
+                  autocomplete="off"
+                />
+              </label>
+              <div class="control-block">
+                <div class="control-head">
+                  <span class="control-label">Status filters</span>
+                </div>
+                <div class="status-filter-row">
+                  <button type="button" class="filter-chip status-filter active" data-status="all"><span>All</span><strong id="status-count-all">0</strong></button>
+                  <button type="button" class="filter-chip status-filter" data-status="up-to-date"><span>Up to date</span><strong id="status-count-up-to-date">0</strong></button>
+                  <button type="button" class="filter-chip status-filter" data-status="patch-available"><span>Patch available</span><strong id="status-count-patch-available">0</strong></button>
+                  <button type="button" class="filter-chip status-filter" data-status="needs-update"><span>Needs update</span><strong id="status-count-needs-update">0</strong></button>
+                  <button type="button" class="filter-chip status-filter" data-status="unknown"><span>Unknown</span><strong id="status-count-unknown">0</strong></button>
+                </div>
+              </div>
+              <div class="control-block">
+                <div class="control-head">
+                  <span class="control-label">Component filters</span>
+                  <button id="clear-filters-btn" type="button" class="text-button" disabled>Clear filters</button>
+                </div>
+                <div id="component-filters" class="component-filter-row">
+                  <span class="filter-chip">Loading components...</span>
+                </div>
+              </div>
+              <div class="control-footer">
+                <div class="toggle-cluster" role="tablist" aria-label="View mode">
+                  <button type="button" class="toggle-button active" data-view="card" aria-pressed="true"><i class="bi bi-grid-3x3-gap-fill"></i> Card view</button>
+                  <button type="button" class="toggle-button" data-view="list" aria-pressed="false"><i class="bi bi-list-ul"></i> List view</button>
+                </div>
+                <div class="sort-cluster" aria-label="Sort devices">
+                  <button type="button" class="sort-button active" data-sort="date">Latest deployed</button>
+                  <button type="button" class="sort-button" data-sort="name">Name</button>
+                  <button type="button" class="sort-button" data-sort="status">Status</button>
+                  <button type="button" class="sort-button" data-sort="location">Location</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="device-cards" class="row g-4 device-grid">
+            <div class="col-12">
+              <div class="empty-state">
+                <h3>Loading devices</h3>
+                <p>Preparing the fleet browser.</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="device-table-wrap" class="surface table-surface" hidden>
+            <div class="table-responsive">
+              <table class="device-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Device</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Version</th>
+                    <th scope="col">Components</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Last deployed</th>
+                  </tr>
+                </thead>
+                <tbody id="device-table-body">
+                  <tr><td colspan="6" class="table-subtle">Loading devices...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="versions" class="dashboard-section fade-in">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Release Intelligence</span>
+              <h2>Version timeline</h2>
+            </div>
+            <button id="toggle-version-history" type="button" class="secondary-button" hidden>Show more</button>
+          </div>
+          <div class="surface timeline-shell">
+            <div class="timeline-intro">
+              <span id="timeline-summary">Loading release timeline...</span>
+              <span id="timeline-count" class="section-badge">0 releases</span>
+            </div>
+            <div id="version-changes-list" class="timeline-track">
+              <div class="version-card">Loading version history...</div>
+            </div>
+            <div id="version-detail-panel" class="timeline-detail timeline-spotlight">
+              <div class="empty-state">
+                <h3>Loading release detail</h3>
+                <p>Preparing the selected version.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer-bar">
+          <span>3A Console sensor fleet dashboard</span>
+          <span class="footer-note">Last refreshed <strong id="footer-last-updated">--</strong></span>
+        </footer>
+      </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Main initialization
+      const STATUS_LABELS = {
+        "Up to date": "up-to-date",
+        "Patch available": "patch-available",
+        "Needs update": "needs-update",
+        Unknown: "unknown",
+      };
+
+      const STATUS_ORDER = {
+        "Needs update": 0,
+        "Patch available": 1,
+        Unknown: 2,
+        "Up to date": 3,
+      };
+
+      const STATUS_COPY = {
+        "Up to date": "Aligned with the current release",
+        "Patch available": "Patch-level update available",
+        "Needs update": "Behind the current feature release",
+        Unknown: "Version data missing or invalid",
+      };
+
+      const STATUS_COLORS = {
+        "Up to date": "rgba(88, 229, 165, 0.88)",
+        "Patch available": "rgba(142, 160, 255, 0.9)",
+        "Needs update": "rgba(255, 191, 102, 0.92)",
+        Unknown: "rgba(255, 122, 155, 0.9)",
+      };
+
+      const VERSION_PREVIEW_COUNT = 9;
+
+      const dashboardState = {
+        latestVersion: "",
+        repoName: "",
+        lastCommitDate: "",
+        lastUpdated: "",
+        versionChanges: [],
+        devices: [],
+        statusCounts: {
+          "Up to date": 0,
+          "Patch available": 0,
+          "Needs update": 0,
+          Unknown: 0,
+        },
+        ui: {
+          search: "",
+          status: "all",
+          component: "all",
+          sortBy: "date",
+          view: "card",
+          showAllVersions: false,
+          selectedVersionIndex: 0,
+        },
+      };
+
+      let statusChart;
+
       document.addEventListener("DOMContentLoaded", () => {
-        initDashboard();
+        initializeDashboard();
       });
 
-      /**
-       * Initialize the dashboard by loading data and creating components
-       */
-      async function initDashboard() {
+      async function initializeDashboard() {
         try {
-          // Fetch device status data
-          const response = await fetch("data/device-status.json");
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+          const [versionResponse, registryResponse] = await Promise.all([
+            fetch("data/version-changes.json"),
+            fetch("data/devices.json"),
+          ]);
+
+          if (!versionResponse.ok) {
+            throw new Error(`Failed to load version-changes.json: HTTP ${versionResponse.status}`);
           }
-          const dashboardData = await response.json();
+          if (!registryResponse.ok) {
+            throw new Error(`Failed to load devices.json: HTTP ${registryResponse.status}`);
+          }
 
-          // Update header information
-          document.getElementById("latest-version").textContent = dashboardData.latest_version;
-          document.getElementById("repo-name").textContent = dashboardData.repo_name;
-          document.getElementById("last-commit-date").textContent = dashboardData.last_commit_date;
-          document.getElementById("last-updated").textContent = formatDate(dashboardData.last_updated);
+          const versionData = await versionResponse.json();
+          const deviceRegistry = await registryResponse.json();
 
-          // Process devices and count statuses for chart
-          let statusCounts = {
-            "Up to date": 0,
-            "Patch available": 0,
-            "Needs update": 0,
-            "Unknown": 0,
-          };
+          hydrateVersionState(versionData);
 
-          dashboardData.devices.forEach((device) => {
-            // Calculate status
-            const calculatedStatus = getUpdateStatus(
-              device.version,
-              dashboardData.latest_version,
-              device.components,
-              device.updateReason
-            );
+          const apiBase = deviceRegistry.api_base;
+          const deviceEntries = Array.isArray(deviceRegistry.devices) ? deviceRegistry.devices : [];
 
-            // Count statuses for chart
-            statusCounts[calculatedStatus]++;
+          const settledResults = await Promise.allSettled(
+            deviceEntries.map((entry) => fetchDeviceFromApi(apiBase, entry.mac, entry.label))
+          );
 
-            // Add calculated status to device
-            device.calculatedStatus = calculatedStatus;
-          });
+          hydrateDeviceState(settledResults);
 
-          // Initialize all dashboard components
-          createVersionHistory(dashboardData.version_changes);
-          createComponentFilters(dashboardData.devices);
-          renderDeviceList(dashboardData.devices, "date");
-          createDeviceCards(dashboardData.devices, dashboardData.latest_version);
-          
-
-          createStatusChart(statusCounts);
-          setupEventListeners(dashboardData);
+          populateOverview();
+          renderComponentFilters();
+          renderVersionHistory();
+          createStatusChart();
+          bindEventListeners();
+          applyFiltersAndRender();
         } catch (error) {
           console.error("Error initializing dashboard:", error);
-          document.getElementById("device-cards").innerHTML = `
-            <div class="col-12 text-center py-5">
-              <div class="alert alert-warning">
-                <h4><i class="bi bi-exclamation-triangle"></i> Error Loading Data</h4>
-                <p>Unable to load device-status.json: ${error.message}</p>
-                <p>If running locally, please use a web server:</p>
-                <ul class="text-start">
-                  <li>Python: <code>python -m http.server</code></li>
-                  <li>Node.js: <code>npx http-server</code></li>
-                </ul>
-              </div>
+          renderErrorState(error);
+        }
+      }
+
+      async function fetchDeviceFromApi(apiBase, mac, fallbackLabel) {
+        const encodedMac = encodeURIComponent(mac);
+
+        const [deviceResponse, firmwareResponse] = await Promise.all([
+          fetch(`${apiBase}/devices/${encodedMac}`),
+          fetch(`${apiBase}/firmwares/latest?deviceMac=${encodedMac}`).catch(() => null),
+        ]);
+
+        if (!deviceResponse.ok) {
+          throw new Error(`Device ${mac}: HTTP ${deviceResponse.status}`);
+        }
+
+        const deviceData = await deviceResponse.json();
+
+        let firmwareData = null;
+        if (firmwareResponse && firmwareResponse.ok) {
+          firmwareData = await firmwareResponse.json();
+        }
+
+        const sensors = deviceData.settings?.sensors || [];
+        const sensorTypes = [...new Set(sensors.map((s) => s.type).filter(Boolean))];
+        const hasVirtual = sensors.some((s) => s.virtual && s.virtual > 0);
+        const components = [...sensorTypes, ...(hasVirtual ? ["virtual"] : []), "core"].sort();
+
+        const firmwareVersion = firmwareData?.version || "";
+        const firmwareBuildDate = firmwareData?.buildDate || "";
+
+        return {
+          name: deviceData.deviceName || fallbackLabel || mac,
+          mac: deviceData.macAddress || mac,
+          version: firmwareVersion ? `v${firmwareVersion.replace(/^v/, "")}` : "",
+          components,
+          location: deviceData.location?.name || deviceData.settings?.sensorLocation?.description || "",
+          last_deployed: firmwareBuildDate ? firmwareBuildDate.split("T")[0] : "",
+          initial_deployed: "",
+        };
+      }
+
+      function hydrateVersionState(data) {
+        dashboardState.latestVersion = data.latest_version || "Unknown";
+        dashboardState.repoName = data.repo_name || "Unknown";
+        dashboardState.lastCommitDate = data.last_commit_date || "";
+        dashboardState.lastUpdated = data.last_updated || "";
+        dashboardState.versionChanges = Array.isArray(data.version_changes) ? data.version_changes : [];
+      }
+
+      function hydrateDeviceState(settledResults) {
+        const devices = [];
+
+        for (const result of settledResults) {
+          if (result.status === "fulfilled") {
+            const device = result.value;
+            const components = Array.isArray(device.components)
+              ? device.components.map((c) => String(c).trim()).filter(Boolean)
+              : [];
+            const versionDisplay = device.version || "Unknown";
+            const calculatedStatus = getUpdateStatus(device.version, dashboardState.latestVersion);
+            devices.push({ ...device, components, versionDisplay, calculatedStatus });
+          } else {
+            const errorMsg = result.reason?.message || "Unknown error";
+            console.warn("Failed to fetch device:", errorMsg);
+            const macMatch = errorMsg.match(/Device ([^:]+):/);
+            devices.push({
+              name: macMatch ? macMatch[1] : "Unknown device",
+              version: "",
+              components: [],
+              location: "",
+              last_deployed: "",
+              initial_deployed: "",
+              versionDisplay: "Unavailable",
+              calculatedStatus: "Unknown",
+            });
+          }
+        }
+
+        dashboardState.devices = devices;
+        dashboardState.statusCounts = countStatuses(devices);
+      }
+
+      function bindEventListeners() {
+        document.getElementById("device-search").addEventListener("input", (event) => {
+          dashboardState.ui.search = event.target.value.trim().toLowerCase();
+          applyFiltersAndRender();
+        });
+
+        document.querySelectorAll(".status-filter").forEach((button) => {
+          button.addEventListener("click", () => {
+            dashboardState.ui.status = button.dataset.status;
+            applyFiltersAndRender();
+          });
+        });
+
+        document.querySelectorAll("[data-view]").forEach((button) => {
+          button.addEventListener("click", () => {
+            dashboardState.ui.view = button.dataset.view;
+            applyFiltersAndRender();
+          });
+        });
+
+        document.querySelectorAll("[data-sort]").forEach((button) => {
+          button.addEventListener("click", () => {
+            dashboardState.ui.sortBy = button.dataset.sort;
+            applyFiltersAndRender();
+          });
+        });
+
+        document.getElementById("clear-filters-btn").addEventListener("click", () => {
+          dashboardState.ui.search = "";
+          dashboardState.ui.status = "all";
+          dashboardState.ui.component = "all";
+          document.getElementById("device-search").value = "";
+          applyFiltersAndRender();
+        });
+
+        document.getElementById("toggle-version-history").addEventListener("click", () => {
+          dashboardState.ui.showAllVersions = !dashboardState.ui.showAllVersions;
+          renderVersionHistory();
+        });
+      }
+
+      function populateOverview() {
+        const metrics = buildMetrics();
+        const health = deriveHealthState();
+
+        document.getElementById("latest-version").textContent = dashboardState.latestVersion;
+        document.getElementById("repo-name").textContent = dashboardState.repoName;
+        document.getElementById("last-commit-date").textContent = formatDateTime(dashboardState.lastCommitDate);
+        document.getElementById("last-updated").textContent = formatDateTime(dashboardState.lastUpdated);
+        document.getElementById("footer-last-updated").textContent = formatDateTime(dashboardState.lastUpdated);
+
+        document.getElementById("stat-total-devices").textContent = metrics.totalDevices;
+        document.getElementById("stat-total-context").textContent = `${metrics.deployedDevices} with a recorded deployment date`;
+        document.getElementById("stat-coverage").textContent = `${metrics.coveragePercent}%`;
+        document.getElementById("stat-coverage-context").textContent = `${metrics.upToDate} of ${metrics.totalDevices} on ${dashboardState.latestVersion}`;
+        document.getElementById("stat-attention").textContent = metrics.attentionDevices;
+        document.getElementById("stat-attention-context").textContent = metrics.attentionDevices
+          ? `${metrics.needsUpdate} major/minor gaps, ${metrics.patchAvailable} patch-only`
+          : "No devices currently flagged";
+        document.getElementById("stat-components").textContent = metrics.uniqueComponents;
+        document.getElementById("stat-components-context").textContent = `${metrics.missingLocationCount} missing a location assignment`;
+
+        const healthBadge = document.getElementById("health-badge");
+        healthBadge.className = `status-pill ${health.className}`;
+        healthBadge.textContent = health.label;
+
+        document.getElementById("snapshot-note").textContent = `${metrics.totalDevices} devices across ${metrics.uniqueComponents} component types`;
+        document.getElementById("status-chart-total").textContent = metrics.totalDevices;
+
+        populateStatusCounts();
+        renderStatusBreakdown(metrics.totalDevices);
+        renderPriorityQueue();
+        renderInsights(metrics);
+      }
+
+      function buildMetrics() {
+        const totalDevices = dashboardState.devices.length;
+        const upToDate = dashboardState.statusCounts["Up to date"];
+        const patchAvailable = dashboardState.statusCounts["Patch available"];
+        const needsUpdate = dashboardState.statusCounts["Needs update"];
+        const unknown = dashboardState.statusCounts.Unknown;
+        const attentionDevices = patchAvailable + needsUpdate + unknown;
+        const deployedDevices = dashboardState.devices.filter((device) => hasValue(device.last_deployed)).length;
+        const missingLocationCount = dashboardState.devices.filter((device) => !hasValue(device.location)).length;
+        const staleDeployments = dashboardState.devices.filter((device) => isStaleDeployment(device.last_deployed, 120)).length;
+        const uniqueComponents = new Set(
+          dashboardState.devices.flatMap((device) => device.components.map((component) => slugify(component)))
+        ).size;
+
+        return {
+          totalDevices,
+          upToDate,
+          patchAvailable,
+          needsUpdate,
+          unknown,
+          attentionDevices,
+          deployedDevices,
+          missingLocationCount,
+          staleDeployments,
+          uniqueComponents,
+          coveragePercent: totalDevices ? Math.round((upToDate / totalDevices) * 100) : 0,
+        };
+      }
+
+      function populateStatusCounts() {
+        const total = dashboardState.devices.length;
+        document.getElementById("status-count-all").textContent = total;
+        document.getElementById("status-count-up-to-date").textContent = dashboardState.statusCounts["Up to date"];
+        document.getElementById("status-count-patch-available").textContent = dashboardState.statusCounts["Patch available"];
+        document.getElementById("status-count-needs-update").textContent = dashboardState.statusCounts["Needs update"];
+        document.getElementById("status-count-unknown").textContent = dashboardState.statusCounts.Unknown;
+      }
+
+      function renderPriorityQueue() {
+        const container = document.getElementById("attention-list");
+        const priorityDevices = [...dashboardState.devices]
+          .filter((device) => device.calculatedStatus !== "Up to date")
+          .sort((left, right) => {
+            const statusDiff = STATUS_ORDER[left.calculatedStatus] - STATUS_ORDER[right.calculatedStatus];
+            if (statusDiff !== 0) {
+              return statusDiff;
+            }
+            return parseDateForSort(left.last_deployed) - parseDateForSort(right.last_deployed);
+          })
+          .slice(0, 4);
+
+        if (!priorityDevices.length) {
+          container.innerHTML = `
+            <div class="attention-item">
+              <div class="attention-name">Fleet aligned</div>
+              <div class="attention-meta">All tracked devices are on the current release.</div>
             </div>
           `;
-        }
-      }
-
-      /**
-       * Format a date string for display
-       */
-      function formatDate(dateStr) {
-        if (!dateStr || dateStr === "Never" || dateStr === "N/A") return dateStr;
-        const date = new Date(dateStr);
-        return date.toLocaleDateString() + " " + date.toLocaleTimeString();
-      }
-
-      /**
-       * Parse date string which can be in dd-mm-yyyy or yyyy-mm-dd format
-       */
-      function parseDateString(dateStr) {
-        if (!dateStr || dateStr === "Never") return "Never";
-        
-        // Check if it's in dd-mm-yyyy format (new format from script)
-        if (dateStr.match(/^\d{2}-\d{2}-\d{4}$/)) {
-          return dateStr; // Already formatted for display
-        }
-        
-        // Otherwise assume it's a standard date format and convert to dd-mm-yyyy
-        const date = new Date(dateStr);
-        if (isNaN(date.getTime())) return dateStr; // Invalid date, return as-is
-        
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${day}-${month}-${year}`;
-      }
-
-      /**
-       * Parse date string for sorting purposes
-       */
-      function parseDateForSort(dateStr) {
-        if (!dateStr || dateStr === "Never") return new Date(0); // Very old date for sorting
-        
-        // Check if it's in dd-mm-yyyy format
-        if (dateStr.match(/^\d{2}-\d{2}-\d{4}$/)) {
-          const [day, month, year] = dateStr.split('-');
-          return new Date(year, month - 1, day);
-        }
-        
-        // Otherwise parse as standard date format
-        return new Date(dateStr);
-      }
-
-      /**
-       * Determine if a device needs an update based on semantic versioning
-       */
-      function getUpdateStatus(deviceVersion, latestVersion, deviceComponents, updateReason) {
-        // If no device version is available, it needs an update
-        if (!deviceVersion) return "Unknown";
-
-        // Parse version strings (assuming format vX.Y.Z)
-        const parseVersion = (version) => {
-          const match = version.match(/v?(\d+)\.(\d+)\.(\d+)/);
-          if (!match) return null;
-          return {
-            major: parseInt(match[1], 10),
-            minor: parseInt(match[2], 10),
-            patch: parseInt(match[3], 10),
-          };
-        };
-
-        const deviceVer = parseVersion(deviceVersion);
-        const latestVer = parseVersion(latestVersion);
-
-        // If parsing failed, conservatively assume update is needed
-        if (!deviceVer || !latestVer) return "Unknown";
-
-        // Check version differences
-        if (deviceVer.major < latestVer.major) {
-          return "Needs update"; // Major version behind - critical update
-        } else if (
-          deviceVer.major === latestVer.major &&
-          deviceVer.minor < latestVer.minor
-        ) {
-          return "Needs update"; // Minor version behind - important functionality
-        } else if (
-          deviceVer.major === latestVer.major &&
-          deviceVer.minor === latestVer.minor &&
-          deviceVer.patch < latestVer.patch
-        ) {
-          return "Patch available"; // Patch-level update available
-        } else {
-          return "Up to date"; // Completely up to date
-        }
-      }
-
-      /**
-       * Generate HTML for component tags
-       */
-      function generateComponentTags(components) {
-        if (!components || !Array.isArray(components) || components.length === 0) {
-          return '<span class="text-muted">None specified</span>';
+          return;
         }
 
-        return components
-          .map(component => `<span class="component-tag ${component.toLowerCase()}">${component}</span>`)
+        container.innerHTML = priorityDevices
+          .map((device) => {
+            const statusClass = STATUS_LABELS[device.calculatedStatus];
+            return `
+              <div class="attention-item">
+                <div class="attention-head">
+                  <div class="attention-name">${escapeHtml(device.name || "Unnamed device")}</div>
+                  <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
+                </div>
+                <div class="attention-meta">
+                  <span class="mono">${escapeHtml(device.versionDisplay)}</span>
+                  · ${escapeHtml(getDisplayLocation(device.location))}
+                </div>
+              </div>
+            `;
+          })
           .join("");
       }
 
-      /**
-       * Create the version history section
-       */
-      function createVersionHistory(versionChanges) {
-        if (!versionChanges || !Array.isArray(versionChanges)) return;
+      function renderInsights(metrics) {
+        const list = document.getElementById("insight-list");
+        const latestDeployment = getLatestDeploymentDate();
+        const insights = [
+          `${metrics.attentionDevices} devices currently need review before the next release cycle.`,
+          `${metrics.deployedDevices} of ${metrics.totalDevices} devices have a recorded deployment date.`,
+          `${metrics.staleDeployments} devices have not been deployed in the last 120 days.`,
+          `${metrics.missingLocationCount} devices still need a location assignment for cleaner field operations.`,
+          latestDeployment
+            ? `Most recent deployment recorded on ${formatDateOnly(latestDeployment)}.`
+            : "No device has a recorded deployment date yet.",
+        ];
 
-        const container = document.getElementById("version-changes-list");
-        container.innerHTML = "";
-
-        // Only show the most recent 9 versions to keep it compact
-        const recentChanges = versionChanges.slice(0, 9);
-
-        recentChanges.forEach((version) => {
-          const versionItem = document.createElement("div");
-          versionItem.className = "version-item";
-
-          versionItem.innerHTML = `
-            <div>
-              <span class="version-title">${version.version}</span>
-              <span class="version-date">${version.date}</span>
-            </div>
-            <div class="version-components my-1">
-              ${generateComponentTags(version.components)}
-            </div>
-            <div class="version-description">
-              ${version.description}
-            </div>
-          `;
-
-          container.appendChild(versionItem);
-        });
-
-        // Add a "Show more" button if there are more versions
-        if (versionChanges.length > 9) {
-          const showMoreBtn = document.createElement("button");
-          showMoreBtn.className = "btn btn-sm btn-outline-primary mt-2";
-          showMoreBtn.textContent = `Show ${versionChanges.length - 9} more versions`;
-          showMoreBtn.onclick = function () {
-            createFullVersionHistory(versionChanges);
-            this.style.display = "none";
-          };
-
-          container.appendChild(showMoreBtn);
-        }
-
-        if (versionChanges.length === 0) {
-          container.innerHTML = '<div class="text-center py-3">No version history available</div>';
-        }
+        list.innerHTML = insights
+          .map((insight) => `<div class="insight-item"><div class="insight-copy">${escapeHtml(insight)}</div></div>`)
+          .join("");
       }
 
-      /**
-       * Show all version history when "Show more" is clicked
-       */
-      function createFullVersionHistory(versionChanges) {
-        const container = document.getElementById("version-changes-list");
-        const showMoreBtn = container.querySelector("button");
-
-        if (showMoreBtn) {
-          container.removeChild(showMoreBtn);
-        }
-
-        // Add the remaining versions
-        for (let i = 9; i < versionChanges.length; i++) {
-          const version = versionChanges[i];
-          const versionItem = document.createElement("div");
-          versionItem.className = "version-item";
-
-          versionItem.innerHTML = `
-            <div>
-              <span class="version-title">${version.version}</span>
-              <span class="version-date">${version.date}</span>
-            </div>
-            <div class="version-components my-1">
-              ${generateComponentTags(version.components)}
-            </div>
-            <div class="version-description">
-              ${version.description}
-            </div>
-          `;
-
-          container.appendChild(versionItem);
-        }
+      function renderStatusBreakdown(totalDevices) {
+        const container = document.getElementById("status-breakdown");
+        container.innerHTML = ["Up to date", "Patch available", "Needs update", "Unknown"]
+          .map((status) => {
+            const count = dashboardState.statusCounts[status];
+            const percent = totalDevices ? Math.round((count / totalDevices) * 100) : 0;
+            const className = STATUS_LABELS[status];
+            return `
+              <div class="status-row">
+                <div class="table-status">
+                  <span class="status-dot ${className}"></span>
+                  <div>
+                    <strong>${escapeHtml(status)}</strong>
+                    <span class="status-copy">${escapeHtml(STATUS_COPY[status])}</span>
+                  </div>
+                </div>
+                <div class="status-value">
+                  <strong>${count}</strong>
+                  <span class="status-copy">${percent}%</span>
+                </div>
+              </div>
+            `;
+          })
+          .join("");
       }
 
-      /**
-       * Create component filter badges
-       */
-      function createComponentFilters(devices) {
-        const componentsSet = new Set();
+      function renderComponentFilters() {
+        const container = document.getElementById("component-filters");
+        const componentCounts = new Map();
 
-        // Collect all unique components
-        devices.forEach((device) => {
-          if (device.components && Array.isArray(device.components)) {
-            device.components.forEach((comp) => componentsSet.add(comp));
-          }
-        });
-
-        // Create filter badges
-        const filterContainer = document.getElementById("component-filters");
-        filterContainer.innerHTML = "";
-
-        const componentsList = Array.from(componentsSet).sort();
-        componentsList.forEach((comp) => {
-          const badge = document.createElement("span");
-          badge.className = `component-filter component-tag ${comp.toLowerCase()}`;
-          badge.textContent = comp;
-          badge.dataset.component = comp.toLowerCase();
-
-          badge.addEventListener("click", function () {
-            const isActive = this.classList.contains("active");
-
-            // Reset all filters
-            document.querySelectorAll(".component-filter").forEach((b) => {
-              b.classList.remove("active");
-              b.style.opacity = "1";
+        dashboardState.devices.forEach((device) => {
+          device.components.forEach((component) => {
+            const key = slugify(component);
+            componentCounts.set(key, {
+              label: component,
+              count: (componentCounts.get(key)?.count || 0) + 1,
             });
-
-            if (!isActive) {
-              // Activate this filter
-              this.classList.add("active");
-
-              // Dim other filters
-              document.querySelectorAll(".component-filter:not(.active)").forEach((b) => {
-                b.style.opacity = "0.5";
-              });
-
-              // Filter devices
-              filterDevicesByComponent(comp.toLowerCase());
-            } else {
-              // Show all devices
-              showAllDevices();
-            }
           });
-
-          filterContainer.appendChild(badge);
         });
 
-        if (componentsList.length === 0) {
-          filterContainer.innerHTML = '<div class="text-muted">No components defined</div>';
+        const entries = [...componentCounts.entries()].sort((left, right) => left[1].label.localeCompare(right[1].label));
+        if (!entries.length) {
+          container.innerHTML = `<span class="filter-chip">No components found</span>`;
+          return;
         }
+
+        container.innerHTML = entries
+          .map(([slug, entry]) => {
+            const activeClass = dashboardState.ui.component === slug ? "active" : "";
+            return `
+              <button type="button" class="filter-chip component-filter ${activeClass}" data-component="${escapeHtml(slug)}">
+                <span>${escapeHtml(entry.label)}</span>
+                <span class="component-count">${entry.count}</span>
+              </button>
+            `;
+          })
+          .join("");
+
+        container.querySelectorAll(".component-filter").forEach((button) => {
+          button.addEventListener("click", () => {
+            dashboardState.ui.component = dashboardState.ui.component === button.dataset.component ? "all" : button.dataset.component;
+            applyFiltersAndRender();
+          });
+        });
       }
 
-      /**
-       * Sort devices array by specified criteria
-       */
-      function sortDevices(devices, sortBy = "date") {
-        // Sort functions for different sort types
-        const sortFunctions = {
-          // Sort by deployment date (newest first)
-          date: (a, b) => {
-            if (!a.last_deployed || a.last_deployed === "Never") return 1;
-            if (!b.last_deployed || b.last_deployed === "Never") return -1;
-            return parseDateForSort(b.last_deployed) - parseDateForSort(a.last_deployed);
-          },
-          // Sort by name (alphabetical)
-          name: (a, b) => a.name.localeCompare(b.name),
-          // Sort by status (priority order)
-          status: (a, b) => {
-            const statusPriority = {
-              "Needs update": 0,
-              "Patch available": 1,
-              "Up to date": 2,
-              "Never deployed": 3,
-              "Unknown": 4,
-            };
-            const statusA = a.calculatedStatus || a.status;
-            const statusB = b.calculatedStatus || b.status;
-            return statusPriority[statusA] - statusPriority[statusB];
-          },
-          // Sort by location
-          location: (a, b) => {
-            if (!a.location) return 1;
-            if (!b.location) return -1;
-            return a.location.localeCompare(b.location);
-          },
-        };
-
-        return [...devices].sort(sortFunctions[sortBy]);
+      function applyFiltersAndRender() {
+        const filteredDevices = getFilteredDevices();
+        const sortedDevices = sortDevices(filteredDevices, dashboardState.ui.sortBy);
+        renderDeviceCards(sortedDevices);
+        renderDeviceTable(sortedDevices);
+        syncControlStates();
+        updateResultsSummary(filteredDevices.length);
       }
 
-      /**
-       * Render the device list with sorting
-       */
-      function renderDeviceList(devices, sortBy = "date") {
-        const container = document.getElementById("device-list");
-        if (!container) return;
+      function getFilteredDevices() {
+        return dashboardState.devices.filter((device) => {
+          const searchMatch = matchesSearch(device, dashboardState.ui.search);
+          const statusMatch = dashboardState.ui.status === "all" || STATUS_LABELS[device.calculatedStatus] === dashboardState.ui.status;
+          const componentMatch = dashboardState.ui.component === "all" || device.components.some((component) => slugify(component) === dashboardState.ui.component);
+          return searchMatch && statusMatch && componentMatch;
+        });
+      }
 
-        // Sort the devices
-        const sortedDevices = sortDevices(devices, sortBy);
+      function matchesSearch(device, searchTerm) {
+        if (!searchTerm) {
+          return true;
+        }
 
-        // Clear the container
-        container.innerHTML = "";
+        const haystack = [
+          device.name,
+          device.location,
+          device.versionDisplay,
+          device.calculatedStatus,
+          device.components.join(" "),
+          device.last_deployed,
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
 
-        // Add header row
-        const headerRow = document.createElement("div");
-        headerRow.className = "device-list-header row";
-        headerRow.innerHTML = `
-          <div class="col-md-3 fw-bold">Device Name</div>
-          <div class="col-md-2 fw-bold">Version</div>
-          <div class="col-md-2 fw-bold">Status</div>
-          <div class="col-md-3 fw-bold">Location</div>
-          <div class="col-md-2 fw-bold">Last Updated</div>
-        `;
-        container.appendChild(headerRow);
+        return haystack.includes(searchTerm);
+      }
 
-        // Add device rows
-        sortedDevices.forEach((device) => {
-          const row = document.createElement("div");
-          row.className = "device-list-item row";
+      function renderDeviceCards(devices) {
+        const container = document.getElementById("device-cards");
+        if (dashboardState.ui.view !== "card") {
+          container.hidden = true;
+          return;
+        }
 
-          // Calculate status if not already set
-          const status = device.calculatedStatus || device.status || "Unknown";
+        container.hidden = false;
+        if (!devices.length) {
+          container.innerHTML = `<div class="col-12"><div class="empty-state"><h3>No matching devices</h3><p>Adjust the search term or clear one of the active filters.</p></div></div>`;
+          return;
+        }
 
-          // Add status-based class
-          if (status === "Needs update") {
-            row.classList.add("needs-update");
-          } else if (status === "Patch available") {
-            row.classList.add("patch-available");
-          } else if (status === "Up to date") {
-            row.classList.add("up-to-date");
-          }
+        container.innerHTML = devices
+          .map((device) => {
+            const statusClass = STATUS_LABELS[device.calculatedStatus];
+            const versionMarkup = `<span class="version-badge">${escapeHtml(device.versionDisplay)}</span>`;
+            return `
+              <div class="col-sm-6 col-xl-3">
+                <article class="device-card status-${statusClass}">
+                  <div class="device-card__top">
+                    <div>
+                      <div class="device-card__eyebrow">Device</div>
+                      <div class="device-card__title">${escapeHtml(device.name || "Unnamed device")}</div>
+                    </div>
+                    <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
+                  </div>
+                  <div class="device-card__meta">
+                    <div class="device-card__detail"><div class="device-card__detail-label">Template version</div><div class="device-card__detail-value">${versionMarkup}</div></div>
+                    <div class="device-card__detail"><div class="device-card__detail-label">Location</div><div class="device-card__detail-value">${escapeHtml(getDisplayLocation(device.location))}</div></div>
+                    <div class="device-card__detail"><div class="device-card__detail-label">Last deployed</div><div class="device-card__detail-value">${escapeHtml(getDisplayDate(device.last_deployed))}</div></div>
+                  </div>
+                  <div class="device-card__section">
+                    <h3>Components</h3>
+                    <div class="component-tags">${generateComponentTags(device.components)}</div>
+                  </div>
+                </article>
+              </div>
+            `;
+          })
+          .join("");
+      }
 
-          const date = device.last_deployed ? parseDateString(device.last_deployed) : "Never";
+      function renderDeviceTable(devices) {
+        const tableWrap = document.getElementById("device-table-wrap");
+        const tbody = document.getElementById("device-table-body");
+        tableWrap.hidden = dashboardState.ui.view !== "list";
 
-          row.innerHTML = `
-            <div class="col-md-3">${device.name}</div>
-            <div class="col-md-2">${device.version || device.template_version || "-"}</div>
-            <div class="col-md-2">${status}</div>
-            <div class="col-md-3">${device.location || "-"}</div>
-            <div class="col-md-2">${date}</div>
-          `;
+        if (!devices.length) {
+          tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><h3>No matching devices</h3><p>Adjust the search term or clear one of the active filters.</p></div></td></tr>`;
+          return;
+        }
 
-          container.appendChild(row);
+        tbody.innerHTML = devices
+          .map((device) => {
+            const statusClass = STATUS_LABELS[device.calculatedStatus];
+            return `
+              <tr>
+                <td><div class="table-device-name">${escapeHtml(device.name || "Unnamed device")}</div></td>
+                <td><span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span></td>
+                <td><span class="version-badge">${escapeHtml(device.versionDisplay)}</span></td>
+                <td>${generateComponentTags(device.components)}</td>
+                <td>${escapeHtml(getDisplayLocation(device.location))}</td>
+                <td>${escapeHtml(getDisplayDate(device.last_deployed))}</td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+
+      function renderVersionHistory() {
+        const container = document.getElementById("version-changes-list");
+        const detailPanel = document.getElementById("version-detail-panel");
+        const toggleButton = document.getElementById("toggle-version-history");
+        const summary = document.getElementById("timeline-summary");
+        const countBadge = document.getElementById("timeline-count");
+        const changes = dashboardState.versionChanges;
+
+        if (!changes.length) {
+          container.innerHTML = `<div class="empty-state"><h3>No version history</h3><p>The dashboard data does not include release notes yet.</p></div>`;
+          detailPanel.innerHTML = `<div class="empty-state"><h3>No release selected</h3><p>Add version history to enable the interactive timeline.</p></div>`;
+          summary.textContent = "No releases available yet.";
+          countBadge.textContent = "0 releases";
+          toggleButton.hidden = true;
+          return;
+        }
+
+        const visibleChanges = dashboardState.ui.showAllVersions ? changes : changes.slice(0, VERSION_PREVIEW_COUNT);
+        dashboardState.ui.selectedVersionIndex = Math.min(
+          dashboardState.ui.selectedVersionIndex,
+          visibleChanges.length - 1
+        );
+
+        container.innerHTML = visibleChanges
+          .map(
+            (version, index) => `
+              <button
+                type="button"
+                class="timeline-node ${index === dashboardState.ui.selectedVersionIndex ? "active" : ""}"
+                data-version-index="${index}"
+                aria-pressed="${index === dashboardState.ui.selectedVersionIndex ? "true" : "false"}"
+              >
+                <div class="timeline-node__bar">
+                  <div class="timeline-node__beam" style="height: ${getReleaseBeamHeight(version, index, visibleChanges.length)}px;"></div>
+                  <div class="timeline-node__column" style="height: ${getReleaseColumnHeight(version, index, visibleChanges.length)}px;"></div>
+                </div>
+                <div class="timeline-node__version mono">${escapeHtml(version.version || "Unknown")}</div>
+                <div class="timeline-node__scope">${Array.isArray(version.components) ? version.components.length : 0}</div>
+                <span class="timeline-node__date">${escapeHtml(formatTimelineDate(version.date))}</span>
+                <div class="timeline-node__copy">${escapeHtml(truncateText(version.description || "No description provided", 34))}</div>
+              </button>
+            `
+          )
+          .join("");
+
+        container.querySelectorAll("[data-version-index]").forEach((button) => {
+          button.addEventListener("click", () => {
+            dashboardState.ui.selectedVersionIndex = Number(button.dataset.versionIndex);
+            renderVersionHistory();
+          });
         });
 
-        // Update active sort button
-        document.querySelectorAll(".sort-btn").forEach((btn) => {
-          btn.classList.remove("active");
-        });
-        document.getElementById(`sort-by-${sortBy}`).classList.add("active");
-      }
-
-      /**
-       * Create device cards
-       */
-      function createDeviceCards(devices, latestVersion) {
-        const deviceCardsContainer = document.getElementById("device-cards");
-        deviceCardsContainer.innerHTML = ""; // Clear loading spinner
-
-        // Create device cards
-        devices.forEach((device) => {
-          // Get status (either from calculated status or from device.status)
-          const status = device.calculatedStatus || device.status || "Unknown";
-
-          // Create card
-          const col = document.createElement("div");
-          col.className = "col-md-6 col-lg-4 device-item";
-          col.dataset.status = status.replace(/\s+/g, "-").toLowerCase();
-
-          // Add component data attributes for filtering
-          if (device.components && Array.isArray(device.components)) {
-            device.components.forEach((comp) => {
-              col.dataset[comp.toLowerCase()] = "true";
-            });
-          }
-
-          let statusClass = "";
-          if (status === "Up to date") statusClass = "up-to-date";
-          else if (status === "Patch available") statusClass = "patch-available";
-          else if (status === "Needs update") statusClass = "needs-update";
-          else statusClass = "unknown";
-
-          let cardHtml = `
-            <div class="card">
-              <div class="card-header bg-light">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span>${device.name}</span>
-                  <span class="status-badge ${statusClass}">${status}</span>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="mb-3">
-                  <small class="text-muted">Template Version:</small>
-                  <div><span class="version-tag">${device.template_version || device.version || "Unknown"}</span></div>
-                </div>
-                <div class="mb-3">
-                  <small class="text-muted">Components:</small>
-                  <div>${generateComponentTags(device.components)}</div>
-                </div>`;
-
-
-          cardHtml += `
-                <div class="mb-3">
-                  <small class="text-muted">Location:</small>
-                  <div>${device.location || "Unknown"}</div>
-                </div>
-                <div class="mb-2">
-                  <small class="text-muted">Last Deployed:</small>
-                  <div><strong>${device.last_deployed || "Never"}</strong></div>
-                </div>
-                <div>
-                  <small class="text-muted">Initial Deployment:</small>
-                  <div><strong>${device.initial_deployed || "Never"}</strong></div>
-                </div>
-              </div>
+        const selectedVersion = visibleChanges[dashboardState.ui.selectedVersionIndex] || visibleChanges[0];
+        detailPanel.innerHTML = `
+          <div>
+            <div class="timeline-detail__label">Selected release</div>
+            <h3 class="timeline-detail__title mono">${escapeHtml(selectedVersion.version || "Unknown")}</h3>
+            <p class="timeline-detail__description">${escapeHtml(selectedVersion.description || "No description provided")}</p>
+            <div class="component-tags mt-3">${generateComponentTags(selectedVersion.components)}</div>
+          </div>
+          <div class="timeline-detail__meta">
+            <div class="timeline-metric">
+              <div class="timeline-detail__label">Release date</div>
+              <div>${escapeHtml(formatTimelineDate(selectedVersion.date))}</div>
             </div>
-          `;
+            <div class="timeline-metric">
+              <div class="timeline-detail__label">Relative age</div>
+              <div>${escapeHtml(getRelativeReleaseAge(selectedVersion.date))}</div>
+            </div>
+            <div class="timeline-metric">
+              <div class="timeline-detail__label">Component scope</div>
+              <div>${Array.isArray(selectedVersion.components) ? selectedVersion.components.length : 0} tracked area(s)</div>
+            </div>
+            <div class="timeline-metric">
+              <div class="timeline-detail__label">Release position</div>
+              <div>#${dashboardState.ui.selectedVersionIndex + 1} in the visible spectrum</div>
+            </div>
+          </div>
+        `;
 
-          col.innerHTML = cardHtml;
-          deviceCardsContainer.appendChild(col);
-        });
+        summary.textContent = dashboardState.ui.showAllVersions
+          ? "Release spectrum across the full template history. Heights hint at recency and scope."
+          : `Release spectrum of the newest ${visibleChanges.length} milestones. Select any signal for details.`;
+        countBadge.textContent = `${changes.length} releases`;
+
+        toggleButton.hidden = changes.length <= VERSION_PREVIEW_COUNT;
+        toggleButton.textContent = dashboardState.ui.showAllVersions
+          ? "Show less"
+          : `Show ${changes.length - VERSION_PREVIEW_COUNT} more`;
       }
 
-      /**
-       * Create the status chart
-       */
-      function createStatusChart(statusCounts) {
-        const ctx = document.getElementById("status-chart").getContext("2d");
-        new Chart(ctx, {
+      function formatTimelineDate(value) {
+        if (!hasValue(value)) {
+          return "Unknown date";
+        }
+
+        return formatDateOnly(value);
+      }
+
+      function getRelativeReleaseAge(value) {
+        const date = parseDate(value);
+        if (!date) {
+          return "Unknown age";
+        }
+
+        const diffInDays = Math.max(0, Math.round((Date.now() - date.getTime()) / 86400000));
+        if (diffInDays === 0) {
+          return "Released today";
+        }
+
+        if (diffInDays === 1) {
+          return "Released 1 day ago";
+        }
+
+        return `Released ${diffInDays} days ago`;
+      }
+
+      function truncateText(text, maxLength) {
+        if (!text || text.length <= maxLength) {
+          return text;
+        }
+
+        return `${text.slice(0, maxLength - 3).trimEnd()}...`;
+      }
+
+      function getReleaseColumnHeight(version, index, totalVisible) {
+        const componentCount = Array.isArray(version.components) ? version.components.length : 0;
+        const descriptionWeight = Math.min(28, Math.ceil((version.description || "").length / 18));
+        const recencyBoost = Math.max(0, (totalVisible - index - 1) * 7);
+        return 68 + componentCount * 14 + descriptionWeight + recencyBoost;
+      }
+
+      function getReleaseBeamHeight(version, index, totalVisible) {
+        return getReleaseColumnHeight(version, index, totalVisible) + 22;
+      }
+
+      function syncControlStates() {
+        document.querySelectorAll(".status-filter").forEach((button) => {
+          button.classList.toggle("active", button.dataset.status === dashboardState.ui.status);
+        });
+
+        document.querySelectorAll(".component-filter").forEach((button) => {
+          button.classList.toggle("active", button.dataset.component === dashboardState.ui.component);
+        });
+
+        document.querySelectorAll("[data-view]").forEach((button) => {
+          const isActive = button.dataset.view === dashboardState.ui.view;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+        });
+
+        document.querySelectorAll("[data-sort]").forEach((button) => {
+          button.classList.toggle("active", button.dataset.sort === dashboardState.ui.sortBy);
+        });
+
+        document.getElementById("clear-filters-btn").disabled =
+          !dashboardState.ui.search && dashboardState.ui.status === "all" && dashboardState.ui.component === "all";
+      }
+
+      function updateResultsSummary(filteredCount) {
+        const total = dashboardState.devices.length;
+        const activeFilters = [];
+        if (dashboardState.ui.status !== "all") {
+          activeFilters.push(`status: ${dashboardState.ui.status.replace(/-/g, " ")}`);
+        }
+        if (dashboardState.ui.component !== "all") {
+          activeFilters.push(`component: ${dashboardState.ui.component}`);
+        }
+        if (dashboardState.ui.search) {
+          activeFilters.push(`search: "${dashboardState.ui.search}"`);
+        }
+        const suffix = activeFilters.length ? ` | ${activeFilters.join(" | ")}` : "";
+        document.getElementById("results-summary").textContent = `Showing ${filteredCount} of ${total} devices${suffix}`;
+      }
+
+      function createStatusChart() {
+        const context = document.getElementById("status-chart").getContext("2d");
+        if (statusChart) {
+          statusChart.destroy();
+        }
+
+        Chart.defaults.color = "#e8f3ff";
+        Chart.defaults.font.family = '"Noto Sans", sans-serif';
+
+        statusChart = new Chart(context, {
           type: "doughnut",
           data: {
-            labels: Object.keys(statusCounts),
+            labels: ["Up to date", "Patch available", "Needs update", "Unknown"],
             datasets: [
               {
-                data: Object.values(statusCounts),
+                data: [
+                  dashboardState.statusCounts["Up to date"],
+                  dashboardState.statusCounts["Patch available"],
+                  dashboardState.statusCounts["Needs update"],
+                  dashboardState.statusCounts.Unknown,
+                ],
                 backgroundColor: [
-                  "rgba(46, 204, 113, 0.8)", // Up to date - green
-                  "rgba(155, 89, 182, 0.8)", // Patch available - purple
-                  "rgba(243, 156, 18, 0.8)", // Needs update - orange
-                  "rgba(231, 76, 60, 0.8)", // Unknown - red
+                  STATUS_COLORS["Up to date"],
+                  STATUS_COLORS["Patch available"],
+                  STATUS_COLORS["Needs update"],
+                  STATUS_COLORS.Unknown,
                 ],
-                borderColor: [
-                  "rgba(46, 204, 113, 1)",
-                  "rgba(155, 89, 182, 1)",
-                  "rgba(243, 156, 18, 1)",
-                  "rgba(231, 76, 60, 1)",
-                ],
-                borderWidth: 1,
+                borderColor: "#07162a",
+                borderWidth: 4,
+                hoverOffset: 5,
               },
             ],
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
+            cutout: "72%",
             plugins: {
-              legend: {
-                position: "bottom",
-                labels: {
-                  fontSize: 12,
-                  padding: 10
-                }
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: "rgba(6, 19, 33, 0.94)",
+                borderColor: "rgba(126, 221, 255, 0.2)",
+                borderWidth: 1,
+                titleColor: "#eff8ff",
+                bodyColor: "#eff8ff",
+                padding: 12,
               },
             },
           },
         });
       }
 
+      function renderErrorState(error) {
+        const message = escapeHtml(error.message || "Unknown error");
+        const errorMarkup = `
+          <div class="error-card">
+            <h3><i class="bi bi-exclamation-triangle"></i> Unable to load dashboard data</h3>
+            <p>Loading dashboard data failed with: ${message}</p>
+            <p>Check that <span class="mono">data/version-changes.json</span> and <span class="mono">data/devices.json</span> are accessible, and that the API at the configured base URL allows CORS from this origin.</p>
+          </div>
+        `;
 
-      /**
-       * Reset filter badges to their original state
-       */
-      function resetFilterBadges(greyOut = false) {
-        const filterBadges = document.querySelectorAll(".filter-badge");
-        filterBadges.forEach((b) => {
-          b.className = "filter-badge badge";
-          if (greyOut) {
-            b.classList.add("bg-secondary");
-          } else {
-            const filterClass = b.dataset.filter;
-            if (filterClass === "up-to-date") {
-              b.classList.add("bg-success");
-            } else if (filterClass === "patch-available") {
-              b.classList.add("bg-info");
-            } else if (filterClass === "needs-update") {
-              b.classList.add("bg-warning", "text-dark");
-            } else if (filterClass === "unknown") {
-              b.classList.add("bg-danger");
+        document.getElementById("attention-list").innerHTML = errorMarkup;
+        document.getElementById("status-breakdown").innerHTML = errorMarkup;
+        document.getElementById("insight-list").innerHTML = errorMarkup;
+        document.getElementById("device-cards").innerHTML = `<div class="col-12">${errorMarkup}</div>`;
+        document.getElementById("device-table-body").innerHTML = `<tr><td colspan="6">${errorMarkup}</td></tr>`;
+        document.getElementById("version-changes-list").innerHTML = errorMarkup;
+        document.getElementById("version-detail-panel").innerHTML = errorMarkup;
+      }
+
+      function getUpdateStatus(deviceVersion, latestVersion) {
+        if (!deviceVersion) return "Unknown";
+        const device = parseVersion(deviceVersion);
+        const latest = parseVersion(latestVersion);
+        if (!device || !latest) return "Unknown";
+        if (device.major < latest.major) return "Needs update";
+        if (device.major === latest.major && device.minor < latest.minor) return "Needs update";
+        if (device.major === latest.major && device.minor === latest.minor && device.patch < latest.patch) return "Patch available";
+        return "Up to date";
+      }
+
+      function parseVersion(version) {
+        const match = String(version).match(/v?(\d+)\.(\d+)\.(\d+)/);
+        return match
+          ? {
+              major: Number.parseInt(match[1], 10),
+              minor: Number.parseInt(match[2], 10),
+              patch: Number.parseInt(match[3], 10),
             }
-
-            // Show all devices
-            showAllDevices();
-          }
-        });
+          : null;
       }
 
-      /**
-       * Show all devices in both card and list views
-       */
-      function showAllDevices() {
-        // Show all devices in card view
-        document.querySelectorAll(".device-item").forEach((item) => {
-          item.style.display = "block";
+      function countStatuses(devices) {
+        const counts = { "Up to date": 0, "Patch available": 0, "Needs update": 0, Unknown: 0 };
+        devices.forEach((device) => {
+          counts[device.calculatedStatus] += 1;
         });
-        
-        // Show all devices in list view
-        document.querySelectorAll(".device-list-item").forEach((item) => {
-          item.style.display = "";
-        });
+        return counts;
       }
 
-      /**
-       * Filter devices by status class
-       */
-      function filterDevicesByStatus(statusClass) {
-        // Filter card view
-        document.querySelectorAll(".device-item").forEach((item) => {
-          item.style.display = item.dataset.status === statusClass ? "block" : "none";
-        });
-
-        // Filter list view
-        document.querySelectorAll(".device-list-item").forEach((item) => {
-          item.style.display = item.classList.contains(statusClass) ? "" : "none";
-        });
+      function deriveHealthState() {
+        if (dashboardState.statusCounts["Needs update"] > 0) return { label: "Attention needed", className: "needs-update" };
+        if (dashboardState.statusCounts.Unknown > 0) return { label: "Unknown devices", className: "unknown" };
+        if (dashboardState.statusCounts["Patch available"] > 0) return { label: "Patch window", className: "patch-available" };
+        return { label: "Aligned", className: "up-to-date" };
       }
 
-      /**
-       * Filter devices by component
-       */
-      function filterDevicesByComponent(component) {
-        // Filter card view
-        const deviceItems = document.querySelectorAll(".device-item");
-        deviceItems.forEach((item) => {
-          item.style.display = item.dataset[component] ? "block" : "none";
+      function sortDevices(devices, sortBy) {
+        const sorted = [...devices];
+        sorted.sort((left, right) => {
+          if (sortBy === "name") return compareText(left.name, right.name);
+          if (sortBy === "status") return STATUS_ORDER[left.calculatedStatus] - STATUS_ORDER[right.calculatedStatus] || compareText(left.name, right.name);
+          if (sortBy === "location") return compareText(left.location, right.location) || compareText(left.name, right.name);
+          return parseDateForSort(right.last_deployed) - parseDateForSort(left.last_deployed);
         });
-
-        // Filter list view
-        document.querySelectorAll(".device-list-item").forEach((item) => {
-          const deviceName = item.querySelector(".col-md-3").textContent;
-          const matchingCard = Array.from(deviceItems).find((card) =>
-            card.querySelector(".card-header").textContent.includes(deviceName)
-          );
-
-          item.style.display = (matchingCard && matchingCard.dataset[component]) ? "" : "none";
-        });
+        return sorted;
       }
 
-      /**
-       * Filter devices based on search term
-       */
-      function filterDevices() {
-        const searchTerm = document.getElementById("device-search").value.toLowerCase();
-
-        // Filter card view
-        document.querySelectorAll(".device-item").forEach((item) => {
-          const deviceText = item.textContent.toLowerCase();
-          item.style.display = deviceText.includes(searchTerm) ? "block" : "none";
-        });
-
-        // Filter list view
-        document.querySelectorAll(".device-list-item").forEach((item) => {
-          const text = item.textContent.toLowerCase();
-          item.style.display = text.includes(searchTerm) ? "" : "none";
-        });
+      function parseDateForSort(value) {
+        const date = parseDate(value);
+        return date || new Date(0);
       }
 
-      /**
-       * Set up all event listeners
-       */
-      function setupEventListeners(data) {
-        // Set up search functionality
-        document.getElementById("device-search").addEventListener("input", filterDevices);
+      function parseDate(value) {
+        if (!hasValue(value)) return null;
+        if (/^\d{2}-\d{2}-\d{4}$/.test(value)) {
+          const [day, month, year] = value.split("-");
+          return new Date(`${year}-${month}-${day}T00:00:00`);
+        }
+        const normalized = String(value).includes("T") ? value : String(value).replace(" ", "T");
+        const date = new Date(normalized);
+        return Number.isNaN(date.getTime()) ? null : date;
+      }
 
-        // Set up filter badges
-        document.querySelectorAll(".filter-badge").forEach((badge) => {
-          badge.addEventListener("click", () => {
-            if (badge.classList.contains("bg-secondary")) {
-              // Reset the badge to its original color
-              resetFilterBadges();
-            } else {
-              // Set all badges to secondary color first
-              resetFilterBadges(true);
+      function formatDateTime(value) {
+        const date = parseDate(value);
+        if (!date) return hasValue(value) ? value : "Not available";
+        return new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeStyle: "short" }).format(date);
+      }
 
-              // Restore this badge to its original color
-              const filterClass = badge.dataset.filter;
-              if (filterClass === "up-to-date") {
-                badge.classList.remove("bg-secondary");
-                badge.classList.add("bg-success");
-              } else if (filterClass === "patch-available") {
-                badge.classList.remove("bg-secondary");
-                badge.classList.add("bg-info");
-              } else if (filterClass === "needs-update") {
-                badge.classList.remove("bg-secondary");
-                badge.classList.add("bg-warning", "text-dark");
-              } else if (filterClass === "unknown") {
-                badge.classList.remove("bg-secondary");
-                badge.classList.add("bg-danger");
-              }
+      function formatDateOnly(value) {
+        const date = parseDate(value);
+        if (!date) return hasValue(value) ? value : "Not available";
+        return new Intl.DateTimeFormat("en-GB", { dateStyle: "medium" }).format(date);
+      }
 
-              // Filter the devices
-              filterDevicesByStatus(filterClass);
-            }
-          });
-        });
+      function getDisplayDate(value) {
+        return hasValue(value) ? formatDateOnly(value) : "Not deployed";
+      }
 
-        // Set up view toggle buttons
-        document.getElementById("card-view-btn").addEventListener("click", () => {
-          document.getElementById("device-cards").style.display = "flex";
-          document.getElementById("device-list").style.display = "none";
-          document.getElementById("card-view-btn").classList.add("active");
-          document.getElementById("list-view-btn").classList.remove("active");
-        });
+      function getDisplayLocation(location) {
+        return hasValue(location) ? location : "Location not assigned";
+      }
 
-        document.getElementById("list-view-btn").addEventListener("click", () => {
-          document.getElementById("device-cards").style.display = "none";
-          document.getElementById("device-list").style.display = "block";
-          document.getElementById("card-view-btn").classList.remove("active");
-          document.getElementById("list-view-btn").classList.add("active");
-        });
+      function generateComponentTags(components) {
+        if (!Array.isArray(components) || !components.length) {
+          return `<span class="component-tag">None specified</span>`;
+        }
 
-        // Set up sort buttons
-        document.getElementById("sort-by-date").addEventListener("click", () => {
-          renderDeviceList(data.devices, "date");
-          createDeviceCards(sortDevices(data.devices, "date"), data.latest_version);
-        });
+        return components
+          .map((component) => {
+            const slug = slugify(component);
+            return `<span class="component-tag ${escapeHtml(slug)}">${escapeHtml(component)}</span>`;
+          })
+          .join("");
+      }
 
-        document.getElementById("sort-by-name").addEventListener("click", () => {
-          renderDeviceList(data.devices, "name");
-          createDeviceCards(sortDevices(data.devices, "name"), data.latest_version);
-        });
+      function getLatestDeploymentDate() {
+        const dates = dashboardState.devices
+          .map((device) => parseDate(device.last_deployed))
+          .filter(Boolean)
+          .sort((left, right) => right - left);
+        return dates[0] || null;
+      }
 
-        document.getElementById("sort-by-status").addEventListener("click", () => {
-          renderDeviceList(data.devices, "status");
-          createDeviceCards(sortDevices(data.devices, "status"), data.latest_version);
-        });
+      function isStaleDeployment(value, thresholdDays) {
+        const date = parseDate(value);
+        if (!date) {
+          return false;
+        }
 
-        document.getElementById("sort-by-location").addEventListener("click", () => {
-          renderDeviceList(data.devices, "location");
-          createDeviceCards(sortDevices(data.devices, "location"), data.latest_version);
-        });
+        return Date.now() - date.getTime() > thresholdDays * 86400000;
+      }
+
+      function compareText(left, right) {
+        if (!hasValue(left) && !hasValue(right)) return 0;
+        if (!hasValue(left)) return 1;
+        if (!hasValue(right)) return -1;
+        return String(left).localeCompare(String(right));
+      }
+
+      function slugify(value) {
+        return String(value || "")
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+      }
+
+      function hasValue(value) {
+        return value !== null && value !== undefined && String(value).trim() !== "";
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
       }
     </script>
   </body>

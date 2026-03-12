@@ -1,0 +1,6 @@
+{
+  "api_base": "https://monitoring-api.3aentreprise.com",
+  "devices": [
+    { "mac": "68:FE:71:16:86:78", "label": "sauna-floor-temperatures" }
+  ]
+}
