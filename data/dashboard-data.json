@@ -1,8 +1,1634 @@
 {
+  "default_section": "sensor-hub",
+  "last_updated": "2026-03-13 09:03:22",
+  "sections": [
+    {
+      "id": "sensor-hub",
+      "label": "Sensor Hub",
+      "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
+      "repo_name": "glaecier-sensorhub-data-collector",
+      "latest_version": "v3.7.1",
+      "latest_version_label": "v3.7.1",
+      "last_commit_date": "2026-03-12 16:13:46",
+      "last_updated": "2026-03-13 09:03:22",
+      "tracks": [
+        {
+          "id": "sensor-hub",
+          "label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector",
+          "latest_version": "v3.7.1",
+          "last_commit_date": "2026-03-12 16:13:46",
+          "version_changes": [
+            {
+              "version": "v3.7.1",
+              "date": "2026-03-12",
+              "components": [
+                "core"
+              ],
+              "description": "Remove legacy code and align codebase to fixed PCB pin layout"
+            },
+            {
+              "version": "v3.7.0",
+              "date": "2026-03-11",
+              "components": [
+                "core"
+              ],
+              "description": "Add automatic event and error creation upon registration and remove old code remedies"
+            },
+            {
+              "version": "v3.6.1",
+              "date": "2026-03-11",
+              "components": [
+                "core"
+              ],
+              "description": "Add canvas buffering, key-value line wrapping, and dirty-flag display rendering"
+            },
+            {
+              "version": "v3.6.0",
+              "date": "2026-03-11",
+              "components": [
+                "core"
+              ],
+              "description": "Add memory lifecycle management, BLE availability policy, sensor tests, and resilience improvements"
+            },
+            {
+              "version": "v3.5.2",
+              "date": "2026-03-06",
+              "components": [
+                "core"
+              ],
+              "description": "Add detailed WiFi state display, restart reason screen, and display padding/rotation"
+            },
+            {
+              "version": "v3.5.1",
+              "date": "2026-03-05",
+              "components": [
+                "core"
+              ],
+              "description": "Drop multi-board support, add early Hardware pin init, auto-resolve sensor pins from config.h, and define missing PCB pins."
+            },
+            {
+              "version": "v3.5.0",
+              "date": "2026-03-05",
+              "components": [
+                "core"
+              ],
+              "description": "Add display state machine with provisioning screens and config-driven runtime pages"
+            },
+            {
+              "version": "v3.4.0",
+              "date": "2026-03-05",
+              "components": [
+                "core"
+              ],
+              "description": "Add OTA firmware update support"
+            },
+            {
+              "version": "v3.3.1",
+              "date": "2026-02-12",
+              "components": [
+                "core"
+              ],
+              "description": "Extract reusable ApiClient class from api.cpp"
+            },
+            {
+              "version": "v3.3.0",
+              "date": "2026-02-12",
+              "components": [
+                "core"
+              ],
+              "description": "Add diagnostic serial commands, connection soak test, and SPIFFS health monitoring"
+            },
+            {
+              "version": "v3.2.0",
+              "date": "2026-02-12",
+              "components": [
+                "core"
+              ],
+              "description": "Eliminate blocking delays and add watchdog-safe WdtGuard wrapper"
+            },
+            {
+              "version": "v3.1.1",
+              "date": "2026-02-12",
+              "components": [
+                "core"
+              ],
+              "description": "Replace String with stack buffers and remove unused device-side timestamps"
+            },
+            {
+              "version": "v3.1.0",
+              "date": "2026-02-12",
+              "components": [
+                "core"
+              ],
+              "description": "Embed firmware version at build time with startup banner"
+            },
+            {
+              "version": "v3.0.1",
+              "date": "2026-02-12",
+              "components": [
+                "core"
+              ],
+              "description": "Migrate to ArduinoJson v7 and move credentials to git-ignored file"
+            },
+            {
+              "version": "v3.0.0",
+              "date": "2026-02-11",
+              "components": [
+                "core"
+              ],
+              "description": "Target sensor hub v1.4 only  removes all multi-hardware support"
+            },
+            {
+              "version": "v2.16.1",
+              "date": "2026-02-11",
+              "components": [
+                "MODBUS"
+              ],
+              "description": "More robust MODBUS and simpler device settings fetch"
+            },
+            {
+              "version": "v2.16.0",
+              "date": "2025-12-11",
+              "components": [
+                "core"
+              ],
+              "description": "Improved error reporting with more detailed failure messages"
+            },
+            {
+              "version": "v2.15.2",
+              "date": "2025-12-11",
+              "components": [
+                "OneWire"
+              ],
+              "description": "Fix OneWire pin parsing, sensor init hang, and WiFi error messages"
+            },
+            {
+              "version": "v2.15.1",
+              "date": "2025-12-05",
+              "components": [
+                "core"
+              ],
+              "description": "Config validation and WiFi manager consolidation fixes"
+            },
+            {
+              "version": "v2.15.0",
+              "date": "2025-12-04",
+              "components": [
+                "virtual"
+              ],
+              "description": "Virtual device membership from config and cached display readings"
+            },
+            {
+              "version": "v2.14.0",
+              "date": "2025-12-04",
+              "components": [
+                "core"
+              ],
+              "description": "Add telemetry wrappers for log uploads and restart reporting"
+            },
+            {
+              "version": "v2.13.1",
+              "date": "2025-12-04",
+              "components": [
+                "core"
+              ],
+              "description": "JSON buffer pre-sizing and compile warning fixes"
+            },
+            {
+              "version": "v2.13.0",
+              "date": "2025-12-04",
+              "components": [
+                "core"
+              ],
+              "description": "Safer config reload with hash-based change detection and strict SPIFFS validation"
+            },
+            {
+              "version": "v2.12.1",
+              "date": "2025-12-04",
+              "components": [
+                "core"
+              ],
+              "description": "Refactor main.cpp into focused modules (no behavior change)"
+            },
+            {
+              "version": "v2.12.0",
+              "date": "2025-12-03",
+              "components": [
+                "core"
+              ],
+              "description": "Add Wroom support, new sensors, and configurable sample delay"
+            },
+            {
+              "version": "v2.11.2",
+              "date": "2025-10-16",
+              "components": [
+                "core"
+              ],
+              "description": "Stability/Perf tuning: guard SPIFFS init, flatten sensor caches, stream config hashing, and reuse shared JSON buffers"
+            },
+            {
+              "version": "v2.11.1",
+              "date": "2025-10-16",
+              "components": [
+                "core"
+              ],
+              "description": "Fix critical bug where devices stop sending logs after connecting to new WiFi network via BLE"
+            },
+            {
+              "version": "v2.11.0",
+              "date": "2025-10-16",
+              "components": [
+                "core"
+              ],
+              "description": "Improve system reliability with WiFi reconnection handling and enhanced diagnostics"
+            },
+            {
+              "version": "v2.10.1",
+              "date": "2025-09-16",
+              "components": [
+                "core"
+              ],
+              "description": "Add pressure sensor device example with 4-20mA current loop"
+            },
+            {
+              "version": "v2.10.0",
+              "date": "2025-09-16",
+              "components": [
+                "core"
+              ],
+              "description": "Implement ESP32-S3 TFT display system for real-time monitoring"
+            },
+            {
+              "version": "v2.9.0",
+              "date": "2025-09-16",
+              "components": [
+                "core"
+              ],
+              "description": "Add 4-20mA current loop sensor conversion support"
+            },
+            {
+              "version": "v2.8.0",
+              "date": "2025-09-08",
+              "components": [
+                "core"
+              ],
+              "description": "Implement universal sensor frequent checking system and update documentation"
+            },
+            {
+              "version": "v2.7.1",
+              "date": "2025-09-08",
+              "components": [
+                "digital",
+                "switch"
+              ],
+              "description": "Fix digital switch timezone handling with automatic DST calculation"
+            },
+            {
+              "version": "v2.7.0",
+              "date": "2025-09-08",
+              "components": [
+                "core"
+              ],
+              "description": "Fix JSON parsing preventing log interval configuration"
+            },
+            {
+              "version": "v2.6.5",
+              "date": "2025-09-04",
+              "components": [
+                "core"
+              ],
+              "description": "Version bump: patch"
+            },
+            {
+              "version": "v2.6.4",
+              "date": "2025-08-29",
+              "components": [
+                "digital",
+                "switch"
+              ],
+              "description": "Patch for digital switchTimezone and scheduling patch for digital switch"
+            },
+            {
+              "version": "v2.6.3",
+              "date": "2025-08-19",
+              "components": [
+                "virtual"
+              ],
+              "description": "Implement sensor-specific error tracking and virtual device attribution"
+            },
+            {
+              "version": "v2.6.2",
+              "date": "2025-08-18",
+              "components": [
+                "digital"
+              ],
+              "description": "Added timestamps to audio-switcher log / digital sensor logs"
+            },
+            {
+              "version": "v2.6.1",
+              "date": "2025-08-12",
+              "components": [
+                "digital",
+                "switch"
+              ],
+              "description": "Added hold time to digital switch"
+            },
+            {
+              "version": "v2.6.0",
+              "date": "2025-08-07",
+              "components": [
+                "core"
+              ],
+              "description": "Implement SSL memory failure recovery with automatic restartSL memory failure recovery with automatic restart"
+            },
+            {
+              "version": "v2.5.0",
+              "date": "2025-08-07",
+              "components": [
+                "MODBUS"
+              ],
+              "description": "Data priorization for MODBUS sensors"
+            },
+            {
+              "version": "v2.4.0",
+              "date": "2025-08-07",
+              "components": [
+                "core"
+              ],
+              "description": "Memory logging and mock data for easier testing and debugging"
+            },
+            {
+              "version": "v2.3.2",
+              "date": "2025-07-09",
+              "components": [
+                "MODBUS"
+              ],
+              "description": "Fixed MODBUS directional control implementation"
+            },
+            {
+              "version": "v2.3.1",
+              "date": "2025-06-19",
+              "components": [
+                "digital",
+                "switch"
+              ],
+              "description": "Enhanced digital switch with configurable labels and immediate logging"
+            },
+            {
+              "version": "v2.3.0",
+              "date": "2025-06-17",
+              "components": [
+                "core"
+              ],
+              "description": "More robust wifi initialization implemented"
+            },
+            {
+              "version": "v2.2.2",
+              "date": "2025-06-17",
+              "components": [
+                "digital",
+                "switch"
+              ],
+              "description": "Added support for digital switches ()digital switches, relays etc.)"
+            },
+            {
+              "version": "v2.2.1",
+              "date": "2025-05-20",
+              "components": [
+                "OneWire"
+              ],
+              "description": "OneWire bus scan upon sensor initialization for easier debugging"
+            },
+            {
+              "version": "v2.2.0",
+              "date": "2025-05-20",
+              "components": [
+                "core"
+              ],
+              "description": "Deep setting comparison to trigger sensor reinitialization on all sensor setting updates"
+            },
+            {
+              "version": "v2.1.7",
+              "date": "2025-05-20",
+              "components": [
+                "algae"
+              ],
+              "description": "Added algae sensor"
+            },
+            {
+              "version": "v2.1.6",
+              "date": "2025-05-14",
+              "components": [
+                "digital"
+              ],
+              "description": "Digital sensor now saves total count in non volatile memory"
+            },
+            {
+              "version": "v2.1.5",
+              "date": "2025-05-14",
+              "components": [
+                "OneWire"
+              ],
+              "description": "Onewire mapping send as event and minor log layout change"
+            },
+            {
+              "version": "v2.1.4",
+              "date": "2025-05-20",
+              "components": [
+                "OneWire"
+              ],
+              "description": "Fixed sensor index for address based onewire sensor initialization"
+            },
+            {
+              "version": "v2.1.3",
+              "date": "2025-05-20",
+              "components": [
+                "core"
+              ],
+              "description": "Optimized version tracking for easier management"
+            },
+            {
+              "version": "v2.1.2",
+              "date": "2025-05-13",
+              "components": [
+                "core"
+              ],
+              "description": "Improved handling of device naming for single device configurations"
+            },
+            {
+              "version": "v2.1.1",
+              "date": "2025-05-13",
+              "components": [
+                "MODBUS"
+              ],
+              "description": "MODBUS now supports TTL to RS485 with direction pin"
+            },
+            {
+              "version": "v2.1.0",
+              "date": "2025-05-13",
+              "components": [
+                "core"
+              ],
+              "description": "Updated wifi credential initialization"
+            },
+            {
+              "version": "v2.0.0",
+              "date": "2025-05-12",
+              "components": [
+                "virtual"
+              ],
+              "description": "Virtual devices uses master/slave configuration and hardware config is implemented to prevent wrong pin configuration"
+            },
+            {
+              "version": "v1.3.2",
+              "date": "2025-04-23",
+              "components": [
+                "virtual"
+              ],
+              "description": "Fixed virtual device settings fetching"
+            },
+            {
+              "version": "v1.3.1",
+              "date": "2025-03-28",
+              "components": [
+                "digital"
+              ],
+              "description": "Patched problem with edge, state detection of digital sensors"
+            },
+            {
+              "version": "v1.3.0",
+              "date": "2025-03-27",
+              "components": [
+                "virtual"
+              ],
+              "description": "Added support for virtual devices"
+            },
+            {
+              "version": "v1.2.2",
+              "date": "2025-03-19",
+              "components": [
+                "core"
+              ],
+              "description": "Updated event send logic, to lessen trafic"
+            },
+            {
+              "version": "v1.2.1",
+              "date": "2025-03-19",
+              "components": [
+                "core"
+              ],
+              "description": "Version 1.2.1 - Stable version"
+            },
+            {
+              "version": "v1.1.2",
+              "date": "2025-03-15",
+              "components": [
+                "core"
+              ],
+              "description": "Fix inconsistent handling of log intervals"
+            },
+            {
+              "version": "v1.1.1",
+              "date": "2025-03-15",
+              "components": [
+                "MODBUS"
+              ],
+              "description": "Improved MODBUS sensor implementation"
+            },
+            {
+              "version": "v1.1.0",
+              "date": "2025-03-14",
+              "components": [
+                "core"
+              ],
+              "description": "Implement device configuration management system"
+            },
+            {
+              "version": "v1.0.0",
+              "date": "2025-03-14",
+              "components": [
+                "core"
+              ],
+              "description": "Initial consolidated template"
+            }
+          ]
+        }
+      ],
+      "version_changes": [
+        {
+          "version": "v3.7.1",
+          "date": "2026-03-12",
+          "components": [
+            "core"
+          ],
+          "description": "Remove legacy code and align codebase to fixed PCB pin layout",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.7.0",
+          "date": "2026-03-11",
+          "components": [
+            "core"
+          ],
+          "description": "Add automatic event and error creation upon registration and remove old code remedies",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.6.1",
+          "date": "2026-03-11",
+          "components": [
+            "core"
+          ],
+          "description": "Add canvas buffering, key-value line wrapping, and dirty-flag display rendering",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.6.0",
+          "date": "2026-03-11",
+          "components": [
+            "core"
+          ],
+          "description": "Add memory lifecycle management, BLE availability policy, sensor tests, and resilience improvements",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.5.2",
+          "date": "2026-03-06",
+          "components": [
+            "core"
+          ],
+          "description": "Add detailed WiFi state display, restart reason screen, and display padding/rotation",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.5.1",
+          "date": "2026-03-05",
+          "components": [
+            "core"
+          ],
+          "description": "Drop multi-board support, add early Hardware pin init, auto-resolve sensor pins from config.h, and define missing PCB pins.",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.5.0",
+          "date": "2026-03-05",
+          "components": [
+            "core"
+          ],
+          "description": "Add display state machine with provisioning screens and config-driven runtime pages",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.4.0",
+          "date": "2026-03-05",
+          "components": [
+            "core"
+          ],
+          "description": "Add OTA firmware update support",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.3.1",
+          "date": "2026-02-12",
+          "components": [
+            "core"
+          ],
+          "description": "Extract reusable ApiClient class from api.cpp",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.3.0",
+          "date": "2026-02-12",
+          "components": [
+            "core"
+          ],
+          "description": "Add diagnostic serial commands, connection soak test, and SPIFFS health monitoring",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.2.0",
+          "date": "2026-02-12",
+          "components": [
+            "core"
+          ],
+          "description": "Eliminate blocking delays and add watchdog-safe WdtGuard wrapper",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.1.1",
+          "date": "2026-02-12",
+          "components": [
+            "core"
+          ],
+          "description": "Replace String with stack buffers and remove unused device-side timestamps",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.1.0",
+          "date": "2026-02-12",
+          "components": [
+            "core"
+          ],
+          "description": "Embed firmware version at build time with startup banner",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.0.1",
+          "date": "2026-02-12",
+          "components": [
+            "core"
+          ],
+          "description": "Migrate to ArduinoJson v7 and move credentials to git-ignored file",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.0.0",
+          "date": "2026-02-11",
+          "components": [
+            "core"
+          ],
+          "description": "Target sensor hub v1.4 only  removes all multi-hardware support",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.16.1",
+          "date": "2026-02-11",
+          "components": [
+            "MODBUS"
+          ],
+          "description": "More robust MODBUS and simpler device settings fetch",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.16.0",
+          "date": "2025-12-11",
+          "components": [
+            "core"
+          ],
+          "description": "Improved error reporting with more detailed failure messages",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.15.2",
+          "date": "2025-12-11",
+          "components": [
+            "OneWire"
+          ],
+          "description": "Fix OneWire pin parsing, sensor init hang, and WiFi error messages",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.15.1",
+          "date": "2025-12-05",
+          "components": [
+            "core"
+          ],
+          "description": "Config validation and WiFi manager consolidation fixes",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.15.0",
+          "date": "2025-12-04",
+          "components": [
+            "virtual"
+          ],
+          "description": "Virtual device membership from config and cached display readings",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.14.0",
+          "date": "2025-12-04",
+          "components": [
+            "core"
+          ],
+          "description": "Add telemetry wrappers for log uploads and restart reporting",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.13.1",
+          "date": "2025-12-04",
+          "components": [
+            "core"
+          ],
+          "description": "JSON buffer pre-sizing and compile warning fixes",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.13.0",
+          "date": "2025-12-04",
+          "components": [
+            "core"
+          ],
+          "description": "Safer config reload with hash-based change detection and strict SPIFFS validation",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.12.1",
+          "date": "2025-12-04",
+          "components": [
+            "core"
+          ],
+          "description": "Refactor main.cpp into focused modules (no behavior change)",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.12.0",
+          "date": "2025-12-03",
+          "components": [
+            "core"
+          ],
+          "description": "Add Wroom support, new sensors, and configurable sample delay",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.11.2",
+          "date": "2025-10-16",
+          "components": [
+            "core"
+          ],
+          "description": "Stability/Perf tuning: guard SPIFFS init, flatten sensor caches, stream config hashing, and reuse shared JSON buffers",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.11.1",
+          "date": "2025-10-16",
+          "components": [
+            "core"
+          ],
+          "description": "Fix critical bug where devices stop sending logs after connecting to new WiFi network via BLE",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.11.0",
+          "date": "2025-10-16",
+          "components": [
+            "core"
+          ],
+          "description": "Improve system reliability with WiFi reconnection handling and enhanced diagnostics",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.10.1",
+          "date": "2025-09-16",
+          "components": [
+            "core"
+          ],
+          "description": "Add pressure sensor device example with 4-20mA current loop",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.10.0",
+          "date": "2025-09-16",
+          "components": [
+            "core"
+          ],
+          "description": "Implement ESP32-S3 TFT display system for real-time monitoring",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.9.0",
+          "date": "2025-09-16",
+          "components": [
+            "core"
+          ],
+          "description": "Add 4-20mA current loop sensor conversion support",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.8.0",
+          "date": "2025-09-08",
+          "components": [
+            "core"
+          ],
+          "description": "Implement universal sensor frequent checking system and update documentation",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.7.1",
+          "date": "2025-09-08",
+          "components": [
+            "digital",
+            "switch"
+          ],
+          "description": "Fix digital switch timezone handling with automatic DST calculation",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.7.0",
+          "date": "2025-09-08",
+          "components": [
+            "core"
+          ],
+          "description": "Fix JSON parsing preventing log interval configuration",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.6.5",
+          "date": "2025-09-04",
+          "components": [
+            "core"
+          ],
+          "description": "Version bump: patch",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.6.4",
+          "date": "2025-08-29",
+          "components": [
+            "digital",
+            "switch"
+          ],
+          "description": "Patch for digital switchTimezone and scheduling patch for digital switch",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.6.3",
+          "date": "2025-08-19",
+          "components": [
+            "virtual"
+          ],
+          "description": "Implement sensor-specific error tracking and virtual device attribution",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.6.2",
+          "date": "2025-08-18",
+          "components": [
+            "digital"
+          ],
+          "description": "Added timestamps to audio-switcher log / digital sensor logs",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.6.1",
+          "date": "2025-08-12",
+          "components": [
+            "digital",
+            "switch"
+          ],
+          "description": "Added hold time to digital switch",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.6.0",
+          "date": "2025-08-07",
+          "components": [
+            "core"
+          ],
+          "description": "Implement SSL memory failure recovery with automatic restartSL memory failure recovery with automatic restart",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.5.0",
+          "date": "2025-08-07",
+          "components": [
+            "MODBUS"
+          ],
+          "description": "Data priorization for MODBUS sensors",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.4.0",
+          "date": "2025-08-07",
+          "components": [
+            "core"
+          ],
+          "description": "Memory logging and mock data for easier testing and debugging",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.3.2",
+          "date": "2025-07-09",
+          "components": [
+            "MODBUS"
+          ],
+          "description": "Fixed MODBUS directional control implementation",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.3.1",
+          "date": "2025-06-19",
+          "components": [
+            "digital",
+            "switch"
+          ],
+          "description": "Enhanced digital switch with configurable labels and immediate logging",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.3.0",
+          "date": "2025-06-17",
+          "components": [
+            "core"
+          ],
+          "description": "More robust wifi initialization implemented",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.2.2",
+          "date": "2025-06-17",
+          "components": [
+            "digital",
+            "switch"
+          ],
+          "description": "Added support for digital switches ()digital switches, relays etc.)",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.2.1",
+          "date": "2025-05-20",
+          "components": [
+            "OneWire"
+          ],
+          "description": "OneWire bus scan upon sensor initialization for easier debugging",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.2.0",
+          "date": "2025-05-20",
+          "components": [
+            "core"
+          ],
+          "description": "Deep setting comparison to trigger sensor reinitialization on all sensor setting updates",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.1.7",
+          "date": "2025-05-20",
+          "components": [
+            "algae"
+          ],
+          "description": "Added algae sensor",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.1.4",
+          "date": "2025-05-20",
+          "components": [
+            "OneWire"
+          ],
+          "description": "Fixed sensor index for address based onewire sensor initialization",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.1.3",
+          "date": "2025-05-20",
+          "components": [
+            "core"
+          ],
+          "description": "Optimized version tracking for easier management",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.1.6",
+          "date": "2025-05-14",
+          "components": [
+            "digital"
+          ],
+          "description": "Digital sensor now saves total count in non volatile memory",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.1.5",
+          "date": "2025-05-14",
+          "components": [
+            "OneWire"
+          ],
+          "description": "Onewire mapping send as event and minor log layout change",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.1.2",
+          "date": "2025-05-13",
+          "components": [
+            "core"
+          ],
+          "description": "Improved handling of device naming for single device configurations",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.1.1",
+          "date": "2025-05-13",
+          "components": [
+            "MODBUS"
+          ],
+          "description": "MODBUS now supports TTL to RS485 with direction pin",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.1.0",
+          "date": "2025-05-13",
+          "components": [
+            "core"
+          ],
+          "description": "Updated wifi credential initialization",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v2.0.0",
+          "date": "2025-05-12",
+          "components": [
+            "virtual"
+          ],
+          "description": "Virtual devices uses master/slave configuration and hardware config is implemented to prevent wrong pin configuration",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v1.3.2",
+          "date": "2025-04-23",
+          "components": [
+            "virtual"
+          ],
+          "description": "Fixed virtual device settings fetching",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v1.3.1",
+          "date": "2025-03-28",
+          "components": [
+            "digital"
+          ],
+          "description": "Patched problem with edge, state detection of digital sensors",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v1.3.0",
+          "date": "2025-03-27",
+          "components": [
+            "virtual"
+          ],
+          "description": "Added support for virtual devices",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v1.2.2",
+          "date": "2025-03-19",
+          "components": [
+            "core"
+          ],
+          "description": "Updated event send logic, to lessen trafic",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v1.2.1",
+          "date": "2025-03-19",
+          "components": [
+            "core"
+          ],
+          "description": "Version 1.2.1 - Stable version",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v1.1.2",
+          "date": "2025-03-15",
+          "components": [
+            "core"
+          ],
+          "description": "Fix inconsistent handling of log intervals",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v1.1.1",
+          "date": "2025-03-15",
+          "components": [
+            "MODBUS"
+          ],
+          "description": "Improved MODBUS sensor implementation",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v1.1.0",
+          "date": "2025-03-14",
+          "components": [
+            "core"
+          ],
+          "description": "Implement device configuration management system",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v1.0.0",
+          "date": "2025-03-14",
+          "components": [
+            "core"
+          ],
+          "description": "Initial consolidated template",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        }
+      ],
+      "devices": [
+        {
+          "name": "Carbonated water CO2 Tank Pressure (hallway)",
+          "mac": "64:e8:33:74:70:8c",
+          "version": "",
+          "components": [
+            "analog",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Cupboard next to pool door",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Carbonated water CO2 Tank Pressure (lounge)",
+          "mac": "b8:f8:62:d5:d0:88",
+          "version": "",
+          "components": [
+            "analog",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Cupboard under coffee machine",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Water System Temperatures",
+          "mac": "68:fe:71:16:a7:58",
+          "version": "",
+          "components": [
+            "onewire",
+            "virtual",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Lounge Floor Temperature",
+          "mac": "68:fe:71:16:a9:78",
+          "version": "",
+          "components": [
+            "modbus",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Underneath top bench in lounge",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Main Power In",
+          "mac": "64:e8:33:74:76:fc",
+          "version": "",
+          "components": [
+            "modbus",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Main power cabinet (cleaning basement)",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "MOG Tank Cycle Count",
+          "mac": "18:8b:0e:2f:d6:a0",
+          "version": "",
+          "components": [
+            "digital",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Top of MOG tank in crawl space",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Music Switch Lounge",
+          "mac": "3c:84:27:af:4c:f0",
+          "version": "",
+          "components": [
+            "digital_switch",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Music Switch Sauna",
+          "mac": "3c:84:27:ad:71:9c",
+          "version": "",
+          "components": [
+            "digital_switch",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Sauna floor temperature",
+          "mac": "68:fe:71:16:86:78",
+          "version": "",
+          "components": [
+            "onewire",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Under sauna benches",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Sauna Power",
+          "mac": "3c:84:27:ae:eb:e0",
+          "version": "",
+          "components": [
+            "modbus",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Last cabinet in cleaning basement",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Sauna Temperature and Humidity",
+          "mac": "d8:3b:da:34:fa:74",
+          "version": "",
+          "components": [
+            "modbus",
+            "core"
+          ],
+          "hardware": "",
+          "location": "On top of fridge in cleaning basement",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Water flow - Pre heater in",
+          "mac": "68:fe:71:16:bf:60",
+          "version": "",
+          "components": [
+            "digital",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Water Heater Power",
+          "mac": "64:e8:33:88:c3:e4",
+          "version": "",
+          "components": [
+            "modbus",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Water Heater Power Consumption",
+          "mac": "64:e8:33:74:74:48",
+          "version": "",
+          "components": [
+            "modbus",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Water System Temperatures",
+          "mac": "3c:84:27:ad:43:bc",
+          "version": "",
+          "components": [
+            "onewire",
+            "virtual",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        },
+        {
+          "name": "Water Heater Temperatures",
+          "mac": "68:fe:71:16:85:68",
+          "version": "",
+          "components": [
+            "onewire",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.7.1"
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "label": "Controllers",
+      "description": "Heat and humidity control devices with independent firmware tracks.",
+      "repo_name": "Controllers",
+      "latest_version": "",
+      "latest_version_label": "Multiple tracks",
+      "last_commit_date": "",
+      "last_updated": "2026-03-13 09:03:22",
+      "tracks": [
+        {
+          "id": "controllers",
+          "label": "Controllers",
+          "repo_name": "",
+          "latest_version": "",
+          "last_commit_date": "",
+          "version_changes": []
+        },
+        {
+          "id": "heat-controller",
+          "label": "Heat Controller",
+          "repo_name": "glaecier-sensorhub-heat-controller",
+          "latest_version": "",
+          "last_commit_date": "",
+          "version_changes": []
+        },
+        {
+          "id": "humidity-controller",
+          "label": "Humidity Controller",
+          "repo_name": "glaecier-sensorhub-humidity-controller",
+          "latest_version": "",
+          "last_commit_date": "",
+          "version_changes": []
+        }
+      ],
+      "version_changes": [],
+      "devices": [
+        {
+          "name": "Glaecier #1 Heat & cooling controller",
+          "mac": "b7:14:da:59:c3:14",
+          "version": "",
+          "components": [
+            "control",
+            "cooling",
+            "heat",
+            "core"
+          ],
+          "hardware": "Adafruit Feather ESP32-S3 TFT",
+          "location": "Glaecier #1 Water: cooling & heating",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "heat-controller",
+          "track_label": "Heat Controller",
+          "target_version": ""
+        },
+        {
+          "name": "Glaecier #1 Sauna/roof humidity controller",
+          "mac": "8b:c8:0e:2f:d6:c8",
+          "version": "",
+          "components": [
+            "control",
+            "humidity",
+            "ventilation",
+            "core"
+          ],
+          "hardware": "ESP32-C3 DevKitM-1",
+          "location": "Next to sauna ovens",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "humidity-controller",
+          "track_label": "Humidity Controller",
+          "target_version": ""
+        }
+      ]
+    }
+  ],
   "latest_version": "v3.7.1",
+  "latest_version_label": "v3.7.1",
   "repo_name": "glaecier-sensorhub-data-collector",
   "last_commit_date": "2026-03-12 16:13:46",
-  "last_updated": "2026-03-13 08:00:27",
   "version_changes": [
     {
       "version": "v3.7.1",
@@ -10,7 +1636,10 @@
       "components": [
         "core"
       ],
-      "description": "Remove legacy code and align codebase to fixed PCB pin layout"
+      "description": "Remove legacy code and align codebase to fixed PCB pin layout",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.7.0",
@@ -18,7 +1647,10 @@
       "components": [
         "core"
       ],
-      "description": "Add automatic event and error creation upon registration and remove old code remedies"
+      "description": "Add automatic event and error creation upon registration and remove old code remedies",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.6.1",
@@ -26,7 +1658,10 @@
       "components": [
         "core"
       ],
-      "description": "Add canvas buffering, key-value line wrapping, and dirty-flag display rendering"
+      "description": "Add canvas buffering, key-value line wrapping, and dirty-flag display rendering",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.6.0",
@@ -34,7 +1669,10 @@
       "components": [
         "core"
       ],
-      "description": "Add memory lifecycle management, BLE availability policy, sensor tests, and resilience improvements"
+      "description": "Add memory lifecycle management, BLE availability policy, sensor tests, and resilience improvements",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.5.2",
@@ -42,7 +1680,10 @@
       "components": [
         "core"
       ],
-      "description": "Add detailed WiFi state display, restart reason screen, and display padding/rotation"
+      "description": "Add detailed WiFi state display, restart reason screen, and display padding/rotation",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.5.1",
@@ -50,7 +1691,10 @@
       "components": [
         "core"
       ],
-      "description": "Drop multi-board support, add early Hardware pin init, auto-resolve sensor pins from config.h, and define missing PCB pins."
+      "description": "Drop multi-board support, add early Hardware pin init, auto-resolve sensor pins from config.h, and define missing PCB pins.",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.5.0",
@@ -58,7 +1702,10 @@
       "components": [
         "core"
       ],
-      "description": "Add display state machine with provisioning screens and config-driven runtime pages"
+      "description": "Add display state machine with provisioning screens and config-driven runtime pages",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.4.0",
@@ -66,7 +1713,10 @@
       "components": [
         "core"
       ],
-      "description": "Add OTA firmware update support"
+      "description": "Add OTA firmware update support",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.3.1",
@@ -74,7 +1724,10 @@
       "components": [
         "core"
       ],
-      "description": "Extract reusable ApiClient class from api.cpp"
+      "description": "Extract reusable ApiClient class from api.cpp",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.3.0",
@@ -82,7 +1735,10 @@
       "components": [
         "core"
       ],
-      "description": "Add diagnostic serial commands, connection soak test, and SPIFFS health monitoring"
+      "description": "Add diagnostic serial commands, connection soak test, and SPIFFS health monitoring",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.2.0",
@@ -90,7 +1746,10 @@
       "components": [
         "core"
       ],
-      "description": "Eliminate blocking delays and add watchdog-safe WdtGuard wrapper"
+      "description": "Eliminate blocking delays and add watchdog-safe WdtGuard wrapper",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.1.1",
@@ -98,7 +1757,10 @@
       "components": [
         "core"
       ],
-      "description": "Replace String with stack buffers and remove unused device-side timestamps"
+      "description": "Replace String with stack buffers and remove unused device-side timestamps",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.1.0",
@@ -106,7 +1768,10 @@
       "components": [
         "core"
       ],
-      "description": "Embed firmware version at build time with startup banner"
+      "description": "Embed firmware version at build time with startup banner",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.0.1",
@@ -114,7 +1779,10 @@
       "components": [
         "core"
       ],
-      "description": "Migrate to ArduinoJson v7 and move credentials to git-ignored file"
+      "description": "Migrate to ArduinoJson v7 and move credentials to git-ignored file",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v3.0.0",
@@ -122,7 +1790,10 @@
       "components": [
         "core"
       ],
-      "description": "Target sensor hub v1.4 only  removes all multi-hardware support"
+      "description": "Target sensor hub v1.4 only  removes all multi-hardware support",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.16.1",
@@ -130,7 +1801,10 @@
       "components": [
         "MODBUS"
       ],
-      "description": "More robust MODBUS and simpler device settings fetch"
+      "description": "More robust MODBUS and simpler device settings fetch",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.16.0",
@@ -138,7 +1812,10 @@
       "components": [
         "core"
       ],
-      "description": "Improved error reporting with more detailed failure messages"
+      "description": "Improved error reporting with more detailed failure messages",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.15.2",
@@ -146,7 +1823,10 @@
       "components": [
         "OneWire"
       ],
-      "description": "Fix OneWire pin parsing, sensor init hang, and WiFi error messages"
+      "description": "Fix OneWire pin parsing, sensor init hang, and WiFi error messages",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.15.1",
@@ -154,7 +1834,10 @@
       "components": [
         "core"
       ],
-      "description": "Config validation and WiFi manager consolidation fixes"
+      "description": "Config validation and WiFi manager consolidation fixes",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.15.0",
@@ -162,7 +1845,10 @@
       "components": [
         "virtual"
       ],
-      "description": "Virtual device membership from config and cached display readings"
+      "description": "Virtual device membership from config and cached display readings",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.14.0",
@@ -170,7 +1856,10 @@
       "components": [
         "core"
       ],
-      "description": "Add telemetry wrappers for log uploads and restart reporting"
+      "description": "Add telemetry wrappers for log uploads and restart reporting",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.13.1",
@@ -178,7 +1867,10 @@
       "components": [
         "core"
       ],
-      "description": "JSON buffer pre-sizing and compile warning fixes"
+      "description": "JSON buffer pre-sizing and compile warning fixes",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.13.0",
@@ -186,7 +1878,10 @@
       "components": [
         "core"
       ],
-      "description": "Safer config reload with hash-based change detection and strict SPIFFS validation"
+      "description": "Safer config reload with hash-based change detection and strict SPIFFS validation",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.12.1",
@@ -194,7 +1889,10 @@
       "components": [
         "core"
       ],
-      "description": "Refactor main.cpp into focused modules (no behavior change)"
+      "description": "Refactor main.cpp into focused modules (no behavior change)",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.12.0",
@@ -202,7 +1900,10 @@
       "components": [
         "core"
       ],
-      "description": "Add Wroom support, new sensors, and configurable sample delay"
+      "description": "Add Wroom support, new sensors, and configurable sample delay",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.11.2",
@@ -210,7 +1911,10 @@
       "components": [
         "core"
       ],
-      "description": "Stability/Perf tuning: guard SPIFFS init, flatten sensor caches, stream config hashing, and reuse shared JSON buffers"
+      "description": "Stability/Perf tuning: guard SPIFFS init, flatten sensor caches, stream config hashing, and reuse shared JSON buffers",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.11.1",
@@ -218,7 +1922,10 @@
       "components": [
         "core"
       ],
-      "description": "Fix critical bug where devices stop sending logs after connecting to new WiFi network via BLE"
+      "description": "Fix critical bug where devices stop sending logs after connecting to new WiFi network via BLE",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.11.0",
@@ -226,7 +1933,10 @@
       "components": [
         "core"
       ],
-      "description": "Improve system reliability with WiFi reconnection handling and enhanced diagnostics"
+      "description": "Improve system reliability with WiFi reconnection handling and enhanced diagnostics",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.10.1",
@@ -234,7 +1944,10 @@
       "components": [
         "core"
       ],
-      "description": "Add pressure sensor device example with 4-20mA current loop"
+      "description": "Add pressure sensor device example with 4-20mA current loop",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.10.0",
@@ -242,7 +1955,10 @@
       "components": [
         "core"
       ],
-      "description": "Implement ESP32-S3 TFT display system for real-time monitoring"
+      "description": "Implement ESP32-S3 TFT display system for real-time monitoring",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.9.0",
@@ -250,7 +1966,10 @@
       "components": [
         "core"
       ],
-      "description": "Add 4-20mA current loop sensor conversion support"
+      "description": "Add 4-20mA current loop sensor conversion support",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.8.0",
@@ -258,7 +1977,10 @@
       "components": [
         "core"
       ],
-      "description": "Implement universal sensor frequent checking system and update documentation"
+      "description": "Implement universal sensor frequent checking system and update documentation",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.7.1",
@@ -267,7 +1989,10 @@
         "digital",
         "switch"
       ],
-      "description": "Fix digital switch timezone handling with automatic DST calculation"
+      "description": "Fix digital switch timezone handling with automatic DST calculation",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.7.0",
@@ -275,7 +2000,10 @@
       "components": [
         "core"
       ],
-      "description": "Fix JSON parsing preventing log interval configuration"
+      "description": "Fix JSON parsing preventing log interval configuration",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.6.5",
@@ -283,7 +2011,10 @@
       "components": [
         "core"
       ],
-      "description": "Version bump: patch"
+      "description": "Version bump: patch",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.6.4",
@@ -292,7 +2023,10 @@
         "digital",
         "switch"
       ],
-      "description": "Patch for digital switchTimezone and scheduling patch for digital switch"
+      "description": "Patch for digital switchTimezone and scheduling patch for digital switch",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.6.3",
@@ -300,7 +2034,10 @@
       "components": [
         "virtual"
       ],
-      "description": "Implement sensor-specific error tracking and virtual device attribution"
+      "description": "Implement sensor-specific error tracking and virtual device attribution",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.6.2",
@@ -308,7 +2045,10 @@
       "components": [
         "digital"
       ],
-      "description": "Added timestamps to audio-switcher log / digital sensor logs"
+      "description": "Added timestamps to audio-switcher log / digital sensor logs",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.6.1",
@@ -317,7 +2057,10 @@
         "digital",
         "switch"
       ],
-      "description": "Added hold time to digital switch"
+      "description": "Added hold time to digital switch",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.6.0",
@@ -325,7 +2068,10 @@
       "components": [
         "core"
       ],
-      "description": "Implement SSL memory failure recovery with automatic restartSL memory failure recovery with automatic restart"
+      "description": "Implement SSL memory failure recovery with automatic restartSL memory failure recovery with automatic restart",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.5.0",
@@ -333,7 +2079,10 @@
       "components": [
         "MODBUS"
       ],
-      "description": "Data priorization for MODBUS sensors"
+      "description": "Data priorization for MODBUS sensors",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.4.0",
@@ -341,7 +2090,10 @@
       "components": [
         "core"
       ],
-      "description": "Memory logging and mock data for easier testing and debugging"
+      "description": "Memory logging and mock data for easier testing and debugging",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.3.2",
@@ -349,7 +2101,10 @@
       "components": [
         "MODBUS"
       ],
-      "description": "Fixed MODBUS directional control implementation"
+      "description": "Fixed MODBUS directional control implementation",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.3.1",
@@ -358,7 +2113,10 @@
         "digital",
         "switch"
       ],
-      "description": "Enhanced digital switch with configurable labels and immediate logging"
+      "description": "Enhanced digital switch with configurable labels and immediate logging",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.3.0",
@@ -366,7 +2124,10 @@
       "components": [
         "core"
       ],
-      "description": "More robust wifi initialization implemented"
+      "description": "More robust wifi initialization implemented",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.2.2",
@@ -375,7 +2136,10 @@
         "digital",
         "switch"
       ],
-      "description": "Added support for digital switches ()digital switches, relays etc.)"
+      "description": "Added support for digital switches ()digital switches, relays etc.)",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.2.1",
@@ -383,7 +2147,10 @@
       "components": [
         "OneWire"
       ],
-      "description": "OneWire bus scan upon sensor initialization for easier debugging"
+      "description": "OneWire bus scan upon sensor initialization for easier debugging",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.2.0",
@@ -391,7 +2158,10 @@
       "components": [
         "core"
       ],
-      "description": "Deep setting comparison to trigger sensor reinitialization on all sensor setting updates"
+      "description": "Deep setting comparison to trigger sensor reinitialization on all sensor setting updates",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.1.7",
@@ -399,23 +2169,10 @@
       "components": [
         "algae"
       ],
-      "description": "Added algae sensor"
-    },
-    {
-      "version": "v2.1.6",
-      "date": "2025-05-14",
-      "components": [
-        "digital"
-      ],
-      "description": "Digital sensor now saves total count in non volatile memory"
-    },
-    {
-      "version": "v2.1.5",
-      "date": "2025-05-14",
-      "components": [
-        "OneWire"
-      ],
-      "description": "Onewire mapping send as event and minor log layout change"
+      "description": "Added algae sensor",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.1.4",
@@ -423,7 +2180,10 @@
       "components": [
         "OneWire"
       ],
-      "description": "Fixed sensor index for address based onewire sensor initialization"
+      "description": "Fixed sensor index for address based onewire sensor initialization",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.1.3",
@@ -431,7 +2191,32 @@
       "components": [
         "core"
       ],
-      "description": "Optimized version tracking for easier management"
+      "description": "Optimized version tracking for easier management",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v2.1.6",
+      "date": "2025-05-14",
+      "components": [
+        "digital"
+      ],
+      "description": "Digital sensor now saves total count in non volatile memory",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v2.1.5",
+      "date": "2025-05-14",
+      "components": [
+        "OneWire"
+      ],
+      "description": "Onewire mapping send as event and minor log layout change",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.1.2",
@@ -439,7 +2224,10 @@
       "components": [
         "core"
       ],
-      "description": "Improved handling of device naming for single device configurations"
+      "description": "Improved handling of device naming for single device configurations",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.1.1",
@@ -447,7 +2235,10 @@
       "components": [
         "MODBUS"
       ],
-      "description": "MODBUS now supports TTL to RS485 with direction pin"
+      "description": "MODBUS now supports TTL to RS485 with direction pin",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.1.0",
@@ -455,7 +2246,10 @@
       "components": [
         "core"
       ],
-      "description": "Updated wifi credential initialization"
+      "description": "Updated wifi credential initialization",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v2.0.0",
@@ -463,7 +2257,10 @@
       "components": [
         "virtual"
       ],
-      "description": "Virtual devices uses master/slave configuration and hardware config is implemented to prevent wrong pin configuration"
+      "description": "Virtual devices uses master/slave configuration and hardware config is implemented to prevent wrong pin configuration",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v1.3.2",
@@ -471,7 +2268,10 @@
       "components": [
         "virtual"
       ],
-      "description": "Fixed virtual device settings fetching"
+      "description": "Fixed virtual device settings fetching",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v1.3.1",
@@ -479,7 +2279,10 @@
       "components": [
         "digital"
       ],
-      "description": "Patched problem with edge, state detection of digital sensors"
+      "description": "Patched problem with edge, state detection of digital sensors",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v1.3.0",
@@ -487,7 +2290,10 @@
       "components": [
         "virtual"
       ],
-      "description": "Added support for virtual devices"
+      "description": "Added support for virtual devices",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v1.2.2",
@@ -495,7 +2301,10 @@
       "components": [
         "core"
       ],
-      "description": "Updated event send logic, to lessen trafic"
+      "description": "Updated event send logic, to lessen trafic",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v1.2.1",
@@ -503,7 +2312,10 @@
       "components": [
         "core"
       ],
-      "description": "Version 1.2.1 - Stable version"
+      "description": "Version 1.2.1 - Stable version",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v1.1.2",
@@ -511,7 +2323,10 @@
       "components": [
         "core"
       ],
-      "description": "Fix inconsistent handling of log intervals"
+      "description": "Fix inconsistent handling of log intervals",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v1.1.1",
@@ -519,7 +2334,10 @@
       "components": [
         "MODBUS"
       ],
-      "description": "Improved MODBUS sensor implementation"
+      "description": "Improved MODBUS sensor implementation",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v1.1.0",
@@ -527,7 +2345,10 @@
       "components": [
         "core"
       ],
-      "description": "Implement device configuration management system"
+      "description": "Implement device configuration management system",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     },
     {
       "version": "v1.0.0",
@@ -535,7 +2356,10 @@
       "components": [
         "core"
       ],
-      "description": "Initial consolidated template"
+      "description": "Initial consolidated template",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
     }
   ],
   "devices": [
@@ -547,9 +2371,13 @@
         "analog",
         "core"
       ],
+      "hardware": "",
       "location": "Cupboard next to pool door",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Carbonated water CO2 Tank Pressure (lounge)",
@@ -559,9 +2387,13 @@
         "analog",
         "core"
       ],
+      "hardware": "",
       "location": "Cupboard under coffee machine",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Water System Temperatures",
@@ -572,9 +2404,13 @@
         "virtual",
         "core"
       ],
+      "hardware": "",
       "location": "Technician room",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Lounge Floor Temperature",
@@ -584,9 +2420,13 @@
         "modbus",
         "core"
       ],
+      "hardware": "",
       "location": "Underneath top bench in lounge",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Main Power In",
@@ -596,9 +2436,13 @@
         "modbus",
         "core"
       ],
+      "hardware": "",
       "location": "Main power cabinet (cleaning basement)",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "MOG Tank Cycle Count",
@@ -608,9 +2452,13 @@
         "digital",
         "core"
       ],
+      "hardware": "",
       "location": "Top of MOG tank in crawl space",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Music Switch Lounge",
@@ -620,9 +2468,13 @@
         "digital_switch",
         "core"
       ],
+      "hardware": "",
       "location": "Technician room",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Music Switch Sauna",
@@ -632,9 +2484,13 @@
         "digital_switch",
         "core"
       ],
+      "hardware": "",
       "location": "Technician room",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Sauna floor temperature",
@@ -644,9 +2500,13 @@
         "onewire",
         "core"
       ],
+      "hardware": "",
       "location": "Under sauna benches",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Sauna Power",
@@ -656,9 +2516,13 @@
         "modbus",
         "core"
       ],
+      "hardware": "",
       "location": "Last cabinet in cleaning basement",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Sauna Temperature and Humidity",
@@ -668,9 +2532,13 @@
         "modbus",
         "core"
       ],
+      "hardware": "",
       "location": "On top of fridge in cleaning basement",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Water flow - Pre heater in",
@@ -680,9 +2548,13 @@
         "digital",
         "core"
       ],
+      "hardware": "",
       "location": "Technician room",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Water Heater Power",
@@ -692,9 +2564,13 @@
         "modbus",
         "core"
       ],
+      "hardware": "",
       "location": "Technician room",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Water Heater Power Consumption",
@@ -704,9 +2580,13 @@
         "modbus",
         "core"
       ],
+      "hardware": "",
       "location": "Technician room",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Water System Temperatures",
@@ -717,9 +2597,13 @@
         "virtual",
         "core"
       ],
+      "hardware": "",
       "location": "Technician room",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     },
     {
       "name": "Water Heater Temperatures",
@@ -729,9 +2613,13 @@
         "onewire",
         "core"
       ],
+      "hardware": "",
       "location": "Technician room",
       "last_deployed": "",
-      "initial_deployed": ""
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.7.1"
     }
   ]
 }
