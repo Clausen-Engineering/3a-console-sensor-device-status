@@ -215,6 +215,7 @@
       }
 
       .hero-actions,
+      .section-tab-row,
       .status-filter-row,
       .component-filter-row,
       .toggle-cluster,
@@ -229,10 +230,15 @@
         margin: 1rem 0 1.35rem;
       }
 
+      .section-tab-row {
+        margin-top: 1rem;
+      }
+
       .cta-button,
       .secondary-button,
       .text-button,
       .filter-chip,
+      .section-tab,
       .toggle-button,
       .sort-button {
         display: inline-flex;
@@ -258,6 +264,7 @@
 
       .secondary-button,
       .filter-chip,
+      .section-tab,
       .toggle-button,
       .sort-button {
         background: rgba(50, 50, 50, 0.82);
@@ -268,21 +275,50 @@
       .cta-button:hover,
       .secondary-button:hover,
       .filter-chip:hover,
+      .section-tab:hover,
       .toggle-button:hover,
       .sort-button:hover,
       .cta-button:focus-visible,
       .secondary-button:focus-visible,
       .filter-chip:focus-visible,
+      .section-tab:focus-visible,
       .toggle-button:focus-visible,
       .sort-button:focus-visible {
         transform: translateY(-1px);
         border-color: rgba(28, 114, 218, 0.42);
       }
 
+      .section-tab {
+        min-width: min(100%, 17rem);
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding: 0.8rem 0.95rem;
+        text-align: left;
+      }
+
+      .section-tab.active {
+        background: linear-gradient(135deg, rgba(28, 114, 218, 0.28), rgba(20, 75, 146, 0.2));
+        border-color: rgba(72, 146, 236, 0.6);
+        box-shadow: inset 0 0 0 1px rgba(122, 182, 255, 0.16);
+      }
+
+      .section-tab__label {
+        font-size: 0.98rem;
+        font-weight: 700;
+      }
+
+      .section-tab__meta {
+        margin-top: 0.2rem;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
       .hero-metrics,
       .device-card__meta,
       .overview-grid,
-      .chart-layout {
+      .chart-layout,
+      .track-summary-grid {
         display: grid;
         gap: 1rem;
       }
@@ -295,6 +331,7 @@
       .attention-item,
       .insight-item,
       .status-row,
+      .track-summary-card,
       .version-card,
       .empty-state,
       .error-card {
@@ -306,6 +343,35 @@
 
       .metric-card {
         position: relative;
+      }
+
+      .track-summary-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        margin-top: 1rem;
+      }
+
+      .track-summary-card {
+        padding: 0.85rem 0.95rem;
+      }
+
+      .track-summary-card__label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .track-summary-card__value {
+        margin-top: 0.35rem;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      .track-summary-card__meta {
+        margin-top: 0.4rem;
+        color: var(--muted);
+        font-size: 0.84rem;
       }
 
       .metric-label,
@@ -1196,11 +1262,17 @@
         <section id="overview" class="surface hero-panel fade-in">
           <div class="row g-4">
             <div class="col-lg-7">
-              <span class="eyebrow">Device Command View</span>
+              <span id="hero-eyebrow" class="eyebrow">Device Command View</span>
               <h1 class="hero-title">3A Console sensor status</h1>
-              <p class="hero-copy">
+              <p id="hero-copy" class="hero-copy">
                 Template alignment, deployment readiness, and release history for the ESP32 based part of the 3A Console sensor fleet.
               </p>
+              <div id="section-tabs" class="section-tab-row">
+                <button type="button" class="section-tab active">
+                  <span class="section-tab__label">Loading sections</span>
+                  <span class="section-tab__meta">Preparing dashboard views</span>
+                </button>
+              </div>
               <div class="hero-actions">
                 <a class="cta-button" href="#devices"><i class="bi bi-grid-1x2-fill"></i> Inspect devices</a>
                 <a class="secondary-button" href="#versions"><i class="bi bi-bezier2"></i> Review timeline</a>
@@ -1238,6 +1310,7 @@
                   </div>
                   <span id="health-badge" class="status-pill patch-available">Loading</span>
                 </div>
+                <p id="repo-description" class="repo-description">Loading section description...</p>
                 <dl class="repo-meta">
                   <div class="repo-detail">
                     <dt>Latest release</dt>
@@ -1256,6 +1329,7 @@
                     <dd id="last-updated">--</dd>
                   </div>
                 </dl>
+                <div id="track-summary-grid" class="track-summary-grid" hidden></div>
               </aside>
             </div>
           </div>
@@ -1443,19 +1517,29 @@
         Unknown: "rgba(255, 122, 155, 0.9)",
       };
 
-      const dashboardState = {
-        latestVersion: "",
-        repoName: "",
-        lastCommitDate: "",
-        lastUpdated: "",
-        versionChanges: [],
-        devices: [],
-        statusCounts: {
+      function createEmptyStatusCounts() {
+        return {
           "Up to date": 0,
           "Patch available": 0,
           "Needs update": 0,
           Unknown: 0,
-        },
+        };
+      }
+
+      const dashboardState = {
+        sections: [],
+        activeSectionId: "",
+        sectionLabel: "",
+        sectionDescription: "",
+        latestVersion: "",
+        latestVersionLabel: "",
+        repoName: "",
+        lastCommitDate: "",
+        lastUpdated: "",
+        versionChanges: [],
+        tracks: [],
+        devices: [],
+        statusCounts: createEmptyStatusCounts(),
         ui: {
           search: "",
           status: "all",
@@ -1474,11 +1558,10 @@
       async function initializeDashboard() {
         try {
           const staticResponse = await fetch("data/dashboard-data.json", { cache: "no-store" });
+          let payload;
 
           if (staticResponse.ok) {
-            const dashboardData = await staticResponse.json();
-            hydrateVersionState(dashboardData);
-            hydrateStaticDeviceState(dashboardData.devices);
+            payload = normalizeDashboardPayload(await staticResponse.json());
           } else {
             const [versionResponse, registryResponse] = await Promise.all([
               fetch("data/version-changes.json"),
@@ -1494,19 +1577,11 @@
 
             const versionData = await versionResponse.json();
             const deviceRegistry = await registryResponse.json();
-
-            hydrateVersionState(versionData);
-
-            const apiBase = deviceRegistry.api_base;
-            const deviceEntries = Array.isArray(deviceRegistry.devices) ? deviceRegistry.devices : [];
-
-            const settledResults = await Promise.allSettled(
-              deviceEntries.map((entry) => fetchDeviceFromApi(apiBase, entry.mac, entry.label))
-            );
-
-            hydrateDeviceState(settledResults);
+            payload = await buildDashboardPayloadFromSourceFiles(versionData, deviceRegistry);
           }
 
+          hydrateDashboardState(payload);
+          renderSectionTabs();
           populateOverview();
           renderComponentFilters();
           renderVersionHistory();
@@ -1519,7 +1594,15 @@
         }
       }
 
-      async function fetchDeviceFromApi(apiBase, mac, fallbackLabel) {
+      async function fetchDeviceFromApi(apiBase, entry, trackMap = new Map(), fallbackSectionVersion = "") {
+        const mac = String(entry?.mac || "").trim();
+        const fallbackLabel = String(entry?.label || "").trim();
+        const hardware = String(entry?.hardware || "").trim();
+        const explicitComponents = Array.isArray(entry?.components)
+          ? entry.components.map((component) => String(component).trim()).filter(Boolean)
+          : null;
+        const trackId = String(entry?.track || "").trim();
+        const track = trackMap.get(trackId) || null;
         const encodedMac = encodeURIComponent(mac);
 
         const [deviceResponse, firmwareResponse] = await Promise.all([
@@ -1539,86 +1622,421 @@
         }
 
         const sensors = deviceData.settings?.sensors || [];
-        const sensorTypes = [...new Set(sensors.map((s) => s.type).filter(Boolean))];
+        const sensorTypes = explicitComponents || [...new Set(sensors.map((s) => s.type).filter(Boolean))];
         const hasVirtual = sensors.some((s) => s.virtual && s.virtual > 0);
-        const components = [...sensorTypes, ...(hasVirtual ? ["virtual"] : []), "core"].sort();
+        const components = [...new Set([...sensorTypes, ...(hasVirtual ? ["virtual"] : []), "core"])].sort();
 
         const firmwareVersion = firmwareData?.version || "";
         const firmwareBuildDate = firmwareData?.buildDate || "";
+        const targetVersion = String(entry?.target_version || "").trim() || track?.latestVersion || fallbackSectionVersion;
 
         return {
           name: fallbackLabel || deviceData.deviceName || mac,
           mac: deviceData.macAddress || mac,
           version: firmwareVersion ? `v${firmwareVersion.replace(/^v/, "")}` : "",
           components,
+          hardware,
           location: deviceData.settings?.sensorLocation?.description || deviceData.location?.name || "",
           last_deployed: firmwareBuildDate ? firmwareBuildDate.split("T")[0] : "",
           initial_deployed: "",
+          track: trackId,
+          track_label: track?.label || "",
+          target_version: targetVersion,
         };
       }
 
-      function hydrateVersionState(data) {
-        dashboardState.latestVersion = data.latest_version || "Unknown";
-        dashboardState.repoName = data.repo_name || "Unknown";
-        dashboardState.lastCommitDate = data.last_commit_date || "";
-        dashboardState.lastUpdated = data.last_updated || "";
-        dashboardState.versionChanges = Array.isArray(data.version_changes) ? data.version_changes : [];
+      function normalizeDashboardPayload(data) {
+        const rawSections = Array.isArray(data?.sections) && data.sections.length ? data.sections : buildLegacySections(data);
+        const lastUpdated = String(data?.last_updated || "").trim();
+        const sections = rawSections.map((section, index) => normalizeSection(section, lastUpdated, index));
+        const defaultSection =
+          String(data?.default_section || "").trim() ||
+          sections[0]?.id ||
+          "sensor-hub";
+
+        return {
+          defaultSection,
+          lastUpdated,
+          sections,
+        };
       }
 
-      function hydrateDeviceState(settledResults) {
-        const devices = [];
-
-        for (const result of settledResults) {
-          if (result.status === "fulfilled") {
-            const device = result.value;
-            const components = Array.isArray(device.components)
-              ? device.components.map((c) => String(c).trim()).filter(Boolean)
-              : [];
-            const versionDisplay = device.version || "Unknown";
-            const calculatedStatus = getUpdateStatus(device.version, dashboardState.latestVersion);
-            devices.push({ ...device, components, versionDisplay, calculatedStatus });
-          } else {
-            const errorMsg = result.reason?.message || "Unknown error";
-            console.warn("Failed to fetch device:", errorMsg);
-            const macMatch = errorMsg.match(/Device ([^:]+):/);
-            devices.push({
-              name: macMatch ? macMatch[1] : "Unknown device",
-              version: "",
-              components: [],
-              location: "",
-              last_deployed: "",
-              initial_deployed: "",
-              versionDisplay: "Unavailable",
-              calculatedStatus: "Unknown",
-            });
-          }
-        }
-
-        dashboardState.devices = devices;
-        dashboardState.statusCounts = countStatuses(devices);
+      function buildLegacySections(data) {
+        return [
+          {
+            id: "sensor-hub",
+            label: "Sensor Hub",
+            description: "ESP32 sensor-hub devices based on glaecier-sensorhub-data-collector.",
+            repo_name: data?.repo_name || "glaecier-sensorhub-data-collector",
+            latest_version: data?.latest_version || "",
+            latest_version_label: data?.latest_version_label || data?.latest_version || "",
+            last_commit_date: data?.last_commit_date || "",
+            last_updated: data?.last_updated || "",
+            tracks: [
+              {
+                id: "sensor-hub",
+                label: "Sensor Hub",
+                repo_name: data?.repo_name || "glaecier-sensorhub-data-collector",
+                latest_version: data?.latest_version || "",
+                last_commit_date: data?.last_commit_date || "",
+                version_changes: Array.isArray(data?.version_changes) ? data.version_changes : [],
+              },
+            ],
+            version_changes: Array.isArray(data?.version_changes) ? data.version_changes : [],
+            devices: Array.isArray(data?.devices) ? data.devices : [],
+          },
+          {
+            id: "controllers",
+            label: "Controllers",
+            description: "Heat and humidity control devices with independent firmware tracks.",
+            repo_name: "Glaecier controllers",
+            latest_version: "",
+            latest_version_label: "Multiple tracks",
+            last_commit_date: "",
+            last_updated: data?.last_updated || "",
+            tracks: [
+              {
+                id: "heat-controller",
+                label: "Heat Controller",
+                repo_name: "glaecier-sensorhub-heat-controller",
+                latest_version: "",
+                last_commit_date: "",
+                version_changes: [],
+              },
+              {
+                id: "humidity-controller",
+                label: "Humidity Controller",
+                repo_name: "glaecier-sensorhub-humidity-controller",
+                latest_version: "",
+                last_commit_date: "",
+                version_changes: [],
+              },
+            ],
+            version_changes: [],
+            devices: [],
+          },
+        ];
       }
 
-      function hydrateStaticDeviceState(devicesData) {
-        const devices = Array.isArray(devicesData)
-          ? devicesData.map((device) => {
-              const components = Array.isArray(device.components)
-                ? device.components.map((component) => String(component).trim()).filter(Boolean)
-                : [];
-              const versionDisplay = device.version || device.versionDisplay || "Unknown";
-              const calculatedStatus =
-                device.calculatedStatus || getUpdateStatus(device.version, dashboardState.latestVersion);
+      function normalizeSection(section, fallbackLastUpdated, index) {
+        const rawTracks = Array.isArray(section?.tracks) && section.tracks.length
+          ? section.tracks
+          : [
+              {
+                id: section?.id || `section-${index + 1}`,
+                label: section?.label || `Section ${index + 1}`,
+                repo_name: section?.repo_name || "",
+                latest_version: section?.latest_version || "",
+                last_commit_date: section?.last_commit_date || "",
+                version_changes: Array.isArray(section?.version_changes) ? section.version_changes : [],
+              },
+            ];
 
-              return {
-                ...device,
-                components,
-                versionDisplay,
-                calculatedStatus,
-              };
-            })
+        const tracks = rawTracks.map(normalizeTrack);
+        const trackMap = new Map(tracks.map((track) => [track.id, track]));
+        const versionChanges = Array.isArray(section?.version_changes) && section.version_changes.length
+          ? section.version_changes.map((change) => normalizeVersionChange(change))
+          : mergeTrackVersionChanges(tracks);
+        const latestVersion = String(section?.latest_version || "").trim() || (tracks.length === 1 ? tracks[0].latestVersion : "");
+        const latestVersionLabel =
+          String(section?.latest_version_label || "").trim() ||
+          latestVersion ||
+          (tracks.length > 1 ? "Multiple tracks" : "Unknown");
+        const lastCommitDate = String(section?.last_commit_date || "").trim() || getLatestTrackCommitDate(tracks);
+        const repoName =
+          String(section?.repo_name || "").trim() ||
+          (tracks.length === 1 ? tracks[0].repoName : "") ||
+          String(section?.label || "").trim() ||
+          "Unknown";
+        const devices = Array.isArray(section?.devices)
+          ? section.devices.map((device) => normalizeDevice(device, trackMap, latestVersion))
           : [];
 
-        dashboardState.devices = devices;
-        dashboardState.statusCounts = countStatuses(devices);
+        return {
+          id: String(section?.id || `section-${index + 1}`).trim(),
+          label: String(section?.label || `Section ${index + 1}`).trim(),
+          description: String(section?.description || "").trim(),
+          repoName,
+          latestVersion,
+          latestVersionLabel,
+          lastCommitDate,
+          lastUpdated: String(section?.last_updated || "").trim() || fallbackLastUpdated,
+          versionChanges,
+          tracks,
+          devices,
+        };
+      }
+
+      function normalizeTrack(track) {
+        return {
+          id: String(track?.id || "").trim(),
+          label: String(track?.label || track?.id || "Track").trim(),
+          repoName: String(track?.repo_name || "").trim(),
+          latestVersion: String(track?.latest_version || "").trim(),
+          lastCommitDate: String(track?.last_commit_date || "").trim(),
+          versionChanges: Array.isArray(track?.version_changes)
+            ? track.version_changes.map((change) =>
+                normalizeVersionChange(change, {
+                  id: String(track?.id || "").trim(),
+                  label: String(track?.label || track?.id || "Track").trim(),
+                  repoName: String(track?.repo_name || "").trim(),
+                })
+              )
+            : [],
+        };
+      }
+
+      function normalizeVersionChange(change, track = null) {
+        const components = Array.isArray(change?.components)
+          ? change.components.map((component) => String(component).trim()).filter(Boolean)
+          : [];
+
+        return {
+          ...change,
+          version: String(change?.version || "").trim(),
+          date: String(change?.date || "").trim(),
+          description: String(change?.description || "").trim(),
+          components,
+          track: String(change?.track || track?.id || "").trim(),
+          track_label: String(change?.track_label || track?.label || "").trim(),
+          repo_name: String(change?.repo_name || track?.repoName || "").trim(),
+        };
+      }
+
+      function mergeTrackVersionChanges(tracks) {
+        return tracks
+          .flatMap((track) => track.versionChanges)
+          .sort((left, right) => parseDateForSort(right.date) - parseDateForSort(left.date));
+      }
+
+      function normalizeDevice(device, trackMap, fallbackTargetVersion) {
+        const components = Array.isArray(device?.components)
+          ? [...new Set(device.components.map((component) => String(component).trim()).filter(Boolean))]
+          : [];
+        const defaultTrack = trackMap.size === 1 ? [...trackMap.values()][0] : null;
+        const rawTrackId = String(device?.track || "").trim();
+        const track = trackMap.get(rawTrackId) || defaultTrack || null;
+        const trackId = rawTrackId || track?.id || "";
+        const version = String(device?.version || "").trim();
+        const targetVersion =
+          String(device?.target_version || device?.targetVersion || "").trim() ||
+          track?.latestVersion ||
+          fallbackTargetVersion ||
+          "";
+        const versionDisplay = String(device?.versionDisplay || version || "").trim() || "Unknown";
+        const calculatedStatus = device?.calculatedStatus || getUpdateStatus(version, targetVersion);
+
+        return {
+          ...device,
+          components,
+          hardware: String(device?.hardware || "").trim(),
+          version,
+          versionDisplay,
+          calculatedStatus,
+          track: trackId,
+          trackLabel: String(device?.track_label || device?.trackLabel || track?.label || "").trim(),
+          targetVersion,
+        };
+      }
+
+      async function buildDashboardPayloadFromSourceFiles(versionData, deviceRegistry) {
+        const basePayload = normalizeDashboardPayload({
+          default_section: deviceRegistry?.default_section || versionData?.default_section || "sensor-hub",
+          last_updated: new Date().toISOString(),
+          sections: buildSectionsFromSourceFiles(versionData, deviceRegistry),
+        });
+
+        const hydratedSections = await Promise.all(
+          basePayload.sections.map(async (section) => {
+            const registrySection = getRegistrySection(deviceRegistry, section.id);
+            const apiBase = String(registrySection?.api_base || deviceRegistry?.api_base || "").trim();
+            const registryDevices = Array.isArray(registrySection?.devices) ? registrySection.devices : [];
+            if (!apiBase || !registryDevices.length) {
+              return section;
+            }
+
+            const trackMap = new Map(section.tracks.map((track) => [track.id, track]));
+            const settledResults = await Promise.allSettled(
+              registryDevices.map((entry) => fetchDeviceFromApi(apiBase, entry, trackMap, section.latestVersion))
+            );
+            const devices = settledResults.map((result, index) => {
+              if (result.status === "fulfilled") {
+                return normalizeDevice(result.value, trackMap, section.latestVersion);
+              }
+
+              const entry = registryDevices[index] || {};
+              const track = trackMap.get(String(entry?.track || "").trim()) || null;
+              return normalizeDevice(
+                {
+                  name: String(entry?.label || entry?.mac || "Unknown device").trim(),
+                  version: "",
+                  components: Array.isArray(entry?.components) ? entry.components : [],
+                  hardware: String(entry?.hardware || "").trim(),
+                  location: "",
+                  last_deployed: "",
+                  initial_deployed: "",
+                  track: String(entry?.track || "").trim(),
+                  track_label: track?.label || "",
+                  target_version: track?.latestVersion || section.latestVersion || "",
+                  versionDisplay: "Unavailable",
+                  calculatedStatus: "Unknown",
+                },
+                trackMap,
+                section.latestVersion
+              );
+            });
+
+            return {
+              ...section,
+              devices,
+            };
+          })
+        );
+
+        return {
+          ...basePayload,
+          sections: hydratedSections,
+        };
+      }
+
+      function buildSectionsFromSourceFiles(versionData, deviceRegistry) {
+        const normalizedVersion = normalizeDashboardPayload(versionData);
+        const versionMap = new Map(normalizedVersion.sections.map((section) => [section.id, section]));
+        const registrySections = Array.isArray(deviceRegistry?.sections) && deviceRegistry.sections.length
+          ? deviceRegistry.sections
+          : buildLegacySections(deviceRegistry);
+
+        return registrySections.map((registrySection, index) => {
+          const sectionId = String(registrySection?.id || `section-${index + 1}`).trim();
+          const versionSection = versionMap.get(sectionId);
+          return {
+            id: sectionId,
+            label: registrySection?.label || versionSection?.label || `Section ${index + 1}`,
+            description: registrySection?.description || versionSection?.description || "",
+            repo_name: versionSection?.repoName || registrySection?.repo_name || "",
+            latest_version: versionSection?.latestVersion || "",
+            latest_version_label: versionSection?.latestVersionLabel || "",
+            last_commit_date: versionSection?.lastCommitDate || "",
+            last_updated: normalizedVersion.lastUpdated || "",
+            tracks:
+              versionSection?.tracks.length
+                ? versionSection.tracks.map((track) => ({
+                    id: track.id,
+                    label: track.label,
+                    repo_name: track.repoName,
+                    latest_version: track.latestVersion,
+                    last_commit_date: track.lastCommitDate,
+                    version_changes: track.versionChanges,
+                  }))
+                : Array.isArray(registrySection?.tracks)
+                  ? registrySection.tracks
+                  : [],
+            version_changes: versionSection?.versionChanges || [],
+            devices: Array.isArray(registrySection?.devices) ? registrySection.devices : [],
+          };
+        });
+      }
+
+      function getRegistrySection(deviceRegistry, sectionId) {
+        const sections = Array.isArray(deviceRegistry?.sections) ? deviceRegistry.sections : [];
+        return sections.find((section) => String(section?.id || "").trim() === sectionId) || null;
+      }
+
+      function getLatestTrackCommitDate(tracks) {
+        return tracks
+          .map((track) => track.lastCommitDate)
+          .filter(Boolean)
+          .sort((left, right) => parseDateForSort(right) - parseDateForSort(left))[0] || "";
+      }
+
+      function hydrateDashboardState(payload) {
+        dashboardState.sections = payload.sections;
+        dashboardState.lastUpdated = payload.lastUpdated || "";
+        setActiveSection(payload.defaultSection || payload.sections[0]?.id || "", false);
+      }
+
+      function setActiveSection(sectionId, rerender = true) {
+        const nextSection =
+          dashboardState.sections.find((section) => section.id === sectionId) ||
+          dashboardState.sections[0] ||
+          null;
+
+        if (!nextSection) {
+          return;
+        }
+
+        dashboardState.activeSectionId = nextSection.id;
+        dashboardState.sectionLabel = nextSection.label;
+        dashboardState.sectionDescription = nextSection.description;
+        dashboardState.latestVersion = nextSection.latestVersion;
+        dashboardState.latestVersionLabel = nextSection.latestVersionLabel;
+        dashboardState.repoName = nextSection.repoName;
+        dashboardState.lastCommitDate = nextSection.lastCommitDate;
+        dashboardState.lastUpdated = nextSection.lastUpdated || dashboardState.lastUpdated;
+        dashboardState.versionChanges = nextSection.versionChanges;
+        dashboardState.tracks = nextSection.tracks;
+        dashboardState.devices = nextSection.devices;
+        dashboardState.statusCounts = countStatuses(nextSection.devices);
+
+        if (rerender) {
+          renderSectionTabs();
+          populateOverview();
+          renderComponentFilters();
+          renderVersionHistory();
+          createStatusChart();
+          applyFiltersAndRender();
+        }
+      }
+
+      function renderSectionTabs() {
+        const container = document.getElementById("section-tabs");
+        if (!dashboardState.sections.length) {
+          container.innerHTML = `
+            <button type="button" class="section-tab active">
+              <span class="section-tab__label">No sections</span>
+              <span class="section-tab__meta">Dashboard data is empty</span>
+            </button>
+          `;
+          return;
+        }
+
+        container.innerHTML = dashboardState.sections
+          .map((section) => {
+            const isActive = section.id === dashboardState.activeSectionId;
+            const releaseLabel = section.latestVersionLabel || "No tracked release";
+            return `
+              <button
+                type="button"
+                class="section-tab ${isActive ? "active" : ""}"
+                data-section-id="${escapeHtml(section.id)}"
+                aria-pressed="${isActive ? "true" : "false"}"
+              >
+                <span class="section-tab__label">${escapeHtml(section.label)}</span>
+                <span class="section-tab__meta">${section.devices.length} devices | ${escapeHtml(releaseLabel)}</span>
+              </button>
+            `;
+          })
+          .join("");
+
+        container.querySelectorAll("[data-section-id]").forEach((button) => {
+          button.addEventListener("click", () => {
+            if (button.dataset.sectionId === dashboardState.activeSectionId) {
+              return;
+            }
+            resetSectionScopedFilters();
+            setActiveSection(button.dataset.sectionId, true);
+          });
+        });
+      }
+
+      function resetSectionScopedFilters() {
+        dashboardState.ui.search = "";
+        dashboardState.ui.status = "all";
+        dashboardState.ui.component = "all";
+        const searchInput = document.getElementById("device-search");
+        if (searchInput) {
+          searchInput.value = "";
+        }
       }
 
       function bindEventListeners() {
@@ -1649,10 +2067,7 @@
         });
 
         document.getElementById("clear-filters-btn").addEventListener("click", () => {
-          dashboardState.ui.search = "";
-          dashboardState.ui.status = "all";
-          dashboardState.ui.component = "all";
-          document.getElementById("device-search").value = "";
+          resetSectionScopedFilters();
           applyFiltersAndRender();
         });
 
@@ -1661,17 +2076,28 @@
       function populateOverview() {
         const metrics = buildMetrics();
         const health = deriveHealthState();
+        const latestVersionContext = dashboardState.latestVersionLabel || "Unknown";
+        const coverageContext = dashboardState.tracks.length > 1
+          ? `${metrics.upToDate} of ${metrics.totalDevices} aligned to their track target`
+          : `${metrics.upToDate} of ${metrics.totalDevices} on ${latestVersionContext}`;
 
-        document.getElementById("latest-version").textContent = dashboardState.latestVersion;
+        document.getElementById("hero-eyebrow").textContent = dashboardState.sectionLabel || "Device Command View";
+        document.getElementById("hero-copy").textContent =
+          dashboardState.sectionDescription ||
+          "Template alignment, deployment readiness, and release history for the ESP32 based part of the 3A Console sensor fleet.";
+
+        document.getElementById("latest-version").textContent = latestVersionContext;
         document.getElementById("repo-name").textContent = dashboardState.repoName;
         document.getElementById("last-commit-date").textContent = formatDateTime(dashboardState.lastCommitDate);
         document.getElementById("last-updated").textContent = formatDateTime(dashboardState.lastUpdated);
         document.getElementById("footer-last-updated").textContent = formatDateTime(dashboardState.lastUpdated);
+        document.getElementById("repo-description").textContent =
+          dashboardState.sectionDescription || "No section description provided.";
 
         document.getElementById("stat-total-devices").textContent = metrics.totalDevices;
         document.getElementById("stat-total-context").textContent = `${metrics.deployedDevices} with a recorded deployment date`;
         document.getElementById("stat-coverage").textContent = `${metrics.coveragePercent}%`;
-        document.getElementById("stat-coverage-context").textContent = `${metrics.upToDate} of ${metrics.totalDevices} on ${dashboardState.latestVersion}`;
+        document.getElementById("stat-coverage-context").textContent = coverageContext;
         document.getElementById("stat-attention").textContent = metrics.attentionDevices;
         document.getElementById("stat-attention-context").textContent = metrics.attentionDevices
           ? `${metrics.needsUpdate} major/minor gaps, ${metrics.patchAvailable} patch-only`
@@ -1689,6 +2115,7 @@
         populateStatusCounts();
         renderStatusBreakdown(metrics.totalDevices);
         renderInsights(metrics);
+        renderTrackSummaries();
       }
 
       function buildMetrics() {
@@ -1733,7 +2160,7 @@
         const list = document.getElementById("insight-list");
         const latestDeployment = getLatestDeploymentDate();
         const insights = [
-          `${metrics.attentionDevices} devices currently need review before the next release cycle.`,
+          `${metrics.attentionDevices} ${dashboardState.sectionLabel.toLowerCase() || "fleet"} devices currently need review before the next release cycle.`,
           `${metrics.deployedDevices} of ${metrics.totalDevices} devices have a recorded deployment date.`,
           `${metrics.staleDeployments} devices have not been deployed in the last 120 days.`,
           `${metrics.missingLocationCount} devices still need a location assignment for cleaner field operations.`,
@@ -1744,6 +2171,40 @@
 
         list.innerHTML = insights
           .map((insight) => `<div class="insight-item"><div class="insight-copy">${escapeHtml(insight)}</div></div>`)
+          .join("");
+      }
+
+      function renderTrackSummaries() {
+        const container = document.getElementById("track-summary-grid");
+        if (dashboardState.tracks.length <= 1) {
+          container.hidden = true;
+          container.innerHTML = "";
+          return;
+        }
+
+        const deviceCounts = new Map();
+        dashboardState.devices.forEach((device) => {
+          const trackId = String(device.track || "").trim();
+          if (!trackId) {
+            return;
+          }
+          deviceCounts.set(trackId, (deviceCounts.get(trackId) || 0) + 1);
+        });
+
+        container.hidden = false;
+        container.innerHTML = dashboardState.tracks
+          .map((track) => {
+            const deviceCount = deviceCounts.get(track.id) || 0;
+            const latestVersion = track.latestVersion || "No tracked release";
+            const commitDate = track.lastCommitDate ? formatDateTime(track.lastCommitDate) : "Commit not tracked";
+            return `
+              <div class="track-summary-card">
+                <div class="track-summary-card__label">${escapeHtml(track.label)}</div>
+                <div class="track-summary-card__value mono">${escapeHtml(latestVersion)}</div>
+                <div class="track-summary-card__meta">${deviceCount} device${deviceCount === 1 ? "" : "s"} | ${escapeHtml(commitDate)}</div>
+              </div>
+            `;
+          })
           .join("");
       }
 
@@ -1839,7 +2300,10 @@
         const haystack = [
           device.name,
           device.location,
+          device.hardware,
+          device.trackLabel,
           device.versionDisplay,
+          device.targetVersion,
           device.calculatedStatus,
           device.components.join(" "),
           device.last_deployed,
@@ -1868,18 +2332,26 @@
           .map((device) => {
             const statusClass = STATUS_LABELS[device.calculatedStatus];
             const versionMarkup = `<span class="version-badge">${escapeHtml(device.versionDisplay)}</span>`;
+            const targetVersionMarkup = device.targetVersion
+              ? `<span class="version-badge">${escapeHtml(device.targetVersion)}</span>`
+              : `<span class="table-subtle">No tracked release</span>`;
+            const hardwareMarkup = hasValue(device.hardware)
+              ? escapeHtml(device.hardware)
+              : "Hardware not specified";
             return `
               <div class="col-sm-6 col-xl-4">
                 <article class="device-card status-${statusClass}">
                   <div class="device-card__top">
                     <div>
-                      <div class="device-card__eyebrow">Device</div>
+                      <div class="device-card__eyebrow">${escapeHtml(device.trackLabel || "Device")}</div>
                       <div class="device-card__title">${escapeHtml(device.name || "Unnamed device")}</div>
                     </div>
                     <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
                   </div>
                   <div class="device-card__meta">
-                    <div class="device-card__detail"><div class="device-card__detail-label">Template version</div><div class="device-card__detail-value">${versionMarkup}</div></div>
+                    <div class="device-card__detail"><div class="device-card__detail-label">Installed version</div><div class="device-card__detail-value">${versionMarkup}</div></div>
+                    <div class="device-card__detail"><div class="device-card__detail-label">Track target</div><div class="device-card__detail-value">${targetVersionMarkup}</div></div>
+                    <div class="device-card__detail"><div class="device-card__detail-label">Hardware</div><div class="device-card__detail-value">${hardwareMarkup}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Location</div><div class="device-card__detail-value">${escapeHtml(getDisplayLocation(device.location))}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Last deployed</div><div class="device-card__detail-value">${escapeHtml(getDisplayDate(device.last_deployed))}</div></div>
                   </div>
@@ -1907,11 +2379,19 @@
         tbody.innerHTML = devices
           .map((device) => {
             const statusClass = STATUS_LABELS[device.calculatedStatus];
+            const targetText = device.targetVersion ? `Target ${device.targetVersion}` : "No tracked release";
+            const subtitleParts = [device.trackLabel, device.hardware].filter(Boolean);
             return `
               <tr>
-                <td><div class="table-device-name">${escapeHtml(device.name || "Unnamed device")}</div></td>
+                <td>
+                  <div class="table-device-name">${escapeHtml(device.name || "Unnamed device")}</div>
+                  <div class="table-subtle">${escapeHtml(subtitleParts.join(" | ") || "Device")}</div>
+                </td>
                 <td><span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span></td>
-                <td><span class="version-badge">${escapeHtml(device.versionDisplay)}</span></td>
+                <td>
+                  <span class="version-badge">${escapeHtml(device.versionDisplay)}</span>
+                  <div class="table-subtle">${escapeHtml(targetText)}</div>
+                </td>
                 <td>${generateComponentTags(device.components)}</td>
                 <td>${escapeHtml(getDisplayLocation(device.location))}</td>
                 <td>${escapeHtml(getDisplayDate(device.last_deployed))}</td>
@@ -2098,11 +2578,15 @@
           const normalizedV = (version.version || "").trim();
           const deviceCount = inUseVersionCounts.get(normalizedV) || 0;
           const components = Array.isArray(version.components) ? version.components : [];
+          const trackLabel = String(version.track_label || "").trim();
 
           let chips = `<span class="timeline-popover__chip"><i class="bi bi-calendar3"></i> ${escapeHtml(formatTimelineDate(version.date))}</span>`;
           chips += `<span class="timeline-popover__chip"><i class="bi bi-clock-history"></i> ${escapeHtml(getRelativeReleaseAge(version.date))}</span>`;
           if (components.length) {
             chips += `<span class="timeline-popover__chip"><i class="bi bi-puzzle"></i> ${components.length} component${components.length !== 1 ? "s" : ""}</span>`;
+          }
+          if (trackLabel) {
+            chips += `<span class="timeline-popover__chip"><i class="bi bi-diagram-3"></i> ${escapeHtml(trackLabel)}</span>`;
           }
           if (deviceCount > 0) {
             chips += `<span class="timeline-popover__chip in-use"><i class="bi bi-cpu"></i> ${deviceCount} device${deviceCount !== 1 ? "s" : ""}</span>`;
@@ -2175,7 +2659,7 @@
           }
         }, { once: false });
 
-        summary.textContent = `Full release history across ${changes.length} versions. Hover over any node for details.`;
+        summary.textContent = `Full release history for ${dashboardState.sectionLabel || "this section"} across ${changes.length} versions. Hover over any node for details.`;
         countBadge.textContent = `${changes.length} releases`;
       }
 
@@ -2241,7 +2725,7 @@
           activeFilters.push(`search: "${dashboardState.ui.search}"`);
         }
         const suffix = activeFilters.length ? ` | ${activeFilters.join(" | ")}` : "";
-        document.getElementById("results-summary").textContent = `Showing ${filteredCount} of ${total} devices${suffix}`;
+        document.getElementById("results-summary").textContent = `${dashboardState.sectionLabel || "Section"}: showing ${filteredCount} of ${total} devices${suffix}`;
       }
 
       function createStatusChart() {

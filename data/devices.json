@@ -1,21 +1,70 @@
 {
-  "api_base": "https://monitoring-api.3aentreprise.com",
-  "devices": [
-    { "mac": "64:E8:33:74:70:8C", "label": "Carbonated water CO2 Tank Pressure (hallway)" },
-    { "mac": "B8:F8:62:D5:D0:88", "label": "Carbonated water CO2 Tank Pressure (lounge)" },
-    { "mac": "68:FE:71:16:A7:58", "label": "Water System Temperatures" },
-    { "mac": "68:FE:71:16:A9:78", "label": "Lounge Floor Temperature" },
-    { "mac": "64:E8:33:74:76:FC", "label": "Main Power In" },
-    { "mac": "18:8B:0E:2F:D6:A0", "label": "MOG Tank Cycle Count" },
-    { "mac": "3C:84:27:AF:4C:F0", "label": "Music Switch Lounge" },
-    { "mac": "3C:84:27:AD:71:9C", "label": "Music Switch Sauna" },
-    { "mac": "68:FE:71:16:86:78", "label": "Sauna floor temperature" },
-    { "mac": "3C:84:27:AE:EB:E0", "label": "Sauna Power" },
-    { "mac": "D8:3B:DA:34:FA:74", "label": "Sauna Temperature and Humidity" },
-    { "mac": "68:FE:71:16:BF:60", "label": "Water flow - Pre heater in" },
-    { "mac": "64:E8:33:88:C3:E4", "label": "Water Heater Power" },
-    { "mac": "64:E8:33:74:74:48", "label": "Water Heater Power Consumption" },
-    { "mac": "3C:84:27:AD:43:BC", "label": "Water System Temperatures" },
-    { "mac": "68:FE:71:16:85:68", "label": "Water Heater Temperatures" }
+  "default_section": "sensor-hub",
+  "sections": [
+    {
+      "id": "sensor-hub",
+      "label": "Sensor Hub",
+      "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
+      "api_base": "https://monitoring-api.3aentreprise.com",
+      "tracks": [
+        {
+          "id": "sensor-hub",
+          "label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        }
+      ],
+      "devices": [
+        { "mac": "64:E8:33:74:70:8C", "label": "Carbonated water CO2 Tank Pressure (hallway)", "track": "sensor-hub" },
+        { "mac": "B8:F8:62:D5:D0:88", "label": "Carbonated water CO2 Tank Pressure (lounge)", "track": "sensor-hub" },
+        { "mac": "68:FE:71:16:A7:58", "label": "Water System Temperatures", "track": "sensor-hub" },
+        { "mac": "68:FE:71:16:A9:78", "label": "Lounge Floor Temperature", "track": "sensor-hub" },
+        { "mac": "64:E8:33:74:76:FC", "label": "Main Power In", "track": "sensor-hub" },
+        { "mac": "18:8B:0E:2F:D6:A0", "label": "MOG Tank Cycle Count", "track": "sensor-hub" },
+        { "mac": "3C:84:27:AF:4C:F0", "label": "Music Switch Lounge", "track": "sensor-hub" },
+        { "mac": "3C:84:27:AD:71:9C", "label": "Music Switch Sauna", "track": "sensor-hub" },
+        { "mac": "68:FE:71:16:86:78", "label": "Sauna floor temperature", "track": "sensor-hub" },
+        { "mac": "3C:84:27:AE:EB:E0", "label": "Sauna Power", "track": "sensor-hub" },
+        { "mac": "D8:3B:DA:34:FA:74", "label": "Sauna Temperature and Humidity", "track": "sensor-hub" },
+        { "mac": "68:FE:71:16:BF:60", "label": "Water flow - Pre heater in", "track": "sensor-hub" },
+        { "mac": "64:E8:33:88:C3:E4", "label": "Water Heater Power", "track": "sensor-hub" },
+        { "mac": "64:E8:33:74:74:48", "label": "Water Heater Power Consumption", "track": "sensor-hub" },
+        { "mac": "3C:84:27:AD:43:BC", "label": "Water System Temperatures", "track": "sensor-hub" },
+        { "mac": "68:FE:71:16:85:68", "label": "Water Heater Temperatures", "track": "sensor-hub" }
+      ]
+    },
+    {
+      "id": "controllers",
+      "label": "Controllers",
+      "description": "Heat and humidity control devices with independent firmware tracks.",
+      "api_base": "https://monitoring-api.3aentreprise.com",
+      "tracks": [
+        {
+          "id": "heat-controller",
+          "label": "Heat Controller",
+          "repo_name": "glaecier-sensorhub-heat-controller"
+        },
+        {
+          "id": "humidity-controller",
+          "label": "Humidity Controller",
+          "repo_name": "glaecier-sensorhub-humidity-controller"
+        }
+      ],
+      "devices": [
+        {
+          "mac": "b7:14:da:59:c3:14",
+          "label": "Glaecier #1 Heat & cooling controller",
+          "track": "heat-controller",
+          "hardware": "Adafruit Feather ESP32-S3 TFT",
+          "components": ["control", "heat", "cooling"]
+        },
+        {
+          "mac": "8b:c8:0e:2f:d6:c8",
+          "label": "Glaecier #1 Sauna/roof humidity controller",
+          "track": "humidity-controller",
+          "hardware": "ESP32-C3 DevKitM-1",
+          "components": ["control", "humidity", "ventilation"]
+        }
+      ]
+    }
   ]
 }
