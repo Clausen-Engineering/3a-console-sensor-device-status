@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-03-16 11:39:24",
+  "last_updated": "2026-03-16 14:14:52",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.7.1",
       "latest_version_label": "v3.7.1",
       "last_commit_date": "2026-03-12 16:13:46",
-      "last_updated": "2026-03-16 11:39:24",
+      "last_updated": "2026-03-16 14:14:52",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1484,14 +1484,13 @@
         },
         {
           "name": "Water Heater Power",
-          "mac": "64:e8:33:88:c3:e4",
+          "mac": "64:E8:33:88:C3:E4",
           "version": "",
           "components": [
-            "modbus",
             "core"
           ],
           "hardware": "",
-          "location": "Technician room",
+          "location": "",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1516,15 +1515,13 @@
         },
         {
           "name": "Water System Temperatures",
-          "mac": "3c:84:27:ad:43:bc",
+          "mac": "3C:84:27:AD:43:BC",
           "version": "",
           "components": [
-            "onewire",
-            "virtual",
             "core"
           ],
           "hardware": "",
-          "location": "Technician room",
+          "location": "",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1557,7 +1554,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-03-16 11:39:24",
+      "last_updated": "2026-03-16 14:14:52",
       "tracks": [
         {
           "id": "controllers",
@@ -2558,14 +2555,13 @@
     },
     {
       "name": "Water Heater Power",
-      "mac": "64:e8:33:88:c3:e4",
+      "mac": "64:E8:33:88:C3:E4",
       "version": "",
       "components": [
-        "modbus",
         "core"
       ],
       "hardware": "",
-      "location": "Technician room",
+      "location": "",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
@@ -2590,15 +2586,13 @@
     },
     {
       "name": "Water System Temperatures",
-      "mac": "3c:84:27:ad:43:bc",
+      "mac": "3C:84:27:AD:43:BC",
       "version": "",
       "components": [
-        "onewire",
-        "virtual",
         "core"
       ],
       "hardware": "",
-      "location": "Technician room",
+      "location": "",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
