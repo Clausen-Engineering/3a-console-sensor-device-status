@@ -1,9 +1,17 @@
 {
-  "latest_version": "v3.7.1",
+  "latest_version": "v3.7.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-03-12 16:13:46",
-  "last_updated": "2026-03-12 16:08:19",
+  "last_commit_date": "2026-03-20 14:15:55",
+  "last_updated": "2026-03-20 13:17:48",
   "version_changes": [
+    {
+      "version": "v3.7.2",
+      "date": "2026-03-20",
+      "components": [
+        "core"
+      ],
+      "description": "Remove unused logging_level from audio-player-scheduler config"
+    },
     {
       "version": "v3.7.1",
       "date": "2026-03-12",
