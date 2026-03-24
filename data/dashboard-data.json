@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-03-24 08:39:15",
+  "last_updated": "2026-03-24 09:44:41",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.7.2",
       "latest_version_label": "v3.7.2",
       "last_commit_date": "2026-03-20 14:15:55",
-      "last_updated": "2026-03-24 08:39:15",
+      "last_updated": "2026-03-24 09:44:41",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1407,14 +1407,13 @@
         },
         {
           "name": "Music Switch Lounge",
-          "mac": "3c:84:27:af:4c:f0",
+          "mac": "3C:84:27:AF:4C:F0",
           "version": "",
           "components": [
-            "digital_switch",
             "core"
           ],
           "hardware": "",
-          "location": "Technician room",
+          "location": "",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1423,14 +1422,13 @@
         },
         {
           "name": "Music Switch Sauna",
-          "mac": "3c:84:27:ad:71:9c",
+          "mac": "3C:84:27:AD:71:9C",
           "version": "",
           "components": [
-            "digital_switch",
             "core"
           ],
           "hardware": "",
-          "location": "Technician room",
+          "location": "",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1573,7 +1571,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-03-24 08:39:15",
+      "last_updated": "2026-03-24 09:44:41",
       "tracks": [
         {
           "id": "controllers",
@@ -2489,14 +2487,13 @@
     },
     {
       "name": "Music Switch Lounge",
-      "mac": "3c:84:27:af:4c:f0",
+      "mac": "3C:84:27:AF:4C:F0",
       "version": "",
       "components": [
-        "digital_switch",
         "core"
       ],
       "hardware": "",
-      "location": "Technician room",
+      "location": "",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
@@ -2505,14 +2502,13 @@
     },
     {
       "name": "Music Switch Sauna",
-      "mac": "3c:84:27:ad:71:9c",
+      "mac": "3C:84:27:AD:71:9C",
       "version": "",
       "components": [
-        "digital_switch",
         "core"
       ],
       "hardware": "",
-      "location": "Technician room",
+      "location": "",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
