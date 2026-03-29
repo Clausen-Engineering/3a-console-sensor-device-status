@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-03-28 23:51:58",
+  "last_updated": "2026-03-29 01:22:48",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.7.2",
       "latest_version_label": "v3.7.2",
       "last_commit_date": "2026-03-20 14:15:55",
-      "last_updated": "2026-03-28 23:51:58",
+      "last_updated": "2026-03-29 01:22:48",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1570,7 +1570,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-03-28 23:51:58",
+      "last_updated": "2026-03-29 01:22:48",
       "tracks": [
         {
           "id": "controllers",
