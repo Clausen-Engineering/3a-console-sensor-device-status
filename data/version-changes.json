@@ -1,9 +1,17 @@
 {
-  "latest_version": "v3.9.0",
+  "latest_version": "v3.10.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-03-31 17:30:47",
-  "last_updated": "2026-04-01 12:20:40",
+  "last_commit_date": "2026-04-01 16:26:01",
+  "last_updated": "2026-04-01 14:26:51",
   "version_changes": [
+    {
+      "version": "v3.10.0",
+      "date": "2026-04-01",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.10.0"
+    },
     {
       "version": "v3.9.0",
       "date": "2026-04-01",
@@ -16,10 +24,9 @@
       "version": "v3.8.1",
       "date": "2026-03-31",
       "components": [
-        "analog",
-        "digital"
+        "core"
       ],
-      "description": "Add ADC pin validation and railed-input warning to AnalogSensor::initialize()"
+      "description": "Sensor recovery overhaul, HTTP timeout fixes, ADC validation improvements"
     },
     {
       "version": "v3.8.0",
