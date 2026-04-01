@@ -1,24 +1,49 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-04-01 11:43:18",
+  "last_updated": "2026-04-01 12:54:41",
   "sections": [
     {
       "id": "sensor-hub",
       "label": "Sensor Hub",
       "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
       "repo_name": "glaecier-sensorhub-data-collector",
-      "latest_version": "v3.7.3",
-      "latest_version_label": "v3.7.3",
-      "last_commit_date": "2026-03-30 10:39:00",
-      "last_updated": "2026-04-01 11:43:18",
+      "latest_version": "v3.9.0",
+      "latest_version_label": "v3.9.0",
+      "last_commit_date": "2026-03-31 17:30:47",
+      "last_updated": "2026-04-01 12:54:41",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
-          "latest_version": "v3.7.3",
-          "last_commit_date": "2026-03-30 10:39:00",
+          "latest_version": "v3.9.0",
+          "last_commit_date": "2026-03-31 17:30:47",
           "version_changes": [
+            {
+              "version": "v3.9.0",
+              "date": "2026-04-01",
+              "components": [
+                "virtual"
+              ],
+              "description": "New Sensor base class virtuals, telemetry event queuing, ApiCredentials struct"
+            },
+            {
+              "version": "v3.8.1",
+              "date": "2026-03-31",
+              "components": [
+                "analog",
+                "digital"
+              ],
+              "description": "Add ADC pin validation and railed-input warning to AnalogSensor::initialize()"
+            },
+            {
+              "version": "v3.8.0",
+              "date": "2026-03-30",
+              "components": [
+                "core"
+              ],
+              "description": "Coherent config structure refactor  normalized naming and improved logging"
+            },
             {
               "version": "v3.7.3",
               "date": "2026-03-30",
@@ -572,6 +597,40 @@
         }
       ],
       "version_changes": [
+        {
+          "version": "v3.9.0",
+          "date": "2026-04-01",
+          "components": [
+            "virtual"
+          ],
+          "description": "New Sensor base class virtuals, telemetry event queuing, ApiCredentials struct",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.8.1",
+          "date": "2026-03-31",
+          "components": [
+            "analog",
+            "digital"
+          ],
+          "description": "Add ADC pin validation and railed-input warning to AnalogSensor::initialize()",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.8.0",
+          "date": "2026-03-30",
+          "components": [
+            "core"
+          ],
+          "description": "Coherent config structure refactor  normalized naming and improved logging",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
         {
           "version": "v3.7.3",
           "date": "2026-03-30",
@@ -1341,7 +1400,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Carbonated water CO2 Tank Pressure (lounge)",
@@ -1357,7 +1416,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Water System Temperatures",
@@ -1374,7 +1433,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Lounge Floor Temperature",
@@ -1390,7 +1449,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Main Power In",
@@ -1406,7 +1465,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "MOG Tank Cycle Count",
@@ -1422,7 +1481,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Music Switch Lounge",
@@ -1437,7 +1496,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Music Switch Sauna",
@@ -1452,7 +1511,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Sauna floor temperature",
@@ -1467,7 +1526,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Sauna Power",
@@ -1483,7 +1542,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Sauna Temperature and Humidity",
@@ -1499,7 +1558,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Water flow - Pre heater in",
@@ -1515,7 +1574,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Water Heater Power",
@@ -1530,7 +1589,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Water Heater Power Consumption",
@@ -1546,7 +1605,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Water System Temperatures",
@@ -1561,7 +1620,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         },
         {
           "name": "Water Heater Temperatures",
@@ -1577,7 +1636,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.7.3"
+          "target_version": "v3.9.0"
         }
       ]
     },
@@ -1589,7 +1648,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-04-01 11:43:18",
+      "last_updated": "2026-04-01 12:54:41",
       "tracks": [
         {
           "id": "controllers",
@@ -1657,11 +1716,45 @@
       ]
     }
   ],
-  "latest_version": "v3.7.3",
-  "latest_version_label": "v3.7.3",
+  "latest_version": "v3.9.0",
+  "latest_version_label": "v3.9.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-03-30 10:39:00",
+  "last_commit_date": "2026-03-31 17:30:47",
   "version_changes": [
+    {
+      "version": "v3.9.0",
+      "date": "2026-04-01",
+      "components": [
+        "virtual"
+      ],
+      "description": "New Sensor base class virtuals, telemetry event queuing, ApiCredentials struct",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.8.1",
+      "date": "2026-03-31",
+      "components": [
+        "analog",
+        "digital"
+      ],
+      "description": "Add ADC pin validation and railed-input warning to AnalogSensor::initialize()",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.8.0",
+      "date": "2026-03-30",
+      "components": [
+        "core"
+      ],
+      "description": "Coherent config structure refactor  normalized naming and improved logging",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
     {
       "version": "v3.7.3",
       "date": "2026-03-30",
@@ -2431,7 +2524,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Carbonated water CO2 Tank Pressure (lounge)",
@@ -2447,7 +2540,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Water System Temperatures",
@@ -2464,7 +2557,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Lounge Floor Temperature",
@@ -2480,7 +2573,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Main Power In",
@@ -2496,7 +2589,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "MOG Tank Cycle Count",
@@ -2512,7 +2605,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Music Switch Lounge",
@@ -2527,7 +2620,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Music Switch Sauna",
@@ -2542,7 +2635,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Sauna floor temperature",
@@ -2557,7 +2650,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Sauna Power",
@@ -2573,7 +2666,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Sauna Temperature and Humidity",
@@ -2589,7 +2682,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Water flow - Pre heater in",
@@ -2605,7 +2698,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Water Heater Power",
@@ -2620,7 +2713,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Water Heater Power Consumption",
@@ -2636,7 +2729,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Water System Temperatures",
@@ -2651,7 +2744,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     },
     {
       "name": "Water Heater Temperatures",
@@ -2667,7 +2760,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.7.3"
+      "target_version": "v3.9.0"
     }
   ]
 }
