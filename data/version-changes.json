@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.10.1",
+  "latest_version": "v3.11.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-04-09 10:25:00",
-  "last_updated": "2026-04-09 08:25:14",
+  "last_commit_date": "2026-04-09 10:55:33",
+  "last_updated": "2026-04-09 08:56:28",
   "version_changes": [
+    {
+      "version": "v3.11.0",
+      "date": "2026-04-09",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.11.0"
+    },
     {
       "version": "v3.10.1",
       "date": "2026-04-09",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.10.1"
+      "description": "Fixed build errors, removed algea references and updated audio-player-scheduler"
     },
     {
       "version": "v3.10.0",
