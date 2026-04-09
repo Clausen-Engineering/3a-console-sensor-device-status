@@ -1,31 +1,47 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-04-09 09:07:20",
+  "last_updated": "2026-04-09 10:37:59",
   "sections": [
     {
       "id": "sensor-hub",
       "label": "Sensor Hub",
       "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
       "repo_name": "glaecier-sensorhub-data-collector",
-      "latest_version": "v3.11.0",
-      "latest_version_label": "v3.11.0",
-      "last_commit_date": "2026-04-09 10:55:33",
-      "last_updated": "2026-04-09 09:07:20",
+      "latest_version": "v3.11.2",
+      "latest_version_label": "v3.11.2",
+      "last_commit_date": "2026-04-09 12:00:40",
+      "last_updated": "2026-04-09 10:37:59",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
-          "latest_version": "v3.11.0",
-          "last_commit_date": "2026-04-09 10:55:33",
+          "latest_version": "v3.11.2",
+          "last_commit_date": "2026-04-09 12:00:40",
           "version_changes": [
+            {
+              "version": "v3.11.2",
+              "date": "2026-04-09",
+              "components": [
+                "core"
+              ],
+              "description": "Bump FIRMWARE_VERSION to 3.11.2"
+            },
+            {
+              "version": "v3.11.1",
+              "date": "2026-04-09",
+              "components": [
+                "core"
+              ],
+              "description": "Fix OTA download stall  abort if no data received for 30 seconds"
+            },
             {
               "version": "v3.11.0",
               "date": "2026-04-09",
               "components": [
                 "core"
               ],
-              "description": "Bump FIRMWARE_VERSION to 3.11.0"
+              "description": "Add OTA firmware update progress screen to TFT display"
             },
             {
               "version": "v3.10.1",
@@ -621,12 +637,34 @@
       ],
       "version_changes": [
         {
+          "version": "v3.11.2",
+          "date": "2026-04-09",
+          "components": [
+            "core"
+          ],
+          "description": "Bump FIRMWARE_VERSION to 3.11.2",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.11.1",
+          "date": "2026-04-09",
+          "components": [
+            "core"
+          ],
+          "description": "Fix OTA download stall  abort if no data received for 30 seconds",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
           "version": "v3.11.0",
           "date": "2026-04-09",
           "components": [
             "core"
           ],
-          "description": "Bump FIRMWARE_VERSION to 3.11.0",
+          "description": "Add OTA firmware update progress screen to TFT display",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -1455,7 +1493,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Carbonated water CO2 Tank Pressure (lounge)",
@@ -1471,7 +1509,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Water System Temperatures",
@@ -1488,7 +1526,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Lounge Floor Temperature",
@@ -1504,7 +1542,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Main Power In",
@@ -1520,7 +1558,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "MOG Tank Cycle Count",
@@ -1536,7 +1574,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Music Switch Lounge",
@@ -1551,7 +1589,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Music Switch Sauna",
@@ -1566,7 +1604,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Sauna floor temperature",
@@ -1581,7 +1619,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Sauna Power",
@@ -1597,7 +1635,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Sauna Temperature and Humidity",
@@ -1613,7 +1651,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Water flow - Pre heater in",
@@ -1629,7 +1667,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Water Heater Power",
@@ -1644,7 +1682,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Water Heater Power Consumption",
@@ -1660,7 +1698,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Water System Temperatures",
@@ -1675,7 +1713,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         },
         {
           "name": "Water Heater Temperatures",
@@ -1691,7 +1729,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.0"
+          "target_version": "v3.11.2"
         }
       ]
     },
@@ -1703,7 +1741,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-04-09 09:07:20",
+      "last_updated": "2026-04-09 10:37:59",
       "tracks": [
         {
           "id": "controllers",
@@ -1771,18 +1809,40 @@
       ]
     }
   ],
-  "latest_version": "v3.11.0",
-  "latest_version_label": "v3.11.0",
+  "latest_version": "v3.11.2",
+  "latest_version_label": "v3.11.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-04-09 10:55:33",
+  "last_commit_date": "2026-04-09 12:00:40",
   "version_changes": [
+    {
+      "version": "v3.11.2",
+      "date": "2026-04-09",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.11.2",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.11.1",
+      "date": "2026-04-09",
+      "components": [
+        "core"
+      ],
+      "description": "Fix OTA download stall  abort if no data received for 30 seconds",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
     {
       "version": "v3.11.0",
       "date": "2026-04-09",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.11.0",
+      "description": "Add OTA firmware update progress screen to TFT display",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
@@ -2611,7 +2671,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Carbonated water CO2 Tank Pressure (lounge)",
@@ -2627,7 +2687,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Water System Temperatures",
@@ -2644,7 +2704,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Lounge Floor Temperature",
@@ -2660,7 +2720,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Main Power In",
@@ -2676,7 +2736,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "MOG Tank Cycle Count",
@@ -2692,7 +2752,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Music Switch Lounge",
@@ -2707,7 +2767,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Music Switch Sauna",
@@ -2722,7 +2782,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Sauna floor temperature",
@@ -2737,7 +2797,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Sauna Power",
@@ -2753,7 +2813,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Sauna Temperature and Humidity",
@@ -2769,7 +2829,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Water flow - Pre heater in",
@@ -2785,7 +2845,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Water Heater Power",
@@ -2800,7 +2860,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Water Heater Power Consumption",
@@ -2816,7 +2876,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Water System Temperatures",
@@ -2831,7 +2891,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     },
     {
       "name": "Water Heater Temperatures",
@@ -2847,7 +2907,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.0"
+      "target_version": "v3.11.2"
     }
   ]
 }
