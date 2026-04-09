@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.10.0",
+  "latest_version": "v3.10.1",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-04-01 16:26:01",
-  "last_updated": "2026-04-01 14:26:51",
+  "last_commit_date": "2026-04-09 10:25:00",
+  "last_updated": "2026-04-09 08:25:14",
   "version_changes": [
+    {
+      "version": "v3.10.1",
+      "date": "2026-04-09",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.10.1"
+    },
     {
       "version": "v3.10.0",
       "date": "2026-04-01",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.10.0"
+      "description": "OTA check-in-progress tracking and NVS persistence for OTA state"
     },
     {
       "version": "v3.9.0",
@@ -445,7 +453,7 @@
       "version": "v2.1.7",
       "date": "2025-05-20",
       "components": [
-        "algae"
+        "core"
       ],
       "description": "Added algae sensor"
     },
