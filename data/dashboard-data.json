@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-04-15 20:42:41",
+  "last_updated": "2026-04-15 21:41:46",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.11.4",
       "latest_version_label": "v3.11.4",
       "last_commit_date": "2026-04-15 14:47:31",
-      "last_updated": "2026-04-15 20:42:41",
+      "last_updated": "2026-04-15 21:41:46",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1779,7 +1779,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-04-15 20:42:41",
+      "last_updated": "2026-04-15 21:41:46",
       "tracks": [
         {
           "id": "controllers",
@@ -1811,7 +1811,7 @@
         {
           "name": "Glaecier #1 Heat & cooling controller",
           "mac": "b7:14:da:59:c3:14",
-          "version": "v1.2.1",
+          "version": "v1.2.2",
           "components": [
             "control",
             "cooling",
@@ -1820,7 +1820,7 @@
           ],
           "hardware": "Adafruit Feather ESP32-S3 TFT",
           "location": "Glaecier #1 Water: cooling & heating",
-          "last_deployed": "2026-04-14",
+          "last_deployed": "2026-04-15",
           "initial_deployed": "",
           "track": "heat-controller",
           "track_label": "Heat Controller",
