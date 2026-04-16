@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.11.4",
+  "latest_version": "v3.11.5",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-04-15 14:47:31",
-  "last_updated": "2026-04-15 12:47:43",
+  "last_commit_date": "2026-04-17 00:44:20",
+  "last_updated": "2026-04-16 22:44:36",
   "version_changes": [
+    {
+      "version": "v3.11.5",
+      "date": "2026-04-17",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.11.5"
+    },
     {
       "version": "v3.11.4",
       "date": "2026-04-15",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.11.4"
+      "description": "add automatic recovery restarts: deadman timer, sensor staleness, and init timeout"
     },
     {
       "version": "v3.11.3",
