@@ -14,16 +14,18 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Checkout sensorhub data collector
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: Glaecier-Development/glaecier-sensorhub-data-collector
+          ref: main
+          token: ${{ secrets.SENSORHUB_REPO_PAT }}
           path: sensorhub-data-collector
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
