@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-04-16 13:04:36",
+  "last_updated": "2026-04-16 14:51:06",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.11.4",
       "latest_version_label": "v3.11.4",
       "last_commit_date": "2026-04-15 14:47:31",
-      "last_updated": "2026-04-16 13:04:36",
+      "last_updated": "2026-04-16 14:51:06",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1785,7 +1785,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-04-16 13:04:36",
+      "last_updated": "2026-04-16 14:51:06",
       "tracks": [
         {
           "id": "controllers",
@@ -1843,7 +1843,7 @@
             "core"
           ],
           "hardware": "ESP32-C3 DevKitM-1",
-          "location": "",
+          "location": "Next to sauna ovens",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "humidity-controller",
