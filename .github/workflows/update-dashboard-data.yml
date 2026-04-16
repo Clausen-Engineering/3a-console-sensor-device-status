@@ -16,6 +16,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Checkout sensorhub data collector
+        uses: actions/checkout@v4
+        with:
+          repository: Glaecier-Development/glaecier-sensorhub-data-collector
+          path: sensorhub-data-collector
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

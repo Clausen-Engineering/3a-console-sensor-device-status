@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-04-15 15:58:47",
+  "last_updated": "2026-04-15 16:20:40",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.11.4",
       "latest_version_label": "v3.11.4",
       "last_commit_date": "2026-04-15 14:47:31",
-      "last_updated": "2026-04-15 15:58:47",
+      "last_updated": "2026-04-15 16:20:40",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1518,64 +1518,47 @@
       ],
       "devices": [
         {
-          "name": "Carbonated water CO2 Tank Pressure (hallway)",
-          "mac": "64:e8:33:74:70:8c",
-          "version": "",
+          "name": "Audio Player Scheduler",
+          "mac": "58:8c:81:c4:62:f8",
+          "version": "v3.11.2",
           "components": [
-            "analog",
-            "core"
-          ],
-          "hardware": "",
-          "location": "Cupboard next to pool door",
-          "last_deployed": "",
-          "initial_deployed": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.11.4"
-        },
-        {
-          "name": "Carbonated water CO2 Tank Pressure (lounge)",
-          "mac": "b8:f8:62:d5:d0:88",
-          "version": "",
-          "components": [
-            "analog",
-            "core"
-          ],
-          "hardware": "",
-          "location": "Cupboard under coffee machine",
-          "last_deployed": "",
-          "initial_deployed": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.11.4"
-        },
-        {
-          "name": "Water System Temperatures",
-          "mac": "68:fe:71:16:a7:58",
-          "version": "",
-          "components": [
-            "onewire",
-            "virtual",
+            "dfplayer",
             "core"
           ],
           "hardware": "",
           "location": "Technician room",
-          "last_deployed": "",
-          "initial_deployed": "",
+          "last_deployed": "2026-04-09",
+          "initial_deployed": "2026-03-20",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.11.4"
+        },
+        {
+          "name": "Emergency Button Monitor",
+          "mac": "",
+          "version": "v2.6.3",
+          "components": [
+            "digital",
+            "core"
+          ],
+          "hardware": "ESP32-C3",
+          "location": "",
+          "last_deployed": "2025-08-25",
+          "initial_deployed": "2025-08-25",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.11.4"
         },
         {
           "name": "Lounge Floor Temperature",
-          "mac": "68:fe:71:16:a9:78",
+          "mac": "",
           "version": "",
           "components": [
             "modbus",
             "core"
           ],
           "hardware": "",
-          "location": "Underneath top bench in lounge",
+          "location": "",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1584,41 +1567,42 @@
         },
         {
           "name": "Main Power In",
-          "mac": "64:e8:33:74:76:fc",
-          "version": "",
+          "mac": "",
+          "version": "v2.6.3",
           "components": [
             "modbus",
             "core"
           ],
           "hardware": "",
-          "location": "Main power cabinet (cleaning basement)",
-          "last_deployed": "",
-          "initial_deployed": "",
+          "location": "Technician room - Inside electrical box next to power meter for heaters",
+          "last_deployed": "2025-08-21",
+          "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.11.4"
         },
         {
-          "name": "MOG Tank Cycle Count",
-          "mac": "18:8b:0e:2f:d6:a0",
-          "version": "",
+          "name": "MOG Tank Water Sensor",
+          "mac": "",
+          "version": "v2.2.0",
           "components": [
             "digital",
             "core"
           ],
           "hardware": "",
-          "location": "Top of MOG tank in crawl space",
-          "last_deployed": "",
-          "initial_deployed": "",
+          "location": "Basement - right side (by MOG tank)",
+          "last_deployed": "2025-05-14",
+          "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.11.4"
         },
         {
-          "name": "Music Switch Lounge",
-          "mac": "3C:84:27:AF:4C:F0",
+          "name": "Hallway CO2 Pressure",
+          "mac": "",
           "version": "",
           "components": [
+            "analog",
             "core"
           ],
           "hardware": "",
@@ -1630,10 +1614,11 @@
           "target_version": "v3.11.4"
         },
         {
-          "name": "Music Switch Sauna",
-          "mac": "3C:84:27:AD:71:9C",
+          "name": "Lounge CO2 Pressure",
+          "mac": "",
           "version": "",
           "components": [
+            "analog",
             "core"
           ],
           "hardware": "",
@@ -1645,10 +1630,11 @@
           "target_version": "v3.11.4"
         },
         {
-          "name": "Sauna floor temperature",
-          "mac": "68:FE:71:16:86:78",
+          "name": "Sauna dB Visualizer",
+          "mac": "",
           "version": "",
           "components": [
+            "analog",
             "core"
           ],
           "hardware": "",
@@ -1660,78 +1646,95 @@
           "target_version": "v3.11.4"
         },
         {
-          "name": "Sauna Power",
-          "mac": "3c:84:27:ae:eb:e0",
+          "name": "Sauna Floor Temperature",
+          "mac": "",
+          "version": "v3.7.1",
+          "components": [
+            "onewire",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Crawl space - left if emergency waste tank",
+          "last_deployed": "2026-03-19",
+          "initial_deployed": "2026-03-19",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.11.4"
+        },
+        {
+          "name": "Sauna Occupancy Counter",
+          "mac": "",
           "version": "",
+          "components": [
+            "occupancy_counter",
+            "core"
+          ],
+          "hardware": "",
+          "location": "",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.11.4"
+        },
+        {
+          "name": "Sauna Power Consumption",
+          "mac": "",
+          "version": "v2.6.3",
           "components": [
             "modbus",
             "core"
           ],
           "hardware": "",
-          "location": "Last cabinet in cleaning basement",
-          "last_deployed": "",
-          "initial_deployed": "",
+          "location": "Basement (left side) - Rear electrical box",
+          "last_deployed": "2025-08-21",
+          "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.11.4"
         },
         {
           "name": "Sauna Temperature and Humidity",
-          "mac": "d8:3b:da:34:fa:74",
-          "version": "",
+          "mac": "",
+          "version": "v2.6.3",
           "components": [
             "modbus",
             "core"
           ],
           "hardware": "",
-          "location": "On top of fridge in cleaning basement",
-          "last_deployed": "",
-          "initial_deployed": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.11.4"
-        },
-        {
-          "name": "Water flow - Pre heater in",
-          "mac": "68:fe:71:16:bf:60",
-          "version": "",
-          "components": [
-            "digital",
-            "core"
-          ],
-          "hardware": "",
-          "location": "Technician room",
-          "last_deployed": "",
-          "initial_deployed": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.11.4"
-        },
-        {
-          "name": "Water Heater Power",
-          "mac": "64:E8:33:88:C3:E4",
-          "version": "",
-          "components": [
-            "core"
-          ],
-          "hardware": "",
-          "location": "",
-          "last_deployed": "",
-          "initial_deployed": "",
+          "location": "Basement (left side) - On top of box next to fridge",
+          "last_deployed": "2025-08-21",
+          "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.11.4"
         },
         {
           "name": "Water Heater Power Consumption",
-          "mac": "64:e8:33:74:74:48",
-          "version": "",
+          "mac": "",
+          "version": "v2.6.3",
           "components": [
             "modbus",
             "core"
           ],
           "hardware": "",
-          "location": "Technician room",
+          "location": "Technician room - Inside electrical box next to power meter for heaters",
+          "last_deployed": "2025-08-21",
+          "initial_deployed": "2025-03-18",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.11.4"
+        },
+        {
+          "name": "Water Meter",
+          "mac": "",
+          "version": "",
+          "components": [
+            "digital",
+            "core"
+          ],
+          "hardware": "",
+          "location": "",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1740,31 +1743,34 @@
         },
         {
           "name": "Water System Temperatures",
-          "mac": "3C:84:27:AD:43:BC",
-          "version": "",
+          "mac": "",
+          "version": "v2.6.3",
           "components": [
+            "onewire",
+            "virtual",
             "core"
           ],
           "hardware": "",
-          "location": "",
-          "last_deployed": "",
-          "initial_deployed": "",
+          "location": "Technician room - Box left of door",
+          "last_deployed": "2025-08-21",
+          "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.11.4"
         },
         {
-          "name": "Water Heater Temperatures",
-          "mac": "68:fe:71:16:85:68",
-          "version": "",
+          "name": "Water Tank Temperatures",
+          "mac": "",
+          "version": "v2.11.2",
           "components": [
             "onewire",
+            "virtual",
             "core"
           ],
           "hardware": "",
           "location": "Technician room",
-          "last_deployed": "",
-          "initial_deployed": "",
+          "last_deployed": "2025-12-02",
+          "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.11.4"
@@ -1779,7 +1785,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-04-15 15:58:47",
+      "last_updated": "2026-04-15 16:20:40",
       "tracks": [
         {
           "id": "controllers",
@@ -1811,7 +1817,7 @@
         {
           "name": "Glaecier #1 Heat & cooling controller",
           "mac": "b7:14:da:59:c3:14",
-          "version": "v1.2.1",
+          "version": "",
           "components": [
             "control",
             "cooling",
@@ -1819,8 +1825,8 @@
             "core"
           ],
           "hardware": "Adafruit Feather ESP32-S3 TFT",
-          "location": "Glaecier #1 Water: cooling & heating",
-          "last_deployed": "2026-04-14",
+          "location": "",
+          "last_deployed": "",
           "initial_deployed": "",
           "track": "heat-controller",
           "track_label": "Heat Controller",
@@ -1837,7 +1843,7 @@
             "core"
           ],
           "hardware": "ESP32-C3 DevKitM-1",
-          "location": "Next to sauna ovens",
+          "location": "",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "humidity-controller",
@@ -2718,64 +2724,47 @@
   ],
   "devices": [
     {
-      "name": "Carbonated water CO2 Tank Pressure (hallway)",
-      "mac": "64:e8:33:74:70:8c",
-      "version": "",
+      "name": "Audio Player Scheduler",
+      "mac": "58:8c:81:c4:62:f8",
+      "version": "v3.11.2",
       "components": [
-        "analog",
-        "core"
-      ],
-      "hardware": "",
-      "location": "Cupboard next to pool door",
-      "last_deployed": "",
-      "initial_deployed": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.11.4"
-    },
-    {
-      "name": "Carbonated water CO2 Tank Pressure (lounge)",
-      "mac": "b8:f8:62:d5:d0:88",
-      "version": "",
-      "components": [
-        "analog",
-        "core"
-      ],
-      "hardware": "",
-      "location": "Cupboard under coffee machine",
-      "last_deployed": "",
-      "initial_deployed": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.11.4"
-    },
-    {
-      "name": "Water System Temperatures",
-      "mac": "68:fe:71:16:a7:58",
-      "version": "",
-      "components": [
-        "onewire",
-        "virtual",
+        "dfplayer",
         "core"
       ],
       "hardware": "",
       "location": "Technician room",
-      "last_deployed": "",
-      "initial_deployed": "",
+      "last_deployed": "2026-04-09",
+      "initial_deployed": "2026-03-20",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.11.4"
+    },
+    {
+      "name": "Emergency Button Monitor",
+      "mac": "",
+      "version": "v2.6.3",
+      "components": [
+        "digital",
+        "core"
+      ],
+      "hardware": "ESP32-C3",
+      "location": "",
+      "last_deployed": "2025-08-25",
+      "initial_deployed": "2025-08-25",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.11.4"
     },
     {
       "name": "Lounge Floor Temperature",
-      "mac": "68:fe:71:16:a9:78",
+      "mac": "",
       "version": "",
       "components": [
         "modbus",
         "core"
       ],
       "hardware": "",
-      "location": "Underneath top bench in lounge",
+      "location": "",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
@@ -2784,41 +2773,42 @@
     },
     {
       "name": "Main Power In",
-      "mac": "64:e8:33:74:76:fc",
-      "version": "",
+      "mac": "",
+      "version": "v2.6.3",
       "components": [
         "modbus",
         "core"
       ],
       "hardware": "",
-      "location": "Main power cabinet (cleaning basement)",
-      "last_deployed": "",
-      "initial_deployed": "",
+      "location": "Technician room - Inside electrical box next to power meter for heaters",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.11.4"
     },
     {
-      "name": "MOG Tank Cycle Count",
-      "mac": "18:8b:0e:2f:d6:a0",
-      "version": "",
+      "name": "MOG Tank Water Sensor",
+      "mac": "",
+      "version": "v2.2.0",
       "components": [
         "digital",
         "core"
       ],
       "hardware": "",
-      "location": "Top of MOG tank in crawl space",
-      "last_deployed": "",
-      "initial_deployed": "",
+      "location": "Basement - right side (by MOG tank)",
+      "last_deployed": "2025-05-14",
+      "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.11.4"
     },
     {
-      "name": "Music Switch Lounge",
-      "mac": "3C:84:27:AF:4C:F0",
+      "name": "Hallway CO2 Pressure",
+      "mac": "",
       "version": "",
       "components": [
+        "analog",
         "core"
       ],
       "hardware": "",
@@ -2830,10 +2820,11 @@
       "target_version": "v3.11.4"
     },
     {
-      "name": "Music Switch Sauna",
-      "mac": "3C:84:27:AD:71:9C",
+      "name": "Lounge CO2 Pressure",
+      "mac": "",
       "version": "",
       "components": [
+        "analog",
         "core"
       ],
       "hardware": "",
@@ -2845,10 +2836,11 @@
       "target_version": "v3.11.4"
     },
     {
-      "name": "Sauna floor temperature",
-      "mac": "68:FE:71:16:86:78",
+      "name": "Sauna dB Visualizer",
+      "mac": "",
       "version": "",
       "components": [
+        "analog",
         "core"
       ],
       "hardware": "",
@@ -2860,78 +2852,95 @@
       "target_version": "v3.11.4"
     },
     {
-      "name": "Sauna Power",
-      "mac": "3c:84:27:ae:eb:e0",
+      "name": "Sauna Floor Temperature",
+      "mac": "",
+      "version": "v3.7.1",
+      "components": [
+        "onewire",
+        "core"
+      ],
+      "hardware": "",
+      "location": "Crawl space - left if emergency waste tank",
+      "last_deployed": "2026-03-19",
+      "initial_deployed": "2026-03-19",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.11.4"
+    },
+    {
+      "name": "Sauna Occupancy Counter",
+      "mac": "",
       "version": "",
+      "components": [
+        "occupancy_counter",
+        "core"
+      ],
+      "hardware": "",
+      "location": "",
+      "last_deployed": "",
+      "initial_deployed": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.11.4"
+    },
+    {
+      "name": "Sauna Power Consumption",
+      "mac": "",
+      "version": "v2.6.3",
       "components": [
         "modbus",
         "core"
       ],
       "hardware": "",
-      "location": "Last cabinet in cleaning basement",
-      "last_deployed": "",
-      "initial_deployed": "",
+      "location": "Basement (left side) - Rear electrical box",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.11.4"
     },
     {
       "name": "Sauna Temperature and Humidity",
-      "mac": "d8:3b:da:34:fa:74",
-      "version": "",
+      "mac": "",
+      "version": "v2.6.3",
       "components": [
         "modbus",
         "core"
       ],
       "hardware": "",
-      "location": "On top of fridge in cleaning basement",
-      "last_deployed": "",
-      "initial_deployed": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.11.4"
-    },
-    {
-      "name": "Water flow - Pre heater in",
-      "mac": "68:fe:71:16:bf:60",
-      "version": "",
-      "components": [
-        "digital",
-        "core"
-      ],
-      "hardware": "",
-      "location": "Technician room",
-      "last_deployed": "",
-      "initial_deployed": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.11.4"
-    },
-    {
-      "name": "Water Heater Power",
-      "mac": "64:E8:33:88:C3:E4",
-      "version": "",
-      "components": [
-        "core"
-      ],
-      "hardware": "",
-      "location": "",
-      "last_deployed": "",
-      "initial_deployed": "",
+      "location": "Basement (left side) - On top of box next to fridge",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.11.4"
     },
     {
       "name": "Water Heater Power Consumption",
-      "mac": "64:e8:33:74:74:48",
-      "version": "",
+      "mac": "",
+      "version": "v2.6.3",
       "components": [
         "modbus",
         "core"
       ],
       "hardware": "",
-      "location": "Technician room",
+      "location": "Technician room - Inside electrical box next to power meter for heaters",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-18",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.11.4"
+    },
+    {
+      "name": "Water Meter",
+      "mac": "",
+      "version": "",
+      "components": [
+        "digital",
+        "core"
+      ],
+      "hardware": "",
+      "location": "",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
@@ -2940,31 +2949,34 @@
     },
     {
       "name": "Water System Temperatures",
-      "mac": "3C:84:27:AD:43:BC",
-      "version": "",
+      "mac": "",
+      "version": "v2.6.3",
       "components": [
+        "onewire",
+        "virtual",
         "core"
       ],
       "hardware": "",
-      "location": "",
-      "last_deployed": "",
-      "initial_deployed": "",
+      "location": "Technician room - Box left of door",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.11.4"
     },
     {
-      "name": "Water Heater Temperatures",
-      "mac": "68:fe:71:16:85:68",
-      "version": "",
+      "name": "Water Tank Temperatures",
+      "mac": "",
+      "version": "v2.11.2",
       "components": [
         "onewire",
+        "virtual",
         "core"
       ],
       "hardware": "",
       "location": "Technician room",
-      "last_deployed": "",
-      "initial_deployed": "",
+      "last_deployed": "2025-12-02",
+      "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.11.4"

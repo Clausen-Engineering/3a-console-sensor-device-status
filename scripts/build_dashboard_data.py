@@ -18,11 +18,35 @@ DATA_DIR = ROOT / "data"
 DEVICES_PATH = DATA_DIR / "devices.json"
 VERSION_CHANGES_PATH = DATA_DIR / "version-changes.json"
 OUTPUT_PATH = DATA_DIR / "dashboard-data.json"
+SENSORHUB_REPO_NAMES = {
+    "glaecier-sensorhub-data-collector",
+    "sensorhub-data-collector",
+}
 
 
 def load_json(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def load_json_if_present(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+
+    try:
+        content = path.read_text(encoding="utf-8").strip()
+    except OSError:
+        return {}
+
+    if not content:
+        return {}
+
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError:
+        return {}
+
+    return data if isinstance(data, dict) else {}
 
 
 def build_headers() -> dict[str, str]:
@@ -57,6 +81,18 @@ def normalize_version(raw_version: str | None) -> str:
 
 def safe_string(value: Any) -> str:
     return str(value).strip() if value is not None else ""
+
+
+def humanize_slug(value: str) -> str:
+    words = [part for part in safe_string(value).replace("_", "-").split("-") if part]
+    return " ".join(word.capitalize() for word in words)
+
+
+def normalize_mac(raw_mac: Any) -> str:
+    text = "".join(character for character in safe_string(raw_mac) if character.isalnum())
+    if len(text) == 12:
+        return ":".join(text[index:index + 2] for index in range(0, 12, 2)).lower()
+    return safe_string(raw_mac).lower()
 
 
 def parse_timestamp(value: str) -> datetime:
@@ -114,6 +150,112 @@ def extract_location(device_data: dict[str, Any]) -> str:
 
 def extract_hardware(entry: dict[str, Any]) -> str:
     return safe_string(entry.get("hardware"))
+
+
+def extract_components_from_config(config_data: dict[str, Any]) -> list[str]:
+    sensors = config_data.get("sensors", []) or []
+    if not isinstance(sensors, list):
+        sensors = []
+
+    sensor_types = sorted(
+        {
+            safe_string(sensor.get("type"))
+            for sensor in sensors
+            if isinstance(sensor, dict) and safe_string(sensor.get("type"))
+        }
+    )
+    has_virtual = any(
+        isinstance(sensor, dict) and sensor.get("virtual") not in (None, False, 0, "0")
+        for sensor in sensors
+    )
+    components = sensor_types + (["virtual"] if has_virtual else [])
+    if "core" not in components:
+        components.append("core")
+    return components
+
+
+def choose_repo_device_version(version_data: dict[str, Any]) -> str:
+    deployment_version = normalize_version(
+        safe_string(version_data.get("deployment_version")) or safe_string(version_data.get("deploymentVersion"))
+    )
+    if deployment_version and deployment_version not in {"v0.0.0", "vnot-deployed"}:
+        return deployment_version
+
+    has_deployment_record = any(
+        safe_string(version_data.get(field))
+        for field in ("deployment_date", "initial_deployment_date", "mac_address")
+    )
+    template_version = normalize_version(
+        safe_string(version_data.get("template_version")) or safe_string(version_data.get("templateVersion"))
+    )
+    if has_deployment_record and template_version:
+        return template_version
+
+    return ""
+
+
+def resolve_local_repo_path(repo_names: list[str]) -> Path | None:
+    candidates: list[Path] = []
+    configured_path = safe_string(os.getenv("SENSORHUB_DATA_COLLECTOR_PATH"))
+    if configured_path:
+        candidates.append(Path(configured_path).expanduser())
+
+    normalized_repo_names = {safe_string(name) for name in repo_names if safe_string(name)}
+    if normalized_repo_names & SENSORHUB_REPO_NAMES:
+        for base_path in (ROOT, ROOT.parent):
+            candidates.append(base_path / "sensorhub-data-collector")
+            candidates.append(base_path / "glaecier-sensorhub-data-collector")
+
+    for repo_name in normalized_repo_names:
+        for base_path in (ROOT, ROOT.parent):
+            candidates.append(base_path / repo_name)
+
+    seen: set[str] = set()
+    for candidate in candidates:
+        resolved = candidate.resolve(strict=False)
+        resolved_key = str(resolved).lower()
+        if resolved_key in seen:
+            continue
+        seen.add(resolved_key)
+        if resolved.is_dir():
+            return resolved
+
+    return None
+
+
+def build_repo_device_summaries(
+    repo_path: Path,
+    track: dict[str, Any],
+) -> list[dict[str, Any]]:
+    devices_dir = repo_path / "devices"
+    if not devices_dir.is_dir():
+        return []
+
+    output: list[dict[str, Any]] = []
+    for device_dir in sorted(path for path in devices_dir.iterdir() if path.is_dir()):
+        config_data = load_json_if_present(device_dir / "config.json")
+        version_data = load_json_if_present(device_dir / "version.json")
+        device_meta = config_data.get("device")
+        if not isinstance(device_meta, dict):
+            device_meta = {}
+
+        output.append(
+            {
+                "name": safe_string(device_meta.get("name")) or humanize_slug(device_dir.name),
+                "mac": normalize_mac(version_data.get("mac_address")),
+                "version": choose_repo_device_version(version_data),
+                "components": extract_components_from_config(config_data),
+                "hardware": safe_string(version_data.get("hardware_target")),
+                "location": safe_string(version_data.get("deployment_location")),
+                "last_deployed": safe_string(version_data.get("deployment_date")),
+                "initial_deployed": safe_string(version_data.get("initial_deployment_date")),
+                "track": track.get("id", ""),
+                "track_label": track.get("label", ""),
+                "target_version": track.get("latest_version", ""),
+            }
+        )
+
+    return output
 
 
 def get_registry_sections(device_registry: dict[str, Any]) -> tuple[str, list[dict[str, Any]]]:
@@ -397,6 +539,16 @@ def main() -> int:
         tracks = build_section_tracks(registry_section, version_section)
         track_map = {track["id"]: track for track in tracks}
         section_output = build_section_meta(registry_section, version_section, tracks, last_updated)
+        repo_names = [safe_string(track.get("repo_name")) for track in tracks if safe_string(track.get("repo_name"))]
+        local_repo_path = resolve_local_repo_path(repo_names)
+
+        if local_repo_path and len(tracks) == 1 and repo_names:
+            repo_devices = build_repo_device_summaries(local_repo_path, tracks[0])
+            if repo_devices:
+                print(f"Loaded {len(repo_devices)} devices for section '{section_id}' from {local_repo_path}")
+                section_output["devices"].extend(repo_devices)
+                output_sections.append(section_output)
+                continue
 
         api_base = safe_string(registry_section.get("api_base")) or safe_string(device_registry.get("api_base"))
         device_entries = registry_section.get("devices", []) or []
