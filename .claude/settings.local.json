@@ -3,7 +3,9 @@
     "allow": [
       "Bash(python -m http.server 8001)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8001/index.html)",
-      "Bash(python -m http.server 8000)"
+      "Bash(python -m http.server 8000)",
+      "Bash(mkdir -p \"C:\\\\Programming_projects\\\\Glaecier\\\\3a-console-sensor-device-status/assets\")",
+      "Bash(cp \"/c/Users/ChristofferKolbeBoye/Downloads/Gemini_Generated_Image_1u8bp81u8bp81u8b.png\" \"C:\\\\Programming_projects\\\\Glaecier\\\\3a-console-sensor-device-status/assets/floorplan.png\")"
     ]
   }
 }

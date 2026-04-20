@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3A Console - ESP32 Sensor Device Status</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -50,7 +51,6 @@
 
       body {
         margin: 0;
-        min-height: 100vh;
         font-family: "Noto Sans", sans-serif;
         color: var(--text);
         background:
@@ -59,7 +59,7 @@
           radial-gradient(circle at 22% 78%, rgba(67, 167, 158, 0.14), transparent 28%),
           radial-gradient(circle at 82% 74%, rgba(184, 101, 129, 0.14), transparent 26%),
           linear-gradient(180deg, #070b11 0%, #0d1118 38%, #121926 100%);
-        padding-bottom: 3rem;
+        padding-bottom: 0;
         overflow-x: hidden;
       }
 
@@ -346,10 +346,31 @@
       }
 
       .cta-button {
-        background: linear-gradient(135deg, var(--accent-copper), var(--accent-rose) 48%, var(--accent) 100%);
-        color: #fff9f3;
+        background:
+          linear-gradient(180deg, rgba(32, 39, 52, 0.94), rgba(18, 23, 34, 0.92)),
+          linear-gradient(135deg, rgba(109, 149, 180, 0.08), rgba(211, 138, 74, 0.08));
+        border: 1px solid rgba(152, 131, 115, 0.18);
         font-weight: 700;
-        box-shadow: 0 16px 34px rgba(184, 101, 129, 0.22);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      }
+
+      .cta-button,
+      .cta-button:visited,
+      .cta-button:hover,
+      .cta-button:focus,
+      .cta-button:focus-visible,
+      .cta-button:active {
+        text-decoration: none;
+        background-image:
+          linear-gradient(180deg, rgba(32, 39, 52, 0.94), rgba(18, 23, 34, 0.92)),
+          linear-gradient(135deg, rgba(109, 149, 180, 0.08), rgba(211, 138, 74, 0.08));
+      }
+
+      .cta-button > * {
+        background: linear-gradient(135deg, var(--accent-copper), var(--accent-rose) 48%, var(--accent) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
 
       .secondary-button,
@@ -363,6 +384,20 @@
         border-color: rgba(152, 131, 115, 0.18);
         color: var(--text);
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      }
+
+      .secondary-button,
+      .secondary-button:visited {
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .secondary-button:hover,
+      .secondary-button:focus,
+      .secondary-button:focus-visible,
+      .secondary-button:active {
+        color: var(--accent-gold);
+        text-decoration: none;
       }
 
       .cta-button:hover,
@@ -959,7 +994,7 @@
 
       .floorplan-shell {
         position: relative;
-        min-height: 420px;
+        aspect-ratio: 1135 / 580;
         border-radius: 24px;
         overflow: hidden;
         background:
@@ -969,11 +1004,15 @@
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4), 0 20px 42px rgba(0, 0, 0, 0.16);
       }
 
-      .floorplan-svg {
+      .floorplan-image {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
+        object-fit: contain;
+        display: block;
+        pointer-events: none;
+        user-select: none;
       }
 
       .floorplan-markers {
@@ -1169,6 +1208,7 @@
       .device-card__meta {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         margin-top: 0.8rem;
+        margin-bottom: 1.1rem;
         gap: 0.65rem;
       }
 
@@ -1761,8 +1801,8 @@
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
-        margin-top: 2rem;
-        padding: 1rem 0.2rem 0;
+        margin-top: 1.5rem;
+        padding: 0.85rem 0.2rem;
         border-top: 1px solid rgba(152, 131, 115, 0.12);
         color: var(--muted);
         font-size: 0.92rem;
@@ -1901,7 +1941,7 @@
                 </button>
               </div>
               <div class="hero-actions">
-                <a class="cta-button" href="#devices"><i class="bi bi-grid-1x2-fill"></i> Inspect devices</a>
+                <a class="cta-button" href="#devices"><i class="bi bi-grid-1x2-fill"></i><span>Inspect devices</span></a>
                 <a class="secondary-button" href="#versions"><i class="bi bi-bezier2"></i> Review timeline</a>
               </div>
               <div class="hero-metrics">
@@ -2111,26 +2151,7 @@
               </div>
               <div class="floorplan-wrap">
                 <div class="floorplan-shell">
-                  <svg class="floorplan-svg" viewBox="0 0 1124 567" aria-hidden="true">
-                    <rect x="8" y="8" width="1108" height="551" rx="6" fill="none" stroke="#44413d" stroke-width="14"/>
-                    <rect x="24" y="24" width="1076" height="519" rx="4" fill="none" stroke="#8a8580" stroke-width="3"/>
-                    <path d="M108 117 H259 V104 H312 V157" fill="none" stroke="#605c57" stroke-width="5"/>
-                    <path d="M312 24 V118 H735 V88 H780" fill="none" stroke="#605c57" stroke-width="5"/>
-                    <path d="M799 117 V247" fill="none" stroke="#605c57" stroke-width="5"/>
-                    <path d="M262 347 H812 V334 H861 V540" fill="none" stroke="#605c57" stroke-width="6"/>
-                    <path d="M263 307 L247 464" fill="none" stroke="#605c57" stroke-width="6"/>
-                    <path d="M48 239 L226 261 L218 309 L177 309 L175 286 L91 295 L87 366 L45 373" fill="none" stroke="#605c57" stroke-width="3"/>
-                    <path d="M96 25 V98 H40 V245" fill="none" stroke="#605c57" stroke-width="3"/>
-                    <path d="M878 95 H911 L900 318" fill="none" stroke="#605c57" stroke-width="5"/>
-                    <path d="M738 25 H912 V80 H796" fill="none" stroke="#605c57" stroke-width="3"/>
-                    <path d="M292 349 H404 L361 388 H291" fill="none" stroke="#605c57" stroke-width="3"/>
-                    <g stroke="#605c57" stroke-width="2" fill="none">
-                      <path d="M182 24 V110"/><path d="M201 24 V110"/><path d="M220 24 V110"/>
-                      <path d="M118 108 L112 170"/><path d="M129 109 L121 170"/><path d="M140 109 L130 171"/>
-                      <path d="M115 204 L106 255"/><path d="M128 205 L118 258"/><path d="M141 207 L129 259"/>
-                      <path d="M802 194 H867"/><path d="M802 208 H866"/><path d="M801 222 H865"/>
-                    </g>
-                  </svg>
+                  <img class="floorplan-image" src="assets/floorplan.png" alt="Ground floor plan" />
                   <div id="ground-floor-markers" class="floorplan-markers"></div>
                 </div>
                 <div class="floorplan-note">Ground-floor markers show mapped device clusters. Basement, crawlspace, and unplaced devices are grouped below to avoid implying a false position on this plan.</div>
@@ -2206,7 +2227,7 @@
           <div class="device-drawer__body">
             <div class="device-drawer__hero">
               <div class="device-drawer__hero-main">
-                <div id="device-drawer-track" class="device-card__eyebrow">Track</div>
+                <div id="device-drawer-track" class="device-card__eyebrow" hidden></div>
                 <div id="device-drawer-name" class="device-drawer__hero-title">Loading device</div>
                 <div id="device-drawer-summary" class="insight-copy">Preparing device diagnostics...</div>
               </div>
@@ -2310,32 +2331,32 @@
           id: "technician-room",
           title: "Technician room",
           shortLabel: "Technician",
-          left: 73,
-          top: 29,
+          left: 86,
+          top: 18,
           locations: ["Technician room"],
         },
         {
           id: "technician-door-box",
           title: "Technician room door-side box",
           shortLabel: "Door box",
-          left: 69,
-          top: 40,
+          left: 72,
+          top: 28,
           locations: ["Technician room - Box left of door"],
         },
         {
           id: "technician-electrical",
           title: "Heater power-meter box",
           shortLabel: "Power box",
-          left: 77,
-          top: 47,
+          left: 90,
+          top: 55,
           locations: ["Technician room - Inside electrical box next to power meter for heaters"],
         },
         {
           id: "glaecier-water",
           title: "Glaecier #1 Water",
           shortLabel: "Water loop",
-          left: 51,
-          top: 76,
+          left: 50,
+          top: 72,
           locations: ["Glaecier #1 Water: cooling & heating"],
         },
       ];
@@ -3194,7 +3215,6 @@
                 <article class="device-card status-${statusClass}">
                   <div class="device-card__top">
                     <div>
-                      <div class="device-card__eyebrow">${escapeHtml(device.trackLabel || "Device")}</div>
                       <div class="device-card__title">${escapeHtml(device.name || "Unnamed device")}</div>
                     </div>
                     <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
@@ -3205,7 +3225,6 @@
                     <div class="device-card__detail"><div class="device-card__detail-label">Hardware</div><div class="device-card__detail-value">${hardwareMarkup}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Location</div><div class="device-card__detail-value">${escapeHtml(getDisplayLocation(device.location))}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Last deployed</div><div class="device-card__detail-value">${escapeHtml(getDisplayDate(device.last_deployed))}</div></div>
-                    <div class="device-card__detail"><div class="device-card__detail-label">Risk posture</div><div class="device-card__detail-value"><span class="risk-pill ${getRiskClassName(risk.level)}">Risk ${risk.score}</span></div></div>
                   </div>
                   <div class="device-card__section">
                     <h3>Components</h3>
@@ -3241,7 +3260,7 @@
             const statusClass = STATUS_LABELS[device.calculatedStatus];
             const risk = computeDeviceRisk(device);
             const targetText = device.targetVersion ? `Target ${device.targetVersion}` : "No tracked release";
-            const subtitleParts = [device.trackLabel, device.hardware].filter(Boolean);
+            const subtitleParts = [device.hardware].filter(Boolean);
             return `
               <tr>
                 <td>
