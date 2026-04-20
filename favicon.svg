@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D6A4F"/>
+      <stop offset="50%" stop-color="#1B7A7A"/>
+      <stop offset="100%" stop-color="#B07D3A"/>
+    </linearGradient>
+    <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="2"/>
+    </filter>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#bg)" filter="url(#wc)"/>
+  <rect x="10" y="10" width="12" height="12" rx="3" fill="none" stroke="white" stroke-width="1.6" opacity="0.9"/>
+  <line x1="7" y1="13.5" x2="10" y2="13.5" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="7" y1="16"   x2="10" y2="16"   stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="7" y1="18.5" x2="10" y2="18.5" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="22" y1="13.5" x2="25" y2="13.5" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="22" y1="16"   x2="25" y2="16"   stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="22" y1="18.5" x2="25" y2="18.5" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="13.5" y1="7"  x2="13.5" y2="10" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="16"   y1="7"  x2="16"   y2="10" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="18.5" y1="7"  x2="18.5" y2="10" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="13.5" y1="22" x2="13.5" y2="25" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="16"   y1="22" x2="16"   y2="25" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="18.5" y1="22" x2="18.5" y2="25" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <circle cx="16" cy="16" r="2.2" fill="white" opacity="0.9"/>
+</svg>
