@@ -5,7 +5,14 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8001/index.html)",
       "Bash(python -m http.server 8000)",
       "Bash(mkdir -p \"C:\\\\Programming_projects\\\\Glaecier\\\\3a-console-sensor-device-status/assets\")",
-      "Bash(cp \"/c/Users/ChristofferKolbeBoye/Downloads/Gemini_Generated_Image_1u8bp81u8bp81u8b.png\" \"C:\\\\Programming_projects\\\\Glaecier\\\\3a-console-sensor-device-status/assets/floorplan.png\")"
+      "Bash(cp \"/c/Users/ChristofferKolbeBoye/Downloads/Gemini_Generated_Image_1u8bp81u8bp81u8b.png\" \"C:\\\\Programming_projects\\\\Glaecier\\\\3a-console-sensor-device-status/assets/floorplan.png\")",
+      "Bash(git -C \"C:\\\\Programming_projects\\\\Glaecier\\\\3a-console-sensor-device-status\" pull --rebase origin main)",
+      "Bash(git -C \"C:\\\\Programming_projects\\\\Glaecier\\\\3a-console-sensor-device-status\" push origin main)",
+      "Bash(git *)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --window-size=1920,3500 --virtual-time-budget=8000 --screenshot=/tmp/dashboard-full.png \"http://localhost:8765/index.html\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --dump-dom \"http://localhost:8765/index.html\")",
+      "Read(//tmp/**)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --window-size=1920,1080 --virtual-time-budget=8000 --dump-dom \"http://localhost:8765/index.html\")"
     ]
   }
 }
