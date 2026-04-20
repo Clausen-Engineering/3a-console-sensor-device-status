@@ -411,6 +411,92 @@
         font-size: 0.8rem;
       }
 
+      .drawer-signal-list,
+      .drawer-posture {
+        display: grid;
+        gap: 0.85rem;
+      }
+
+      .drawer-card {
+        position: relative;
+        overflow: hidden;
+        padding: 1rem;
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, rgba(34, 41, 56, 0.95), rgba(18, 24, 35, 0.94)),
+          linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+        border: 1px solid rgba(152, 131, 115, 0.14);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      }
+
+      .drawer-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(211, 138, 74, 0), rgba(211, 138, 74, 0.8), rgba(109, 149, 180, 0.7), rgba(67, 167, 158, 0));
+      }
+
+      .risk-label {
+        color: #d5b295;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .device-drawer__hero-title {
+        margin-top: 0.35rem;
+        font-size: 1.12rem;
+        font-weight: 700;
+        line-height: 1.15;
+      }
+
+      .device-card__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-top: 0.85rem;
+      }
+
+      .risk-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2rem;
+        padding: 0 0.8rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: 1px solid transparent;
+      }
+
+      .risk-pill--stable {
+        color: #dbfff1;
+        background: rgba(83, 211, 157, 0.14);
+        border-color: rgba(83, 211, 157, 0.22);
+      }
+
+      .risk-pill--watch {
+        color: #eef3ff;
+        background: rgba(140, 164, 255, 0.14);
+        border-color: rgba(140, 164, 255, 0.22);
+      }
+
+      .risk-pill--elevated {
+        color: #fff2df;
+        background: rgba(241, 163, 95, 0.15);
+        border-color: rgba(241, 163, 95, 0.24);
+      }
+
+      .risk-pill--critical {
+        color: #ffe8ef;
+        background: rgba(220, 106, 135, 0.16);
+        border-color: rgba(220, 106, 135, 0.24);
+      }
+
       .hero-metrics,
       .device-card__meta,
       .overview-grid,
@@ -848,6 +934,175 @@
 
       .device-grid {
         margin-top: 1.35rem;
+      }
+
+      .sensor-intelligence-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      }
+
+      .sensor-panel {
+        padding: 1.25rem;
+      }
+
+      .sensor-zone-list,
+      .sensor-atlas-list {
+        display: grid;
+        gap: 0.9rem;
+      }
+
+      .floorplan-wrap {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .floorplan-shell {
+        position: relative;
+        min-height: 420px;
+        border-radius: 24px;
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, rgba(250, 248, 244, 0.98), rgba(228, 224, 218, 0.96)),
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 34%);
+        border: 1px solid rgba(152, 131, 115, 0.18);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4), 0 20px 42px rgba(0, 0, 0, 0.16);
+      }
+
+      .floorplan-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .floorplan-markers {
+        position: absolute;
+        inset: 0;
+      }
+
+      .floorplan-marker {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        min-width: 2.2rem;
+        min-height: 2.2rem;
+        padding: 0.3rem 0.55rem;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        color: #fff9f3;
+        font-size: 0.78rem;
+        font-weight: 700;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+        backdrop-filter: blur(10px);
+      }
+
+      .floorplan-marker::after {
+        content: attr(data-label);
+        position: absolute;
+        top: calc(100% + 0.45rem);
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        color: #453d36;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .floorplan-marker.status-up-to-date {
+        background: linear-gradient(135deg, rgba(83, 211, 157, 0.86), rgba(67, 167, 158, 0.92));
+      }
+
+      .floorplan-marker.status-patch-available {
+        background: linear-gradient(135deg, rgba(140, 164, 255, 0.86), rgba(109, 149, 180, 0.92));
+      }
+
+      .floorplan-marker.status-needs-update {
+        background: linear-gradient(135deg, rgba(241, 163, 95, 0.88), rgba(211, 138, 74, 0.94));
+      }
+
+      .floorplan-marker.status-unknown {
+        background: linear-gradient(135deg, rgba(220, 106, 135, 0.88), rgba(184, 101, 129, 0.94));
+      }
+
+      .floorplan-note {
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+
+      .floorplan-zone-grid,
+      .offfloor-list {
+        display: grid;
+        gap: 0.85rem;
+      }
+
+      .sensor-zone-card,
+      .sensor-atlas-card {
+        padding: 1rem;
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, rgba(34, 41, 56, 0.95), rgba(18, 24, 35, 0.94)),
+          linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+        border: 1px solid rgba(152, 131, 115, 0.14);
+      }
+
+      .sensor-zone-card__head,
+      .sensor-atlas-card__head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 0.7rem;
+      }
+
+      .sensor-zone-card__title,
+      .sensor-atlas-card__title {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .sensor-zone-card__meta,
+      .sensor-atlas-card__meta {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .sensor-zone-device-list,
+      .sensor-atlas-device-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+      }
+
+      .sensor-device-token {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        min-height: 2rem;
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.045);
+        border: 1px solid rgba(152, 131, 115, 0.12);
+        font-size: 0.8rem;
+      }
+
+      button.sensor-device-token {
+        cursor: pointer;
+        color: inherit;
+      }
+
+      .sensor-device-token::before {
+        content: "";
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 999px;
+        background: currentColor;
+        opacity: 0.85;
       }
 
       .device-card {
@@ -1369,6 +1624,133 @@
         font-weight: 700;
       }
 
+      .device-card__open,
+      .table-link-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        color: #f0b381;
+        font-weight: 600;
+      }
+
+      .device-card__open:hover,
+      .table-link-button:hover,
+      .device-card__open:focus-visible,
+      .table-link-button:focus-visible {
+        color: #fff1e2;
+      }
+
+      .device-drawer {
+        position: fixed;
+        inset: 0;
+        z-index: 1400;
+      }
+
+      .device-drawer__backdrop {
+        position: absolute;
+        inset: 0;
+        border: none;
+        background: rgba(5, 8, 12, 0.68);
+        backdrop-filter: blur(6px);
+      }
+
+      .device-drawer__panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: min(560px, 100vw);
+        height: 100%;
+        padding: 1.2rem;
+        background:
+          linear-gradient(180deg, rgba(16, 21, 31, 0.98), rgba(12, 16, 25, 0.98)),
+          radial-gradient(circle at top right, rgba(109, 149, 180, 0.12), transparent 28%),
+          radial-gradient(circle at bottom left, rgba(211, 138, 74, 0.12), transparent 22%);
+        border-left: 1px solid rgba(152, 131, 115, 0.18);
+        box-shadow: -30px 0 60px rgba(0, 0, 0, 0.35);
+        overflow-y: auto;
+      }
+
+      .device-drawer__head,
+      .device-drawer__hero,
+      .device-drawer__hero-side {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .device-drawer__close {
+        width: 2.8rem;
+        height: 2.8rem;
+        display: inline-grid;
+        place-items: center;
+        border-radius: 14px;
+        border: 1px solid rgba(152, 131, 115, 0.18);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+      }
+
+      .device-drawer__body {
+        margin-top: 1rem;
+      }
+
+      .device-drawer__hero {
+        padding: 1rem 1.05rem;
+        margin-bottom: 1rem;
+        border-radius: var(--radius-lg);
+        background:
+          linear-gradient(180deg, rgba(34, 41, 56, 0.96), rgba(18, 24, 35, 0.94)),
+          linear-gradient(135deg, rgba(211, 138, 74, 0.08), rgba(109, 149, 180, 0.08));
+        border: 1px solid rgba(152, 131, 115, 0.16);
+      }
+
+      .device-drawer__hero-main {
+        min-width: 0;
+      }
+
+      .device-drawer__hero-side {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .device-drawer__grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .drawer-signal {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.7rem;
+        padding: 0.85rem 0.9rem;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.035);
+        border: 1px solid rgba(152, 131, 115, 0.12);
+      }
+
+      .drawer-signal i {
+        color: #f0b381;
+      }
+
+      .drawer-signal strong {
+        display: block;
+        font-size: 0.94rem;
+      }
+
+      .drawer-signal span,
+      .drawer-posture p {
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+
+      .drawer-posture {
+        padding: 0.2rem 0;
+      }
+
       .empty-state,
       .error-card {
         text-align: center;
@@ -1428,6 +1810,10 @@
         .hero-metrics {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+
+        .sensor-intelligence-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
 
@@ -1450,6 +1836,17 @@
         .footer-bar {
           display: grid;
           grid-template-columns: 1fr;
+        }
+
+        .device-drawer__hero,
+        .device-drawer__hero-side {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .device-drawer__panel {
+          width: 100vw;
+          padding: 1rem;
         }
       }
 
@@ -1655,8 +2052,12 @@
                   <button type="button" class="sort-button active" data-sort="date">Latest deployed</button>
                   <button type="button" class="sort-button" data-sort="name">Name</button>
                   <button type="button" class="sort-button" data-sort="status">Status</button>
+                  <button type="button" class="sort-button" data-sort="risk">Risk</button>
                   <button type="button" class="sort-button" data-sort="location">Location</button>
                 </div>
+                <button id="copy-link-btn" type="button" class="secondary-button">
+                  <i class="bi bi-link-45deg"></i> Copy current view
+                </button>
               </div>
             </div>
           </div>
@@ -1691,6 +2092,80 @@
           </div>
         </section>
 
+        <section class="dashboard-section fade-in">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Sensor Topology</span>
+              <h2>Locations and families</h2>
+            </div>
+            <p class="section-note">Spatial groupings and component relationships for the currently filtered fleet.</p>
+          </div>
+          <div class="sensor-intelligence-grid">
+            <div class="surface sensor-panel sensor-zones-surface">
+              <div class="section-heading">
+                <div>
+                  <span class="eyebrow">Ground Floor</span>
+                  <h2>Location map</h2>
+                </div>
+                <span id="floorplan-summary" class="section-badge">Mapping devices</span>
+              </div>
+              <div class="floorplan-wrap">
+                <div class="floorplan-shell">
+                  <svg class="floorplan-svg" viewBox="0 0 1124 567" aria-hidden="true">
+                    <rect x="8" y="8" width="1108" height="551" rx="6" fill="none" stroke="#44413d" stroke-width="14"/>
+                    <rect x="24" y="24" width="1076" height="519" rx="4" fill="none" stroke="#8a8580" stroke-width="3"/>
+                    <path d="M108 117 H259 V104 H312 V157" fill="none" stroke="#605c57" stroke-width="5"/>
+                    <path d="M312 24 V118 H735 V88 H780" fill="none" stroke="#605c57" stroke-width="5"/>
+                    <path d="M799 117 V247" fill="none" stroke="#605c57" stroke-width="5"/>
+                    <path d="M262 347 H812 V334 H861 V540" fill="none" stroke="#605c57" stroke-width="6"/>
+                    <path d="M263 307 L247 464" fill="none" stroke="#605c57" stroke-width="6"/>
+                    <path d="M48 239 L226 261 L218 309 L177 309 L175 286 L91 295 L87 366 L45 373" fill="none" stroke="#605c57" stroke-width="3"/>
+                    <path d="M96 25 V98 H40 V245" fill="none" stroke="#605c57" stroke-width="3"/>
+                    <path d="M878 95 H911 L900 318" fill="none" stroke="#605c57" stroke-width="5"/>
+                    <path d="M738 25 H912 V80 H796" fill="none" stroke="#605c57" stroke-width="3"/>
+                    <path d="M292 349 H404 L361 388 H291" fill="none" stroke="#605c57" stroke-width="3"/>
+                    <g stroke="#605c57" stroke-width="2" fill="none">
+                      <path d="M182 24 V110"/><path d="M201 24 V110"/><path d="M220 24 V110"/>
+                      <path d="M118 108 L112 170"/><path d="M129 109 L121 170"/><path d="M140 109 L130 171"/>
+                      <path d="M115 204 L106 255"/><path d="M128 205 L118 258"/><path d="M141 207 L129 259"/>
+                      <path d="M802 194 H867"/><path d="M802 208 H866"/><path d="M801 222 H865"/>
+                    </g>
+                  </svg>
+                  <div id="ground-floor-markers" class="floorplan-markers"></div>
+                </div>
+                <div class="floorplan-note">Ground-floor markers show mapped device clusters. Basement, crawlspace, and unplaced devices are grouped below to avoid implying a false position on this plan.</div>
+                <div id="ground-floor-zones" class="floorplan-zone-grid">
+                  <div class="empty-state">
+                    <h3>Loading mapped zones</h3>
+                    <p>Preparing ground-floor device anchors.</p>
+                  </div>
+                </div>
+                <div id="offfloor-list" class="offfloor-list">
+                  <div class="empty-state">
+                    <h3>Loading off-floor groups</h3>
+                    <p>Collecting basement, crawlspace, and unassigned devices.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="surface sensor-panel sensor-atlas-surface">
+              <div class="section-heading">
+                <div>
+                  <span class="eyebrow">Component Atlas</span>
+                  <h2>Sensor families</h2>
+                </div>
+              </div>
+              <div id="sensor-atlas" class="sensor-atlas-list">
+                <div class="empty-state">
+                  <h3>Loading component atlas</h3>
+                  <p>Mapping the fleet by component family.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="versions" class="dashboard-section fade-in">
           <div class="section-heading">
             <div>
@@ -1715,6 +2190,75 @@
           <span class="footer-note">Last refreshed <strong id="footer-last-updated">--</strong></span>
         </footer>
       </main>
+
+      <div id="device-drawer" class="device-drawer" hidden aria-hidden="true">
+        <button type="button" class="device-drawer__backdrop" data-drawer-close aria-label="Close device detail"></button>
+        <aside class="device-drawer__panel" aria-labelledby="device-drawer-title">
+          <div class="device-drawer__head">
+            <div>
+              <div class="eyebrow">Device Room</div>
+              <h2 id="device-drawer-title" class="device-drawer__title">Device detail</h2>
+            </div>
+            <button type="button" class="device-drawer__close" data-drawer-close aria-label="Close device detail">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="device-drawer__body">
+            <div class="device-drawer__hero">
+              <div class="device-drawer__hero-main">
+                <div id="device-drawer-track" class="device-card__eyebrow">Track</div>
+                <div id="device-drawer-name" class="device-drawer__hero-title">Loading device</div>
+                <div id="device-drawer-summary" class="insight-copy">Preparing device diagnostics...</div>
+              </div>
+              <div class="device-drawer__hero-side">
+                <span id="device-drawer-status" class="status-pill patch-available">Status</span>
+                <div id="device-drawer-risk" class="risk-pill risk-pill--elevated">Risk 0</div>
+              </div>
+            </div>
+            <div class="device-drawer__grid">
+              <section class="drawer-card">
+                <div class="panel-title">Telemetry</div>
+                <dl class="repo-meta">
+                  <div class="repo-detail">
+                    <dt>Installed version</dt>
+                    <dd id="device-drawer-version" class="mono">--</dd>
+                  </div>
+                  <div class="repo-detail">
+                    <dt>Track target</dt>
+                    <dd id="device-drawer-target" class="mono">--</dd>
+                  </div>
+                  <div class="repo-detail">
+                    <dt>Hardware</dt>
+                    <dd id="device-drawer-hardware">--</dd>
+                  </div>
+                  <div class="repo-detail">
+                    <dt>Location</dt>
+                    <dd id="device-drawer-location">--</dd>
+                  </div>
+                  <div class="repo-detail">
+                    <dt>Last deployed</dt>
+                    <dd id="device-drawer-deployed">--</dd>
+                  </div>
+                </dl>
+              </section>
+              <section class="drawer-card">
+                <div class="panel-title">Risk Signals</div>
+                <div id="device-drawer-signals" class="drawer-signal-list">
+                  <div class="insight-copy">Waiting for device selection...</div>
+                </div>
+              </section>
+              <section class="drawer-card">
+                <div class="panel-title">Components</div>
+                <div id="device-drawer-components" class="component-tags"></div>
+              </section>
+              <section class="drawer-card">
+                <div class="panel-title">Release Posture</div>
+                <div id="device-drawer-posture" class="drawer-posture"></div>
+              </section>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -1747,6 +2291,55 @@
         Unknown: "rgba(220, 106, 135, 0.92)",
       };
 
+      const COMPONENT_COLORS = {
+        core: "#d3dde6",
+        modbus: "#8ac7f2",
+        onewire: "#72e2c5",
+        digital: "#efb36c",
+        analog: "#f19b78",
+        i2c: "#93dfe6",
+        virtual: "#c49ac8",
+        algae: "#67c8a8",
+        switch: "#d8b06e",
+        "digital-switch": "#d8b06e",
+        digital_switch: "#d8b06e",
+      };
+
+      const GROUND_FLOOR_ZONES = [
+        {
+          id: "technician-room",
+          title: "Technician room",
+          shortLabel: "Technician",
+          left: 73,
+          top: 29,
+          locations: ["Technician room"],
+        },
+        {
+          id: "technician-door-box",
+          title: "Technician room door-side box",
+          shortLabel: "Door box",
+          left: 69,
+          top: 40,
+          locations: ["Technician room - Box left of door"],
+        },
+        {
+          id: "technician-electrical",
+          title: "Heater power-meter box",
+          shortLabel: "Power box",
+          left: 77,
+          top: 47,
+          locations: ["Technician room - Inside electrical box next to power meter for heaters"],
+        },
+        {
+          id: "glaecier-water",
+          title: "Glaecier #1 Water",
+          shortLabel: "Water loop",
+          left: 51,
+          top: 76,
+          locations: ["Glaecier #1 Water: cooling & heating"],
+        },
+      ];
+
       function createEmptyStatusCounts() {
         return {
           "Up to date": 0,
@@ -1770,6 +2363,7 @@
         tracks: [],
         devices: [],
         statusCounts: createEmptyStatusCounts(),
+        selectedDeviceKey: "",
         ui: {
           search: "",
           status: "all",
@@ -1780,6 +2374,7 @@
       };
 
       let statusChart;
+      let copyLinkResetHandle;
 
       document.addEventListener("DOMContentLoaded", () => {
         initializeDashboard();
@@ -1811,6 +2406,7 @@
           }
 
           hydrateDashboardState(payload);
+          hydrateUiStateFromUrl();
           renderSectionTabs();
           populateOverview();
           renderComponentFilters();
@@ -1818,6 +2414,9 @@
           createStatusChart();
           bindEventListeners();
           applyFiltersAndRender();
+          if (dashboardState.selectedDeviceKey) {
+            openDeviceDrawerByKey(dashboardState.selectedDeviceKey, false);
+          }
         } catch (error) {
           console.error("Error initializing dashboard:", error);
           renderErrorState(error);
@@ -2058,6 +2657,7 @@
 
         return {
           ...device,
+          deviceKey: createDeviceKey(device, trackId),
           components,
           hardware: String(device?.hardware || "").trim(),
           version,
@@ -2207,6 +2807,9 @@
         dashboardState.tracks = nextSection.tracks;
         dashboardState.devices = nextSection.devices;
         dashboardState.statusCounts = countStatuses(nextSection.devices);
+        if (dashboardState.selectedDeviceKey && !dashboardState.devices.some((device) => device.deviceKey === dashboardState.selectedDeviceKey)) {
+          closeDeviceDrawer(false);
+        }
 
         if (rerender) {
           renderSectionTabs();
@@ -2300,7 +2903,15 @@
           resetSectionScopedFilters();
           applyFiltersAndRender();
         });
-
+        document.getElementById("copy-link-btn").addEventListener("click", copyCurrentViewLink);
+        document.querySelectorAll("[data-drawer-close]").forEach((button) => {
+          button.addEventListener("click", () => closeDeviceDrawer(true));
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            closeDeviceDrawer(true);
+          }
+        });
       }
 
       function populateOverview() {
@@ -2361,6 +2972,8 @@
         const uniqueComponents = new Set(
           dashboardState.devices.flatMap((device) => device.components.map((component) => slugify(component)))
         ).size;
+        const highestRiskDevice = [...dashboardState.devices]
+          .sort((left, right) => computeDeviceRisk(right).score - computeDeviceRisk(left).score)[0] || null;
 
         return {
           totalDevices,
@@ -2373,6 +2986,7 @@
           missingLocationCount,
           staleDeployments,
           uniqueComponents,
+          highestRiskDevice,
           coveragePercent: totalDevices ? Math.round((upToDate / totalDevices) * 100) : 0,
         };
       }
@@ -2389,11 +3003,15 @@
       function renderInsights(metrics) {
         const list = document.getElementById("insight-list");
         const latestDeployment = getLatestDeploymentDate();
+        const highestRisk = metrics.highestRiskDevice ? computeDeviceRisk(metrics.highestRiskDevice) : null;
         const insights = [
           `${metrics.attentionDevices} ${dashboardState.sectionLabel.toLowerCase() || "fleet"} devices currently need review before the next release cycle.`,
           `${metrics.deployedDevices} of ${metrics.totalDevices} devices have a recorded deployment date.`,
           `${metrics.staleDeployments} devices have not been deployed in the last 120 days.`,
           `${metrics.missingLocationCount} devices still need a location assignment for cleaner field operations.`,
+          highestRisk
+            ? `${metrics.highestRiskDevice.name || "Unnamed device"} currently leads the risk queue at ${highestRisk.score}/100.`
+            : "No device currently stands out as a risk hotspot.",
           latestDeployment
             ? `Most recent deployment recorded on ${formatDateOnly(latestDeployment)}.`
             : "No device has a recorded deployment date yet.",
@@ -2507,10 +3125,12 @@
       function applyFiltersAndRender() {
         const filteredDevices = getFilteredDevices();
         const sortedDevices = sortDevices(filteredDevices, dashboardState.ui.sortBy);
+        renderSensorTopology(sortedDevices);
         renderDeviceCards(sortedDevices);
         renderDeviceTable(sortedDevices);
         syncControlStates();
         updateResultsSummary(filteredDevices.length);
+        updateUrlState();
       }
 
       function getFilteredDevices() {
@@ -2561,6 +3181,7 @@
         container.innerHTML = devices
           .map((device) => {
             const statusClass = STATUS_LABELS[device.calculatedStatus];
+            const risk = computeDeviceRisk(device);
             const versionMarkup = `<span class="version-badge">${escapeHtml(device.versionDisplay)}</span>`;
             const targetVersionMarkup = device.targetVersion
               ? `<span class="version-badge">${escapeHtml(device.targetVersion)}</span>`
@@ -2584,16 +3205,25 @@
                     <div class="device-card__detail"><div class="device-card__detail-label">Hardware</div><div class="device-card__detail-value">${hardwareMarkup}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Location</div><div class="device-card__detail-value">${escapeHtml(getDisplayLocation(device.location))}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Last deployed</div><div class="device-card__detail-value">${escapeHtml(getDisplayDate(device.last_deployed))}</div></div>
+                    <div class="device-card__detail"><div class="device-card__detail-label">Risk posture</div><div class="device-card__detail-value"><span class="risk-pill ${getRiskClassName(risk.level)}">Risk ${risk.score}</span></div></div>
                   </div>
                   <div class="device-card__section">
                     <h3>Components</h3>
                     <div class="component-tags">${generateComponentTags(device.components)}</div>
+                    <div class="device-card__footer">
+                      <div class="table-subtle">${escapeHtml(risk.primarySignal)}</div>
+                      <button type="button" class="device-card__open" data-device-key="${escapeHtml(device.deviceKey)}">
+                        <i class="bi bi-arrow-up-right-circle"></i> Open device room
+                      </button>
+                    </div>
                   </div>
                 </article>
               </div>
             `;
           })
           .join("");
+
+        bindDeviceDetailTriggers(container);
       }
 
       function renderDeviceTable(devices) {
@@ -2609,6 +3239,7 @@
         tbody.innerHTML = devices
           .map((device) => {
             const statusClass = STATUS_LABELS[device.calculatedStatus];
+            const risk = computeDeviceRisk(device);
             const targetText = device.targetVersion ? `Target ${device.targetVersion}` : "No tracked release";
             const subtitleParts = [device.trackLabel, device.hardware].filter(Boolean);
             return `
@@ -2616,19 +3247,27 @@
                 <td>
                   <div class="table-device-name">${escapeHtml(device.name || "Unnamed device")}</div>
                   <div class="table-subtle">${escapeHtml(subtitleParts.join(" | ") || "Device")}</div>
+                  <button type="button" class="table-link-button" data-device-key="${escapeHtml(device.deviceKey)}">
+                    <i class="bi bi-stars"></i> Open device room
+                  </button>
                 </td>
                 <td><span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span></td>
                 <td>
                   <span class="version-badge">${escapeHtml(device.versionDisplay)}</span>
                   <div class="table-subtle">${escapeHtml(targetText)}</div>
                 </td>
-                <td>${generateComponentTags(device.components)}</td>
+                <td>
+                  ${generateComponentTags(device.components)}
+                  <div class="table-subtle" style="margin-top:0.5rem"><span class="risk-pill ${getRiskClassName(risk.level)}">Risk ${risk.score}</span></div>
+                </td>
                 <td>${escapeHtml(getDisplayLocation(device.location))}</td>
                 <td>${escapeHtml(getDisplayDate(device.last_deployed))}</td>
               </tr>
             `;
           })
           .join("");
+
+        bindDeviceDetailTriggers(tbody);
       }
 
       function renderVersionHistory() {
@@ -2958,6 +3597,363 @@
         document.getElementById("results-summary").textContent = `${dashboardState.sectionLabel || "Section"}: showing ${filteredCount} of ${total} devices${suffix}`;
       }
 
+      function renderSensorTopology(devices) {
+        renderGroundFloorMap(devices);
+        renderSensorAtlas(devices);
+      }
+
+      function renderGroundFloorMap(devices) {
+        const markers = document.getElementById("ground-floor-markers");
+        const zones = document.getElementById("ground-floor-zones");
+        const offfloor = document.getElementById("offfloor-list");
+        const summary = document.getElementById("floorplan-summary");
+
+        if (!devices.length) {
+          markers.innerHTML = "";
+          zones.innerHTML = `<div class="empty-state"><h3>No mapped devices</h3><p>The current filters hide every ground-floor marker.</p></div>`;
+          offfloor.innerHTML = `<div class="empty-state"><h3>No off-floor devices</h3><p>Everything in the current view is filtered out.</p></div>`;
+          summary.textContent = "No mapped devices";
+          return;
+        }
+
+        const zoneEntries = GROUND_FLOOR_ZONES
+          .map((zone) => ({
+            ...zone,
+            devices: devices.filter((device) => zone.locations.includes(String(device.location || "").trim())),
+          }))
+          .filter((zone) => zone.devices.length);
+
+        const groundFloorCount = zoneEntries.reduce((total, zone) => total + zone.devices.length, 0);
+        summary.textContent = `${groundFloorCount} mapped on the ground floor`;
+
+        markers.innerHTML = zoneEntries
+          .map((zone) => {
+            const statusClass = getAggregateStatusClass(zone.devices);
+            return `
+              <div
+                class="floorplan-marker ${statusClass}"
+                style="left:${zone.left}%; top:${zone.top}%"
+                data-label="${escapeHtml(zone.shortLabel)}"
+                title="${escapeHtml(zone.title)}"
+              >
+                ${zone.devices.length}
+              </div>
+            `;
+          })
+          .join("");
+
+        zones.innerHTML = zoneEntries.length
+          ? zoneEntries
+              .map((zone) => {
+                const componentCount = new Set(
+                  zone.devices.flatMap((device) => device.components.map((component) => slugify(component))).filter((slug) => slug !== "core")
+                ).size;
+                const tokens = zone.devices
+                  .sort((left, right) => compareText(left.name, right.name))
+                  .map((device) => {
+                    const color = getComponentColor(getDeviceAccentComponent(device));
+                    return `<button type="button" class="sensor-device-token" style="color:${color}" data-device-key="${escapeHtml(device.deviceKey)}">${escapeHtml(device.name || "Unnamed device")}</button>`;
+                  })
+                  .join("");
+
+                return `
+                  <article class="sensor-zone-card">
+                    <div class="sensor-zone-card__head">
+                      <div>
+                        <div class="sensor-zone-card__title">${escapeHtml(zone.title)}</div>
+                        <div class="sensor-zone-card__meta">${zone.devices.length} device${zone.devices.length === 1 ? "" : "s"} | ${componentCount} component families</div>
+                      </div>
+                      <span class="section-badge">${zone.devices.length}</span>
+                    </div>
+                    <div class="sensor-zone-device-list">${tokens}</div>
+                  </article>
+                `;
+              })
+              .join("")
+          : `<div class="empty-state"><h3>No ground-floor placements</h3><p>The current filters only include basement, crawlspace, or unassigned devices.</p></div>`;
+
+        const offFloorGroups = buildOffFloorGroups(devices.filter((device) => !zoneEntries.some((zone) => zone.devices.includes(device))));
+        offfloor.innerHTML = offFloorGroups.length
+          ? offFloorGroups
+              .map((group) => {
+                const tokens = group.devices
+                  .sort((left, right) => compareText(left.name, right.name))
+                  .map((device) => `<button type="button" class="sensor-device-token" style="color:${getComponentColor(getDeviceAccentComponent(device))}" data-device-key="${escapeHtml(device.deviceKey)}">${escapeHtml(device.name || "Unnamed device")}</button>`)
+                  .join("");
+
+                return `
+                  <article class="sensor-zone-card">
+                    <div class="sensor-zone-card__head">
+                      <div>
+                        <div class="sensor-zone-card__title">${escapeHtml(group.title)}</div>
+                        <div class="sensor-zone-card__meta">${group.devices.length} device${group.devices.length === 1 ? "" : "s"}</div>
+                      </div>
+                      <span class="section-badge">${group.devices.length}</span>
+                    </div>
+                    <div class="sensor-zone-device-list">${tokens}</div>
+                  </article>
+                `;
+              })
+              .join("")
+          : `<div class="empty-state"><h3>No off-floor devices</h3><p>Everything in the current filtered view is mapped to the ground floor.</p></div>`;
+
+        bindDeviceDetailTriggers(zones);
+        bindDeviceDetailTriggers(offfloor);
+      }
+
+      function renderSensorAtlas(devices) {
+        const container = document.getElementById("sensor-atlas");
+        const components = getVisibleComponents(devices).filter((component) => component.slug !== "core");
+
+        if (!devices.length || !components.length) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <h3>No component families</h3>
+              <p>The filtered view does not include any tracked sensor families.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = components
+          .map((component) => {
+            const members = devices.filter((device) => device.components.some((entry) => slugify(entry) === component.slug));
+            const tokens = members
+              .sort((left, right) => compareText(left.name, right.name))
+              .map((device) => `<span class="sensor-device-token" style="color:${getComponentColor(component.slug)}">${escapeHtml(device.name || "Unnamed device")}</span>`)
+              .join("");
+
+            return `
+              <article class="sensor-atlas-card">
+                <div class="sensor-atlas-card__head">
+                  <div>
+                    <div class="sensor-atlas-card__title">${escapeHtml(component.label)}</div>
+                    <div class="sensor-atlas-card__meta">${members.length} device${members.length === 1 ? "" : "s"} in the current view</div>
+                  </div>
+                  <span class="section-badge">${members.length}</span>
+                </div>
+                <div class="sensor-atlas-device-list">${tokens}</div>
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      function getVisibleComponents(devices) {
+        const map = new Map();
+        devices.forEach((device) => {
+          device.components.forEach((component) => {
+            const slug = slugify(component);
+            if (!map.has(slug)) {
+              map.set(slug, { slug, label: component });
+            }
+          });
+        });
+
+        return [...map.values()].sort((left, right) => {
+          if (left.slug === "core" && right.slug !== "core") return 1;
+          if (right.slug === "core" && left.slug !== "core") return -1;
+          return left.label.localeCompare(right.label);
+        });
+      }
+
+      function getDeviceAccentComponent(device) {
+        const firstNonCore = device.components.find((component) => slugify(component) !== "core");
+        return slugify(firstNonCore || "core");
+      }
+
+      function buildOffFloorGroups(devices) {
+        const groups = [
+          { id: "basement-left", title: "Basement - left side", devices: [] },
+          { id: "basement-right", title: "Basement - right side", devices: [] },
+          { id: "crawlspace", title: "Crawl space", devices: [] },
+          { id: "unassigned", title: "Unassigned / missing location", devices: [] },
+          { id: "other", title: "Other unmapped locations", devices: [] },
+        ];
+
+        devices.forEach((device) => {
+          const location = String(device.location || "").trim();
+          if (!location) {
+            groups[3].devices.push(device);
+          } else if (location.startsWith("Basement (left side)")) {
+            groups[0].devices.push(device);
+          } else if (location.startsWith("Basement - right side")) {
+            groups[1].devices.push(device);
+          } else if (location.startsWith("Crawl space")) {
+            groups[2].devices.push(device);
+          } else {
+            groups[4].devices.push(device);
+          }
+        });
+
+        return groups.filter((group) => group.devices.length);
+      }
+
+      function getAggregateStatusClass(devices) {
+        if (devices.some((device) => device.calculatedStatus === "Needs update")) return "status-needs-update";
+        if (devices.some((device) => device.calculatedStatus === "Unknown")) return "status-unknown";
+        if (devices.some((device) => device.calculatedStatus === "Patch available")) return "status-patch-available";
+        return "status-up-to-date";
+      }
+
+      function getComponentColor(componentSlug) {
+        return COMPONENT_COLORS[componentSlug] || "#b9b1a8";
+      }
+
+      function bindDeviceDetailTriggers(root) {
+        root.querySelectorAll("[data-device-key]").forEach((button) => {
+          button.addEventListener("click", () => {
+            openDeviceDrawerByKey(button.dataset.deviceKey, true);
+          });
+        });
+      }
+
+      function openDeviceDrawerByKey(deviceKey, pushState = true) {
+        const device = dashboardState.devices.find((entry) => entry.deviceKey === deviceKey);
+        if (!device) {
+          return;
+        }
+
+        const risk = computeDeviceRisk(device);
+        const drawer = document.getElementById("device-drawer");
+        const versionGap = describeVersionGap(device.version, device.targetVersion);
+        const deploymentAge = getDeploymentAge(device.last_deployed);
+
+        dashboardState.selectedDeviceKey = device.deviceKey;
+        document.getElementById("device-drawer-track").textContent = device.trackLabel || "Device";
+        document.getElementById("device-drawer-name").textContent = device.name || "Unnamed device";
+        document.getElementById("device-drawer-summary").textContent = risk.summary;
+
+        const statusBadge = document.getElementById("device-drawer-status");
+        statusBadge.className = `status-pill ${STATUS_LABELS[device.calculatedStatus]}`;
+        statusBadge.textContent = device.calculatedStatus;
+
+        const riskBadge = document.getElementById("device-drawer-risk");
+        riskBadge.className = `risk-pill ${getRiskClassName(risk.level)}`;
+        riskBadge.textContent = `Risk ${risk.score}`;
+
+        document.getElementById("device-drawer-version").textContent = device.versionDisplay || "Unknown";
+        document.getElementById("device-drawer-target").textContent = device.targetVersion || "No tracked release";
+        document.getElementById("device-drawer-hardware").textContent = hasValue(device.hardware) ? device.hardware : "Hardware not specified";
+        document.getElementById("device-drawer-location").textContent = getDisplayLocation(device.location);
+        document.getElementById("device-drawer-deployed").textContent = getDisplayDate(device.last_deployed);
+        document.getElementById("device-drawer-components").innerHTML = generateComponentTags(device.components);
+        document.getElementById("device-drawer-signals").innerHTML = risk.signals
+          .map((signal) => `
+            <div class="drawer-signal">
+              <i class="bi ${escapeHtml(signal.icon)}"></i>
+              <div>
+                <strong>${escapeHtml(signal.title)}</strong>
+                <span>${escapeHtml(signal.detail)}</span>
+              </div>
+            </div>
+          `)
+          .join("");
+        document.getElementById("device-drawer-posture").innerHTML = `
+          <p>${escapeHtml(versionGap)}</p>
+          <p>${escapeHtml(deploymentAge.copy)}</p>
+          <p>${escapeHtml(device.targetVersion ? `Track target is ${device.targetVersion}.` : "No tracked release target is configured for this device.")}</p>
+        `;
+
+        drawer.hidden = false;
+        drawer.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        if (pushState) {
+          updateUrlState();
+        }
+      }
+
+      function closeDeviceDrawer(pushState = true) {
+        const drawer = document.getElementById("device-drawer");
+        if (drawer.hidden) {
+          if (pushState) {
+            updateUrlState();
+          }
+          return;
+        }
+
+        dashboardState.selectedDeviceKey = "";
+        drawer.hidden = true;
+        drawer.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        if (pushState) {
+          updateUrlState();
+        }
+      }
+
+      function hydrateUiStateFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const sectionId = params.get("section");
+        const search = String(params.get("search") || "").trim().toLowerCase();
+        const status = String(params.get("status") || "all").trim();
+        const component = String(params.get("component") || "all").trim();
+        const sortBy = String(params.get("sort") || "date").trim();
+        const view = String(params.get("view") || "card").trim();
+        const deviceKey = String(params.get("device") || "").trim();
+
+        if (sectionId && dashboardState.sections.some((section) => section.id === sectionId)) {
+          setActiveSection(sectionId, false);
+        }
+        if (["all", "up-to-date", "patch-available", "needs-update", "unknown"].includes(status)) {
+          dashboardState.ui.status = status;
+        }
+        if (["date", "name", "status", "risk", "location"].includes(sortBy)) {
+          dashboardState.ui.sortBy = sortBy;
+        }
+        if (["card", "list"].includes(view)) {
+          dashboardState.ui.view = view;
+        }
+
+        dashboardState.ui.search = search;
+        dashboardState.ui.component = component || "all";
+        dashboardState.selectedDeviceKey = deviceKey;
+
+        const searchInput = document.getElementById("device-search");
+        if (searchInput) {
+          searchInput.value = dashboardState.ui.search;
+        }
+      }
+
+      function updateUrlState() {
+        const params = new URLSearchParams();
+        if (dashboardState.activeSectionId) params.set("section", dashboardState.activeSectionId);
+        if (dashboardState.ui.search) params.set("search", dashboardState.ui.search);
+        if (dashboardState.ui.status !== "all") params.set("status", dashboardState.ui.status);
+        if (dashboardState.ui.component !== "all") params.set("component", dashboardState.ui.component);
+        if (dashboardState.ui.sortBy !== "date") params.set("sort", dashboardState.ui.sortBy);
+        if (dashboardState.ui.view !== "card") params.set("view", dashboardState.ui.view);
+        if (dashboardState.selectedDeviceKey) params.set("device", dashboardState.selectedDeviceKey);
+        const query = params.toString();
+        const nextUrl = query ? `${window.location.pathname}?${query}` : window.location.pathname;
+        window.history.replaceState({}, "", nextUrl);
+      }
+
+      async function copyCurrentViewLink() {
+        const button = document.getElementById("copy-link-btn");
+        const originalMarkup = `<i class="bi bi-link-45deg"></i> Copy current view`;
+        const copiedMarkup = `<i class="bi bi-check2"></i> Link copied`;
+        const url = window.location.href;
+
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(url);
+          } else {
+            window.prompt("Copy dashboard link", url);
+          }
+          button.innerHTML = copiedMarkup;
+        } catch (error) {
+          window.prompt("Copy dashboard link", url);
+        }
+
+        if (copyLinkResetHandle) {
+          clearTimeout(copyLinkResetHandle);
+        }
+        copyLinkResetHandle = setTimeout(() => {
+          button.innerHTML = originalMarkup;
+        }, 1800);
+      }
+
       function createStatusChart() {
         const context = document.getElementById("status-chart").getContext("2d");
         if (statusChart) {
@@ -3023,6 +4019,8 @@
 
         document.getElementById("status-breakdown").innerHTML = errorMarkup;
         document.getElementById("insight-list").innerHTML = errorMarkup;
+        document.getElementById("sensor-zones").innerHTML = errorMarkup;
+        document.getElementById("sensor-atlas").innerHTML = errorMarkup;
         document.getElementById("device-cards").innerHTML = `<div class="col-12">${errorMarkup}</div>`;
         document.getElementById("device-table-body").innerHTML = `<tr><td colspan="6">${errorMarkup}</td></tr>`;
         document.getElementById("version-changes-list").innerHTML = errorMarkup;
@@ -3070,10 +4068,181 @@
         sorted.sort((left, right) => {
           if (sortBy === "name") return compareText(left.name, right.name);
           if (sortBy === "status") return STATUS_ORDER[left.calculatedStatus] - STATUS_ORDER[right.calculatedStatus] || compareText(left.name, right.name);
+          if (sortBy === "risk") return computeDeviceRisk(right).score - computeDeviceRisk(left).score || compareText(left.name, right.name);
           if (sortBy === "location") return compareText(left.location, right.location) || compareText(left.name, right.name);
           return parseDateForSort(right.last_deployed) - parseDateForSort(left.last_deployed);
         });
         return sorted;
+      }
+
+      function createDeviceKey(device, trackId = "") {
+        const mac = String(device?.mac || device?.macAddress || "").trim().toLowerCase();
+        if (mac) {
+          return slugify(mac.replaceAll(":", "-"));
+        }
+        return slugify(
+          [
+            trackId,
+            String(device?.name || "").trim(),
+            String(device?.location || "").trim(),
+            String(device?.hardware || "").trim(),
+            String(device?.target_version || device?.targetVersion || "").trim(),
+          ]
+            .filter(Boolean)
+            .join("-")
+        ) || "device-unknown";
+      }
+
+      function computeDeviceRisk(device) {
+        const signals = [];
+        let score = 0;
+
+        if (device.calculatedStatus === "Needs update") {
+          score += 38;
+          signals.push({
+            icon: "bi-exclamation-diamond",
+            title: "Feature release lag",
+            detail: describeVersionGap(device.version, device.targetVersion),
+          });
+        } else if (device.calculatedStatus === "Patch available") {
+          score += 18;
+          signals.push({
+            icon: "bi-arrow-repeat",
+            title: "Patch update available",
+            detail: describeVersionGap(device.version, device.targetVersion),
+          });
+        } else if (device.calculatedStatus === "Unknown") {
+          score += 34;
+          signals.push({
+            icon: "bi-question-circle",
+            title: "Version telemetry incomplete",
+            detail: "The dashboard cannot fully compare the installed firmware to the tracked target.",
+          });
+        } else {
+          signals.push({
+            icon: "bi-shield-check",
+            title: "Release alignment healthy",
+            detail: describeVersionGap(device.version, device.targetVersion),
+          });
+        }
+
+        const deploymentAge = getDeploymentAge(device.last_deployed);
+        if (deploymentAge.days === null) {
+          score += 12;
+          signals.push({
+            icon: "bi-calendar-x",
+            title: "Deployment age unknown",
+            detail: "No deployment timestamp is recorded for this device.",
+          });
+        } else if (deploymentAge.days > 180) {
+          score += 18;
+          signals.push({
+            icon: "bi-hourglass-split",
+            title: "Deployment is stale",
+            detail: deploymentAge.copy,
+          });
+        } else if (deploymentAge.days > 120) {
+          score += 10;
+          signals.push({
+            icon: "bi-clock-history",
+            title: "Deployment drift building",
+            detail: deploymentAge.copy,
+          });
+        }
+
+        if (!hasValue(device.location)) {
+          score += 10;
+          signals.push({
+            icon: "bi-geo-alt",
+            title: "Location not assigned",
+            detail: "Field context is missing, which slows triage and deployment planning.",
+          });
+        }
+
+        if (!hasValue(device.hardware)) {
+          score += 5;
+          signals.push({
+            icon: "bi-cpu",
+            title: "Hardware metadata thin",
+            detail: "Hardware details are missing from the current registry view.",
+          });
+        }
+
+        if (!Array.isArray(device.components) || !device.components.length) {
+          score += 6;
+          signals.push({
+            icon: "bi-puzzle",
+            title: "Component profile incomplete",
+            detail: "No tracked component tags were found for this device.",
+          });
+        }
+
+        score = Math.min(100, score);
+        const level = score >= 65 ? "critical" : score >= 40 ? "elevated" : score >= 20 ? "watch" : "stable";
+        const summary =
+          level === "critical"
+            ? "Immediate review recommended before the next release cycle."
+            : level === "elevated"
+              ? "This device should be reviewed soon to avoid drift compounding."
+              : level === "watch"
+                ? "Healthy enough to run, but not fully aligned with the fleet target."
+                : "This device looks stable under the current release policy.";
+
+        return {
+          score,
+          level,
+          summary,
+          primarySignal: signals[0]?.detail || "No standout risk signal detected.",
+          signals: signals.slice(0, 4),
+        };
+      }
+
+      function getRiskClassName(level) {
+        if (level === "critical") return "risk-pill--critical";
+        if (level === "elevated") return "risk-pill--elevated";
+        if (level === "watch") return "risk-pill--watch";
+        return "risk-pill--stable";
+      }
+
+      function describeVersionGap(deviceVersion, targetVersion) {
+        if (!hasValue(targetVersion)) {
+          return "No tracked release target is configured.";
+        }
+        if (!hasValue(deviceVersion)) {
+          return `Installed firmware is unavailable; target is ${targetVersion}.`;
+        }
+
+        const device = parseVersion(deviceVersion);
+        const target = parseVersion(targetVersion);
+        if (!device || !target) {
+          return `Installed ${deviceVersion} compared with target ${targetVersion}.`;
+        }
+        if (device.major === target.major && device.minor === target.minor && device.patch === target.patch) {
+          return `Installed firmware is aligned with target ${targetVersion}.`;
+        }
+        if (device.major < target.major || (device.major === target.major && device.minor < target.minor)) {
+          return `Installed ${deviceVersion} is behind feature target ${targetVersion}.`;
+        }
+        if (device.major === target.major && device.minor === target.minor && device.patch < target.patch) {
+          return `Installed ${deviceVersion} is behind patch target ${targetVersion}.`;
+        }
+        return `Installed ${deviceVersion} is ahead of target ${targetVersion}.`;
+      }
+
+      function getDeploymentAge(value) {
+        const date = parseDate(value);
+        if (!date) {
+          return { days: null, copy: "No deployment date is recorded for this device." };
+        }
+
+        const days = Math.max(0, Math.round((Date.now() - date.getTime()) / 86400000));
+        if (days === 0) {
+          return { days, copy: "Deployment was recorded today." };
+        }
+        if (days === 1) {
+          return { days, copy: "Deployment was recorded 1 day ago." };
+        }
+        return { days, copy: `Deployment was recorded ${days} days ago.` };
       }
 
       function parseDateForSort(value) {
