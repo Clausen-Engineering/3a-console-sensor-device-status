@@ -716,6 +716,25 @@
         border-bottom: none;
       }
 
+      .repo-link {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px dashed rgba(216, 176, 110, 0.35);
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .repo-link:hover,
+      .repo-link:focus-visible {
+        color: var(--accent-gold);
+        border-bottom-color: var(--accent-gold);
+      }
+
+      .repo-link i {
+        font-size: 0.78em;
+        opacity: 0.7;
+        margin-left: 0.15em;
+      }
+
       .repo-detail dd,
       .status-row strong,
       .status-row span {
@@ -2948,9 +2967,29 @@
           dashboardState.sectionDescription ||
           "Template alignment, deployment readiness, and release history for the ESP32 based part of the 3A Console sensor fleet.";
 
-        document.getElementById("latest-version").textContent = latestVersionContext;
-        document.getElementById("repo-name").textContent = dashboardState.repoName;
-        document.getElementById("last-commit-date").textContent = formatDateTime(dashboardState.lastCommitDate);
+        const repoName = dashboardState.repoName || "";
+        const repoUrl = repoName ? `https://github.com/Clausen-Engineering/${encodeURIComponent(repoName)}` : "";
+        const latestVersion = dashboardState.latestVersion || "";
+        const releaseUrl = repoUrl && latestVersion
+          ? `${repoUrl}/releases/tag/${encodeURIComponent(latestVersion)}`
+          : "";
+        const commitsUrl = repoUrl ? `${repoUrl}/commits/` : "";
+        const lastCommitText = formatDateTime(dashboardState.lastCommitDate);
+
+        const latestVersionEl = document.getElementById("latest-version");
+        latestVersionEl.innerHTML = releaseUrl
+          ? `<a class="repo-link" href="${escapeHtml(releaseUrl)}" target="_blank" rel="noopener">${escapeHtml(latestVersionContext)} <i class="bi bi-box-arrow-up-right"></i></a>`
+          : escapeHtml(latestVersionContext);
+
+        const repoNameEl = document.getElementById("repo-name");
+        repoNameEl.innerHTML = repoUrl
+          ? `<a class="repo-link" href="${escapeHtml(repoUrl)}" target="_blank" rel="noopener">${escapeHtml(repoName)} <i class="bi bi-box-arrow-up-right"></i></a>`
+          : escapeHtml(repoName);
+
+        const lastCommitEl = document.getElementById("last-commit-date");
+        lastCommitEl.innerHTML = commitsUrl
+          ? `<a class="repo-link" href="${escapeHtml(commitsUrl)}" target="_blank" rel="noopener">${escapeHtml(lastCommitText)} <i class="bi bi-box-arrow-up-right"></i></a>`
+          : escapeHtml(lastCommitText);
         document.getElementById("last-updated").textContent = formatDateTime(dashboardState.lastUpdated);
         document.getElementById("footer-last-updated").textContent = formatDateTime(dashboardState.lastUpdated);
         document.getElementById("repo-description").textContent =
