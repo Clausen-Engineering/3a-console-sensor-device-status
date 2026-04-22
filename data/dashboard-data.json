@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-04-22 07:19:33",
+  "last_updated": "2026-04-22 09:01:26",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.11.6",
       "latest_version_label": "v3.11.6",
       "last_commit_date": "2026-04-17 10:58:26",
-      "last_updated": "2026-04-22 07:19:33",
+      "last_updated": "2026-04-22 09:01:26",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1563,7 +1563,7 @@
             "dfplayer",
             "core"
           ],
-          "hardware": "",
+          "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
           "location": "Technician room",
           "last_deployed": "2026-04-09",
           "initial_deployed": "2026-03-20",
@@ -1580,7 +1580,7 @@
             "core"
           ],
           "hardware": "ESP32-C3",
-          "location": "",
+          "location": "Landgang ind",
           "last_deployed": "2025-08-25",
           "initial_deployed": "2025-08-25",
           "track": "sensor-hub",
@@ -1589,14 +1589,14 @@
         },
         {
           "name": "Lounge Floor Temperature",
-          "mac": "",
-          "version": "",
+          "mac": "68:fe:71:16:a9:78",
+          "version": "v2.11.2",
           "components": [
             "modbus",
             "core"
           ],
-          "hardware": "",
-          "location": "",
+          "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+          "location": "Lounge",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1605,13 +1605,13 @@
         },
         {
           "name": "Main Power In",
-          "mac": "",
+          "mac": "64:e8:33:74:76:fc",
           "version": "v2.6.3",
           "components": [
             "modbus",
             "core"
           ],
-          "hardware": "",
+          "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
           "location": "Technician room - Inside electrical box next to power meter for heaters",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-18",
@@ -1621,14 +1621,14 @@
         },
         {
           "name": "MOG Tank Water Sensor",
-          "mac": "",
+          "mac": "18:8b:0e:2f:d6:a0",
           "version": "v2.2.0",
           "components": [
             "digital",
             "core"
           ],
-          "hardware": "",
-          "location": "Basement - right side (by MOG tank)",
+          "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
+          "location": "Crawl space",
           "last_deployed": "2025-05-14",
           "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
@@ -1637,14 +1637,14 @@
         },
         {
           "name": "Hallway CO2 Pressure",
-          "mac": "",
+          "mac": "64:e8:33:74:70:8c",
           "version": "",
           "components": [
             "analog",
             "core"
           ],
-          "hardware": "",
-          "location": "",
+          "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+          "location": "Hallway",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1653,14 +1653,14 @@
         },
         {
           "name": "Lounge CO2 Pressure",
-          "mac": "",
+          "mac": "b8:f8:62:d5:d0:88",
           "version": "",
           "components": [
             "analog",
             "core"
           ],
-          "hardware": "",
-          "location": "",
+          "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+          "location": "Lounge",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1685,14 +1685,14 @@
         },
         {
           "name": "Sauna Floor Temperature",
-          "mac": "",
+          "mac": "68:fe:71:16:86:78",
           "version": "v3.7.1",
           "components": [
             "onewire",
             "core"
           ],
-          "hardware": "",
-          "location": "Crawl space - left if emergency waste tank",
+          "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+          "location": "Crawl space",
           "last_deployed": "2026-03-19",
           "initial_deployed": "2026-03-19",
           "track": "sensor-hub",
@@ -1717,13 +1717,13 @@
         },
         {
           "name": "Sauna Power Consumption",
-          "mac": "",
+          "mac": "3c:84:27:ae:eb:e0",
           "version": "v2.6.3",
           "components": [
             "modbus",
             "core"
           ],
-          "hardware": "",
+          "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
           "location": "Basement (left side) - Rear electrical box",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-18",
@@ -1733,13 +1733,13 @@
         },
         {
           "name": "Sauna Temperature and Humidity",
-          "mac": "",
+          "mac": "d8:3b:da:34:fa:74",
           "version": "v2.6.3",
           "components": [
             "modbus",
             "core"
           ],
-          "hardware": "",
+          "hardware": "ESP32-C3 Super Mini (no sensor board)",
           "location": "Basement (left side) - On top of box next to fridge",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-18",
@@ -1749,13 +1749,13 @@
         },
         {
           "name": "Water Heater Power Consumption",
-          "mac": "",
+          "mac": "64:e8:33:74:74:48",
           "version": "v2.6.3",
           "components": [
             "modbus",
             "core"
           ],
-          "hardware": "",
+          "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
           "location": "Technician room - Inside electrical box next to power meter for heaters",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-18",
@@ -1765,14 +1765,14 @@
         },
         {
           "name": "Water Meter",
-          "mac": "",
-          "version": "",
+          "mac": "68:fe:71:16:bf:60",
+          "version": "v2.11.2",
           "components": [
             "digital",
             "core"
           ],
-          "hardware": "",
-          "location": "",
+          "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+          "location": "Technician room",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "sensor-hub",
@@ -1781,14 +1781,14 @@
         },
         {
           "name": "Water System Temperatures",
-          "mac": "",
+          "mac": "68:fe:71:16:a7:58",
           "version": "v2.6.3",
           "components": [
             "onewire",
             "virtual",
             "core"
           ],
-          "hardware": "",
+          "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
           "location": "Technician room - Box left of door",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-28",
@@ -1798,14 +1798,14 @@
         },
         {
           "name": "Water Tank Temperatures",
-          "mac": "",
+          "mac": "68:fe:71:16:85:68",
           "version": "v2.11.2",
           "components": [
             "onewire",
             "virtual",
             "core"
           ],
-          "hardware": "",
+          "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
           "location": "Technician room",
           "last_deployed": "2025-12-02",
           "initial_deployed": "2025-03-28",
@@ -1823,7 +1823,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-04-22 07:19:33",
+      "last_updated": "2026-04-22 09:01:26",
       "tracks": [
         {
           "id": "controllers",
@@ -2791,7 +2791,7 @@
         "dfplayer",
         "core"
       ],
-      "hardware": "",
+      "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
       "location": "Technician room",
       "last_deployed": "2026-04-09",
       "initial_deployed": "2026-03-20",
@@ -2808,7 +2808,7 @@
         "core"
       ],
       "hardware": "ESP32-C3",
-      "location": "",
+      "location": "Landgang ind",
       "last_deployed": "2025-08-25",
       "initial_deployed": "2025-08-25",
       "track": "sensor-hub",
@@ -2817,14 +2817,14 @@
     },
     {
       "name": "Lounge Floor Temperature",
-      "mac": "",
-      "version": "",
+      "mac": "68:fe:71:16:a9:78",
+      "version": "v2.11.2",
       "components": [
         "modbus",
         "core"
       ],
-      "hardware": "",
-      "location": "",
+      "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+      "location": "Lounge",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
@@ -2833,13 +2833,13 @@
     },
     {
       "name": "Main Power In",
-      "mac": "",
+      "mac": "64:e8:33:74:76:fc",
       "version": "v2.6.3",
       "components": [
         "modbus",
         "core"
       ],
-      "hardware": "",
+      "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18",
@@ -2849,14 +2849,14 @@
     },
     {
       "name": "MOG Tank Water Sensor",
-      "mac": "",
+      "mac": "18:8b:0e:2f:d6:a0",
       "version": "v2.2.0",
       "components": [
         "digital",
         "core"
       ],
-      "hardware": "",
-      "location": "Basement - right side (by MOG tank)",
+      "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
+      "location": "Crawl space",
       "last_deployed": "2025-05-14",
       "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
@@ -2865,14 +2865,14 @@
     },
     {
       "name": "Hallway CO2 Pressure",
-      "mac": "",
+      "mac": "64:e8:33:74:70:8c",
       "version": "",
       "components": [
         "analog",
         "core"
       ],
-      "hardware": "",
-      "location": "",
+      "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+      "location": "Hallway",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
@@ -2881,14 +2881,14 @@
     },
     {
       "name": "Lounge CO2 Pressure",
-      "mac": "",
+      "mac": "b8:f8:62:d5:d0:88",
       "version": "",
       "components": [
         "analog",
         "core"
       ],
-      "hardware": "",
-      "location": "",
+      "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+      "location": "Lounge",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
@@ -2913,14 +2913,14 @@
     },
     {
       "name": "Sauna Floor Temperature",
-      "mac": "",
+      "mac": "68:fe:71:16:86:78",
       "version": "v3.7.1",
       "components": [
         "onewire",
         "core"
       ],
-      "hardware": "",
-      "location": "Crawl space - left if emergency waste tank",
+      "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+      "location": "Crawl space",
       "last_deployed": "2026-03-19",
       "initial_deployed": "2026-03-19",
       "track": "sensor-hub",
@@ -2945,13 +2945,13 @@
     },
     {
       "name": "Sauna Power Consumption",
-      "mac": "",
+      "mac": "3c:84:27:ae:eb:e0",
       "version": "v2.6.3",
       "components": [
         "modbus",
         "core"
       ],
-      "hardware": "",
+      "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
       "location": "Basement (left side) - Rear electrical box",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18",
@@ -2961,13 +2961,13 @@
     },
     {
       "name": "Sauna Temperature and Humidity",
-      "mac": "",
+      "mac": "d8:3b:da:34:fa:74",
       "version": "v2.6.3",
       "components": [
         "modbus",
         "core"
       ],
-      "hardware": "",
+      "hardware": "ESP32-C3 Super Mini (no sensor board)",
       "location": "Basement (left side) - On top of box next to fridge",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18",
@@ -2977,13 +2977,13 @@
     },
     {
       "name": "Water Heater Power Consumption",
-      "mac": "",
+      "mac": "64:e8:33:74:74:48",
       "version": "v2.6.3",
       "components": [
         "modbus",
         "core"
       ],
-      "hardware": "",
+      "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
       "location": "Technician room - Inside electrical box next to power meter for heaters",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18",
@@ -2993,14 +2993,14 @@
     },
     {
       "name": "Water Meter",
-      "mac": "",
-      "version": "",
+      "mac": "68:fe:71:16:bf:60",
+      "version": "v2.11.2",
       "components": [
         "digital",
         "core"
       ],
-      "hardware": "",
-      "location": "",
+      "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+      "location": "Technician room",
       "last_deployed": "",
       "initial_deployed": "",
       "track": "sensor-hub",
@@ -3009,14 +3009,14 @@
     },
     {
       "name": "Water System Temperatures",
-      "mac": "",
+      "mac": "68:fe:71:16:a7:58",
       "version": "v2.6.3",
       "components": [
         "onewire",
         "virtual",
         "core"
       ],
-      "hardware": "",
+      "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
       "location": "Technician room - Box left of door",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-28",
@@ -3026,14 +3026,14 @@
     },
     {
       "name": "Water Tank Temperatures",
-      "mac": "",
+      "mac": "68:fe:71:16:85:68",
       "version": "v2.11.2",
       "components": [
         "onewire",
         "virtual",
         "core"
       ],
-      "hardware": "",
+      "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
       "location": "Technician room",
       "last_deployed": "2025-12-02",
       "initial_deployed": "2025-03-28",
