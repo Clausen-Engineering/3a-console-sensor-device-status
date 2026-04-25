@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-04-25 17:30:21",
+  "last_updated": "2026-04-25 18:35:21",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.11.6",
       "latest_version_label": "v3.11.6",
       "last_commit_date": "2026-04-17 10:58:26",
-      "last_updated": "2026-04-25 17:30:21",
+      "last_updated": "2026-04-25 18:35:21",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1823,7 +1823,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-04-25 17:30:21",
+      "last_updated": "2026-04-25 18:35:21",
       "tracks": [
         {
           "id": "controllers",
@@ -1855,7 +1855,7 @@
         {
           "name": "Glaecier #1 Heat & cooling controller",
           "mac": "b7:14:da:59:c3:14",
-          "version": "v1.2.6",
+          "version": "",
           "components": [
             "control",
             "cooling",
@@ -1863,8 +1863,8 @@
             "core"
           ],
           "hardware": "Adafruit Feather ESP32-S3 TFT",
-          "location": "Glaecier #1 Water: cooling & heating",
-          "last_deployed": "2026-04-17",
+          "location": "",
+          "last_deployed": "",
           "initial_deployed": "",
           "track": "heat-controller",
           "track_label": "Heat Controller",
@@ -1881,7 +1881,7 @@
             "core"
           ],
           "hardware": "ESP32-C3 DevKitM-1",
-          "location": "Next to sauna ovens",
+          "location": "",
           "last_deployed": "",
           "initial_deployed": "",
           "track": "humidity-controller",
