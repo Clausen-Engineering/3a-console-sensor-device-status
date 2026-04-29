@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-04-29 21:36:40",
+  "last_updated": "2026-04-29 22:44:57",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.11.6",
       "latest_version_label": "v3.11.6",
       "last_commit_date": "2026-04-17 10:58:26",
-      "last_updated": "2026-04-29 21:36:40",
+      "last_updated": "2026-04-29 22:44:57",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1588,6 +1588,22 @@
           "target_version": "v3.11.6"
         },
         {
+          "name": "Floating Platform Motion",
+          "mac": "",
+          "version": "v3.11.6",
+          "components": [
+            "lsm9ds1_motion",
+            "core"
+          ],
+          "hardware": "ESP32-S3-WROOM-1U-N16",
+          "location": "Harbour",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.11.6"
+        },
+        {
           "name": "Lounge Floor Temperature",
           "mac": "68:fe:71:16:a9:78",
           "version": "v2.11.2",
@@ -1823,7 +1839,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-04-29 21:36:40",
+      "last_updated": "2026-04-29 22:44:57",
       "tracks": [
         {
           "id": "controllers",
@@ -2811,6 +2827,22 @@
       "location": "Landgang ind",
       "last_deployed": "2025-08-25",
       "initial_deployed": "2025-08-25",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.11.6"
+    },
+    {
+      "name": "Floating Platform Motion",
+      "mac": "",
+      "version": "v3.11.6",
+      "components": [
+        "lsm9ds1_motion",
+        "core"
+      ],
+      "hardware": "ESP32-S3-WROOM-1U-N16",
+      "location": "Harbour",
+      "last_deployed": "",
+      "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.11.6"
