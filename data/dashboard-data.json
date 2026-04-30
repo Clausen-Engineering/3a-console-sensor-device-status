@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-04-30 13:01:47",
+  "last_updated": "2026-04-30 15:25:39",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.11.6",
       "latest_version_label": "v3.11.6",
       "last_commit_date": "2026-04-17 10:58:26",
-      "last_updated": "2026-04-30 13:01:47",
+      "last_updated": "2026-04-30 15:25:39",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1589,16 +1589,16 @@
         },
         {
           "name": "Floating Platform Motion",
-          "mac": "",
-          "version": "v3.11.6",
+          "mac": "3c:0f:02:c7:eb:cc",
+          "version": "v3.14.1",
           "components": [
             "lsm9ds1_motion",
             "core"
           ],
           "hardware": "ESP32-S3-WROOM-1U-N16",
           "location": "Harbour",
-          "last_deployed": "",
-          "initial_deployed": "",
+          "last_deployed": "2026-04-30",
+          "initial_deployed": "2026-04-30",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.11.6"
@@ -1839,7 +1839,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-04-30 13:01:47",
+      "last_updated": "2026-04-30 15:25:39",
       "tracks": [
         {
           "id": "controllers",
@@ -2833,16 +2833,16 @@
     },
     {
       "name": "Floating Platform Motion",
-      "mac": "",
-      "version": "v3.11.6",
+      "mac": "3c:0f:02:c7:eb:cc",
+      "version": "v3.14.1",
       "components": [
         "lsm9ds1_motion",
         "core"
       ],
       "hardware": "ESP32-S3-WROOM-1U-N16",
       "location": "Harbour",
-      "last_deployed": "",
-      "initial_deployed": "",
+      "last_deployed": "2026-04-30",
+      "initial_deployed": "2026-04-30",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.11.6"
