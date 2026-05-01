@@ -1,31 +1,79 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-05-01 11:09:14",
+  "last_updated": "2026-05-01 12:10:36",
   "sections": [
     {
       "id": "sensor-hub",
       "label": "Sensor Hub",
       "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
       "repo_name": "glaecier-sensorhub-data-collector",
-      "latest_version": "v3.11.6",
-      "latest_version_label": "v3.11.6",
-      "last_commit_date": "2026-04-17 10:58:26",
-      "last_updated": "2026-05-01 11:09:14",
+      "latest_version": "v3.14.3",
+      "latest_version_label": "v3.14.3",
+      "last_commit_date": "2026-05-01 13:10:35",
+      "last_updated": "2026-05-01 12:10:36",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
-          "latest_version": "v3.11.6",
-          "last_commit_date": "2026-04-17 10:58:26",
+          "latest_version": "v3.14.3",
+          "last_commit_date": "2026-05-01 13:10:35",
           "version_changes": [
+            {
+              "version": "v3.14.3",
+              "date": "2026-05-01",
+              "components": [
+                "core"
+              ],
+              "description": "Bump FIRMWARE_VERSION to 3.14.3"
+            },
+            {
+              "version": "v3.14.2",
+              "date": "2026-05-01",
+              "components": [
+                "core"
+              ],
+              "description": "Show per-step progress on init screen during boot"
+            },
+            {
+              "version": "v3.14.1",
+              "date": "2026-04-30",
+              "components": [
+                "core"
+              ],
+              "description": "IMU reporting improvements: tilt event counter, drop noisy fields"
+            },
+            {
+              "version": "v3.14.0",
+              "date": "2026-04-30",
+              "components": [
+                "core"
+              ],
+              "description": "LSM9DS1 IMU motion sensor: roll/pitch/tilt stats to console"
+            },
+            {
+              "version": "v3.13.0",
+              "date": "2026-04-29",
+              "components": [
+                "core"
+              ],
+              "description": "WiFi credentials configurable via credentials.ini"
+            },
+            {
+              "version": "v3.12.0",
+              "date": "2026-04-17",
+              "components": [
+                "core"
+              ],
+              "description": "OTA display progress and auto-restart on update"
+            },
             {
               "version": "v3.11.6",
               "date": "2026-04-17",
               "components": [
                 "core"
               ],
-              "description": "Bump FIRMWARE_VERSION to 3.11.6"
+              "description": "Always show firmware version and WiFi status on all display screens"
             },
             {
               "version": "v3.11.5",
@@ -669,12 +717,78 @@
       ],
       "version_changes": [
         {
+          "version": "v3.14.3",
+          "date": "2026-05-01",
+          "components": [
+            "core"
+          ],
+          "description": "Bump FIRMWARE_VERSION to 3.14.3",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.14.2",
+          "date": "2026-05-01",
+          "components": [
+            "core"
+          ],
+          "description": "Show per-step progress on init screen during boot",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.14.1",
+          "date": "2026-04-30",
+          "components": [
+            "core"
+          ],
+          "description": "IMU reporting improvements: tilt event counter, drop noisy fields",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.14.0",
+          "date": "2026-04-30",
+          "components": [
+            "core"
+          ],
+          "description": "LSM9DS1 IMU motion sensor: roll/pitch/tilt stats to console",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.13.0",
+          "date": "2026-04-29",
+          "components": [
+            "core"
+          ],
+          "description": "WiFi credentials configurable via credentials.ini",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.12.0",
+          "date": "2026-04-17",
+          "components": [
+            "core"
+          ],
+          "description": "OTA display progress and auto-restart on update",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
           "version": "v3.11.6",
           "date": "2026-04-17",
           "components": [
             "core"
           ],
-          "description": "Bump FIRMWARE_VERSION to 3.11.6",
+          "description": "Always show firmware version and WiFi status on all display screens",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -1569,7 +1683,7 @@
           "initial_deployed": "2026-03-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Emergency Button Monitor",
@@ -1585,7 +1699,7 @@
           "initial_deployed": "2025-08-25",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Floating Platform Motion",
@@ -1595,13 +1709,13 @@
             "lsm9ds1_motion",
             "core"
           ],
-          "hardware": "ESP32-S3-WROOM-1U-N16",
-          "location": "Harbour",
-          "last_deployed": "2026-04-30",
+          "hardware": "",
+          "location": "Technician room",
+          "last_deployed": "2026-05-01",
           "initial_deployed": "2026-04-30",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Lounge Floor Temperature",
@@ -1617,7 +1731,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Main Power In",
@@ -1633,7 +1747,7 @@
           "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "MOG Tank Water Sensor",
@@ -1649,7 +1763,7 @@
           "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Hallway CO2 Pressure",
@@ -1665,7 +1779,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Lounge CO2 Pressure",
@@ -1681,7 +1795,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Sauna dB Visualizer",
@@ -1697,7 +1811,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Sauna Floor Temperature",
@@ -1713,7 +1827,7 @@
           "initial_deployed": "2026-03-19",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Sauna Occupancy Counter",
@@ -1729,7 +1843,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Sauna Power Consumption",
@@ -1745,7 +1859,7 @@
           "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Sauna Temperature and Humidity",
@@ -1761,7 +1875,7 @@
           "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Water Heater Power Consumption",
@@ -1777,7 +1891,7 @@
           "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Water Meter",
@@ -1793,7 +1907,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Water System Temperatures",
@@ -1810,7 +1924,7 @@
           "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         },
         {
           "name": "Water Tank Temperatures",
@@ -1827,7 +1941,7 @@
           "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.11.6"
+          "target_version": "v3.14.3"
         }
       ]
     },
@@ -1839,7 +1953,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-05-01 11:09:14",
+      "last_updated": "2026-05-01 12:10:36",
       "tracks": [
         {
           "id": "controllers",
@@ -1907,18 +2021,84 @@
       ]
     }
   ],
-  "latest_version": "v3.11.6",
-  "latest_version_label": "v3.11.6",
+  "latest_version": "v3.14.3",
+  "latest_version_label": "v3.14.3",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-04-17 10:58:26",
+  "last_commit_date": "2026-05-01 13:10:35",
   "version_changes": [
+    {
+      "version": "v3.14.3",
+      "date": "2026-05-01",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.14.3",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.14.2",
+      "date": "2026-05-01",
+      "components": [
+        "core"
+      ],
+      "description": "Show per-step progress on init screen during boot",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.14.1",
+      "date": "2026-04-30",
+      "components": [
+        "core"
+      ],
+      "description": "IMU reporting improvements: tilt event counter, drop noisy fields",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.14.0",
+      "date": "2026-04-30",
+      "components": [
+        "core"
+      ],
+      "description": "LSM9DS1 IMU motion sensor: roll/pitch/tilt stats to console",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.13.0",
+      "date": "2026-04-29",
+      "components": [
+        "core"
+      ],
+      "description": "WiFi credentials configurable via credentials.ini",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.12.0",
+      "date": "2026-04-17",
+      "components": [
+        "core"
+      ],
+      "description": "OTA display progress and auto-restart on update",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
     {
       "version": "v3.11.6",
       "date": "2026-04-17",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.11.6",
+      "description": "Always show firmware version and WiFi status on all display screens",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
@@ -2813,7 +2993,7 @@
       "initial_deployed": "2026-03-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Emergency Button Monitor",
@@ -2829,7 +3009,7 @@
       "initial_deployed": "2025-08-25",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Floating Platform Motion",
@@ -2839,13 +3019,13 @@
         "lsm9ds1_motion",
         "core"
       ],
-      "hardware": "ESP32-S3-WROOM-1U-N16",
-      "location": "Harbour",
-      "last_deployed": "2026-04-30",
+      "hardware": "",
+      "location": "Technician room",
+      "last_deployed": "2026-05-01",
       "initial_deployed": "2026-04-30",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Lounge Floor Temperature",
@@ -2861,7 +3041,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Main Power In",
@@ -2877,7 +3057,7 @@
       "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "MOG Tank Water Sensor",
@@ -2893,7 +3073,7 @@
       "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Hallway CO2 Pressure",
@@ -2909,7 +3089,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Lounge CO2 Pressure",
@@ -2925,7 +3105,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Sauna dB Visualizer",
@@ -2941,7 +3121,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Sauna Floor Temperature",
@@ -2957,7 +3137,7 @@
       "initial_deployed": "2026-03-19",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Sauna Occupancy Counter",
@@ -2973,7 +3153,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Sauna Power Consumption",
@@ -2989,7 +3169,7 @@
       "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Sauna Temperature and Humidity",
@@ -3005,7 +3185,7 @@
       "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Water Heater Power Consumption",
@@ -3021,7 +3201,7 @@
       "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Water Meter",
@@ -3037,7 +3217,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Water System Temperatures",
@@ -3054,7 +3234,7 @@
       "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     },
     {
       "name": "Water Tank Temperatures",
@@ -3071,7 +3251,7 @@
       "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.11.6"
+      "target_version": "v3.14.3"
     }
   ]
 }
