@@ -1,16 +1,64 @@
 {
-  "latest_version": "v3.11.6",
+  "latest_version": "v3.14.3",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-04-17 10:58:26",
-  "last_updated": "2026-04-17 08:58:47",
+  "last_commit_date": "2026-05-01 13:09:20",
+  "last_updated": "2026-05-01 11:10:56",
   "version_changes": [
+    {
+      "version": "v3.14.3",
+      "date": "2026-05-01",
+      "components": [
+        "core"
+      ],
+      "description": "Improve OTA download throughput and add resumable downloads"
+    },
+    {
+      "version": "v3.14.2",
+      "date": "2026-05-01",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.14.2"
+    },
+    {
+      "version": "v3.14.1",
+      "date": "2026-04-30",
+      "components": [
+        "core"
+      ],
+      "description": "IMU reporting improvements: tilt event counter, drop noisy fields"
+    },
+    {
+      "version": "v3.14.0",
+      "date": "2026-04-30",
+      "components": [
+        "core"
+      ],
+      "description": "LSM9DS1 IMU motion sensor: roll/pitch/tilt stats to console"
+    },
+    {
+      "version": "v3.13.0",
+      "date": "2026-04-29",
+      "components": [
+        "core"
+      ],
+      "description": "WiFi credentials configurable via credentials.ini"
+    },
+    {
+      "version": "v3.12.0",
+      "date": "2026-04-17",
+      "components": [
+        "core"
+      ],
+      "description": "OTA display progress and auto-restart on update"
+    },
     {
       "version": "v3.11.6",
       "date": "2026-04-17",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.11.6"
+      "description": "Always show firmware version and WiFi status on all display screens"
     },
     {
       "version": "v3.11.5",
