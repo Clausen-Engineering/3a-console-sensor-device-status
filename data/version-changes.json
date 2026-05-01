@@ -1,8 +1,8 @@
 {
   "latest_version": "v3.14.3",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-01 13:09:20",
-  "last_updated": "2026-05-01 11:10:56",
+  "last_commit_date": "2026-05-01 13:10:35",
+  "last_updated": "2026-05-01 11:11:06",
   "version_changes": [
     {
       "version": "v3.14.3",
@@ -10,7 +10,7 @@
       "components": [
         "core"
       ],
-      "description": "Improve OTA download throughput and add resumable downloads"
+      "description": "Bump FIRMWARE_VERSION to 3.14.3"
     },
     {
       "version": "v3.14.2",
@@ -18,7 +18,7 @@
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.14.2"
+      "description": "Show per-step progress on init screen during boot"
     },
     {
       "version": "v3.14.1",
