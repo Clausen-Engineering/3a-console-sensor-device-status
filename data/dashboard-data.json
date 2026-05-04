@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-05-04 17:09:56",
+  "last_updated": "2026-05-04 19:01:00",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.14.3",
       "latest_version_label": "v3.14.3",
       "last_commit_date": "2026-05-01 13:10:35",
-      "last_updated": "2026-05-04 17:09:56",
+      "last_updated": "2026-05-04 19:01:00",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1687,15 +1687,15 @@
         },
         {
           "name": "Emergency Button Monitor",
-          "mac": "",
-          "version": "v2.6.3",
+          "mac": "e0:72:a1:f5:0d:cc",
+          "version": "v3.14.3",
           "components": [
             "digital",
             "core"
           ],
-          "hardware": "ESP32-C3",
+          "hardware": "",
           "location": "Landgang ind",
-          "last_deployed": "2025-08-25",
+          "last_deployed": "2026-05-04",
           "initial_deployed": "2025-08-25",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
@@ -1878,6 +1878,22 @@
           "target_version": "v3.14.3"
         },
         {
+          "name": "Ventilation Boost Button",
+          "mac": "3c:0f:02:c7:eb:90",
+          "version": "v3.14.3",
+          "components": [
+            "action_button",
+            "core"
+          ],
+          "hardware": "",
+          "location": "Under lounge table",
+          "last_deployed": "2026-05-04",
+          "initial_deployed": "2026-05-04",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.14.3"
+        },
+        {
           "name": "Water Heater Power Consumption",
           "mac": "64:e8:33:74:74:48",
           "version": "v2.6.3",
@@ -1953,7 +1969,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-05-04 17:09:56",
+      "last_updated": "2026-05-04 19:01:00",
       "tracks": [
         {
           "id": "controllers",
@@ -2997,15 +3013,15 @@
     },
     {
       "name": "Emergency Button Monitor",
-      "mac": "",
-      "version": "v2.6.3",
+      "mac": "e0:72:a1:f5:0d:cc",
+      "version": "v3.14.3",
       "components": [
         "digital",
         "core"
       ],
-      "hardware": "ESP32-C3",
+      "hardware": "",
       "location": "Landgang ind",
-      "last_deployed": "2025-08-25",
+      "last_deployed": "2026-05-04",
       "initial_deployed": "2025-08-25",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
@@ -3183,6 +3199,22 @@
       "location": "Basement (left side) - On top of box next to fridge",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.14.3"
+    },
+    {
+      "name": "Ventilation Boost Button",
+      "mac": "3c:0f:02:c7:eb:90",
+      "version": "v3.14.3",
+      "components": [
+        "action_button",
+        "core"
+      ],
+      "hardware": "",
+      "location": "Under lounge table",
+      "last_deployed": "2026-05-04",
+      "initial_deployed": "2026-05-04",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.14.3"
