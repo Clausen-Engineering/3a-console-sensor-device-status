@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.15.0",
+  "latest_version": "v3.16.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-04 21:32:25",
-  "last_updated": "2026-05-06 13:01:59",
+  "last_commit_date": "2026-05-06 15:02:29",
+  "last_updated": "2026-05-06 13:02:36",
   "version_changes": [
+    {
+      "version": "v3.16.0",
+      "date": "2026-05-06",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.16.0"
+    },
     {
       "version": "v3.15.0",
       "date": "2026-05-04",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.15.0"
+      "description": "action_button: add toggle behaviour, drop cooldown"
     },
     {
       "version": "v3.14.4",
