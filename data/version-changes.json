@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.14.4",
+  "latest_version": "v3.15.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-04 21:11:32",
-  "last_updated": "2026-05-04 19:34:09",
+  "last_commit_date": "2026-05-04 21:32:25",
+  "last_updated": "2026-05-06 13:01:59",
   "version_changes": [
+    {
+      "version": "v3.15.0",
+      "date": "2026-05-04",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.15.0"
+    },
     {
       "version": "v3.14.4",
       "date": "2026-05-04",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.14.4"
+      "description": "Motion sensor: calibration and tilt events out of logs (098c3fd); init: enable event queue drain task so queued events actually reach the API (1e033cc)"
     },
     {
       "version": "v3.14.3",
