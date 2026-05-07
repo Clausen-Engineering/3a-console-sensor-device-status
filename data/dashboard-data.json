@@ -1,31 +1,39 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-05-07 12:24:06",
+  "last_updated": "2026-05-07 15:08:58",
   "sections": [
     {
       "id": "sensor-hub",
       "label": "Sensor Hub",
       "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
       "repo_name": "glaecier-sensorhub-data-collector",
-      "latest_version": "v3.16.0",
-      "latest_version_label": "v3.16.0",
-      "last_commit_date": "2026-05-06 15:02:29",
-      "last_updated": "2026-05-07 12:24:06",
+      "latest_version": "v3.16.1",
+      "latest_version_label": "v3.16.1",
+      "last_commit_date": "2026-05-07 14:30:01",
+      "last_updated": "2026-05-07 15:08:58",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
-          "latest_version": "v3.16.0",
-          "last_commit_date": "2026-05-06 15:02:29",
+          "latest_version": "v3.16.1",
+          "last_commit_date": "2026-05-07 14:30:01",
           "version_changes": [
+            {
+              "version": "v3.16.1",
+              "date": "2026-05-07",
+              "components": [
+                "core"
+              ],
+              "description": "Bump FIRMWARE_VERSION to 3.16.1"
+            },
             {
               "version": "v3.16.0",
               "date": "2026-05-06",
               "components": [
-                "core"
+                "digital"
               ],
-              "description": "Bump FIRMWARE_VERSION to 3.16.0"
+              "description": "Improved sensor log field names: action_button now reports boostActive and persists triggerCount across reboots; digital sensor adds lastPressTime and drops countSinceLastLog"
             },
             {
               "version": "v3.15.0",
@@ -741,12 +749,23 @@
       ],
       "version_changes": [
         {
-          "version": "v3.16.0",
-          "date": "2026-05-06",
+          "version": "v3.16.1",
+          "date": "2026-05-07",
           "components": [
             "core"
           ],
-          "description": "Bump FIRMWARE_VERSION to 3.16.0",
+          "description": "Bump FIRMWARE_VERSION to 3.16.1",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.16.0",
+          "date": "2026-05-06",
+          "components": [
+            "digital"
+          ],
+          "description": "Improved sensor log field names: action_button now reports boostActive and persists triggerCount across reboots; digital sensor adds lastPressTime and drops countSinceLastLog",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -1740,7 +1759,7 @@
           "initial_deployed": "2026-03-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Emergency Button Monitor",
@@ -1756,7 +1775,7 @@
           "initial_deployed": "2025-08-25",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Floating Platform Motion",
@@ -1772,7 +1791,7 @@
           "initial_deployed": "2026-04-30",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Lounge Floor Temperature",
@@ -1788,7 +1807,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Main Power In",
@@ -1804,7 +1823,7 @@
           "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "MOG Tank Water Sensor",
@@ -1820,7 +1839,7 @@
           "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Hallway CO2 Pressure",
@@ -1836,7 +1855,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Lounge CO2 Pressure",
@@ -1852,7 +1871,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Sauna dB Visualizer",
@@ -1868,7 +1887,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Sauna Floor Temperature",
@@ -1884,7 +1903,7 @@
           "initial_deployed": "2026-03-19",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Sauna Occupancy Counter",
@@ -1900,7 +1919,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Sauna Power Consumption",
@@ -1916,7 +1935,7 @@
           "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Sauna Temperature and Humidity",
@@ -1932,7 +1951,7 @@
           "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Ventilation Boost Button",
@@ -1948,7 +1967,7 @@
           "initial_deployed": "2026-05-04",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Water Heater Power Consumption",
@@ -1964,7 +1983,7 @@
           "initial_deployed": "2025-03-18",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Water Meter",
@@ -1980,7 +1999,7 @@
           "initial_deployed": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Water System Temperatures",
@@ -1997,7 +2016,7 @@
           "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         },
         {
           "name": "Water Tank Temperatures",
@@ -2014,7 +2033,7 @@
           "initial_deployed": "2025-03-28",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.16.0"
+          "target_version": "v3.16.1"
         }
       ]
     },
@@ -2026,7 +2045,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-05-07 12:24:06",
+      "last_updated": "2026-05-07 15:08:58",
       "tracks": [
         {
           "id": "controllers",
@@ -2094,18 +2113,29 @@
       ]
     }
   ],
-  "latest_version": "v3.16.0",
-  "latest_version_label": "v3.16.0",
+  "latest_version": "v3.16.1",
+  "latest_version_label": "v3.16.1",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-06 15:02:29",
+  "last_commit_date": "2026-05-07 14:30:01",
   "version_changes": [
+    {
+      "version": "v3.16.1",
+      "date": "2026-05-07",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.16.1",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
     {
       "version": "v3.16.0",
       "date": "2026-05-06",
       "components": [
-        "core"
+        "digital"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.16.0",
+      "description": "Improved sensor log field names: action_button now reports boostActive and persists triggerCount across reboots; digital sensor adds lastPressTime and drops countSinceLastLog",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
@@ -3099,7 +3129,7 @@
       "initial_deployed": "2026-03-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Emergency Button Monitor",
@@ -3115,7 +3145,7 @@
       "initial_deployed": "2025-08-25",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Floating Platform Motion",
@@ -3131,7 +3161,7 @@
       "initial_deployed": "2026-04-30",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Lounge Floor Temperature",
@@ -3147,7 +3177,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Main Power In",
@@ -3163,7 +3193,7 @@
       "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "MOG Tank Water Sensor",
@@ -3179,7 +3209,7 @@
       "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Hallway CO2 Pressure",
@@ -3195,7 +3225,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Lounge CO2 Pressure",
@@ -3211,7 +3241,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Sauna dB Visualizer",
@@ -3227,7 +3257,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Sauna Floor Temperature",
@@ -3243,7 +3273,7 @@
       "initial_deployed": "2026-03-19",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Sauna Occupancy Counter",
@@ -3259,7 +3289,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Sauna Power Consumption",
@@ -3275,7 +3305,7 @@
       "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Sauna Temperature and Humidity",
@@ -3291,7 +3321,7 @@
       "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Ventilation Boost Button",
@@ -3307,7 +3337,7 @@
       "initial_deployed": "2026-05-04",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Water Heater Power Consumption",
@@ -3323,7 +3353,7 @@
       "initial_deployed": "2025-03-18",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Water Meter",
@@ -3339,7 +3369,7 @@
       "initial_deployed": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Water System Temperatures",
@@ -3356,7 +3386,7 @@
       "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     },
     {
       "name": "Water Tank Temperatures",
@@ -3373,7 +3403,7 @@
       "initial_deployed": "2025-03-28",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.16.0"
+      "target_version": "v3.16.1"
     }
   ]
 }
