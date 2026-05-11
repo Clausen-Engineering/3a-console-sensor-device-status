@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.16.2",
+  "latest_version": "v3.16.3",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-11 07:24:14",
-  "last_updated": "2026-05-11 05:24:35",
+  "last_commit_date": "2026-05-11 18:41:59",
+  "last_updated": "2026-05-11 16:42:26",
   "version_changes": [
+    {
+      "version": "v3.16.3",
+      "date": "2026-05-11",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.16.3"
+    },
     {
       "version": "v3.16.2",
       "date": "2026-05-11",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.16.2"
+      "description": "wifi_manager: bootstrap NTP after connect; trigger logs use sensor_id"
     },
     {
       "version": "v3.16.1",
