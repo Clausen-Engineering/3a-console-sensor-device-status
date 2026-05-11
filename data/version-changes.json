@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.16.1",
+  "latest_version": "v3.16.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-07 14:30:01",
-  "last_updated": "2026-05-07 12:30:06",
+  "last_commit_date": "2026-05-11 07:24:14",
+  "last_updated": "2026-05-11 05:24:35",
   "version_changes": [
+    {
+      "version": "v3.16.2",
+      "date": "2026-05-11",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.16.2"
+    },
     {
       "version": "v3.16.1",
       "date": "2026-05-07",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.16.1"
+      "description": "Buzzer feedback on boost button press: long beep on activate, short on cancel, error on fail"
     },
     {
       "version": "v3.16.0",
