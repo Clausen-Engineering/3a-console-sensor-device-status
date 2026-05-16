@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.16.5",
+  "latest_version": "v3.16.6",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-12 10:30:56",
-  "last_updated": "2026-05-12 08:31:17",
+  "last_commit_date": "2026-05-16 15:50:23",
+  "last_updated": "2026-05-16 13:50:36",
   "version_changes": [
+    {
+      "version": "v3.16.6",
+      "date": "2026-05-16",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.16.6"
+    },
     {
       "version": "v3.16.5",
       "date": "2026-05-12",
       "components": [
-        "core"
+        "digital"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.16.5"
+      "description": "Cleaner digital-sensor telemetry: count_mode drops the noisy state field"
     },
     {
       "version": "v3.16.4",
