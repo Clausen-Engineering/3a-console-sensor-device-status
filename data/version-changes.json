@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.16.6",
+  "latest_version": "v3.16.7",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-16 15:50:23",
-  "last_updated": "2026-05-16 13:51:27",
+  "last_commit_date": "2026-05-20 15:27:06",
+  "last_updated": "2026-05-20 13:27:22",
   "version_changes": [
+    {
+      "version": "v3.16.7",
+      "date": "2026-05-20",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.16.7"
+    },
     {
       "version": "v3.16.6",
       "date": "2026-05-16",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.16.6"
+      "description": "Quiet sub-threshold IMU recalibration refresh telemetry"
     },
     {
       "version": "v3.16.5",
