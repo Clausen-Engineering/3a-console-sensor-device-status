@@ -207,8 +207,11 @@ def resolve_local_repo_path(repo_names: list[str]) -> Path | None:
             candidates.append(base_path / "glaecier-sensorhub-data-collector")
 
     for repo_name in normalized_repo_names:
+        stripped_repo_name = repo_name.removeprefix("glaecier-")
         for base_path in (ROOT, ROOT.parent):
             candidates.append(base_path / repo_name)
+            if stripped_repo_name and stripped_repo_name != repo_name:
+                candidates.append(base_path / stripped_repo_name)
 
     seen: set[str] = set()
     for candidate in candidates:
@@ -245,10 +248,18 @@ def build_repo_device_summaries(
                 "mac": normalize_mac(version_data.get("mac_address")),
                 "version": choose_repo_device_version(version_data),
                 "components": extract_components_from_config(config_data),
-                "hardware": safe_string(version_data.get("hardware_target")),
+                "hardware": safe_string(version_data.get("hardware_target")) or safe_string(version_data.get("hardware")),
                 "location": safe_string(version_data.get("deployment_location")),
                 "last_deployed": safe_string(version_data.get("deployment_date")),
                 "initial_deployed": safe_string(version_data.get("initial_deployment_date")),
+                "deployment_environment": safe_string(version_data.get("deployment_environment")),
+                "declared_deployment_version": (
+                    safe_string(version_data.get("deployment_version")) or safe_string(version_data.get("deploymentVersion"))
+                ),
+                "sensor_summary": safe_string(version_data.get("sensor_summary")),
+                "notes": safe_string(version_data.get("notes")),
+                "updated_by": safe_string(version_data.get("updated_by")),
+                "version_last_updated": safe_string(version_data.get("last_updated")),
                 "track": track.get("id", ""),
                 "track_label": track.get("label", ""),
                 "target_version": track.get("latest_version", ""),
@@ -477,6 +488,12 @@ def fetch_device_summary(
         "location": extract_location(device_data),
         "last_deployed": firmware_build_date.split("T")[0] if firmware_build_date else "",
         "initial_deployed": safe_string(entry.get("initial_deployed")),
+        "deployment_environment": safe_string(entry.get("deployment_environment")),
+        "declared_deployment_version": safe_string(entry.get("declared_deployment_version")),
+        "sensor_summary": safe_string(entry.get("sensor_summary")),
+        "notes": safe_string(entry.get("notes")),
+        "updated_by": safe_string(entry.get("updated_by")),
+        "version_last_updated": safe_string(entry.get("version_last_updated")),
         "track": track_id,
         "track_label": track.get("label", track_id),
         "target_version": track.get("latest_version", ""),
@@ -506,6 +523,12 @@ def build_failure_device(entry: dict[str, Any], track_map: dict[str, dict[str, A
         "location": "",
         "last_deployed": "",
         "initial_deployed": safe_string(entry.get("initial_deployed")),
+        "deployment_environment": safe_string(entry.get("deployment_environment")),
+        "declared_deployment_version": safe_string(entry.get("declared_deployment_version")),
+        "sensor_summary": safe_string(entry.get("sensor_summary")),
+        "notes": safe_string(entry.get("notes")),
+        "updated_by": safe_string(entry.get("updated_by")),
+        "version_last_updated": safe_string(entry.get("version_last_updated")),
         "track": track_id,
         "track_label": track.get("label", track_id),
         "target_version": track.get("latest_version", ""),
@@ -539,16 +562,27 @@ def main() -> int:
         tracks = build_section_tracks(registry_section, version_section)
         track_map = {track["id"]: track for track in tracks}
         section_output = build_section_meta(registry_section, version_section, tracks, last_updated)
-        repo_names = [safe_string(track.get("repo_name")) for track in tracks if safe_string(track.get("repo_name"))]
-        local_repo_path = resolve_local_repo_path(repo_names)
-
-        if local_repo_path and len(tracks) == 1 and repo_names:
-            repo_devices = build_repo_device_summaries(local_repo_path, tracks[0])
-            if repo_devices:
-                print(f"Loaded {len(repo_devices)} devices for section '{section_id}' from {local_repo_path}")
-                section_output["devices"].extend(repo_devices)
-                output_sections.append(section_output)
+        repo_devices: list[dict[str, Any]] = []
+        local_repo_paths: list[str] = []
+        for track in tracks:
+            repo_name = safe_string(track.get("repo_name"))
+            if not repo_name:
                 continue
+            local_repo_path = resolve_local_repo_path([repo_name])
+            if not local_repo_path:
+                continue
+            track_devices = build_repo_device_summaries(local_repo_path, track)
+            if not track_devices:
+                continue
+            repo_devices.extend(track_devices)
+            local_repo_paths.append(str(local_repo_path))
+
+        if repo_devices:
+            resolved_paths = ", ".join(dict.fromkeys(local_repo_paths))
+            print(f"Loaded {len(repo_devices)} devices for section '{section_id}' from {resolved_paths}")
+            section_output["devices"].extend(repo_devices)
+            output_sections.append(section_output)
+            continue
 
         api_base = safe_string(registry_section.get("api_base")) or safe_string(device_registry.get("api_base"))
         device_entries = registry_section.get("devices", []) or []
