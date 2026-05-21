@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -16,29 +16,32 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
       :root {
-        --bg: #090d14;
-        --bg-alt: #121823;
-        --surface: rgba(16, 20, 29, 0.84);
-        --surface-strong: rgba(20, 25, 36, 0.94);
-        --panel-border: rgba(152, 131, 115, 0.22);
-        --text: #f4ede5;
-        --muted: #b9b1a8;
-        --line: rgba(152, 131, 115, 0.16);
-        --accent: #6d95b4;
-        --accent-soft: #9cc3dd;
-        --accent-copper: #d38a4a;
-        --accent-rose: #b86581;
-        --accent-teal: #43a79e;
-        --accent-gold: #d8b06e;
-        --success: #53d39d;
-        --warning: #f1a35f;
-        --danger: #dc6a87;
-        --info: #8ca4ff;
-        --shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
-        --shadow-lg: 0 32px 100px rgba(0, 0, 0, 0.52);
-        --radius-xl: 24px;
-        --radius-lg: 18px;
-        --radius-sm: 999px;
+        --bg: #1A1410;
+        --bg-alt: #211A13;
+        --surface: rgba(33, 26, 19, 0.94);
+        --surface-strong: rgba(42, 33, 24, 0.97);
+        --panel-border: rgba(200, 170, 130, 0.13);
+        --text: #EAE3D9;
+        --muted: #9A8A78;
+        --line: rgba(200, 170, 130, 0.11);
+        --primary: #D44654;
+        --primary-soft: #E85A68;
+        --accent: #E6BB5A;
+        --accent-deep: #C49A3C;
+        --accent-soft: #F0CC7A;
+        --accent-copper: #E6BB5A;
+        --accent-rose: #D44654;
+        --accent-teal: #5DC8BE;
+        --accent-gold: #E6BB5A;
+        --success: #5DC896;
+        --warning: #E8A84C;
+        --danger: #D44654;
+        --info: #7AABE8;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.36), 0 2px 8px rgba(0, 0, 0, 0.22);
+        --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.46), 0 4px 16px rgba(0, 0, 0, 0.28);
+        --radius-xl: 8px;
+        --radius-lg: 6px;
+        --radius-sm: 4px;
       }
 
       * {
@@ -51,16 +54,18 @@
 
       body {
         margin: 0;
-        font-family: "Noto Sans", sans-serif;
+        font-family: "Inter", "Noto Sans", sans-serif;
         color: var(--text);
-        background:
-          radial-gradient(circle at top left, rgba(211, 138, 74, 0.12), transparent 28%),
-          radial-gradient(circle at top right, rgba(109, 149, 180, 0.16), transparent 30%),
-          radial-gradient(circle at 22% 78%, rgba(67, 167, 158, 0.14), transparent 28%),
-          radial-gradient(circle at 82% 74%, rgba(184, 101, 129, 0.14), transparent 26%),
-          linear-gradient(180deg, #070b11 0%, #0d1118 38%, #121926 100%);
+        background-color: var(--bg);
+        background-image:
+          linear-gradient(rgba(200, 170, 130, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(200, 170, 130, 0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+        background-attachment: fixed;
         padding-bottom: 0;
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
       body::before,
@@ -74,23 +79,13 @@
 
       body::before {
         background:
-          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 22%);
-        background-size: 110px 110px, 110px 110px, 100% 100%;
-        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.14));
-        opacity: 0.3;
+          radial-gradient(ellipse at top left, rgba(212, 70, 84, 0.08) 0%, transparent 50%),
+          radial-gradient(ellipse at bottom right, rgba(230, 187, 90, 0.09) 0%, transparent 50%);
+        opacity: 1;
       }
 
       body::after {
-        background:
-          radial-gradient(circle at 14% 10%, rgba(211, 138, 74, 0.17), transparent 17%),
-          radial-gradient(circle at 88% 7%, rgba(109, 149, 180, 0.18), transparent 20%),
-          radial-gradient(circle at 50% 32%, rgba(184, 101, 129, 0.09), transparent 24%),
-          radial-gradient(circle at 58% 82%, rgba(67, 167, 158, 0.12), transparent 18%);
-        z-index: -1;
-        filter: blur(14px);
-        animation: aurora-drift 18s ease-in-out infinite alternate;
+        display: none;
       }
 
       a {
@@ -108,12 +103,9 @@
         top: 0;
         z-index: 1000;
         backdrop-filter: blur(18px);
-        background:
-          linear-gradient(180deg, rgba(8, 11, 17, 0.96), rgba(15, 20, 30, 0.88)),
-          radial-gradient(circle at 12% 50%, rgba(211, 138, 74, 0.12), transparent 18%),
-          radial-gradient(circle at 88% 20%, rgba(109, 149, 180, 0.14), transparent 24%);
-        border-bottom: 1px solid rgba(152, 131, 115, 0.2);
-        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.34);
+        background: rgba(26, 20, 16, 0.90);
+        border-bottom: 1px solid rgba(200, 170, 130, 0.12);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
       }
 
       .topbar::after {
@@ -121,56 +113,62 @@
         display: block;
         width: 100%;
         height: 2px;
-        background: linear-gradient(90deg, rgba(211, 138, 74, 0), rgba(211, 138, 74, 0.82), rgba(67, 167, 158, 0.72), rgba(109, 149, 180, 0.86), rgba(184, 101, 129, 0));
+        background: linear-gradient(90deg, rgba(158, 27, 31, 0), rgba(158, 27, 31, 0.72), rgba(212, 160, 66, 0.80), rgba(158, 27, 31, 0));
       }
 
       .navbar-brand {
         display: inline-flex;
         align-items: center;
         gap: 0.8rem;
-        font-weight: 700;
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        font-size: 1.05rem;
         color: var(--text) !important;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        letter-spacing: -0.01em;
       }
 
       .brand-mark {
         display: inline-grid;
         place-items: center;
-        width: 2.55rem;
-        height: 2.55rem;
-        border-radius: 38% 62% 58% 42% / 44% 42% 58% 56%;
-        background:
-          radial-gradient(circle at 30% 30%, rgba(244, 237, 229, 0.2), transparent 34%),
-          linear-gradient(135deg, rgba(109, 149, 180, 0.3), rgba(184, 101, 129, 0.24), rgba(211, 138, 74, 0.36));
-        border: 1px solid rgba(156, 195, 221, 0.24);
-        color: #fbf3ea;
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.12),
-          0 14px 26px rgba(0, 0, 0, 0.28),
-          0 0 26px rgba(109, 149, 180, 0.14);
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: var(--radius-lg);
+        background: linear-gradient(135deg, var(--primary), var(--primary-soft));
+        border: none;
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(158, 27, 31, 0.28);
+        flex-shrink: 0;
       }
 
       .navbar-toggler {
-        border-color: rgba(152, 131, 115, 0.22);
+        border-color: rgba(200, 170, 130, 0.22);
       }
 
       .navbar-toggler:focus {
-        box-shadow: 0 0 0 0.2rem rgba(109, 149, 180, 0.18);
+        box-shadow: 0 0 0 0.2rem rgba(212, 70, 84, 0.18);
       }
 
       .topbar .nav-link {
         color: var(--muted);
         font-weight: 500;
-        font-size: 0.8rem;
-        letter-spacing: 0.14em;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        padding: 0.8rem 1rem !important;
+        padding: 0.5rem 0.75rem !important;
+        border-radius: var(--radius-sm);
+        transition: color 0.18s ease, background-color 0.18s ease;
       }
 
       .topbar .nav-link:hover,
       .topbar .nav-link:focus {
         color: var(--text);
+        background: rgba(200, 170, 130, 0.08);
+      }
+
+      .topbar .nav-link.active {
+        color: var(--primary);
+        background: rgba(212, 70, 84, 0.10);
+        border-bottom: 2px solid var(--primary);
       }
 
       .dashboard-main {
@@ -180,44 +178,18 @@
       .surface {
         position: relative;
         overflow: hidden;
-        background:
-          linear-gradient(180deg, rgba(28, 34, 47, 0.92), rgba(13, 18, 28, 0.94)),
-          linear-gradient(135deg, rgba(211, 138, 74, 0.04), transparent 24%, rgba(109, 149, 180, 0.06) 72%, rgba(67, 167, 158, 0.04));
+        background: linear-gradient(180deg, #211A13 0%, #1C1610 100%);
         border: 1px solid var(--panel-border);
         border-radius: var(--radius-xl);
         box-shadow: var(--shadow);
-        backdrop-filter: blur(18px);
       }
 
       .surface::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        padding: 1px;
-        background: linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.16),
-          rgba(255, 255, 255, 0.02) 24%,
-          rgba(109, 149, 180, 0.16) 54%,
-          rgba(67, 167, 158, 0.1) 74%,
-          rgba(211, 138, 74, 0.18)
-        );
-        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        opacity: 0.85;
-        pointer-events: none;
+        display: none;
       }
 
       .surface::after {
-        content: "";
-        position: absolute;
-        inset: auto -12% 0 18%;
-        height: 180px;
-        background: radial-gradient(circle, rgba(109, 149, 180, 0.12), transparent 65%);
-        filter: blur(18px);
-        pointer-events: none;
+        display: none;
       }
 
       .hero-panel,
@@ -236,15 +208,7 @@
       }
 
       .hero-panel::after {
-        inset: -8% auto auto 48%;
-        width: 420px;
-        height: 420px;
-        background:
-          radial-gradient(circle at 32% 35%, rgba(211, 138, 74, 0.2), transparent 28%),
-          radial-gradient(circle at 62% 40%, rgba(184, 101, 129, 0.18), transparent 26%),
-          radial-gradient(circle at 50% 60%, rgba(109, 149, 180, 0.22), transparent 38%);
-        opacity: 0.9;
-        transform: rotate(12deg);
+        display: none;
       }
 
       .dashboard-section {
@@ -255,32 +219,29 @@
         display: inline-flex;
         align-items: center;
         gap: 0.45rem;
-        color: #d5b295;
+        color: var(--primary);
         font-size: 0.72rem;
         font-weight: 700;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
       }
 
       .eyebrow::before {
         content: "";
-        width: 1.6rem;
+        width: 1.4rem;
         height: 2px;
-        background: linear-gradient(90deg, rgba(211, 138, 74, 0), rgba(211, 138, 74, 0.96), rgba(67, 167, 158, 0.52));
+        background: linear-gradient(90deg, var(--primary), var(--accent));
         border-radius: 999px;
       }
 
       .hero-title {
         max-width: none;
         margin: 0.7rem 0 0.9rem;
-        font-size: clamp(2.8rem, 5vw, 4.8rem);
-        line-height: 0.92;
-        letter-spacing: -0.04em;
-        background: linear-gradient(135deg, #fff1e2 0%, #d8a777 26%, #8fcfc6 56%, #a5c1d7 78%, #f0d5e0 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+        font-family: "Fraunces", serif;
+        font-size: clamp(2.4rem, 5vw, 4.2rem);
+        line-height: 0.94;
+        letter-spacing: -0.03em;
+        color: var(--text);
       }
 
       .hero-copy,
@@ -346,12 +307,11 @@
       }
 
       .cta-button {
-        background:
-          linear-gradient(180deg, rgba(32, 39, 52, 0.94), rgba(18, 23, 34, 0.92)),
-          linear-gradient(135deg, rgba(109, 149, 180, 0.08), rgba(211, 138, 74, 0.08));
-        border: 1px solid rgba(152, 131, 115, 0.18);
-        font-weight: 700;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        background: var(--primary);
+        border: 1px solid var(--primary);
+        color: #fff !important;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(158, 27, 31, 0.22);
       }
 
       .cta-button,
@@ -361,16 +321,14 @@
       .cta-button:focus-visible,
       .cta-button:active {
         text-decoration: none;
-        background-image:
-          linear-gradient(180deg, rgba(32, 39, 52, 0.94), rgba(18, 23, 34, 0.92)),
-          linear-gradient(135deg, rgba(109, 149, 180, 0.08), rgba(211, 138, 74, 0.08));
+        color: #fff;
       }
 
       .cta-button > * {
-        background: linear-gradient(135deg, var(--accent-copper), var(--accent-rose) 48%, var(--accent) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+        color: #fff;
+        background: none;
+        -webkit-background-clip: unset;
+        background-clip: unset;
       }
 
       .secondary-button,
@@ -378,12 +336,10 @@
       .section-tab,
       .toggle-button,
       .sort-button {
-        background:
-          linear-gradient(180deg, rgba(32, 39, 52, 0.94), rgba(18, 23, 34, 0.92)),
-          linear-gradient(135deg, rgba(109, 149, 180, 0.08), rgba(211, 138, 74, 0.08));
-        border-color: rgba(152, 131, 115, 0.18);
+        background: rgba(42, 33, 24, 0.92);
+        border-color: rgba(200, 170, 130, 0.16);
         color: var(--text);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.20);
       }
 
       .secondary-button,
@@ -396,25 +352,31 @@
       .secondary-button:focus,
       .secondary-button:focus-visible,
       .secondary-button:active {
-        color: var(--accent-gold);
+        color: var(--primary);
         text-decoration: none;
       }
 
       .cta-button:hover,
+      .cta-button:focus-visible {
+        transform: translateY(-1px);
+        background: var(--primary-soft);
+        border-color: var(--primary-soft);
+        box-shadow: 0 4px 14px rgba(158, 27, 31, 0.30);
+      }
+
       .secondary-button:hover,
       .filter-chip:hover,
       .section-tab:hover,
       .toggle-button:hover,
       .sort-button:hover,
-      .cta-button:focus-visible,
       .secondary-button:focus-visible,
       .filter-chip:focus-visible,
       .section-tab:focus-visible,
       .toggle-button:focus-visible,
       .sort-button:focus-visible {
-        transform: translateY(-2px);
-        border-color: rgba(156, 195, 221, 0.36);
-        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+        transform: translateY(-1px);
+        border-color: rgba(212, 70, 84, 0.30);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.26);
       }
 
       .section-tab {
@@ -427,12 +389,14 @@
       }
 
       .section-tab.active {
-        background:
-          linear-gradient(135deg, rgba(211, 138, 74, 0.26), rgba(184, 101, 129, 0.2) 46%, rgba(109, 149, 180, 0.22));
-        border-color: rgba(211, 138, 74, 0.34);
-        box-shadow:
-          inset 0 0 0 1px rgba(244, 237, 229, 0.06),
-          0 12px 24px rgba(0, 0, 0, 0.16);
+        background: rgba(212, 70, 84, 0.12);
+        border-color: rgba(212, 70, 84, 0.28);
+        color: var(--primary);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+      }
+
+      .section-tab.active .section-tab__label {
+        color: var(--primary);
       }
 
       .section-tab__label {
@@ -456,12 +420,10 @@
         position: relative;
         overflow: hidden;
         padding: 1rem;
-        border-radius: 16px;
-        background:
-          linear-gradient(180deg, rgba(34, 41, 56, 0.95), rgba(18, 24, 35, 0.94)),
-          linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
-        border: 1px solid rgba(152, 131, 115, 0.14);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        border-radius: var(--radius-lg);
+        background: rgba(40, 32, 23, 0.92);
+        border: 1px solid rgba(200, 170, 130, 0.13);
+        box-shadow: var(--shadow);
       }
 
       .drawer-card::before {
@@ -470,11 +432,11 @@
         inset: 0 auto auto 0;
         width: 100%;
         height: 2px;
-        background: linear-gradient(90deg, rgba(211, 138, 74, 0), rgba(211, 138, 74, 0.8), rgba(109, 149, 180, 0.7), rgba(67, 167, 158, 0));
+        background: linear-gradient(90deg, rgba(158, 27, 31, 0), var(--primary), var(--accent), rgba(212, 160, 66, 0));
       }
 
       .risk-label {
-        color: #d5b295;
+        color: var(--primary);
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 0.16em;
@@ -509,27 +471,27 @@
       }
 
       .risk-pill--stable {
-        color: #dbfff1;
-        background: rgba(83, 211, 157, 0.14);
-        border-color: rgba(83, 211, 157, 0.22);
+        color: #8eedc7;
+        background: rgba(93, 200, 150, 0.12);
+        border-color: rgba(93, 200, 150, 0.22);
       }
 
       .risk-pill--watch {
-        color: #eef3ff;
-        background: rgba(140, 164, 255, 0.14);
-        border-color: rgba(140, 164, 255, 0.22);
+        color: #aac8f0;
+        background: rgba(122, 171, 232, 0.12);
+        border-color: rgba(122, 171, 232, 0.22);
       }
 
       .risk-pill--elevated {
-        color: #fff2df;
-        background: rgba(241, 163, 95, 0.15);
-        border-color: rgba(241, 163, 95, 0.24);
+        color: #f5c87a;
+        background: rgba(232, 168, 76, 0.12);
+        border-color: rgba(232, 168, 76, 0.22);
       }
 
       .risk-pill--critical {
-        color: #ffe8ef;
-        background: rgba(220, 106, 135, 0.16);
-        border-color: rgba(220, 106, 135, 0.24);
+        color: #f09098;
+        background: rgba(212, 70, 84, 0.12);
+        border-color: rgba(212, 70, 84, 0.22);
       }
 
       .hero-metrics,
@@ -555,11 +517,9 @@
       .error-card {
         padding: 1rem 1.05rem;
         border-radius: var(--radius-lg);
-        background:
-          linear-gradient(180deg, rgba(32, 39, 53, 0.94), rgba(18, 24, 36, 0.92)),
-          linear-gradient(135deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0));
-        border: 1px solid rgba(152, 131, 115, 0.16);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        background: rgba(40, 32, 23, 0.90);
+        border: 1px solid rgba(200, 170, 130, 0.11);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
       }
 
       .metric-card {
@@ -573,31 +533,18 @@
         inset: 0 auto auto 0;
         width: 100%;
         height: 3px;
-        background: linear-gradient(90deg, rgba(211, 138, 74, 0), rgba(211, 138, 74, 0.88), rgba(109, 149, 180, 0.88), rgba(67, 167, 158, 0));
+        background: linear-gradient(90deg, rgba(158, 27, 31, 0), var(--primary), var(--accent), rgba(212, 160, 66, 0));
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       }
 
       .metric-card::after {
-        content: "";
-        position: absolute;
-        right: -18%;
-        bottom: -36%;
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(109, 149, 180, 0.16), transparent 64%);
-        pointer-events: none;
+        display: none;
       }
 
-      .hero-metrics .metric-card:nth-child(2)::after {
-        background: radial-gradient(circle, rgba(67, 167, 158, 0.16), transparent 64%);
-      }
-
-      .hero-metrics .metric-card:nth-child(3)::after {
-        background: radial-gradient(circle, rgba(184, 101, 129, 0.18), transparent 64%);
-      }
-
+      .hero-metrics .metric-card:nth-child(2)::after,
+      .hero-metrics .metric-card:nth-child(3)::after,
       .hero-metrics .metric-card:nth-child(4)::after {
-        background: radial-gradient(circle, rgba(211, 138, 74, 0.18), transparent 64%);
+        display: none;
       }
 
       .track-summary-grid {
@@ -649,7 +596,8 @@
         font-size: clamp(1.6rem, 3vw, 2.4rem);
         line-height: 1;
         font-weight: 700;
-        color: #fff4e8;
+        font-family: "Fraunces", serif;
+        color: var(--text);
       }
 
       .metric-context,
@@ -686,6 +634,12 @@
         font-weight: 700;
       }
 
+      .section-heading h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
       .device-card__title {
         min-height: 2.4em;
       }
@@ -717,16 +671,16 @@
       }
 
       .repo-link {
-        color: inherit;
+        color: var(--primary);
         text-decoration: none;
-        border-bottom: 1px dashed rgba(216, 176, 110, 0.35);
-        transition: color 0.2s ease, border-color 0.2s ease;
+        border-bottom: 1px dashed rgba(158, 27, 31, 0.30);
+        transition: color 0.18s ease, border-color 0.18s ease;
       }
 
       .repo-link:hover,
       .repo-link:focus-visible {
-        color: var(--accent-gold);
-        border-bottom-color: var(--accent-gold);
+        color: var(--primary-soft);
+        border-bottom-color: var(--primary-soft);
       }
 
       .repo-link i {
@@ -753,67 +707,90 @@
         min-height: 2rem;
         padding: 0 0.8rem;
         border-radius: var(--radius-sm);
-        font-size: 0.85rem;
-        font-weight: 700;
+        font-size: 0.82rem;
+        font-weight: 600;
         border: 1px solid transparent;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
       }
 
       .status-pill::before,
       .status-dot {
         content: "";
         display: inline-block;
-        width: 0.55rem;
-        height: 0.55rem;
+        width: 0.5rem;
+        height: 0.5rem;
         border-radius: 999px;
       }
 
       .up-to-date {
-        color: #ddfff0;
-        background: linear-gradient(135deg, rgba(83, 211, 157, 0.16), rgba(67, 167, 158, 0.18));
-        border-color: rgba(83, 211, 157, 0.24);
+        color: #8eedc7;
+        background: rgba(93, 200, 150, 0.12);
+        border-color: rgba(93, 200, 150, 0.22);
       }
 
       .up-to-date::before,
       .status-dot.up-to-date {
         background: var(--success);
-        box-shadow: 0 0 12px rgba(83, 211, 157, 0.52);
+        box-shadow: 0 0 8px rgba(93, 200, 150, 0.4);
       }
 
       .patch-available {
-        color: #eef0ff;
-        background: linear-gradient(135deg, rgba(140, 164, 255, 0.14), rgba(109, 149, 180, 0.2));
-        border-color: rgba(140, 164, 255, 0.24);
+        color: #aac8f0;
+        background: rgba(122, 171, 232, 0.12);
+        border-color: rgba(122, 171, 232, 0.22);
       }
 
       .patch-available::before,
       .status-dot.patch-available {
         background: var(--info);
-        box-shadow: 0 0 12px rgba(140, 164, 255, 0.52);
+        box-shadow: 0 0 8px rgba(122, 171, 232, 0.4);
       }
 
       .needs-update {
-        color: #fff4dd;
-        background: linear-gradient(135deg, rgba(241, 163, 95, 0.14), rgba(211, 138, 74, 0.2));
-        border-color: rgba(241, 163, 95, 0.24);
+        color: #f5c87a;
+        background: rgba(232, 168, 76, 0.12);
+        border-color: rgba(232, 168, 76, 0.22);
       }
 
       .needs-update::before,
       .status-dot.needs-update {
         background: var(--warning);
-        box-shadow: 0 0 12px rgba(241, 163, 95, 0.52);
+        box-shadow: 0 0 8px rgba(232, 168, 76, 0.4);
       }
 
       .unknown {
-        color: #ffe7ef;
-        background: linear-gradient(135deg, rgba(220, 106, 135, 0.14), rgba(184, 101, 129, 0.2));
-        border-color: rgba(220, 106, 135, 0.24);
+        color: #f09098;
+        background: rgba(212, 70, 84, 0.12);
+        border-color: rgba(212, 70, 84, 0.22);
       }
 
       .unknown::before,
       .status-dot.unknown {
         background: var(--danger);
-        box-shadow: 0 0 12px rgba(220, 106, 135, 0.52);
+        box-shadow: 0 0 8px rgba(212, 70, 84, 0.4);
+      }
+
+      .not-deployed {
+        color: #f0d090;
+        background: rgba(230, 187, 90, 0.12);
+        border-color: rgba(230, 187, 90, 0.22);
+      }
+
+      .not-deployed::before,
+      .status-dot.not-deployed {
+        background: var(--accent);
+        box-shadow: 0 0 8px rgba(230, 187, 90, 0.4);
+      }
+
+      .in-development {
+        color: #8ee8e2;
+        background: rgba(93, 200, 190, 0.12);
+        border-color: rgba(93, 200, 190, 0.22);
+      }
+
+      .in-development::before,
+      .status-dot.in-development {
+        background: var(--accent-teal);
+        box-shadow: 0 0 8px rgba(93, 200, 190, 0.4);
       }
 
       .overview-grid {
@@ -873,17 +850,11 @@
         display: none;
       }
 
-      .chart-surface::after {
-        background: radial-gradient(circle, rgba(184, 101, 129, 0.14), transparent 68%);
-      }
-
-      .insight-surface::after {
-        background: radial-gradient(circle, rgba(67, 167, 158, 0.12), transparent 68%);
-      }
-
+      .chart-surface::after,
+      .insight-surface::after,
       .hero-aside::after,
       .table-surface::after {
-        background: radial-gradient(circle, rgba(211, 138, 74, 0.12), transparent 68%);
+        display: none;
       }
 
       .controls-grid {
@@ -896,22 +867,14 @@
         position: relative;
         overflow: hidden;
         border-radius: var(--radius-lg);
-        background:
-          linear-gradient(180deg, rgba(29, 36, 49, 0.95), rgba(18, 23, 34, 0.92)),
-          linear-gradient(135deg, rgba(109, 149, 180, 0.06), rgba(211, 138, 74, 0.05));
-        border: 1px solid rgba(152, 131, 115, 0.16);
-        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.2);
+        background: rgba(42, 33, 24, 0.94);
+        border: 1px solid rgba(200, 170, 130, 0.13);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
       }
 
       .control-block::before,
       .search-shell::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-          radial-gradient(circle at top right, rgba(109, 149, 180, 0.12), transparent 28%),
-          radial-gradient(circle at bottom left, rgba(211, 138, 74, 0.1), transparent 24%);
-        pointer-events: none;
+        display: none;
       }
 
       .control-block {
@@ -928,7 +891,7 @@
 
       .search-shell i {
         position: relative;
-        color: #f0b381;
+        color: var(--muted);
         font-size: 1.05rem;
       }
 
@@ -939,10 +902,14 @@
         outline: none;
         background: transparent;
         color: var(--text);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.88rem;
       }
 
       .search-shell input::placeholder {
-        color: #8e97a6;
+        color: var(--muted);
+        font-family: "Inter", sans-serif;
+        font-size: 0.88rem;
       }
 
       .filter-chip,
@@ -955,9 +922,10 @@
       .filter-chip.active,
       .toggle-button.active,
       .sort-button.active {
-        background: linear-gradient(135deg, rgba(211, 138, 74, 0.22), rgba(184, 101, 129, 0.16), rgba(109, 149, 180, 0.18));
-        border-color: rgba(211, 138, 74, 0.32);
-        color: #fff6ec;
+        background: rgba(212, 70, 84, 0.14);
+        border-color: rgba(212, 70, 84, 0.30);
+        color: var(--primary);
+        font-weight: 600;
       }
 
       .filter-chip strong,
@@ -978,7 +946,7 @@
         padding: 0;
         background: transparent;
         border: none;
-        color: #f0b381;
+        color: var(--primary);
       }
 
       .text-button[disabled] {
@@ -1050,12 +1018,12 @@
         align-items: center;
         justify-content: center;
         gap: 0.35rem;
-        color: #fff9f3;
+        color: #fff;
         font-size: 0.78rem;
         font-weight: 700;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
-        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.50);
+        box-shadow: 0 4px 14px rgba(40, 20, 10, 0.24);
+        backdrop-filter: blur(4px);
       }
 
       .floorplan-marker::after {
@@ -1087,6 +1055,14 @@
         background: linear-gradient(135deg, rgba(220, 106, 135, 0.88), rgba(184, 101, 129, 0.94));
       }
 
+      .floorplan-marker.status-not-deployed {
+        background: linear-gradient(135deg, rgba(216, 176, 110, 0.88), rgba(211, 138, 74, 0.92));
+      }
+
+      .floorplan-marker.status-in-development {
+        background: linear-gradient(135deg, rgba(67, 167, 158, 0.88), rgba(109, 149, 180, 0.92));
+      }
+
       .floorplan-note {
         color: var(--muted);
         font-size: 0.88rem;
@@ -1102,11 +1078,10 @@
       .sensor-zone-card,
       .sensor-atlas-card {
         padding: 1rem;
-        border-radius: 16px;
-        background:
-          linear-gradient(180deg, rgba(34, 41, 56, 0.95), rgba(18, 24, 35, 0.94)),
-          linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
-        border: 1px solid rgba(152, 131, 115, 0.14);
+        border-radius: var(--radius-lg);
+        background: rgba(40, 32, 23, 0.90);
+        border: 1px solid rgba(200, 170, 130, 0.12);
+        box-shadow: var(--shadow);
       }
 
       .sensor-zone-card__head,
@@ -1143,9 +1118,9 @@
         gap: 0.45rem;
         min-height: 2rem;
         padding: 0.35rem 0.7rem;
-        border-radius: 999px;
+        border-radius: var(--radius-sm);
         background: rgba(255, 255, 255, 0.045);
-        border: 1px solid rgba(152, 131, 115, 0.12);
+        border: 1px solid rgba(200, 170, 130, 0.11);
         font-size: 0.8rem;
       }
 
@@ -1170,59 +1145,40 @@
         flex-direction: column;
         padding: 0.95rem;
         border-radius: var(--radius-lg);
-        background:
-          linear-gradient(180deg, rgba(28, 35, 48, 0.98), rgba(15, 20, 30, 0.98)),
-          linear-gradient(135deg, rgba(109, 149, 180, 0.06), rgba(211, 138, 74, 0.05));
-        border: 1px solid rgba(152, 131, 115, 0.16);
-        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
-        transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+        background: linear-gradient(180deg, #291F16 0%, #221A12 100%);
+        border: 1px solid rgba(200, 170, 130, 0.12);
+        box-shadow: var(--shadow);
+        transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
       }
 
       .device-card::before {
         content: "";
         position: absolute;
         inset: 0 auto 0 0;
-        width: 4px;
-        border-radius: 18px 0 0 18px;
-        background: linear-gradient(180deg, rgba(109, 149, 180, 0), rgba(109, 149, 180, 0.9), rgba(211, 138, 74, 0));
+        width: 3px;
+        border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+        background: rgba(32, 20, 10, 0.12);
       }
 
       .device-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 26px 50px rgba(0, 0, 0, 0.32);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        border-color: rgba(158, 27, 31, 0.18);
       }
 
-      .device-card.status-up-to-date {
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(83, 211, 157, 0.12);
-      }
+      .device-card.status-up-to-date { border-left-color: #1e6b40; }
+      .device-card.status-patch-available { border-left-color: #2a4f6e; }
+      .device-card.status-needs-update { border-left-color: #8B4E10; }
+      .device-card.status-unknown { border-left-color: #9E1B1F; }
+      .device-card.status-not-deployed { border-left-color: #8B6232; }
+      .device-card.status-in-development { border-left-color: #2a7a6e; }
 
-      .device-card.status-patch-available {
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(140, 164, 255, 0.12);
-      }
-
-      .device-card.status-needs-update {
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(241, 163, 95, 0.12);
-      }
-
-      .device-card.status-unknown {
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(220, 106, 135, 0.14);
-      }
-
-      .device-card.status-up-to-date::before {
-        background: linear-gradient(180deg, rgba(83, 211, 157, 0), rgba(83, 211, 157, 0.95), rgba(67, 167, 158, 0));
-      }
-
-      .device-card.status-patch-available::before {
-        background: linear-gradient(180deg, rgba(140, 164, 255, 0), rgba(140, 164, 255, 0.95), rgba(109, 149, 180, 0));
-      }
-
-      .device-card.status-needs-update::before {
-        background: linear-gradient(180deg, rgba(241, 163, 95, 0), rgba(241, 163, 95, 0.95), rgba(211, 138, 74, 0));
-      }
-
-      .device-card.status-unknown::before {
-        background: linear-gradient(180deg, rgba(220, 106, 135, 0), rgba(220, 106, 135, 0.95), rgba(184, 101, 129, 0));
-      }
+      .device-card.status-up-to-date::before { background: #1e6b40; }
+      .device-card.status-patch-available::before { background: #2a4f6e; }
+      .device-card.status-needs-update::before { background: #8B4E10; }
+      .device-card.status-unknown::before { background: #9E1B1F; }
+      .device-card.status-not-deployed::before { background: #8B6232; }
+      .device-card.status-in-development::before { background: #2a7a6e; }
 
       .device-card__meta {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1233,9 +1189,9 @@
 
       .device-card__detail {
         padding: 0.65rem 0.75rem;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.035);
-        border: 1px solid rgba(152, 131, 115, 0.14);
+        border-radius: var(--radius-sm);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(200, 170, 130, 0.10);
       }
 
       .device-card__detail-value {
@@ -1258,8 +1214,8 @@
         min-height: 1.7rem;
         padding: 0 0.58rem;
         border-radius: var(--radius-sm);
-        background: rgba(255, 255, 255, 0.055);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(200, 170, 130, 0.10);
         font-size: 0.76rem;
         color: var(--text);
       }
@@ -1270,20 +1226,20 @@
         height: 0.4rem;
         border-radius: 999px;
         background: currentColor;
-        opacity: 0.7;
+        opacity: 0.85;
       }
 
-      .component-tag.modbus { color: #8ac7f2; }
-      .component-tag.onewire { color: #72e2c5; }
-      .component-tag.digital { color: #efb36c; }
-      .component-tag.analog { color: #f19b78; }
-      .component-tag.i2c { color: #93dfe6; }
-      .component-tag.virtual { color: #c49ac8; }
-      .component-tag.core { color: #d3dde6; }
-      .component-tag.algae { color: #67c8a8; }
+      .component-tag.modbus { color: #7AABE8; }
+      .component-tag.onewire { color: #5DC8BE; }
+      .component-tag.digital { color: #E8A84C; }
+      .component-tag.analog { color: #E8905A; }
+      .component-tag.i2c { color: #7AD8E0; }
+      .component-tag.virtual { color: #C090D8; }
+      .component-tag.core { color: #B0C0CC; }
+      .component-tag.algae { color: #5DC896; }
       .component-tag.switch,
       .component-tag.digital-switch,
-      .component-tag.digital_switch { color: #d8b06e; }
+      .component-tag.digital_switch { color: #E6BB5A; }
 
       .table-surface {
         margin-top: 1.35rem;
@@ -1300,25 +1256,23 @@
         top: 0;
         z-index: 1;
         padding: 0.95rem 1rem;
-        background:
-          linear-gradient(135deg, rgba(31, 40, 56, 0.98), rgba(15, 21, 33, 0.98)),
-          linear-gradient(90deg, rgba(211, 138, 74, 0.1), rgba(109, 149, 180, 0.14));
+        background: #211A13;
         color: var(--muted);
-        font-size: 0.82rem;
+        font-size: 0.78rem;
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        border-bottom: 1px solid var(--line);
+        border-bottom: 1px solid rgba(200, 170, 130, 0.12);
       }
 
       .device-table tbody td {
         padding: 1rem;
         vertical-align: top;
-        border-bottom: 1px solid rgba(152, 131, 115, 0.1);
+        border-bottom: 1px solid rgba(200, 170, 130, 0.08);
       }
 
       .device-table tbody tr:hover {
-        background: linear-gradient(90deg, rgba(211, 138, 74, 0.06), rgba(109, 149, 180, 0.05));
+        background: rgba(212, 70, 84, 0.05);
       }
 
       .version-badge {
@@ -1327,9 +1281,9 @@
         min-height: 2rem;
         padding: 0 0.75rem;
         border-radius: var(--radius-sm);
-        background: linear-gradient(135deg, rgba(109, 149, 180, 0.12), rgba(67, 167, 158, 0.12));
-        border: 1px solid rgba(156, 195, 221, 0.16);
-        color: #ebfbff;
+        background: rgba(230, 187, 90, 0.10);
+        border: 1px solid rgba(230, 187, 90, 0.18);
+        color: #F0D090;
         font-family: "JetBrains Mono", monospace;
         font-size: 0.85rem;
       }
@@ -1360,11 +1314,9 @@
         flex-direction: column;
         gap: 0;
         padding: 1rem 0.75rem;
-        border-radius: 14px;
-        border: 1px solid rgba(152, 131, 115, 0.16);
-        background:
-          linear-gradient(180deg, rgba(22, 27, 39, 0.86), rgba(12, 16, 26, 0.82)),
-          radial-gradient(circle at top right, rgba(109, 149, 180, 0.08), transparent 24%);
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(200, 170, 130, 0.12);
+        background: rgba(33, 26, 19, 0.88);
         overflow: visible;
       }
 
@@ -1385,7 +1337,7 @@
         left: 0;
         right: 0;
         height: 2px;
-        background: linear-gradient(90deg, rgba(211, 138, 74, 0.18), rgba(109, 149, 180, 0.34), rgba(67, 167, 158, 0.18));
+        background: rgba(200, 170, 130, 0.16);
         z-index: 1;
       }
 
@@ -1401,7 +1353,7 @@
         top: 0;
         width: 2px;
         height: 100%;
-        background: linear-gradient(180deg, rgba(109, 149, 180, 0.34), rgba(67, 167, 158, 0.18));
+        background: rgba(200, 170, 130, 0.16);
       }
 
       .timeline-bend.bend-right::before {
@@ -1431,19 +1383,19 @@
       }
 
       .timeline-node:hover {
-        background: linear-gradient(180deg, rgba(109, 149, 180, 0.08), rgba(211, 138, 74, 0.06));
+        background: rgba(158, 27, 31, 0.04);
       }
 
       .timeline-node__dot {
         width: 0.75rem;
         height: 0.75rem;
         border-radius: 999px;
-        background: linear-gradient(135deg, rgba(211, 138, 74, 0.9), rgba(109, 149, 180, 0.92));
-        border: 2px solid rgba(24, 29, 39, 0.98);
-        box-shadow: 0 0 0 3px rgba(109, 149, 180, 0.16);
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        border: 2px solid var(--bg);
+        box-shadow: 0 0 0 2px rgba(158, 27, 31, 0.20);
         flex-shrink: 0;
         z-index: 2;
-        transition: all 0.2s ease;
+        transition: all 0.18s ease;
       }
 
       .timeline-node__version {
@@ -1480,14 +1432,13 @@
       .timeline-node.major-bump .timeline-node__dot {
         width: 0.95rem;
         height: 0.95rem;
-        background: linear-gradient(135deg, rgba(241, 163, 95, 0.96), rgba(184, 101, 129, 0.9));
-        box-shadow: 0 0 0 3px rgba(211, 138, 74, 0.2);
+        background: linear-gradient(135deg, var(--accent), var(--primary));
+        box-shadow: 0 0 0 3px rgba(212, 160, 66, 0.22);
       }
 
       .timeline-node.in-use .timeline-node__dot {
-        box-shadow: 0 0 0 3px rgba(83, 211, 157, 0.35), 0 0 14px rgba(83, 211, 157, 0.24);
+        box-shadow: 0 0 0 3px rgba(30, 107, 64, 0.28);
       }
-
 
       .timeline-node__in-use-badge {
         display: inline-flex;
@@ -1498,9 +1449,9 @@
         padding: 0 0.3rem;
         margin-top: 0.3rem;
         border-radius: 999px;
-        background: rgba(83, 211, 157, 0.16);
-        border: 1px solid rgba(83, 211, 157, 0.28);
-        color: #a5f0d0;
+        background: rgba(30, 107, 64, 0.10);
+        border: 1px solid rgba(30, 107, 64, 0.22);
+        color: #1e6b40;
         font-size: 0.6rem;
         font-weight: 700;
       }
@@ -1525,7 +1476,7 @@
         text-transform: uppercase;
         white-space: nowrap;
         background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(200, 170, 130, 0.12);
         color: var(--muted);
       }
 
@@ -1541,7 +1492,7 @@
         content: "";
         flex: 1;
         height: 1px;
-        background: linear-gradient(90deg, rgba(211, 138, 74, 0.08), rgba(109, 149, 180, 0.32), rgba(67, 167, 158, 0.08));
+        background: rgba(200, 170, 130, 0.14);
       }
 
       .timeline-year-divider__label {
@@ -1550,9 +1501,9 @@
         gap: 0.4rem;
         padding: 0.25rem 0.75rem;
         border-radius: var(--radius-sm);
-        background: linear-gradient(135deg, rgba(211, 138, 74, 0.16), rgba(109, 149, 180, 0.18));
-        border: 1px solid rgba(156, 195, 221, 0.2);
-        color: #d8e6f0;
+        background: rgba(212, 70, 84, 0.10);
+        border: 1px solid rgba(212, 70, 84, 0.22);
+        color: var(--primary);
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 0.1em;
@@ -1565,11 +1516,9 @@
         max-width: calc(100vw - 2rem);
         padding: 1rem 1.1rem;
         border-radius: var(--radius-lg);
-        background:
-          linear-gradient(180deg, rgba(23, 28, 39, 0.98), rgba(14, 18, 27, 0.98)),
-          linear-gradient(135deg, rgba(211, 138, 74, 0.08), rgba(109, 149, 180, 0.1));
-        border: 1px solid rgba(156, 195, 221, 0.18);
-        box-shadow: 0 18px 56px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(156, 195, 221, 0.06);
+        background: #291F16;
+        border: 1px solid rgba(200, 170, 130, 0.16);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.46), 0 0 0 1px rgba(200, 170, 130, 0.06);
         backdrop-filter: blur(12px);
         pointer-events: none;
         opacity: 0;
@@ -1590,9 +1539,9 @@
         transform: translateX(-50%) rotate(45deg);
         width: 12px;
         height: 12px;
-        background: rgba(18, 23, 33, 0.98);
-        border-right: 1px solid rgba(156, 195, 221, 0.18);
-        border-bottom: 1px solid rgba(156, 195, 221, 0.18);
+        background: #291F16;
+        border-right: 1px solid rgba(200, 170, 130, 0.16);
+        border-bottom: 1px solid rgba(200, 170, 130, 0.16);
       }
 
       .timeline-popover__title {
@@ -1622,7 +1571,7 @@
         padding: 0.2rem 0.55rem;
         border-radius: var(--radius-sm);
         background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(152, 131, 115, 0.14);
+        border: 1px solid rgba(200, 170, 130, 0.13);
         font-size: 0.72rem;
         color: var(--muted);
       }
@@ -1633,9 +1582,9 @@
       }
 
       .timeline-popover__chip.in-use {
-        background: rgba(83, 211, 157, 0.12);
-        border-color: rgba(83, 211, 157, 0.25);
-        color: #a5f0d0;
+        background: rgba(93, 200, 150, 0.10);
+        border-color: rgba(93, 200, 150, 0.22);
+        color: #8eedc7;
       }
 
       .version-card__head {
@@ -1656,8 +1605,10 @@
         font-size: 0.88rem;
       }
       .section-heading h2 {
-        font-size: clamp(1.45rem, 2vw, 2rem);
-        letter-spacing: -0.03em;
+        font-size: clamp(1.35rem, 2vw, 1.85rem);
+        letter-spacing: -0.02em;
+        font-family: "Fraunces", serif;
+        font-weight: 600;
       }
 
       .device-card__title,
@@ -1671,8 +1622,11 @@
         min-height: 2.2rem;
         padding: 0 0.9rem;
         border-radius: var(--radius-sm);
-        background: linear-gradient(135deg, rgba(109, 149, 180, 0.14), rgba(211, 138, 74, 0.14));
-        border: 1px solid rgba(156, 195, 221, 0.14);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(200, 170, 130, 0.14);
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 500;
       }
 
       .panel-title {
@@ -1691,15 +1645,16 @@
         padding: 0;
         border: none;
         background: transparent;
-        color: #f0b381;
+        color: var(--primary);
         font-weight: 600;
+        font-size: 0.88rem;
       }
 
       .device-card__open:hover,
       .table-link-button:hover,
       .device-card__open:focus-visible,
       .table-link-button:focus-visible {
-        color: #fff1e2;
+        color: var(--primary-soft);
       }
 
       .device-drawer {
@@ -1712,8 +1667,8 @@
         position: absolute;
         inset: 0;
         border: none;
-        background: rgba(5, 8, 12, 0.68);
-        backdrop-filter: blur(6px);
+        background: rgba(5, 4, 3, 0.62);
+        backdrop-filter: blur(5px);
       }
 
       .device-drawer__panel {
@@ -1723,12 +1678,9 @@
         width: min(560px, 100vw);
         height: 100%;
         padding: 1.2rem;
-        background:
-          linear-gradient(180deg, rgba(16, 21, 31, 0.98), rgba(12, 16, 25, 0.98)),
-          radial-gradient(circle at top right, rgba(109, 149, 180, 0.12), transparent 28%),
-          radial-gradient(circle at bottom left, rgba(211, 138, 74, 0.12), transparent 22%);
-        border-left: 1px solid rgba(152, 131, 115, 0.18);
-        box-shadow: -30px 0 60px rgba(0, 0, 0, 0.35);
+        background: #1E1812;
+        border-left: 1px solid rgba(200, 170, 130, 0.14);
+        box-shadow: -16px 0 48px rgba(0, 0, 0, 0.38);
         overflow-y: auto;
       }
 
@@ -1746,9 +1698,9 @@
         height: 2.8rem;
         display: inline-grid;
         place-items: center;
-        border-radius: 14px;
-        border: 1px solid rgba(152, 131, 115, 0.18);
-        background: rgba(255, 255, 255, 0.04);
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(200, 170, 130, 0.16);
+        background: rgba(255, 255, 255, 0.05);
         color: var(--text);
       }
 
@@ -1760,10 +1712,9 @@
         padding: 1rem 1.05rem;
         margin-bottom: 1rem;
         border-radius: var(--radius-lg);
-        background:
-          linear-gradient(180deg, rgba(34, 41, 56, 0.96), rgba(18, 24, 35, 0.94)),
-          linear-gradient(135deg, rgba(211, 138, 74, 0.08), rgba(109, 149, 180, 0.08));
-        border: 1px solid rgba(152, 131, 115, 0.16);
+        background: rgba(40, 32, 23, 0.92);
+        border: 1px solid rgba(200, 170, 130, 0.13);
+        box-shadow: var(--shadow);
       }
 
       .device-drawer__hero-main {
@@ -1785,13 +1736,13 @@
         align-items: flex-start;
         gap: 0.7rem;
         padding: 0.85rem 0.9rem;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.035);
-        border: 1px solid rgba(152, 131, 115, 0.12);
+        border-radius: var(--radius-sm);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(200, 170, 130, 0.11);
       }
 
       .drawer-signal i {
-        color: #f0b381;
+        color: var(--accent-deep);
       }
 
       .drawer-signal strong {
@@ -1847,14 +1798,6 @@
         }
       }
 
-      @keyframes aurora-drift {
-        from {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        to {
-          transform: translate3d(1.5%, -1.5%, 0) scale(1.06);
-        }
-      }
 
       .hero-panel .col-lg-5 {
         align-self: flex-end;
@@ -2090,6 +2033,8 @@
                   <button type="button" class="filter-chip status-filter" data-status="up-to-date"><span>Up to date</span><strong id="status-count-up-to-date">0</strong></button>
                   <button type="button" class="filter-chip status-filter" data-status="patch-available"><span>Patch available</span><strong id="status-count-patch-available">0</strong></button>
                   <button type="button" class="filter-chip status-filter" data-status="needs-update"><span>Needs update</span><strong id="status-count-needs-update">0</strong></button>
+                  <button type="button" class="filter-chip status-filter" data-status="not-deployed"><span>Not deployed</span><strong id="status-count-not-deployed">0</strong></button>
+                  <button type="button" class="filter-chip status-filter" data-status="in-development"><span>In development</span><strong id="status-count-in-development">0</strong></button>
                   <button type="button" class="filter-chip status-filter" data-status="unknown"><span>Unknown</span><strong id="status-count-unknown">0</strong></button>
                 </div>
               </div>
@@ -2307,41 +2252,51 @@
         "Up to date": "up-to-date",
         "Patch available": "patch-available",
         "Needs update": "needs-update",
+        "Not deployed": "not-deployed",
+        "In development": "in-development",
         Unknown: "unknown",
       };
+
+      const STATUS_SEQUENCE = ["Up to date", "Patch available", "Needs update", "Not deployed", "In development", "Unknown"];
 
       const STATUS_ORDER = {
         "Needs update": 0,
         "Patch available": 1,
         Unknown: 2,
-        "Up to date": 3,
+        "Not deployed": 3,
+        "In development": 4,
+        "Up to date": 5,
       };
 
       const STATUS_COPY = {
         "Up to date": "Aligned with the current release",
         "Patch available": "Patch-level update available",
         "Needs update": "Behind the current feature release",
+        "Not deployed": "Configuration exists but no verified deployment record is stored",
+        "In development": "Prototype or work-in-progress device, not part of the deployed fleet",
         Unknown: "Version data missing or invalid",
       };
 
       const STATUS_COLORS = {
-        "Up to date": "rgba(83, 211, 157, 0.9)",
-        "Patch available": "rgba(140, 164, 255, 0.92)",
-        "Needs update": "rgba(241, 163, 95, 0.92)",
-        Unknown: "rgba(220, 106, 135, 0.92)",
+        "Up to date": "rgba(93, 200, 150, 0.88)",
+        "Patch available": "rgba(122, 171, 232, 0.88)",
+        "Needs update": "rgba(232, 168, 76, 0.88)",
+        "Not deployed": "rgba(230, 187, 90, 0.88)",
+        "In development": "rgba(93, 200, 190, 0.88)",
+        Unknown: "rgba(212, 70, 84, 0.88)",
       };
 
       const COMPONENT_COLORS = {
-        core: "#d3dde6",
-        modbus: "#8ac7f2",
-        onewire: "#72e2c5",
-        digital: "#efb36c",
-        analog: "#f19b78",
-        i2c: "#93dfe6",
-        virtual: "#c49ac8",
-        algae: "#67c8a8",
-        switch: "#d8b06e",
-        "digital-switch": "#d8b06e",
+        core: "#B0C0CC",
+        modbus: "#7AABE8",
+        onewire: "#5DC8BE",
+        digital: "#E8A84C",
+        analog: "#E8905A",
+        i2c: "#7AD8E0",
+        virtual: "#C090D8",
+        algae: "#5DC896",
+        switch: "#6a4a10",
+        "digital-switch": "#6a4a10",
         digital_switch: "#d8b06e",
       };
 
@@ -2385,6 +2340,8 @@
           "Up to date": 0,
           "Patch available": 0,
           "Needs update": 0,
+          "Not deployed": 0,
+          "In development": 0,
           Unknown: 0,
         };
       }
@@ -2692,14 +2649,26 @@
           track?.latestVersion ||
           fallbackTargetVersion ||
           "";
-        const versionDisplay = String(device?.versionDisplay || version || "").trim() || "Unknown";
-        const calculatedStatus = device?.calculatedStatus || getUpdateStatus(version, targetVersion);
+        const calculatedStatus = device?.calculatedStatus || getUpdateStatus(version, targetVersion, device);
+        const versionDisplay =
+          String(device?.versionDisplay || version || "").trim() ||
+          (calculatedStatus === "Not deployed"
+            ? "Not deployed"
+            : calculatedStatus === "In development"
+              ? "In development"
+              : "Unknown");
 
         return {
           ...device,
           deviceKey: createDeviceKey(device, trackId),
           components,
           hardware: String(device?.hardware || "").trim(),
+          deploymentEnvironment: String(device?.deployment_environment || device?.deploymentEnvironment || "").trim(),
+          declaredDeploymentVersion: String(device?.declared_deployment_version || device?.declaredDeploymentVersion || "").trim(),
+          sensorSummary: String(device?.sensor_summary || device?.sensorSummary || "").trim(),
+          notes: String(device?.notes || "").trim(),
+          updatedBy: String(device?.updated_by || device?.updatedBy || "").trim(),
+          versionLastUpdated: String(device?.version_last_updated || device?.versionLastUpdated || "").trim(),
           version,
           versionDisplay,
           calculatedStatus,
@@ -3057,6 +3026,8 @@
         document.getElementById("status-count-up-to-date").textContent = dashboardState.statusCounts["Up to date"];
         document.getElementById("status-count-patch-available").textContent = dashboardState.statusCounts["Patch available"];
         document.getElementById("status-count-needs-update").textContent = dashboardState.statusCounts["Needs update"];
+        document.getElementById("status-count-not-deployed").textContent = dashboardState.statusCounts["Not deployed"];
+        document.getElementById("status-count-in-development").textContent = dashboardState.statusCounts["In development"];
         document.getElementById("status-count-unknown").textContent = dashboardState.statusCounts.Unknown;
       }
 
@@ -3118,7 +3089,7 @@
 
       function renderStatusBreakdown(totalDevices) {
         const container = document.getElementById("status-breakdown");
-        container.innerHTML = ["Up to date", "Patch available", "Needs update", "Unknown"]
+        container.innerHTML = STATUS_SEQUENCE
           .map((status) => {
             const count = dashboardState.statusCounts[status];
             const percent = totalDevices ? Math.round((count / totalDevices) * 100) : 0;
@@ -3263,7 +3234,7 @@
                     <div class="device-card__detail"><div class="device-card__detail-label">Track target</div><div class="device-card__detail-value">${targetVersionMarkup}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Hardware</div><div class="device-card__detail-value">${hardwareMarkup}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Location</div><div class="device-card__detail-value">${escapeHtml(getDisplayLocation(device.location))}</div></div>
-                    <div class="device-card__detail"><div class="device-card__detail-label">Last deployed</div><div class="device-card__detail-value">${escapeHtml(getDisplayDate(device.last_deployed))}</div></div>
+                    <div class="device-card__detail"><div class="device-card__detail-label">Last deployed</div><div class="device-card__detail-value">${escapeHtml(getDisplayDate(device.last_deployed, device))}</div></div>
                   </div>
                   <div class="device-card__section">
                     <h3>Components</h3>
@@ -3319,7 +3290,7 @@
                   <div class="table-subtle" style="margin-top:0.5rem"><span class="risk-pill ${getRiskClassName(risk.level)}">Risk ${risk.score}</span></div>
                 </td>
                 <td>${escapeHtml(getDisplayLocation(device.location))}</td>
-                <td>${escapeHtml(getDisplayDate(device.last_deployed))}</td>
+                <td>${escapeHtml(getDisplayDate(device.last_deployed, device))}</td>
               </tr>
             `;
           })
@@ -3851,6 +3822,8 @@
         if (devices.some((device) => device.calculatedStatus === "Needs update")) return "status-needs-update";
         if (devices.some((device) => device.calculatedStatus === "Unknown")) return "status-unknown";
         if (devices.some((device) => device.calculatedStatus === "Patch available")) return "status-patch-available";
+        if (devices.some((device) => device.calculatedStatus === "Not deployed")) return "status-not-deployed";
+        if (devices.some((device) => device.calculatedStatus === "In development")) return "status-in-development";
         return "status-up-to-date";
       }
 
@@ -3874,13 +3847,13 @@
 
         const risk = computeDeviceRisk(device);
         const drawer = document.getElementById("device-drawer");
-        const versionGap = describeVersionGap(device.version, device.targetVersion);
+        const versionGap = describeVersionGap(device.version, device.targetVersion, device);
         const deploymentAge = getDeploymentAge(device.last_deployed);
 
         dashboardState.selectedDeviceKey = device.deviceKey;
         document.getElementById("device-drawer-track").textContent = device.trackLabel || "Device";
         document.getElementById("device-drawer-name").textContent = device.name || "Unnamed device";
-        document.getElementById("device-drawer-summary").textContent = risk.summary;
+        document.getElementById("device-drawer-summary").textContent = device.sensorSummary || risk.summary;
 
         const statusBadge = document.getElementById("device-drawer-status");
         statusBadge.className = `status-pill ${STATUS_LABELS[device.calculatedStatus]}`;
@@ -3894,7 +3867,7 @@
         document.getElementById("device-drawer-target").textContent = device.targetVersion || "No tracked release";
         document.getElementById("device-drawer-hardware").textContent = hasValue(device.hardware) ? device.hardware : "Hardware not specified";
         document.getElementById("device-drawer-location").textContent = getDisplayLocation(device.location);
-        document.getElementById("device-drawer-deployed").textContent = getDisplayDate(device.last_deployed);
+        document.getElementById("device-drawer-deployed").textContent = getDisplayDate(device.last_deployed, device);
         document.getElementById("device-drawer-components").innerHTML = generateComponentTags(device.components);
         document.getElementById("device-drawer-signals").innerHTML = risk.signals
           .map((signal) => `
@@ -3907,11 +3880,27 @@
             </div>
           `)
           .join("");
-        document.getElementById("device-drawer-posture").innerHTML = `
-          <p>${escapeHtml(versionGap)}</p>
-          <p>${escapeHtml(deploymentAge.copy)}</p>
-          <p>${escapeHtml(device.targetVersion ? `Track target is ${device.targetVersion}.` : "No tracked release target is configured for this device.")}</p>
-        `;
+        const postureLines = [
+          versionGap,
+          deploymentAge.copy,
+          device.targetVersion ? `Track target is ${device.targetVersion}.` : "No tracked release target is configured for this device.",
+        ];
+        if (hasValue(device.notes)) {
+          postureLines.push(`Notes: ${device.notes}`);
+        }
+        if (hasValue(device.updatedBy) || hasValue(device.versionLastUpdated)) {
+          const metadataParts = [];
+          if (hasValue(device.updatedBy)) {
+            metadataParts.push(`by ${device.updatedBy}`);
+          }
+          if (hasValue(device.versionLastUpdated)) {
+            metadataParts.push(`on ${formatDateOnly(device.versionLastUpdated)}`);
+          }
+          postureLines.push(`Metadata last updated ${metadataParts.join(" ")}.`);
+        }
+        document.getElementById("device-drawer-posture").innerHTML = postureLines
+          .map((line) => `<p>${escapeHtml(line)}</p>`)
+          .join("");
 
         drawer.hidden = false;
         drawer.setAttribute("aria-hidden", "false");
@@ -3953,7 +3942,7 @@
         if (sectionId && dashboardState.sections.some((section) => section.id === sectionId)) {
           setActiveSection(sectionId, false);
         }
-        if (["all", "up-to-date", "patch-available", "needs-update", "unknown"].includes(status)) {
+        if (["all", "up-to-date", "patch-available", "needs-update", "not-deployed", "in-development", "unknown"].includes(status)) {
           dashboardState.ui.status = status;
         }
         if (["date", "name", "status", "risk", "location"].includes(sortBy)) {
@@ -4019,29 +4008,19 @@
         }
 
         Chart.defaults.color = "#f4ede5";
-        Chart.defaults.font.family = '"Noto Sans", sans-serif';
+        Chart.defaults.font.family = '"Inter", sans-serif';
 
         statusChart = new Chart(context, {
           type: "doughnut",
           data: {
-            labels: ["Up to date", "Patch available", "Needs update", "Unknown"],
+            labels: STATUS_SEQUENCE,
             datasets: [
               {
-                data: [
-                  dashboardState.statusCounts["Up to date"],
-                  dashboardState.statusCounts["Patch available"],
-                  dashboardState.statusCounts["Needs update"],
-                  dashboardState.statusCounts.Unknown,
-                ],
-                backgroundColor: [
-                  STATUS_COLORS["Up to date"],
-                  STATUS_COLORS["Patch available"],
-                  STATUS_COLORS["Needs update"],
-                  STATUS_COLORS.Unknown,
-                ],
-                borderColor: "rgba(16, 20, 29, 0.98)",
-                borderWidth: 4,
-                hoverOffset: 5,
+                data: STATUS_SEQUENCE.map((status) => dashboardState.statusCounts[status]),
+                backgroundColor: STATUS_SEQUENCE.map((status) => STATUS_COLORS[status]),
+                borderColor: "rgba(26, 20, 16, 0.98)",
+                borderWidth: 3,
+                hoverOffset: 4,
               },
             ],
           },
@@ -4052,11 +4031,11 @@
             plugins: {
               legend: { display: false },
               tooltip: {
-                backgroundColor: "rgba(17, 22, 32, 0.96)",
-                borderColor: "rgba(156, 195, 221, 0.18)",
+                backgroundColor: "rgba(40, 32, 23, 0.97)",
+                borderColor: "rgba(200, 170, 130, 0.18)",
                 borderWidth: 1,
-                titleColor: "#fff6ee",
-                bodyColor: "#f4ede5",
+                titleColor: "#EAE3D9",
+                bodyColor: "#9A8A78",
                 padding: 12,
               },
             },
@@ -4084,14 +4063,36 @@
         document.getElementById("version-changes-list").innerHTML = errorMarkup;
       }
 
-      function getUpdateStatus(deviceVersion, latestVersion) {
+      function getLifecycleStatus(device) {
+        const deploymentEnvironment = String(device?.deployment_environment || device?.deploymentEnvironment || "").trim().toLowerCase();
+        const declaredDeploymentVersion = String(
+          device?.declared_deployment_version || device?.declaredDeploymentVersion || device?.deployment_version || device?.deploymentVersion || ""
+        )
+          .trim()
+          .toLowerCase();
+        const hasDeploymentRecord = [device?.last_deployed, device?.initial_deployed, device?.mac || device?.macAddress].some(hasValue);
+
+        if (deploymentEnvironment === "development") {
+          return "In development";
+        }
+
+        if (["0.0.0", "v0.0.0", "not-deployed", "vnot-deployed"].includes(declaredDeploymentVersion)) {
+          return hasDeploymentRecord ? "Unknown" : "Not deployed";
+        }
+
+        return "";
+      }
+
+      function getUpdateStatus(deviceVersion, latestVersion, device = null) {
+        const lifecycleStatus = getLifecycleStatus(device);
+        if (lifecycleStatus) return lifecycleStatus;
         if (!deviceVersion) return "Unknown";
-        const device = parseVersion(deviceVersion);
+        const parsedDevice = parseVersion(deviceVersion);
         const latest = parseVersion(latestVersion);
-        if (!device || !latest) return "Unknown";
-        if (device.major < latest.major) return "Needs update";
-        if (device.major === latest.major && device.minor < latest.minor) return "Needs update";
-        if (device.major === latest.major && device.minor === latest.minor && device.patch < latest.patch) return "Patch available";
+        if (!parsedDevice || !latest) return "Unknown";
+        if (parsedDevice.major < latest.major) return "Needs update";
+        if (parsedDevice.major === latest.major && parsedDevice.minor < latest.minor) return "Needs update";
+        if (parsedDevice.major === latest.major && parsedDevice.minor === latest.minor && parsedDevice.patch < latest.patch) return "Patch available";
         return "Up to date";
       }
 
@@ -4107,7 +4108,7 @@
       }
 
       function countStatuses(devices) {
-        const counts = { "Up to date": 0, "Patch available": 0, "Needs update": 0, Unknown: 0 };
+        const counts = createEmptyStatusCounts();
         devices.forEach((device) => {
           counts[device.calculatedStatus] += 1;
         });
@@ -4118,6 +4119,8 @@
         if (dashboardState.statusCounts["Needs update"] > 0) return { label: "Attention needed", className: "needs-update" };
         if (dashboardState.statusCounts.Unknown > 0) return { label: "Unknown devices", className: "unknown" };
         if (dashboardState.statusCounts["Patch available"] > 0) return { label: "Patch window", className: "patch-available" };
+        if (dashboardState.statusCounts["Not deployed"] > 0) return { label: "Deployment queue", className: "not-deployed" };
+        if (dashboardState.statusCounts["In development"] > 0) return { label: "Development work", className: "in-development" };
         return { label: "Aligned", className: "up-to-date" };
       }
 
@@ -4160,14 +4163,14 @@
           signals.push({
             icon: "bi-exclamation-diamond",
             title: "Feature release lag",
-            detail: describeVersionGap(device.version, device.targetVersion),
+            detail: describeVersionGap(device.version, device.targetVersion, device),
           });
         } else if (device.calculatedStatus === "Patch available") {
           score += 18;
           signals.push({
             icon: "bi-arrow-repeat",
             title: "Patch update available",
-            detail: describeVersionGap(device.version, device.targetVersion),
+            detail: describeVersionGap(device.version, device.targetVersion, device),
           });
         } else if (device.calculatedStatus === "Unknown") {
           score += 34;
@@ -4176,16 +4179,30 @@
             title: "Version telemetry incomplete",
             detail: "The dashboard cannot fully compare the installed firmware to the tracked target.",
           });
+        } else if (device.calculatedStatus === "Not deployed") {
+          score += 14;
+          signals.push({
+            icon: "bi-box-arrow-down",
+            title: "Configuration not deployed",
+            detail: "The device configuration exists, but no verified deployment record is stored yet.",
+          });
+        } else if (device.calculatedStatus === "In development") {
+          score += 8;
+          signals.push({
+            icon: "bi-tools",
+            title: "Development device",
+            detail: "This device is marked as development work and is outside the deployed fleet baseline.",
+          });
         } else {
           signals.push({
             icon: "bi-shield-check",
             title: "Release alignment healthy",
-            detail: describeVersionGap(device.version, device.targetVersion),
+            detail: describeVersionGap(device.version, device.targetVersion, device),
           });
         }
 
         const deploymentAge = getDeploymentAge(device.last_deployed);
-        if (deploymentAge.days === null) {
+        if (deploymentAge.days === null && !["Not deployed", "In development"].includes(device.calculatedStatus)) {
           score += 12;
           signals.push({
             icon: "bi-calendar-x",
@@ -4242,9 +4259,29 @@
             ? "Immediate review recommended before the next release cycle."
             : level === "elevated"
               ? "This device should be reviewed soon to avoid drift compounding."
-              : level === "watch"
+            : level === "watch"
                 ? "Healthy enough to run, but not fully aligned with the fleet target."
                 : "This device looks stable under the current release policy.";
+
+        if (device.calculatedStatus === "Not deployed") {
+          return {
+            score,
+            level,
+            summary: "This configuration is tracked, but there is no confirmed deployment record yet.",
+            primarySignal: signals[0]?.detail || "No deployment record is stored.",
+            signals: signals.slice(0, 4),
+          };
+        }
+
+        if (device.calculatedStatus === "In development") {
+          return {
+            score,
+            level,
+            summary: "This device is marked as in development and should not be judged against deployed fleet expectations.",
+            primarySignal: signals[0]?.detail || "Development status recorded.",
+            signals: signals.slice(0, 4),
+          };
+        }
 
         return {
           score,
@@ -4262,9 +4299,16 @@
         return "risk-pill--stable";
       }
 
-      function describeVersionGap(deviceVersion, targetVersion) {
+      function describeVersionGap(deviceVersion, targetVersion, device = null) {
+        const lifecycleStatus = getLifecycleStatus(device);
         if (!hasValue(targetVersion)) {
           return "No tracked release target is configured.";
+        }
+        if (lifecycleStatus === "Not deployed") {
+          return `No deployed firmware is recorded yet; track target is ${targetVersion}.`;
+        }
+        if (lifecycleStatus === "In development") {
+          return `Development device tracked against target ${targetVersion}, but not compared as a deployed unit.`;
         }
         if (!hasValue(deviceVersion)) {
           return `Installed firmware is unavailable; target is ${targetVersion}.`;
@@ -4331,8 +4375,12 @@
         return new Intl.DateTimeFormat("en-GB", { dateStyle: "medium" }).format(date);
       }
 
-      function getDisplayDate(value) {
-        return hasValue(value) ? formatDateOnly(value) : "Not deployed";
+      function getDisplayDate(value, device = null) {
+        if (hasValue(value)) return formatDateOnly(value);
+        const lifecycleStatus = getLifecycleStatus(device);
+        if (lifecycleStatus === "Not deployed") return "Not deployed";
+        if (lifecycleStatus === "In development") return "In development";
+        return "Not recorded";
       }
 
       function getDisplayLocation(location) {
