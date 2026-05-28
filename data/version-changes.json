@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.17.0",
+  "latest_version": "v3.18.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-28 15:06:05",
-  "last_updated": "2026-05-28 13:06:19",
+  "last_commit_date": "2026-05-28 17:10:52",
+  "last_updated": "2026-05-28 15:11:10",
   "version_changes": [
     {
-      "version": "v3.17.0",
+      "version": "v3.18.0",
       "date": "2026-05-28",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.17.0"
+      "description": "Bump FIRMWARE_VERSION to 3.18.0"
+    },
+    {
+      "version": "v3.17.0",
+      "date": "2026-05-28",
+      "components": [
+        "OneWire"
+      ],
+      "description": "Add MAC override and OneWire scan serial commands"
     },
     {
       "version": "v3.16.7",
