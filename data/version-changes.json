@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.16.7",
+  "latest_version": "v3.17.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-20 15:27:06",
-  "last_updated": "2026-05-20 13:27:22",
+  "last_commit_date": "2026-05-28 15:06:05",
+  "last_updated": "2026-05-28 13:06:19",
   "version_changes": [
+    {
+      "version": "v3.17.0",
+      "date": "2026-05-28",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.17.0"
+    },
     {
       "version": "v3.16.7",
       "date": "2026-05-20",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.16.7"
+      "description": "Fix WiFi offline deadman  restart after 2h with stored creds and no init"
     },
     {
       "version": "v3.16.6",
