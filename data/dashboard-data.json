@@ -1,31 +1,39 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-09 12:00:14",
+  "last_updated": "2026-06-09 15:32:33",
   "sections": [
     {
       "id": "sensor-hub",
       "label": "Sensor Hub",
       "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
       "repo_name": "glaecier-sensorhub-data-collector",
-      "latest_version": "v3.19.0",
-      "latest_version_label": "v3.19.0",
-      "last_commit_date": "2026-05-28 17:47:37",
-      "last_updated": "2026-06-09 12:00:14",
+      "latest_version": "v3.20.0",
+      "latest_version_label": "v3.20.0",
+      "last_commit_date": "2026-06-09 16:08:04",
+      "last_updated": "2026-06-09 15:32:33",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
-          "latest_version": "v3.19.0",
-          "last_commit_date": "2026-05-28 17:47:37",
+          "latest_version": "v3.20.0",
+          "last_commit_date": "2026-06-09 16:08:04",
           "version_changes": [
+            {
+              "version": "v3.20.0",
+              "date": "2026-06-09",
+              "components": [
+                "core"
+              ],
+              "description": "Bump FIRMWARE_VERSION to 3.20.0"
+            },
             {
               "version": "v3.19.0",
               "date": "2026-05-28",
               "components": [
-                "core"
+                "OneWire"
               ],
-              "description": "Bump FIRMWARE_VERSION to 3.19.0"
+              "description": "Switch OneWire stack to OneWireNg + serial command cleanup"
             },
             {
               "version": "v3.18.0",
@@ -821,12 +829,23 @@
       ],
       "version_changes": [
         {
-          "version": "v3.19.0",
-          "date": "2026-05-28",
+          "version": "v3.20.0",
+          "date": "2026-06-09",
           "components": [
             "core"
           ],
-          "description": "Bump FIRMWARE_VERSION to 3.19.0",
+          "description": "Bump FIRMWARE_VERSION to 3.20.0",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.19.0",
+          "date": "2026-05-28",
+          "components": [
+            "OneWire"
+          ],
+          "description": "Switch OneWire stack to OneWireNg + serial command cleanup",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -1936,7 +1955,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Emergency Button Monitor",
@@ -1958,7 +1977,7 @@
           "version_last_updated": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Floating Platform Motion",
@@ -1980,7 +1999,7 @@
           "version_last_updated": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Lounge Floor Temperature",
@@ -2002,7 +2021,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Main Power In",
@@ -2024,7 +2043,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "MOG Tank Water Sensor",
@@ -2046,7 +2065,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "OneWire Test",
@@ -2068,7 +2087,7 @@
           "version_last_updated": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Hallway CO2 Pressure",
@@ -2090,7 +2109,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Lounge CO2 Pressure",
@@ -2112,7 +2131,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Sauna dB Visualizer",
@@ -2134,7 +2153,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Sauna Floor Temperature",
@@ -2156,7 +2175,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Sauna Occupancy Counter",
@@ -2178,7 +2197,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Sauna Power Consumption",
@@ -2200,7 +2219,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Sauna Temperature and Humidity",
@@ -2222,7 +2241,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Ventilation Boost Button",
@@ -2244,7 +2263,7 @@
           "version_last_updated": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Water Heater Power Consumption",
@@ -2266,7 +2285,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Water Meter",
@@ -2288,7 +2307,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Water System Temperatures",
@@ -2311,7 +2330,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         },
         {
           "name": "Water Tank Temperatures",
@@ -2334,7 +2353,7 @@
           "version_last_updated": "2026-04-20",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.19.0"
+          "target_version": "v3.20.0"
         }
       ]
     },
@@ -2346,7 +2365,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-09 12:00:14",
+      "last_updated": "2026-06-09 15:32:33",
       "tracks": [
         {
           "id": "controllers",
@@ -2426,18 +2445,29 @@
       ]
     }
   ],
-  "latest_version": "v3.19.0",
-  "latest_version_label": "v3.19.0",
+  "latest_version": "v3.20.0",
+  "latest_version_label": "v3.20.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-05-28 17:47:37",
+  "last_commit_date": "2026-06-09 16:08:04",
   "version_changes": [
+    {
+      "version": "v3.20.0",
+      "date": "2026-06-09",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.20.0",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
     {
       "version": "v3.19.0",
       "date": "2026-05-28",
       "components": [
-        "core"
+        "OneWire"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.19.0",
+      "description": "Switch OneWire stack to OneWireNg + serial command cleanup",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
@@ -3547,7 +3577,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Emergency Button Monitor",
@@ -3569,7 +3599,7 @@
       "version_last_updated": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Floating Platform Motion",
@@ -3591,7 +3621,7 @@
       "version_last_updated": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Lounge Floor Temperature",
@@ -3613,7 +3643,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Main Power In",
@@ -3635,7 +3665,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "MOG Tank Water Sensor",
@@ -3657,7 +3687,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "OneWire Test",
@@ -3679,7 +3709,7 @@
       "version_last_updated": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Hallway CO2 Pressure",
@@ -3701,7 +3731,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Lounge CO2 Pressure",
@@ -3723,7 +3753,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Sauna dB Visualizer",
@@ -3745,7 +3775,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Sauna Floor Temperature",
@@ -3767,7 +3797,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Sauna Occupancy Counter",
@@ -3789,7 +3819,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Sauna Power Consumption",
@@ -3811,7 +3841,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Sauna Temperature and Humidity",
@@ -3833,7 +3863,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Ventilation Boost Button",
@@ -3855,7 +3885,7 @@
       "version_last_updated": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Water Heater Power Consumption",
@@ -3877,7 +3907,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Water Meter",
@@ -3899,7 +3929,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Water System Temperatures",
@@ -3922,7 +3952,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     },
     {
       "name": "Water Tank Temperatures",
@@ -3945,7 +3975,7 @@
       "version_last_updated": "2026-04-20",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.19.0"
+      "target_version": "v3.20.0"
     }
   ]
 }
