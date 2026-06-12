@@ -89,6 +89,10 @@
         display: none;
       }
 
+      .page-shell {
+        overflow-x: clip;
+      }
+
       a {
         color: inherit;
         text-decoration: none;
@@ -340,6 +344,31 @@
         max-width: 52ch;
         font-size: 1rem;
         line-height: 1.68;
+      }
+
+      .data-snapshot {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin-top: 0.1rem;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .data-snapshot i {
+        color: var(--accent-teal);
+      }
+
+      .data-snapshot.is-stale {
+        color: #f5c87a;
+      }
+
+      .data-snapshot.is-stale i {
+        color: var(--warning);
+      }
+
+      .relative-time {
+        cursor: help;
       }
 
       .hero-actions,
@@ -1043,6 +1072,70 @@
         margin-top: 1.35rem;
       }
 
+      .skeleton-line,
+      .skeleton-block,
+      .skeleton-pill {
+        position: relative;
+        overflow: hidden;
+        display: block;
+        border-radius: var(--radius-sm);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .skeleton-line::after,
+      .skeleton-block::after,
+      .skeleton-pill::after,
+      .skeleton-card::after,
+      .chart-shell.is-loading::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent, rgba(231, 184, 92, 0.14), transparent);
+        animation: shimmer 1.35s ease-in-out infinite;
+      }
+
+      .skeleton-line {
+        height: 0.78rem;
+      }
+
+      .skeleton-block {
+        min-height: 5rem;
+      }
+
+      .skeleton-pill {
+        width: 5rem;
+        height: 1.55rem;
+        border-radius: 999px;
+      }
+
+      .skeleton-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skeleton-card .device-card__title {
+        min-height: 0;
+      }
+
+      .chart-shell.is-loading {
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, rgba(27, 23, 19, 0.98) 0 42%, transparent 43%),
+          conic-gradient(from 90deg, rgba(217, 78, 89, 0.16), rgba(231, 184, 92, 0.18), rgba(93, 200, 190, 0.14), rgba(217, 78, 89, 0.16));
+      }
+
+      .chart-shell.is-loading canvas,
+      .chart-shell.is-loading .chart-center {
+        opacity: 0;
+      }
+
+      @keyframes shimmer {
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
       .sensor-intelligence-grid {
         display: grid;
         gap: 1rem;
@@ -1655,7 +1748,8 @@
         z-index: 1400;
       }
 
-      .device-drawer__backdrop {
+      .device-drawer__backdrop,
+      .command-palette__backdrop {
         position: absolute;
         inset: 0;
         border: none;
@@ -1768,6 +1862,94 @@
         border-top: 1px solid rgba(152, 131, 115, 0.12);
         color: var(--muted);
         font-size: 0.92rem;
+      }
+
+      .command-palette {
+        position: fixed;
+        inset: 0;
+        z-index: 1500;
+      }
+
+      .command-palette__panel {
+        position: absolute;
+        inset: 12vh 50% auto auto;
+        transform: translateX(50%);
+        width: min(680px, calc(100vw - 2rem));
+        overflow: hidden;
+        border-radius: var(--radius-xl);
+        background: #1E1812;
+        border: 1px solid rgba(200, 170, 130, 0.18);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .command-palette__search {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 1rem 1.1rem;
+        border-bottom: 1px solid rgba(200, 170, 130, 0.12);
+      }
+
+      .command-palette__search i {
+        color: var(--muted);
+      }
+
+      .command-palette__search input {
+        width: 100%;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: var(--text);
+        font-size: 1rem;
+      }
+
+      .command-palette__results {
+        display: grid;
+        gap: 0.35rem;
+        max-height: min(58vh, 520px);
+        overflow-y: auto;
+        padding: 0.55rem;
+      }
+
+      .command-palette__item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        min-height: 3.15rem;
+        padding: 0.65rem 0.75rem;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--text);
+        text-align: left;
+      }
+
+      .command-palette__item i {
+        color: var(--accent);
+      }
+
+      .command-palette__item.active,
+      .command-palette__item:hover,
+      .command-palette__item:focus-visible {
+        border-color: rgba(212, 70, 84, 0.30);
+        background: rgba(212, 70, 84, 0.12);
+      }
+
+      .command-palette__title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 700;
+      }
+
+      .command-palette__meta {
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
       .fade-in {
@@ -2019,6 +2201,36 @@
         }
       }
 
+      @media (max-width: 991.98px) {
+        .status-filter-row,
+        .component-filter-row,
+        .ota-filter-row,
+        .sort-cluster {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          overflow-y: hidden;
+          padding-bottom: 0.2rem;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          mask-image: linear-gradient(90deg, transparent 0, #000 1rem, #000 calc(100% - 1.7rem), transparent 100%);
+        }
+
+        .status-filter-row::-webkit-scrollbar,
+        .component-filter-row::-webkit-scrollbar,
+        .ota-filter-row::-webkit-scrollbar,
+        .sort-cluster::-webkit-scrollbar {
+          display: none;
+        }
+
+        .status-filter-row .filter-chip,
+        .component-filter-row .filter-chip,
+        .ota-filter-row .filter-chip,
+        .sort-cluster .sort-button {
+          flex: 0 0 auto;
+          white-space: nowrap;
+        }
+      }
+
 
       @media (max-width: 767.98px) {
         .topbar .container {
@@ -2118,6 +2330,10 @@
               <p id="hero-copy" class="hero-copy">
                 Template alignment, deployment readiness, and release history for the ESP32 based part of the 3A Console sensor fleet.
               </p>
+              <div id="data-snapshot" class="data-snapshot" title="Awaiting data snapshot">
+                <i class="bi bi-clock-history"></i>
+                <span>Data snapshot: loading</span>
+              </div>
               <div id="section-tabs" class="section-tab-row">
                 <button type="button" class="section-tab active">
                   <span class="section-tab__label">Loading sections</span>
@@ -2477,6 +2693,18 @@
           </div>
         </aside>
       </div>
+
+      <div id="command-palette" class="command-palette" hidden aria-hidden="true">
+        <button type="button" class="command-palette__backdrop" data-command-close aria-label="Close command palette"></button>
+        <div class="command-palette__panel" role="dialog" aria-modal="true" aria-labelledby="command-palette-title">
+          <label class="command-palette__search" for="command-palette-input">
+            <i class="bi bi-command"></i>
+            <input id="command-palette-input" type="text" autocomplete="off" placeholder="Search devices, filters, sections, or views" />
+          </label>
+          <div id="command-palette-title" hidden>Command palette</div>
+          <div id="command-palette-results" class="command-palette__results"></div>
+        </div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -2533,6 +2761,9 @@
         digital_switch: "#d8b06e",
       };
 
+      const PREFS_STORAGE_KEY = "sensor-dashboard-prefs";
+      const DATA_STALE_MS = 2 * 60 * 60 * 1000;
+
       function createEmptyStatusCounts() {
         return {
           "Up to date": 0,
@@ -2559,6 +2790,13 @@
         devices: [],
         statusCounts: createEmptyStatusCounts(),
         selectedDeviceKey: "",
+        preferencesReady: false,
+        commandPalette: {
+          open: false,
+          query: "",
+          activeIndex: 0,
+          results: [],
+        },
         ui: {
           search: "",
           status: "all",
@@ -2571,8 +2809,10 @@
 
       let statusChart;
       let copyLinkResetHandle;
+      let preferencesWriteHandle;
 
       document.addEventListener("DOMContentLoaded", () => {
+        renderLoadingState();
         initializeDashboard();
       });
 
@@ -2602,7 +2842,9 @@
           }
 
           hydrateDashboardState(payload);
+          hydrateUiStateFromPreferences();
           hydrateUiStateFromUrl();
+          dashboardState.preferencesReady = true;
           renderSectionTabs();
           populateOverview();
           renderComponentFilters();
@@ -2611,11 +2853,72 @@
           bindEventListeners();
           applyFiltersAndRender();
           if (dashboardState.selectedDeviceKey) {
+            scrollDeviceBrowserIntoView();
             openDeviceDrawerByKey(dashboardState.selectedDeviceKey, false);
+            window.setTimeout(scrollDeviceBrowserIntoView, 0);
+            window.setTimeout(scrollDeviceBrowserIntoView, 250);
           }
         } catch (error) {
           console.error("Error initializing dashboard:", error);
           renderErrorState(error);
+        }
+      }
+
+      function renderLoadingState() {
+        const metricSkeletons = [
+          ["stat-total-devices", "stat-total-context"],
+          ["stat-coverage", "stat-coverage-context"],
+          ["stat-attention", "stat-attention-context"],
+          ["stat-components", "stat-components-context"],
+        ];
+
+        metricSkeletons.forEach(([valueId, contextId]) => {
+          const valueEl = document.getElementById(valueId);
+          const contextEl = document.getElementById(contextId);
+          if (valueEl) valueEl.innerHTML = `<span class="skeleton-line" style="width:3.8rem;height:2rem"></span>`;
+          if (contextEl) contextEl.innerHTML = `<span class="skeleton-line" style="width:100%"></span>`;
+        });
+
+        const chartShell = document.querySelector(".chart-shell");
+        chartShell?.classList.add("is-loading");
+        const statusBreakdown = document.getElementById("status-breakdown");
+        if (statusBreakdown) {
+          statusBreakdown.innerHTML = Array.from({ length: 4 }, () => `
+            <div class="status-row skeleton-card">
+              <div class="table-status">
+                <span class="skeleton-pill" style="width:1.55rem"></span>
+                <div style="width:100%">
+                  <span class="skeleton-line" style="width:9rem"></span>
+                  <span class="skeleton-line" style="width:13rem;margin-top:0.55rem"></span>
+                </div>
+              </div>
+              <span class="skeleton-line" style="width:3rem"></span>
+            </div>
+          `).join("");
+        }
+
+        const deviceCards = document.getElementById("device-cards");
+        if (deviceCards) {
+          deviceCards.innerHTML = Array.from({ length: 6 }, () => `
+            <div class="col-sm-6 col-xl-4">
+              <article class="device-card skeleton-card">
+                <div class="device-card__top">
+                  <div class="device-card__title" style="width:70%"><span class="skeleton-line"></span></div>
+                  <span class="skeleton-pill"></span>
+                </div>
+                <div class="device-card__meta">
+                  <div class="device-card__detail"><span class="skeleton-line" style="width:80%"></span><span class="skeleton-line" style="width:55%;margin-top:0.7rem"></span></div>
+                  <div class="device-card__detail"><span class="skeleton-line" style="width:60%"></span><span class="skeleton-line" style="width:90%;margin-top:0.7rem"></span></div>
+                  <div class="device-card__detail"><span class="skeleton-line" style="width:50%"></span><span class="skeleton-line" style="width:75%;margin-top:0.7rem"></span></div>
+                  <div class="device-card__detail"><span class="skeleton-line" style="width:70%"></span><span class="skeleton-line" style="width:60%;margin-top:0.7rem"></span></div>
+                </div>
+                <div class="device-card__section">
+                  <span class="skeleton-line" style="width:6rem"></span>
+                  <span class="skeleton-block" style="margin-top:0.7rem"></span>
+                </div>
+              </article>
+            </div>
+          `).join("");
         }
       }
 
@@ -3041,6 +3344,7 @@
           renderVersionHistory();
           createStatusChart();
           applyFiltersAndRender();
+          renderCommandPaletteResults();
         }
       }
 
@@ -3138,9 +3442,27 @@
         document.querySelectorAll("[data-drawer-close]").forEach((button) => {
           button.addEventListener("click", () => closeDeviceDrawer(true));
         });
+        document.querySelectorAll("[data-command-close]").forEach((button) => {
+          button.addEventListener("click", closeCommandPalette);
+        });
+        document.getElementById("command-palette-input").addEventListener("input", (event) => {
+          dashboardState.commandPalette.query = event.target.value;
+          dashboardState.commandPalette.activeIndex = 0;
+          renderCommandPaletteResults();
+        });
+        document.getElementById("command-palette-input").addEventListener("keydown", handleCommandPaletteKeydown);
         bindTopbarNavigation();
         document.addEventListener("keydown", (event) => {
+          if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+            event.preventDefault();
+            openCommandPalette();
+            return;
+          }
           if (event.key === "Escape") {
+            if (dashboardState.commandPalette.open) {
+              closeCommandPalette();
+              return;
+            }
             closeDeviceDrawer(true);
           }
         });
@@ -3209,7 +3531,8 @@
           ? `${repoUrl}/releases/tag/${encodeURIComponent(latestVersion)}`
           : "";
         const commitsUrl = repoUrl ? `${repoUrl}/commits/` : "";
-        const lastCommitText = formatDateTime(dashboardState.lastCommitDate);
+        const lastCommitText = formatRelativeTime(dashboardState.lastCommitDate);
+        const lastCommitTitle = formatAbsoluteDateTime(dashboardState.lastCommitDate);
 
         const latestVersionEl = document.getElementById("latest-version");
         latestVersionEl.innerHTML = releaseUrl
@@ -3223,10 +3546,11 @@
 
         const lastCommitEl = document.getElementById("last-commit-date");
         lastCommitEl.innerHTML = commitsUrl
-          ? `<a class="repo-link" href="${escapeHtml(commitsUrl)}" target="_blank" rel="noopener">${escapeHtml(lastCommitText)} <i class="bi bi-box-arrow-up-right"></i></a>`
-          : escapeHtml(lastCommitText);
-        document.getElementById("last-updated").textContent = formatDateTime(dashboardState.lastUpdated);
-        document.getElementById("footer-last-updated").textContent = formatDateTime(dashboardState.lastUpdated);
+          ? `<a class="repo-link relative-time" href="${escapeHtml(commitsUrl)}" target="_blank" rel="noopener" title="${escapeHtml(lastCommitTitle)}">${escapeHtml(lastCommitText)} <i class="bi bi-box-arrow-up-right"></i></a>`
+          : renderRelativeTime(dashboardState.lastCommitDate, { includeUnavailable: true });
+        document.getElementById("last-updated").innerHTML = renderRelativeTime(dashboardState.lastUpdated, { includeUnavailable: true });
+        document.getElementById("footer-last-updated").innerHTML = renderRelativeTime(dashboardState.lastUpdated, { includeUnavailable: true });
+        renderDataSnapshot();
         document.getElementById("repo-description").textContent =
           dashboardState.sectionDescription || "No section description provided.";
 
@@ -3255,6 +3579,18 @@
         renderStatusBreakdown(metrics.totalDevices);
         renderTrackSummaries();
         renderUpdatePlan();
+      }
+
+      function renderDataSnapshot() {
+        const snapshot = document.getElementById("data-snapshot");
+        const date = parseDate(dashboardState.lastUpdated);
+        const isStale = date ? Date.now() - date.getTime() > DATA_STALE_MS : false;
+        snapshot.classList.toggle("is-stale", isStale);
+        snapshot.title = formatAbsoluteDateTime(dashboardState.lastUpdated);
+        snapshot.innerHTML = `
+          <i class="bi bi-clock-history"></i>
+          <span>Data snapshot: ${escapeHtml(formatRelativeTime(dashboardState.lastUpdated))}</span>
+        `;
       }
 
       function populateOtaCounts() {
@@ -3328,12 +3664,12 @@
           .map((track) => {
             const deviceCount = deviceCounts.get(track.id) || 0;
             const latestVersion = track.latestVersion || "No tracked release";
-            const commitDate = track.lastCommitDate ? formatDateTime(track.lastCommitDate) : "Commit not tracked";
+            const commitDate = track.lastCommitDate ? renderRelativeTime(track.lastCommitDate) : "Commit not tracked";
             return `
               <div class="track-summary-card">
                 <div class="track-summary-card__label">${escapeHtml(track.label)}</div>
                 <div class="track-summary-card__value mono">${escapeHtml(latestVersion)}</div>
-                <div class="track-summary-card__meta">${deviceCount} device${deviceCount === 1 ? "" : "s"} | ${escapeHtml(commitDate)}</div>
+                <div class="track-summary-card__meta">${deviceCount} device${deviceCount === 1 ? "" : "s"} | ${commitDate}</div>
               </div>
             `;
           })
@@ -3415,6 +3751,8 @@
         syncControlStates();
         updateResultsSummary(filteredDevices.length);
         updateUrlState();
+        schedulePersistPreferences();
+        renderCommandPaletteResults();
       }
 
       function getFilteredDevices() {
@@ -3495,7 +3833,7 @@
                     <div class="device-card__detail"><div class="device-card__detail-label">Installed version</div><div class="device-card__detail-value">${versionMarkup}${versionDeltaMarkup}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Hardware</div><div class="device-card__detail-value">${hardwareMarkup}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Location</div><div class="device-card__detail-value">${escapeHtml(getDisplayLocation(device.location))}</div></div>
-                    <div class="device-card__detail"><div class="device-card__detail-label">Last deployed</div><div class="device-card__detail-value">${escapeHtml(getDisplayDate(device.last_deployed, device))}</div></div>
+                    <div class="device-card__detail"><div class="device-card__detail-label">Last deployed</div><div class="device-card__detail-value">${getDisplayDateMarkup(device.last_deployed, device)}</div></div>
                   </div>
                   <div class="device-card__section">
                     <h3>Components</h3>
@@ -3557,7 +3895,7 @@
                   <div class="table-subtle" style="margin-top:0.5rem"><span class="risk-pill ${getRiskClassName(risk.level)}">Risk ${risk.score}</span></div>
                 </td>
                 <td>${escapeHtml(getDisplayLocation(device.location))}</td>
-                <td>${escapeHtml(getDisplayDate(device.last_deployed, device))}</td>
+                <td>${getDisplayDateMarkup(device.last_deployed, device)}</td>
               </tr>
             `;
           })
@@ -3714,7 +4052,7 @@
                   >
                     <span class="timeline-node__dot"></span>
                     <span class="timeline-node__version mono">${escapeHtml(version.version || "Unknown")}</span>
-                    <span class="timeline-node__date">${escapeHtml(formatTimelineDate(version.date))}</span>
+                    <span class="timeline-node__date relative-time" title="${escapeHtml(formatAbsoluteDateTime(version.date))}">${escapeHtml(formatTimelineDate(version.date))}</span>
                     <div class="timeline-node__scope">${scopePips}</div>
                     ${inUseBadge}
                   </button>
@@ -3745,8 +4083,8 @@
           const components = Array.isArray(version.components) ? version.components : [];
           const trackLabel = String(version.track_label || "").trim();
 
-          let chips = `<span class="timeline-popover__chip"><i class="bi bi-calendar3"></i> ${escapeHtml(formatTimelineDate(version.date))}</span>`;
-          chips += `<span class="timeline-popover__chip"><i class="bi bi-clock-history"></i> ${escapeHtml(getRelativeReleaseAge(version.date))}</span>`;
+          let chips = `<span class="timeline-popover__chip relative-time" title="${escapeHtml(formatAbsoluteDateTime(version.date))}"><i class="bi bi-calendar3"></i> ${escapeHtml(formatTimelineDate(version.date))}</span>`;
+          chips += `<span class="timeline-popover__chip"><i class="bi bi-clock-history"></i> ${escapeHtml(formatRelativeTime(version.date))}</span>`;
           if (components.length) {
             chips += `<span class="timeline-popover__chip"><i class="bi bi-puzzle"></i> ${components.length} component${components.length !== 1 ? "s" : ""}</span>`;
           }
@@ -3832,26 +4170,17 @@
         if (!hasValue(value)) {
           return "Unknown date";
         }
+        if (!parseDate(value)) {
+          return String(value);
+        }
 
-        return formatDateOnly(value);
+        const absolute = formatAbsoluteDate(value);
+        const relative = formatRelativeTime(value);
+        return `${absolute} · ${relative}`;
       }
 
       function getRelativeReleaseAge(value) {
-        const date = parseDate(value);
-        if (!date) {
-          return "Unknown age";
-        }
-
-        const diffInDays = Math.max(0, Math.round((Date.now() - date.getTime()) / 86400000));
-        if (diffInDays === 0) {
-          return "Released today";
-        }
-
-        if (diffInDays === 1) {
-          return "Released 1 day ago";
-        }
-
-        return `Released ${diffInDays} days ago`;
+        return formatRelativeTime(value);
       }
 
       function syncControlStates() {
@@ -4099,12 +4428,12 @@
         const lastSeenRow = document.getElementById("device-drawer-last-seen-row");
         const lastSeenInfo = getLastSeenInfo(device);
         lastSeenRow.hidden = !lastSeenInfo.available;
-        document.getElementById("device-drawer-last-seen").textContent = lastSeenInfo.available
-          ? `${formatDateTime(device.lastSeen)} (${lastSeenInfo.relative})`
+        document.getElementById("device-drawer-last-seen").innerHTML = lastSeenInfo.available
+          ? renderRelativeTime(device.lastSeen)
           : "--";
 
         document.getElementById("device-drawer-location").textContent = getDisplayLocation(device.location);
-        document.getElementById("device-drawer-deployed").textContent = getDisplayDate(device.last_deployed, device);
+        document.getElementById("device-drawer-deployed").innerHTML = getDisplayDateMarkup(device.last_deployed, device);
         document.getElementById("device-drawer-components").innerHTML = generateComponentTags(device.components);
         document.getElementById("device-drawer-signals").innerHTML = risk.signals
           .map((signal) => `
@@ -4118,25 +4447,25 @@
           `)
           .join("");
         const postureLines = [
-          versionGap,
-          deploymentAge.copy,
-          device.targetVersion ? `Track target is ${device.targetVersion}.` : "No tracked release target is configured for this device.",
+          { text: versionGap },
+          { text: deploymentAge.copy },
+          { text: device.targetVersion ? `Track target is ${device.targetVersion}.` : "No tracked release target is configured for this device." },
         ];
         if (hasValue(device.notes)) {
-          postureLines.push(`Notes: ${device.notes}`);
+          postureLines.push({ text: `Notes: ${device.notes}` });
         }
         if (hasValue(device.updatedBy) || hasValue(device.versionLastUpdated)) {
           const metadataParts = [];
           if (hasValue(device.updatedBy)) {
-            metadataParts.push(`by ${device.updatedBy}`);
+            metadataParts.push(`by ${escapeHtml(device.updatedBy)}`);
           }
           if (hasValue(device.versionLastUpdated)) {
-            metadataParts.push(`on ${formatDateOnly(device.versionLastUpdated)}`);
+            metadataParts.push(`on ${renderRelativeTime(device.versionLastUpdated)}`);
           }
-          postureLines.push(`Metadata last updated ${metadataParts.join(" ")}.`);
+          postureLines.push({ html: `Metadata last updated ${metadataParts.join(" ")}.` });
         }
         document.getElementById("device-drawer-posture").innerHTML = postureLines
-          .map((line) => `<p>${escapeHtml(line)}</p>`)
+          .map((line) => `<p>${line.html || escapeHtml(line.text)}</p>`)
           .join("");
 
         drawer.hidden = false;
@@ -4166,6 +4495,34 @@
         }
       }
 
+      function hydrateUiStateFromPreferences() {
+        if (hasIncomingDashboardState()) {
+          return;
+        }
+
+        const prefs = readStoredPreferences();
+        if (!prefs) {
+          return;
+        }
+
+        if (prefs.section && dashboardState.sections.some((section) => section.id === prefs.section)) {
+          setActiveSection(prefs.section, false);
+        }
+        if (["all", "up-to-date", "patch-available", "needs-update", "not-deployed", "in-development", "unknown"].includes(prefs.status)) {
+          dashboardState.ui.status = prefs.status;
+        }
+        if (["all", "ota", "physical", "unknown"].includes(prefs.ota)) {
+          dashboardState.ui.ota = prefs.ota;
+        }
+        if (["date", "name", "status", "risk", "location"].includes(prefs.sortBy)) {
+          dashboardState.ui.sortBy = prefs.sortBy;
+        }
+        if (["card", "list"].includes(prefs.view)) {
+          dashboardState.ui.view = prefs.view;
+        }
+        dashboardState.ui.component = String(prefs.component || "all").trim() || "all";
+      }
+
       function hydrateUiStateFromUrl() {
         const params = new URLSearchParams(window.location.search);
         const sectionId = params.get("section");
@@ -4175,7 +4532,7 @@
         const ota = String(params.get("ota") || "all").trim();
         const sortBy = String(params.get("sort") || "date").trim();
         const view = String(params.get("view") || "card").trim();
-        const deviceKey = String(params.get("device") || "").trim();
+        const deviceKey = getDeviceKeyFromUrl(params);
 
         if (sectionId && dashboardState.sections.some((section) => section.id === sectionId)) {
           setActiveSection(sectionId, false);
@@ -4212,10 +4569,91 @@
         if (dashboardState.ui.ota !== "all") params.set("ota", dashboardState.ui.ota);
         if (dashboardState.ui.sortBy !== "date") params.set("sort", dashboardState.ui.sortBy);
         if (dashboardState.ui.view !== "card") params.set("view", dashboardState.ui.view);
-        if (dashboardState.selectedDeviceKey) params.set("device", dashboardState.selectedDeviceKey);
         const query = params.toString();
-        const nextUrl = query ? `${window.location.pathname}?${query}` : window.location.pathname;
+        const deviceHash = getSelectedDeviceHash();
+        const hash = deviceHash ? `#device=${encodeURIComponent(deviceHash)}` : "";
+        const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${hash}`;
         window.history.replaceState({}, "", nextUrl);
+      }
+
+      function hasIncomingDashboardState() {
+        const params = new URLSearchParams(window.location.search);
+        return [...params.keys()].some((key) => ["section", "search", "status", "component", "ota", "sort", "view", "device"].includes(key)) ||
+          parseDeviceHash(window.location.hash) !== "";
+      }
+
+      function readStoredPreferences() {
+        try {
+          const raw = window.localStorage?.getItem(PREFS_STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function schedulePersistPreferences() {
+        if (!dashboardState.preferencesReady) {
+          return;
+        }
+        if (preferencesWriteHandle) {
+          clearTimeout(preferencesWriteHandle);
+        }
+        preferencesWriteHandle = setTimeout(() => {
+          try {
+            window.localStorage?.setItem(PREFS_STORAGE_KEY, JSON.stringify({
+              section: dashboardState.activeSectionId,
+              status: dashboardState.ui.status,
+              component: dashboardState.ui.component,
+              ota: dashboardState.ui.ota,
+              sortBy: dashboardState.ui.sortBy,
+              view: dashboardState.ui.view,
+            }));
+          } catch (error) {
+            // Storage can be unavailable in private modes; dashboard state remains in memory.
+          }
+        }, 250);
+      }
+
+      function parseDeviceHash(hash) {
+        const value = String(hash || "").replace(/^#/, "");
+        if (!value.startsWith("device=")) {
+          return "";
+        }
+        try {
+          return decodeURIComponent(value.slice("device=".length)).trim().toLowerCase();
+        } catch (error) {
+          return "";
+        }
+      }
+
+      function getDeviceKeyFromUrl(params) {
+        const hashDevice = parseDeviceHash(window.location.hash);
+        if (hashDevice) {
+          const match = dashboardState.devices.find((device) => getDeviceHashKey(device) === hashDevice || device.deviceKey === hashDevice);
+          return match?.deviceKey || "";
+        }
+
+        const legacyDeviceKey = String(params.get("device") || "").trim();
+        if (legacyDeviceKey && dashboardState.devices.some((device) => device.deviceKey === legacyDeviceKey)) {
+          return legacyDeviceKey;
+        }
+        return "";
+      }
+
+      function getDeviceHashKey(device) {
+        const mac = String(device?.mac || "").trim().toLowerCase();
+        if (mac) {
+          return mac.replace(/[^a-f0-9]/g, "");
+        }
+        return String(device?.deviceKey || "").trim().toLowerCase();
+      }
+
+      function getSelectedDeviceHash() {
+        if (!dashboardState.selectedDeviceKey) {
+          return "";
+        }
+        const device = dashboardState.devices.find((entry) => entry.deviceKey === dashboardState.selectedDeviceKey);
+        return device ? getDeviceHashKey(device) : "";
       }
 
       async function copyCurrentViewLink() {
@@ -4243,8 +4681,187 @@
         }, 1800);
       }
 
+      function openCommandPalette() {
+        const palette = document.getElementById("command-palette");
+        const input = document.getElementById("command-palette-input");
+        dashboardState.commandPalette.open = true;
+        dashboardState.commandPalette.query = "";
+        dashboardState.commandPalette.activeIndex = 0;
+        palette.hidden = false;
+        palette.setAttribute("aria-hidden", "false");
+        input.value = "";
+        renderCommandPaletteResults();
+        window.setTimeout(() => input.focus(), 0);
+      }
+
+      function closeCommandPalette() {
+        const palette = document.getElementById("command-palette");
+        dashboardState.commandPalette.open = false;
+        palette.hidden = true;
+        palette.setAttribute("aria-hidden", "true");
+      }
+
+      function handleCommandPaletteKeydown(event) {
+        const results = dashboardState.commandPalette.results;
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          dashboardState.commandPalette.activeIndex = results.length
+            ? (dashboardState.commandPalette.activeIndex + 1) % results.length
+            : 0;
+          renderCommandPaletteResults();
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          dashboardState.commandPalette.activeIndex = results.length
+            ? (dashboardState.commandPalette.activeIndex - 1 + results.length) % results.length
+            : 0;
+          renderCommandPaletteResults();
+        } else if (event.key === "Enter") {
+          event.preventDefault();
+          const result = results[dashboardState.commandPalette.activeIndex];
+          if (result) {
+            executeCommandPaletteResult(result);
+          }
+        } else if (event.key === "Escape") {
+          event.preventDefault();
+          closeCommandPalette();
+        }
+      }
+
+      function buildCommandPaletteResults() {
+        const query = dashboardState.commandPalette.query.trim().toLowerCase();
+        const entries = [
+          ...dashboardState.devices.map((device) => ({
+            type: "device",
+            icon: "bi-cpu",
+            title: device.name || "Unnamed device",
+            meta: [device.calculatedStatus, device.location, device.trackLabel].filter(Boolean).join(" | "),
+            search: [device.name, device.location, device.calculatedStatus, device.mac, device.components.join(" ")].filter(Boolean).join(" "),
+            deviceKey: device.deviceKey,
+          })),
+          ...STATUS_SEQUENCE.map((status) => ({
+            type: "status",
+            icon: "bi-filter-circle",
+            title: `Status: ${status}`,
+            meta: "Apply status filter",
+            search: `status ${status}`,
+            status: STATUS_LABELS[status],
+          })),
+          ...dashboardState.sections.map((section) => ({
+            type: "section",
+            icon: "bi-folder2-open",
+            title: section.label,
+            meta: `${section.devices.length} devices`,
+            search: `section ${section.label} ${section.description}`,
+            sectionId: section.id,
+          })),
+          {
+            type: "view",
+            icon: "bi-grid-3x3-gap-fill",
+            title: "Card view",
+            meta: "Switch device browser",
+            search: "card grid view",
+            view: "card",
+          },
+          {
+            type: "view",
+            icon: "bi-list-ul",
+            title: "List view",
+            meta: "Switch device browser",
+            search: "list table view",
+            view: "list",
+          },
+        ];
+
+        return entries
+          .filter((entry) => !query || `${entry.title} ${entry.meta} ${entry.search}`.toLowerCase().includes(query))
+          .slice(0, 12);
+      }
+
+      function renderCommandPaletteResults() {
+        if (!dashboardState.commandPalette.open) {
+          return;
+        }
+
+        const container = document.getElementById("command-palette-results");
+        if (!container) {
+          return;
+        }
+
+        const results = buildCommandPaletteResults();
+        dashboardState.commandPalette.results = results;
+        if (dashboardState.commandPalette.activeIndex >= results.length) {
+          dashboardState.commandPalette.activeIndex = 0;
+        }
+
+        if (!results.length) {
+          container.innerHTML = `<div class="empty-state"><h3>No commands found</h3><p>Try a device name, status, section, or view.</p></div>`;
+          return;
+        }
+
+        container.innerHTML = results
+          .map((result, index) => `
+            <button type="button" class="command-palette__item ${index === dashboardState.commandPalette.activeIndex ? "active" : ""}" data-command-index="${index}">
+              <i class="bi ${escapeHtml(result.icon)}"></i>
+              <span class="command-palette__title">${escapeHtml(result.title)}</span>
+              <span class="command-palette__meta">${escapeHtml(result.meta)}</span>
+            </button>
+          `)
+          .join("");
+
+        container.querySelectorAll("[data-command-index]").forEach((button) => {
+          button.addEventListener("mouseenter", () => {
+            dashboardState.commandPalette.activeIndex = Number(button.dataset.commandIndex);
+            renderCommandPaletteResults();
+          });
+          button.addEventListener("click", () => {
+            const result = dashboardState.commandPalette.results[Number(button.dataset.commandIndex)];
+            if (result) {
+              executeCommandPaletteResult(result);
+            }
+          });
+        });
+      }
+
+      function executeCommandPaletteResult(result) {
+        closeCommandPalette();
+        if (result.type === "device") {
+          scrollDeviceBrowserIntoView();
+          openDeviceDrawerByKey(result.deviceKey, true);
+          return;
+        }
+        if (result.type === "status") {
+          dashboardState.ui.status = result.status;
+          applyFiltersAndRender();
+          document.getElementById("devices")?.scrollIntoView({ block: "start" });
+          return;
+        }
+        if (result.type === "section") {
+          resetSectionScopedFilters();
+          setActiveSection(result.sectionId, true);
+          document.getElementById("overview")?.scrollIntoView({ block: "start" });
+          return;
+        }
+        if (result.type === "view") {
+          dashboardState.ui.view = result.view;
+          applyFiltersAndRender();
+          document.getElementById("devices")?.scrollIntoView({ block: "start" });
+        }
+      }
+
+      function scrollDeviceBrowserIntoView() {
+        const devicesSection = document.getElementById("devices");
+        if (!devicesSection) {
+          return;
+        }
+        const top = Math.max(0, devicesSection.offsetTop - 80);
+        document.documentElement.scrollTop = top;
+        document.body.scrollTop = top;
+        window.scrollTo(0, top);
+      }
+
       function createStatusChart() {
         const context = document.getElementById("status-chart").getContext("2d");
+        document.querySelector(".chart-shell")?.classList.remove("is-loading");
         if (statusChart) {
           statusChart.destroy();
         }
@@ -4286,13 +4903,15 @@
       }
 
       function renderErrorState(error) {
+        document.querySelector(".chart-shell")?.classList.remove("is-loading");
         const message = escapeHtml(error.message || "Unknown error");
         const errorMarkup = `
           <div class="error-card">
-            <h3><i class="bi bi-exclamation-triangle"></i> Unable to load dashboard data</h3>
+            <h3><i class="bi bi-exclamation-triangle"></i> Failed to load fleet data</h3>
             <p>Loading dashboard data failed with: ${message}</p>
             <p>Preferred source: <span class="mono">data/dashboard-data.json</span>. Fallback sources: <span class="mono">data/version-changes.json</span> and <span class="mono">data/devices.json</span>.</p>
             <p>For GitHub Pages, generate the dashboard data ahead of deployment instead of calling the protected API from browser code.</p>
+            <button type="button" class="cta-button" data-retry-dashboard><i class="bi bi-arrow-clockwise"></i><span>Retry</span></button>
           </div>
         `;
 
@@ -4302,6 +4921,12 @@
         document.getElementById("device-cards").innerHTML = `<div class="col-12">${errorMarkup}</div>`;
         document.getElementById("device-table-body").innerHTML = `<tr><td colspan="7">${errorMarkup}</td></tr>`;
         document.getElementById("version-changes-list").innerHTML = errorMarkup;
+        document.querySelectorAll("[data-retry-dashboard]").forEach((button) => {
+          button.addEventListener("click", () => {
+            renderLoadingState();
+            initializeDashboard();
+          });
+        });
       }
 
       function getLifecycleStatus(device) {
@@ -4437,7 +5062,8 @@
         if (!seen.available) {
           return "";
         }
-        return `<span class="last-seen${seen.silent ? " last-seen--silent" : ""}" title="A silent device cannot pick up OTA updates"><i class="bi bi-broadcast"></i>${escapeHtml(seen.relative)}</span>`;
+        const title = `${formatAbsoluteDateTime(device.lastSeen)}${seen.silent ? " - A silent device cannot pick up OTA updates" : ""}`;
+        return `<span class="last-seen${seen.silent ? " last-seen--silent" : ""}" title="${escapeHtml(title)}"><i class="bi bi-broadcast"></i>${escapeHtml(seen.relative)}</span>`;
       }
 
       function buildUpdatePlan(devices) {
@@ -4856,13 +5482,44 @@
 
       function parseDate(value) {
         if (!hasValue(value)) return null;
+        const raw = String(value).trim();
+        if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+          const [year, month, day] = raw.split("-").map(Number);
+          return new Date(year, month - 1, day);
+        }
         if (/^\d{2}-\d{2}-\d{4}$/.test(value)) {
           const [day, month, year] = value.split("-");
           return new Date(`${year}-${month}-${day}T00:00:00`);
         }
-        const normalized = String(value).includes("T") ? value : String(value).replace(" ", "T");
+        const normalized = raw.includes("T") ? raw : raw.replace(" ", "T");
         const date = new Date(normalized);
         return Number.isNaN(date.getTime()) ? null : date;
+      }
+
+      function formatRelativeTime(value) {
+        if (!hasValue(value)) return "Not available";
+        const date = parseDate(value);
+        if (!date) return String(value);
+
+        const diffMs = date.getTime() - Date.now();
+        const absMs = Math.abs(diffMs);
+        const future = diffMs > 0;
+        const units = [
+          { label: "yr", ms: 365 * 86400000 },
+          { label: "mo", ms: 30 * 86400000 },
+          { label: "day", ms: 86400000 },
+          { label: "h", ms: 3600000 },
+          { label: "min", ms: 60000 },
+        ];
+
+        if (absMs < 45000) {
+          return "just now";
+        }
+
+        const unit = units.find((entry) => absMs >= entry.ms) || units[units.length - 1];
+        const amount = Math.max(1, Math.round(absMs / unit.ms));
+        const label = unit.label === "day" && amount !== 1 ? "days" : unit.label;
+        return future ? `in ${amount} ${label}` : `${amount} ${label} ago`;
       }
 
       function formatDateTime(value) {
@@ -4877,12 +5534,42 @@
         return new Intl.DateTimeFormat("en-GB", { dateStyle: "medium" }).format(date);
       }
 
+      function formatAbsoluteDateTime(value) {
+        return hasValue(value) ? formatDateTime(value) : "Not available";
+      }
+
+      function formatAbsoluteDate(value) {
+        if (!hasValue(value)) return "Not available";
+        const raw = String(value).trim();
+        if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+          return raw;
+        }
+        return formatDateOnly(value);
+      }
+
+      function renderRelativeTime(value, options = {}) {
+        if (!hasValue(value)) {
+          return options.includeUnavailable ? `<span class="relative-time" title="Not available">Not available</span>` : "Not available";
+        }
+        const relative = formatRelativeTime(value);
+        const absolute = formatAbsoluteDateTime(value);
+        if (relative === String(value)) {
+          return escapeHtml(relative);
+        }
+        return `<span class="relative-time" title="${escapeHtml(absolute)}">${escapeHtml(relative)}</span>`;
+      }
+
       function getDisplayDate(value, device = null) {
-        if (hasValue(value)) return formatDateOnly(value);
+        if (hasValue(value)) return formatRelativeTime(value);
         const lifecycleStatus = getLifecycleStatus(device);
         if (lifecycleStatus === "Not deployed") return "Not deployed";
         if (lifecycleStatus === "In development") return "In development";
         return "Not recorded";
+      }
+
+      function getDisplayDateMarkup(value, device = null) {
+        if (hasValue(value)) return renderRelativeTime(value);
+        return escapeHtml(getDisplayDate(value, device));
       }
 
       function getDisplayLocation(location) {
