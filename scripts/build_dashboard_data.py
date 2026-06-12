@@ -140,12 +140,13 @@ def extract_components(device_data: dict[str, Any], entry: dict[str, Any]) -> li
     return components
 
 
-def extract_location(device_data: dict[str, Any]) -> str:
+def extract_location(device_data: dict[str, Any], entry: dict[str, Any]) -> str:
     settings = device_data.get("settings") or {}
     sensor_location = settings.get("sensorLocation") or {}
     return (
         safe_string(sensor_location.get("description"))
         or safe_string((device_data.get("location") or {}).get("name"))
+        or safe_string(entry.get("location"))
         or ""
     )
 
@@ -294,6 +295,9 @@ def build_repo_device_summaries(
             device_meta = {}
 
         mac = normalize_mac(version_data.get("mac_address"))
+        if not mac:
+            continue
+
         registry_entry = registry_entry_map.get(mac, {})
         hardware = (
             safe_string(version_data.get("hardware_target"))
@@ -542,6 +546,7 @@ def fetch_device_summary(
     firmware_version = normalize_version((firmware_data or {}).get("version"))
     firmware_build_date = safe_string((firmware_data or {}).get("buildDate"))
     hardware = extract_hardware(entry)
+    last_deployed = firmware_build_date.split("T")[0] if firmware_build_date else safe_string(entry.get("last_deployed"))
 
     return {
         "name": label or safe_string(device_data.get("deviceName")) or mac,
@@ -552,15 +557,17 @@ def fetch_device_summary(
         "ota_capable": resolve_ota_capable(entry, hardware, capabilities),
         "hardware_note": safe_string(entry.get("hardware_note")),
         "last_seen": extract_last_seen(device_data),
-        "location": extract_location(device_data),
-        "last_deployed": firmware_build_date.split("T")[0] if firmware_build_date else "",
+        "location": extract_location(device_data, entry),
+        "last_deployed": last_deployed,
         "initial_deployed": safe_string(entry.get("initial_deployed")),
         "deployment_environment": safe_string(entry.get("deployment_environment")),
-        "declared_deployment_version": safe_string(entry.get("declared_deployment_version")),
+        "declared_deployment_version": (
+            safe_string(entry.get("declared_deployment_version")) or safe_string(entry.get("deployment_version"))
+        ),
         "sensor_summary": safe_string(entry.get("sensor_summary")),
         "notes": safe_string(entry.get("notes")),
         "updated_by": safe_string(entry.get("updated_by")),
-        "version_last_updated": safe_string(entry.get("version_last_updated")),
+        "version_last_updated": safe_string(entry.get("version_last_updated")) or safe_string(entry.get("last_updated")),
         "track": track_id,
         "track_label": track.get("label", track_id),
         "target_version": track.get("latest_version", ""),
@@ -595,15 +602,17 @@ def build_failure_device(
         "ota_capable": resolve_ota_capable(entry, hardware, capabilities),
         "hardware_note": safe_string(entry.get("hardware_note")),
         "last_seen": None,
-        "location": "",
-        "last_deployed": "",
+        "location": safe_string(entry.get("location")),
+        "last_deployed": safe_string(entry.get("last_deployed")),
         "initial_deployed": safe_string(entry.get("initial_deployed")),
         "deployment_environment": safe_string(entry.get("deployment_environment")),
-        "declared_deployment_version": safe_string(entry.get("declared_deployment_version")),
+        "declared_deployment_version": (
+            safe_string(entry.get("declared_deployment_version")) or safe_string(entry.get("deployment_version"))
+        ),
         "sensor_summary": safe_string(entry.get("sensor_summary")),
         "notes": safe_string(entry.get("notes")),
         "updated_by": safe_string(entry.get("updated_by")),
-        "version_last_updated": safe_string(entry.get("version_last_updated")),
+        "version_last_updated": safe_string(entry.get("version_last_updated")) or safe_string(entry.get("last_updated")),
         "track": track_id,
         "track_label": track.get("label", track_id),
         "target_version": track.get("latest_version", ""),
@@ -742,11 +751,14 @@ def main() -> int:
             resolved_paths = ", ".join(dict.fromkeys(local_repo_paths))
             print(f"Loaded {len(repo_devices)} devices for section '{section_id}' from {resolved_paths}")
             section_output["devices"].extend(repo_devices)
-            output_sections.append(section_output)
-            continue
 
         api_base = safe_string(registry_section.get("api_base")) or safe_string(device_registry.get("api_base"))
         device_entries = registry_section.get("devices", []) or []
+        represented_macs = {
+            normalize_mac(device.get("mac"))
+            for device in section_output["devices"]
+            if isinstance(device, dict) and safe_string(device.get("mac"))
+        }
 
         if device_entries and not api_base:
             print(f"Section '{section_id}' is missing api_base", file=sys.stderr)
@@ -759,15 +771,20 @@ def main() -> int:
             mac = safe_string(entry.get("mac"))
             if not mac:
                 continue
+            if normalize_mac(mac) in represented_macs:
+                continue
 
             try:
-                section_output["devices"].append(fetch_device_summary(api_base, entry, track_map, headers, hardware_capabilities))
+                device_summary = fetch_device_summary(api_base, entry, track_map, headers, hardware_capabilities)
             except HTTPError as error:
                 failures.append(f"{section_id}:{mac}: HTTP {error.code}")
-                section_output["devices"].append(build_failure_device(entry, track_map, hardware_capabilities))
+                device_summary = build_failure_device(entry, track_map, hardware_capabilities)
             except URLError as error:
                 failures.append(f"{section_id}:{mac}: {error.reason}")
-                section_output["devices"].append(build_failure_device(entry, track_map, hardware_capabilities))
+                device_summary = build_failure_device(entry, track_map, hardware_capabilities)
+
+            section_output["devices"].append(device_summary)
+            represented_macs.add(normalize_mac(mac))
 
         output_sections.append(section_output)
 

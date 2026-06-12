@@ -953,6 +953,7 @@
       .overview-grid .chart-surface {
         align-self: stretch;
         padding: 1.05rem;
+        overflow: visible;
       }
 
       .chart-layout {
@@ -1030,7 +1031,7 @@
 
       .fleet-pulse__lane {
         position: relative;
-        overflow: hidden;
+        overflow: visible;
         display: grid;
         grid-template-columns: minmax(7rem, 0.85fr) minmax(0, 1fr) auto;
         align-items: center;
@@ -1154,7 +1155,7 @@
         opacity: 1;
         transform: translateY(-2px) scale(1.13);
         box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18), 0 0 18px var(--node-glow, rgba(255, 255, 255, 0.24));
-        z-index: 2;
+        z-index: 20;
       }
 
       .fleet-pulse__tooltip {
@@ -1173,6 +1174,7 @@
         pointer-events: none;
         transform: translate(-50%, 4px);
         transition: opacity 0.16s ease, transform 0.16s ease;
+        z-index: 30;
       }
 
       .fleet-pulse__node:hover .fleet-pulse__tooltip,
