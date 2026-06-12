@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.20.0",
+  "latest_version": "v3.21.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-06-09 16:08:04",
-  "last_updated": "2026-06-09 14:08:30",
+  "last_commit_date": "2026-06-12 15:21:09",
+  "last_updated": "2026-06-12 13:21:38",
   "version_changes": [
+    {
+      "version": "v3.21.0",
+      "date": "2026-06-12",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.21.0"
+    },
     {
       "version": "v3.20.0",
       "date": "2026-06-09",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.20.0"
+      "description": "Modernize TFT display UI with flat dark theme"
     },
     {
       "version": "v3.19.0",
