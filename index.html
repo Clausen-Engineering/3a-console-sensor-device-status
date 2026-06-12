@@ -1677,15 +1677,164 @@
         font-size: 0.88rem;
       }
 
-      .version-migration-chart {
-        position: relative;
-        height: clamp(17rem, 34vw, 24rem);
-        min-height: 17rem;
+      .version-migration-body {
+        display: grid;
+        gap: 1rem;
       }
 
-      .version-migration-chart canvas {
-        width: 100% !important;
-        height: 100% !important;
+      .migration-map__scroll {
+        overflow-x: auto;
+        padding-bottom: 0.35rem;
+        scrollbar-width: thin;
+      }
+
+      .migration-map {
+        --mig-cell: 0.7rem;
+        --mig-gap: 2px;
+        display: grid;
+        gap: 3px 0;
+        width: max-content;
+        min-width: 100%;
+      }
+
+      .migration-map__row {
+        display: flex;
+        align-items: center;
+      }
+
+      .migration-map__label {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        flex: 0 0 9.5rem;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding-right: 0.75rem;
+        background: linear-gradient(90deg, rgba(33, 26, 19, 1) 86%, rgba(33, 26, 19, 0));
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.74rem;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .migration-map__row.is-latest .migration-map__label {
+        color: var(--accent-teal);
+      }
+
+      .migration-map__row.is-unknown .migration-map__label {
+        color: var(--primary);
+      }
+
+      .migration-map__count {
+        font-size: 0.7rem;
+        color: var(--text);
+        opacity: 0.85;
+      }
+
+      .mig-cell {
+        flex: 0 0 var(--mig-cell);
+        height: var(--mig-cell);
+        margin-right: var(--mig-gap);
+        border-radius: 2px;
+      }
+
+      .mig-cell.is-change {
+        box-shadow: 0 0 0 1px rgba(234, 227, 217, 0.7);
+      }
+
+      .migration-map__month {
+        flex: 0 0 auto;
+        overflow: hidden;
+        white-space: nowrap;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.68rem;
+        color: var(--muted);
+        opacity: 0.8;
+      }
+
+      .migration-map__legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1rem;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .migration-map__legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .migration-map__legend i {
+        width: 0.6rem;
+        height: 0.6rem;
+        border-radius: 2px;
+      }
+
+      .migration-map__legend i.legend-ring {
+        background: transparent;
+        box-shadow: 0 0 0 1px rgba(234, 227, 217, 0.7);
+      }
+
+      .migration-feed {
+        display: grid;
+        gap: 0.45rem;
+        padding-top: 0.85rem;
+        border-top: 1px solid rgba(200, 170, 130, 0.1);
+      }
+
+      .migration-feed__title {
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .migration-feed__row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      .migration-feed__date {
+        flex: 0 0 4.25rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .mig-delta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.14rem 0.55rem;
+        border-radius: 999px;
+        border: 1px solid rgba(200, 170, 130, 0.16);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .mig-delta.is-up {
+        color: var(--accent-teal);
+        border-color: rgba(93, 200, 190, 0.35);
+      }
+
+      .mig-delta.is-alert {
+        color: var(--primary);
+        border-color: rgba(217, 78, 89, 0.35);
+      }
+
+      .migration-feed__more,
+      .migration-feed__empty {
+        margin: 0;
+        font-size: 0.76rem;
+        color: var(--muted);
+        opacity: 0.85;
       }
 
       .timeline-track {
@@ -2388,12 +2537,6 @@
         flex-shrink: 0;
       }
 
-      .hardware-note-icon {
-        color: var(--accent);
-        margin-left: 0.35rem;
-        cursor: help;
-      }
-
       .last-seen {
         display: inline-flex;
         align-items: center;
@@ -2938,7 +3081,7 @@
                 <div class="ota-filter-row">
                   <button type="button" class="filter-chip ota-filter active" data-ota="all"><span>All</span><strong id="ota-count-all">0</strong></button>
                   <button type="button" class="filter-chip ota-filter" data-ota="ota"><span>OTA</span><strong id="ota-count-ota">0</strong></button>
-                  <button type="button" class="filter-chip ota-filter" data-ota="physical"><span>Physical</span><strong id="ota-count-physical">0</strong></button>
+                  <button type="button" class="filter-chip ota-filter" data-ota="physical"><span>Site visit</span><strong id="ota-count-physical">0</strong></button>
                   <button type="button" class="filter-chip ota-filter" data-ota="unknown"><span>Unknown</span><strong id="ota-count-unknown">0</strong></button>
                 </div>
               </div>
@@ -3058,18 +3201,16 @@
             <div class="version-migration-panel">
               <div class="version-migration-panel__head">
                 <div>
-                  <div class="panel-title">Fleet migration stream</div>
+                  <div class="panel-title">Fleet migration map</div>
                   <p id="version-migration-caption" class="version-migration-caption">Loading version adoption history...</p>
                 </div>
                 <span id="version-migration-count" class="section-badge">0 snapshots</span>
               </div>
               <div id="version-migration-empty" class="empty-state" hidden>
                 <h3>History accumulating</h3>
-                <p>History accumulating - chart appears after a few days of snapshots.</p>
+                <p>History accumulating - map appears after a few days of snapshots.</p>
               </div>
-              <div id="version-migration-chart-shell" class="version-migration-chart" hidden>
-                <canvas id="version-migration-chart" aria-label="Firmware version migration over time" role="img"></canvas>
-              </div>
+              <div id="version-migration-chart-shell" class="version-migration-body" hidden></div>
             </div>
             <div id="version-changes-list" class="timeline-track">
               <div class="version-card">Loading version history...</div>
@@ -3127,10 +3268,6 @@
                   <div class="repo-detail">
                     <dt>Update path</dt>
                     <dd id="device-drawer-ota">--</dd>
-                  </div>
-                  <div class="repo-detail" id="device-drawer-hardware-note-row" hidden>
-                    <dt>Hardware note</dt>
-                    <dd id="device-drawer-hardware-note">--</dd>
                   </div>
                   <div class="repo-detail" id="device-drawer-last-seen-row" hidden>
                     <dt>Last seen</dt>
@@ -3320,7 +3457,6 @@
       };
 
       let statusChart;
-      let versionMigrationChart;
       let copyLinkResetHandle;
       let preferencesWriteHandle;
 
@@ -3472,20 +3608,28 @@
 
         const firmwareVersion = firmwareData?.version || "";
         const firmwareBuildDate = firmwareData?.buildDate || "";
+        const registryVersion = getRegistryInstalledVersion(entry);
+        const normalizedFirmwareVersion = normalizeRegistryVersion(firmwareVersion);
         const targetVersion = String(entry?.target_version || "").trim() || track?.latestVersion || fallbackSectionVersion;
+        const apiLocation = String(deviceData.settings?.sensorLocation?.description || deviceData.location?.name || "").trim();
+        const registryLocation = String(entry?.location || "").trim();
 
         return {
           name: fallbackLabel || deviceData.deviceName || mac,
           mac: deviceData.macAddress || mac,
-          version: firmwareVersion ? `v${firmwareVersion.replace(/^v/, "")}` : "",
+          version: registryVersion || normalizedFirmwareVersion,
           components,
           hardware,
           ota_capable: resolveOtaCapable(entry, hardware, hardwareCapabilities),
-          hardware_note: String(entry?.hardware_note || "").trim(),
           last_seen: null,
-          location: deviceData.settings?.sensorLocation?.description || deviceData.location?.name || "",
-          last_deployed: firmwareBuildDate ? firmwareBuildDate.split("T")[0] : "",
-          initial_deployed: "",
+          location: registryLocation || apiLocation,
+          last_deployed: getRegistryLastFirmwareUpdate(entry) || (firmwareBuildDate ? firmwareBuildDate.split("T")[0] : ""),
+          initial_deployed: getRegistryFirstInstalled(entry),
+          declared_deployment_version: registryVersion,
+          pending_ota_version: normalizeRegistryVersion(entry?.pending_ota_version || entry?.pendingOtaVersion || ""),
+          pending_ota_created: String(entry?.pending_ota_created || entry?.pendingOtaCreated || "").trim(),
+          sensor_summary: String(entry?.sensor_summary || "").trim(),
+          notes: String(entry?.notes || "").trim(),
           track: trackId,
           track_label: track?.label || "",
           target_version: targetVersion,
@@ -3718,7 +3862,6 @@
             : typeof device?.otaCapable === "boolean"
               ? device.otaCapable
               : null,
-          hardwareNote: String(device?.hardware_note || device?.hardwareNote || "").trim(),
           lastSeen: String(device?.last_seen || device?.lastSeen || "").trim(),
           deploymentEnvironment: String(device?.deployment_environment || device?.deploymentEnvironment || "").trim(),
           declaredDeploymentVersion: String(device?.declared_deployment_version || device?.declaredDeploymentVersion || "").trim(),
@@ -3726,8 +3869,6 @@
           pendingOtaCreated: String(device?.pending_ota_created || device?.pendingOtaCreated || "").trim(),
           sensorSummary: String(device?.sensor_summary || device?.sensorSummary || "").trim(),
           notes: String(device?.notes || "").trim(),
-          updatedBy: String(device?.updated_by || device?.updatedBy || "").trim(),
-          versionLastUpdated: String(device?.version_last_updated || device?.versionLastUpdated || "").trim(),
           version,
           versionDisplay,
           calculatedStatus,
@@ -3735,6 +3876,29 @@
           trackLabel: String(device?.track_label || device?.trackLabel || track?.label || "").trim(),
           targetVersion,
         };
+      }
+
+      function normalizeRegistryVersion(value) {
+        const version = String(value || "").trim();
+        return version ? `v${version.replace(/^v/i, "")}` : "";
+      }
+
+      function getRegistryInstalledVersion(entry) {
+        return normalizeRegistryVersion(
+          entry?.installed_firmware_version ||
+          entry?.declared_deployment_version ||
+          entry?.deployment_version ||
+          entry?.deploymentVersion ||
+          ""
+        );
+      }
+
+      function getRegistryLastFirmwareUpdate(entry) {
+        return String(entry?.last_firmware_update || entry?.last_deployed || entry?.deployment_date || "").trim();
+      }
+
+      function getRegistryFirstInstalled(entry) {
+        return String(entry?.first_installed || entry?.initial_deployed || entry?.initial_deployment_date || "").trim();
       }
 
       async function buildDashboardPayloadFromSourceFiles(versionData, deviceRegistry, versionHistoryData = null) {
@@ -3766,23 +3930,27 @@
               const entry = registryDevices[index] || {};
               const track = trackMap.get(String(entry?.track || "").trim()) || null;
               const entryHardware = String(entry?.hardware || "").trim();
+              const registryVersion = getRegistryInstalledVersion(entry);
               return normalizeDevice(
                 {
                   name: String(entry?.label || entry?.mac || "Unknown device").trim(),
-                  version: "",
+                  mac: String(entry?.mac || "").trim(),
+                  version: registryVersion,
                   components: Array.isArray(entry?.components) ? entry.components : [],
                   hardware: entryHardware,
                   ota_capable: resolveOtaCapable(entry, entryHardware, hardwareCapabilities),
-                  hardware_note: String(entry?.hardware_note || "").trim(),
                   last_seen: null,
-                  location: "",
-                  last_deployed: "",
-                  initial_deployed: "",
+                  location: String(entry?.location || "").trim(),
+                  last_deployed: getRegistryLastFirmwareUpdate(entry),
+                  initial_deployed: getRegistryFirstInstalled(entry),
+                  declared_deployment_version: registryVersion,
+                  pending_ota_version: normalizeRegistryVersion(entry?.pending_ota_version || entry?.pendingOtaVersion || ""),
+                  pending_ota_created: String(entry?.pending_ota_created || entry?.pendingOtaCreated || "").trim(),
+                  sensor_summary: String(entry?.sensor_summary || "").trim(),
+                  notes: String(entry?.notes || "").trim(),
                   track: String(entry?.track || "").trim(),
                   track_label: track?.label || "",
                   target_version: track?.latestVersion || section.latestVersion || "",
-                  versionDisplay: "Unavailable",
-                  calculatedStatus: "Unknown",
                 },
                 trackMap,
                 section.latestVersion
@@ -3812,6 +3980,25 @@
         return registrySections.map((registrySection, index) => {
           const sectionId = String(registrySection?.id || `section-${index + 1}`).trim();
           const versionSection = versionMap.get(sectionId);
+          const registryTracks = Array.isArray(registrySection?.tracks) ? registrySection.tracks : [];
+          const registryTrackMap = new Map(
+            registryTracks
+              .filter((track) => track && String(track.id || "").trim())
+              .map((track) => [String(track.id || "").trim(), track])
+          );
+          const sourceTracks = versionSection?.tracks.length
+            ? versionSection.tracks.map((track) => {
+                const registryTrack = registryTrackMap.get(track.id) || {};
+                return {
+                  id: track.id,
+                  label: track.label || String(registryTrack.label || registryTrack.id || "Track").trim(),
+                  repo_name: track.repoName || String(registryTrack.repo_name || "").trim(),
+                  latest_version: track.latestVersion || normalizeRegistryVersion(registryTrack.latest_version || ""),
+                  last_commit_date: track.lastCommitDate,
+                  version_changes: track.versionChanges,
+                };
+              })
+            : registryTracks;
           return {
             id: sectionId,
             label: registrySection?.label || versionSection?.label || `Section ${index + 1}`,
@@ -3821,19 +4008,7 @@
             latest_version_label: versionSection?.latestVersionLabel || "",
             last_commit_date: versionSection?.lastCommitDate || "",
             last_updated: normalizedVersion.lastUpdated || "",
-            tracks:
-              versionSection?.tracks.length
-                ? versionSection.tracks.map((track) => ({
-                    id: track.id,
-                    label: track.label,
-                    repo_name: track.repoName,
-                    latest_version: track.latestVersion,
-                    last_commit_date: track.lastCommitDate,
-                    version_changes: track.versionChanges,
-                  }))
-                : Array.isArray(registrySection?.tracks)
-                  ? registrySection.tracks
-                  : [],
+            tracks: sourceTracks,
             version_changes: versionSection?.versionChanges || [],
             devices: Array.isArray(registrySection?.devices) ? registrySection.devices : [],
           };
@@ -4419,7 +4594,6 @@
           device.name,
           device.location,
           device.hardware,
-          device.hardwareNote,
           getOtaInfo(device).label,
           device.trackLabel,
           device.versionDisplay,
@@ -4473,7 +4647,7 @@
                 <article class="device-card card-enter status-${statusClass}" style="--stagger-delay:${staggerDelay}ms">
                   <div class="device-card__top">
                     <div>
-                      <div class="device-card__title">${escapeHtml(device.name || "Unnamed device")}${renderHardwareNoteIcon(device)}</div>
+                      <div class="device-card__title">${escapeHtml(device.name || "Unnamed device")}</div>
                     </div>
                     <div class="device-card__pill-stack">
                       <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
@@ -4528,7 +4702,7 @@
             return `
               <tr>
                 <td>
-                  <div class="table-device-name">${escapeHtml(device.name || "Unnamed device")}${renderHardwareNoteIcon(device)}</div>
+                  <div class="table-device-name">${escapeHtml(device.name || "Unnamed device")}</div>
                   <div class="table-subtle">${escapeHtml(device.trackLabel || "Device")}</div>
                   ${lastSeenMarkup}
                   <button type="button" class="table-link-button" data-device-key="${escapeHtml(device.deviceKey)}">
@@ -4827,19 +5001,15 @@
         const emptyState = document.getElementById("version-migration-empty");
         const caption = document.getElementById("version-migration-caption");
         const countBadge = document.getElementById("version-migration-count");
-        const canvas = document.getElementById("version-migration-chart");
         const snapshots = getActiveVersionHistorySnapshots();
 
         countBadge.textContent = `${snapshots.length} snapshot${snapshots.length === 1 ? "" : "s"}`;
 
         if (snapshots.length <= 1) {
-          if (versionMigrationChart) {
-            versionMigrationChart.destroy();
-            versionMigrationChart = null;
-          }
           shell.hidden = true;
+          shell.innerHTML = "";
           emptyState.hidden = false;
-          caption.textContent = "History accumulating - chart appears after a few days of snapshots.";
+          caption.textContent = "History accumulating - map appears after a few days of snapshots.";
           return;
         }
 
@@ -4847,114 +5017,18 @@
         shell.hidden = false;
 
         const metrics = buildMetrics();
-        caption.textContent = `Latest release coverage: ${metrics.upToDate} of ${metrics.totalDevices} devices`;
+        const events = buildVersionMovementEvents(snapshots);
+        const lastMovement = events.length ? formatAbsoluteDate(events[events.length - 1].date) : null;
+        caption.textContent = lastMovement
+          ? `Latest release coverage: ${metrics.upToDate} of ${metrics.totalDevices} devices - last movement ${lastMovement}`
+          : `Latest release coverage: ${metrics.upToDate} of ${metrics.totalDevices} devices - no movements recorded yet`;
 
-        const chartData = buildVersionMigrationChartData(snapshots);
-        const context = canvas.getContext("2d");
-        const reduceMotion = prefersReducedMotion();
-        if (versionMigrationChart) {
-          versionMigrationChart.destroy();
+        shell.innerHTML = buildMigrationMapHtml(snapshots) + buildMovementFeedHtml(events);
+
+        const scroller = shell.querySelector(".migration-map__scroll");
+        if (scroller) {
+          scroller.scrollLeft = scroller.scrollWidth;
         }
-
-        Chart.defaults.color = getThemeColor("--text", "#EAE3D9");
-        Chart.defaults.font.family = '"Inter", sans-serif';
-
-        versionMigrationChart = new Chart(context, {
-          type: "line",
-          data: chartData,
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: {
-              duration: reduceMotion ? 0 : 900,
-              easing: "easeOutQuart",
-              delay: (context) => reduceMotion || context.type !== "data"
-                ? 0
-                : Math.min(context.datasetIndex * 90, 540),
-            },
-            animations: {
-              y: {
-                from: (context) => context.chart.scales.y.getPixelForValue(0),
-                duration: reduceMotion ? 0 : 900,
-                easing: "easeOutQuart",
-                delay: (context) => reduceMotion ? 0 : Math.min(context.datasetIndex * 90, 540),
-              },
-            },
-            interaction: {
-              mode: "index",
-              intersect: false,
-            },
-            elements: {
-              line: {
-                borderJoinStyle: "round",
-              },
-            },
-            plugins: {
-              legend: {
-                position: "bottom",
-                labels: {
-                  boxWidth: 12,
-                  boxHeight: 12,
-                  color: getThemeColor("--muted", "#A99A88"),
-                  font: {
-                    family: '"JetBrains Mono", monospace',
-                    size: 11,
-                  },
-                  usePointStyle: true,
-                  pointStyle: "rectRounded",
-                },
-              },
-              tooltip: {
-                filter: (item) => Number(item.raw) > 0,
-                backgroundColor: "rgba(40, 32, 23, 0.97)",
-                borderColor: "rgba(200, 170, 130, 0.18)",
-                borderWidth: 1,
-                titleColor: getThemeColor("--text", "#EAE3D9"),
-                bodyColor: getThemeColor("--muted", "#A99A88"),
-                padding: 12,
-                callbacks: {
-                  title: (items) => formatAbsoluteDate(items[0]?.label || ""),
-                  label: (item) => `${item.dataset.label}: ${item.formattedValue}`,
-                },
-              },
-            },
-            scales: {
-              x: {
-                stacked: true,
-                grid: {
-                  color: "rgba(200, 170, 130, 0.06)",
-                  drawBorder: false,
-                },
-                ticks: {
-                  color: getThemeColor("--muted", "#A99A88"),
-                  maxRotation: 0,
-                  autoSkip: true,
-                  font: {
-                    family: '"JetBrains Mono", monospace',
-                    size: 11,
-                  },
-                },
-              },
-              y: {
-                stacked: true,
-                beginAtZero: true,
-                grid: {
-                  color: "rgba(200, 170, 130, 0.10)",
-                  drawBorder: false,
-                },
-                ticks: {
-                  precision: 0,
-                  stepSize: 1,
-                  color: getThemeColor("--muted", "#A99A88"),
-                  font: {
-                    family: '"JetBrains Mono", monospace',
-                    size: 11,
-                  },
-                },
-              },
-            },
-          },
-        });
       }
 
       function getActiveVersionHistorySnapshots() {
@@ -4973,8 +5047,7 @@
           .sort((left, right) => parseDateForSort(left.date) - parseDateForSort(right.date));
       }
 
-      function buildVersionMigrationChartData(snapshots) {
-        const labels = snapshots.map((snapshot) => snapshot.date);
+      function buildMigrationMapRows(snapshots) {
         const versionSet = new Set();
         let hasUnknown = false;
 
@@ -4992,70 +5065,191 @@
         });
 
         const versions = [...versionSet].sort(compareVersionsAscending);
-        const recentVersions = versions.slice(-6);
-        const olderVersions = versions.slice(0, Math.max(0, versions.length - recentVersions.length));
-        const datasets = [];
-        const colors = getVersionMigrationColors(recentVersions.length);
+        const MAX_VERSION_ROWS = 9;
+        const recentVersions = versions.slice(-MAX_VERSION_ROWS).reverse();
+        const olderVersions = versions.slice(0, Math.max(0, versions.length - MAX_VERSION_ROWS));
+
+        const teal = getThemeColor("--accent-teal", "#5DC8BE");
+        const gold = getThemeColor("--accent-gold", "#E7B85C");
+
+        const rows = recentVersions.map((version) => ({
+          label: version,
+          keys: [version],
+          color: version === dashboardState.latestVersion ? teal : gold,
+          modifier: version === dashboardState.latestVersion ? "is-latest" : "",
+        }));
 
         if (olderVersions.length) {
-          datasets.push(createVersionMigrationDataset(
-            "Older",
-            snapshots.map((snapshot) => sumVersionCounts(snapshot.counts, olderVersions)),
-            getThemeColor("--muted", "#A99A88"),
-            0.20
-          ));
+          rows.push({
+            label: `Older (${olderVersions.length} builds)`,
+            keys: olderVersions,
+            color: getThemeColor("--muted", "#A99A88"),
+            modifier: "",
+          });
         }
 
         if (hasUnknown) {
-          datasets.push(createVersionMigrationDataset(
-            "Unknown / not deployed",
-            snapshots.map((snapshot) => Number(snapshot.counts[""] || 0)),
-            getThemeColor("--primary", "#D94E59"),
-            0.16
-          ));
+          rows.push({
+            label: "Not deployed",
+            keys: [""],
+            color: getThemeColor("--primary", "#D94E59"),
+            modifier: "is-unknown",
+          });
         }
 
-        recentVersions.forEach((version, index) => {
-          const color = colors[index] || getThemeColor("--accent-gold", "#E7B85C");
-          datasets.push(createVersionMigrationDataset(
-            version,
-            snapshots.map((snapshot) => Number(snapshot.counts[version] || 0)),
-            color,
-            index === recentVersions.length - 1 ? 0.38 : 0.25
-          ));
-        });
-
-        return { labels, datasets };
-      }
-
-      function createVersionMigrationDataset(label, data, color, fillOpacity) {
-        return {
-          label,
-          data,
-          fill: true,
-          tension: 0.35,
-          pointRadius: 0,
-          pointHoverRadius: 4,
-          pointHitRadius: 12,
-          borderColor: color,
-          backgroundColor: colorWithAlpha(color, fillOpacity),
-          borderWidth: label === dashboardState.latestVersion ? 2.5 : 1.8,
-        };
-      }
-
-      function getVersionMigrationColors(count) {
-        const muted = getThemeColor("--muted", "#A99A88");
-        const accentDeep = getThemeColor("--accent-deep", "#C78935");
-        const accent = getThemeColor("--accent", "#E7B85C");
-        const accentGold = getThemeColor("--accent-gold", "#E7B85C");
-        const copper = getThemeColor("--accent-copper", "#E7B85C");
-        const teal = getThemeColor("--accent-teal", "#5DC8BE");
-        const palette = [muted, "#8F7963", "#A68662", teal, copper, accentDeep, accent, accentGold];
-        return palette.slice(Math.max(0, palette.length - Math.max(count, 1)));
+        return rows;
       }
 
       function sumVersionCounts(counts, versions) {
         return versions.reduce((sum, version) => sum + Number(counts[version] || 0), 0);
+      }
+
+      function buildMigrationMapHtml(snapshots) {
+        const rows = buildMigrationMapRows(snapshots);
+        const maxCount = Math.max(
+          1,
+          ...snapshots.flatMap((snapshot) => rows.map((row) => sumVersionCounts(snapshot.counts, row.keys)))
+        );
+        const lastSnapshot = snapshots[snapshots.length - 1];
+        const teal = getThemeColor("--accent-teal", "#5DC8BE");
+        const gold = getThemeColor("--accent-gold", "#E7B85C");
+        const primary = getThemeColor("--primary", "#D94E59");
+
+        const rowsHtml = rows
+          .map((row) => {
+            const currentCount = sumVersionCounts(lastSnapshot.counts, row.keys);
+            const cells = snapshots
+              .map((snapshot, index) => {
+                const count = sumVersionCounts(snapshot.counts, row.keys);
+                const changed = index > 0 && count !== sumVersionCounts(snapshots[index - 1].counts, row.keys);
+                const background = count
+                  ? colorWithAlpha(row.color, 0.18 + 0.72 * (count / maxCount))
+                  : "rgba(200, 170, 130, 0.07)";
+                const tooltip = `${row.label}: ${count} device${count === 1 ? "" : "s"} - ${snapshot.date}`;
+                return `<span class="mig-cell${changed ? " is-change" : ""}" style="background:${background}" title="${escapeHtml(tooltip)}"></span>`;
+              })
+              .join("");
+            return `
+              <div class="migration-map__row ${row.modifier}">
+                <span class="migration-map__label">
+                  <span>${escapeHtml(row.label)}</span>
+                  <span class="migration-map__count">${currentCount}</span>
+                </span>${cells}
+              </div>
+            `;
+          })
+          .join("");
+
+        return `
+          <div class="migration-map__scroll">
+            <div class="migration-map" role="img" aria-label="Firmware version adoption per day">
+              ${rowsHtml}
+              <div class="migration-map__row">
+                <span class="migration-map__label"></span>${buildMigrationMonthLabels(snapshots)}
+              </div>
+            </div>
+          </div>
+          <div class="migration-map__legend">
+            <span><i style="background:${teal}"></i> latest release</span>
+            <span><i style="background:${gold}"></i> earlier builds</span>
+            <span><i style="background:${primary}"></i> not deployed</span>
+            <span><i class="legend-ring"></i> count changed that day</span>
+          </div>
+        `;
+      }
+
+      function buildMigrationMonthLabels(snapshots) {
+        const groups = [];
+        snapshots.forEach((snapshot) => {
+          const date = parseDate(snapshot.date);
+          const key = date ? `${date.getFullYear()}-${date.getMonth()}` : "unknown";
+          const label = date ? new Intl.DateTimeFormat("en-GB", { month: "short" }).format(date) : "";
+          const last = groups[groups.length - 1];
+          if (last && last.key === key) {
+            last.span += 1;
+          } else {
+            groups.push({ key, label, span: 1 });
+          }
+        });
+        return groups
+          .map((group) => {
+            const label = group.span > 2 ? group.label : "";
+            return `<span class="migration-map__month" style="width: calc(${group.span} * (var(--mig-cell) + var(--mig-gap)))">${escapeHtml(label)}</span>`;
+          })
+          .join("");
+      }
+
+      function buildVersionMovementEvents(snapshots) {
+        const events = [];
+        for (let index = 1; index < snapshots.length; index++) {
+          const previous = snapshots[index - 1].counts;
+          const current = snapshots[index].counts;
+          const versions = new Set([...Object.keys(previous), ...Object.keys(current)]);
+          const changes = [...versions]
+            .map((version) => ({
+              version,
+              from: Number(previous[version] || 0),
+              to: Number(current[version] || 0),
+            }))
+            .filter((change) => change.from !== change.to)
+            .sort((left, right) => compareVersionsAscending(right.version, left.version));
+          if (changes.length) {
+            events.push({ date: snapshots[index].date, changes });
+          }
+        }
+        return events;
+      }
+
+      function buildMovementFeedHtml(events) {
+        if (!events.length) {
+          return `
+            <div class="migration-feed">
+              <div class="migration-feed__title">Movements</div>
+              <p class="migration-feed__empty">No version movements recorded in this history window.</p>
+            </div>
+          `;
+        }
+
+        const MAX_EVENT_ROWS = 6;
+        const visibleEvents = [...events].reverse().slice(0, MAX_EVENT_ROWS);
+        const hiddenCount = events.length - visibleEvents.length;
+
+        const rowsHtml = visibleEvents
+          .map((event) => {
+            const chips = event.changes
+              .map((change) => {
+                const isUnknown = !change.version;
+                const label = isUnknown ? "not deployed" : change.version;
+                const rising = change.to > change.from;
+                const tone = isUnknown
+                  ? (rising ? "is-alert" : "is-up")
+                  : (rising ? "is-up" : "is-down");
+                return `<span class="mig-delta ${tone}"><span>${escapeHtml(label)}</span><span>${change.from}&rarr;${change.to}</span></span>`;
+              })
+              .join("");
+            return `<div class="migration-feed__row"><span class="migration-feed__date">${escapeHtml(formatShortDate(event.date))}</span>${chips}</div>`;
+          })
+          .join("");
+
+        const moreHtml = hiddenCount > 0
+          ? `<div class="migration-feed__more">+ ${hiddenCount} earlier movement day${hiddenCount === 1 ? "" : "s"}</div>`
+          : "";
+
+        return `
+          <div class="migration-feed">
+            <div class="migration-feed__title">Movements (newest first)</div>
+            ${rowsHtml}
+            ${moreHtml}
+          </div>
+        `;
+      }
+
+      function formatShortDate(value) {
+        const date = parseDate(value);
+        if (!date) {
+          return String(value || "");
+        }
+        return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short" }).format(date);
       }
 
       function compareVersionsAscending(left, right) {
@@ -5130,7 +5324,8 @@
           activeFilters.push(`component: ${dashboardState.ui.component}`);
         }
         if (dashboardState.ui.ota !== "all") {
-          activeFilters.push(`update path: ${dashboardState.ui.ota}`);
+          const otaFilterLabels = { ota: "OTA", physical: "site visit", unknown: "unknown" };
+          activeFilters.push(`update path: ${otaFilterLabels[dashboardState.ui.ota] || dashboardState.ui.ota}`);
         }
         if (dashboardState.ui.search) {
           activeFilters.push(`search: "${dashboardState.ui.search}"`);
@@ -5325,12 +5520,8 @@
           otaInfo.capable === true
             ? "OTA — remote update supported"
             : otaInfo.capable === false
-              ? "Physical — requires site access"
+              ? "Site visit — firmware updates require physical access"
               : "Unknown — hardware capability not verified";
-
-        const noteRow = document.getElementById("device-drawer-hardware-note-row");
-        noteRow.hidden = !hasValue(device.hardwareNote);
-        document.getElementById("device-drawer-hardware-note").textContent = device.hardwareNote || "--";
 
         const lastSeenRow = document.getElementById("device-drawer-last-seen-row");
         const lastSeenInfo = getLastSeenInfo(device);
@@ -5367,16 +5558,6 @@
         }
         if (hasValue(device.notes)) {
           postureLines.push({ text: `Notes: ${device.notes}` });
-        }
-        if (hasValue(device.updatedBy) || hasValue(device.versionLastUpdated)) {
-          const metadataParts = [];
-          if (hasValue(device.updatedBy)) {
-            metadataParts.push(`by ${escapeHtml(device.updatedBy)}`);
-          }
-          if (hasValue(device.versionLastUpdated)) {
-            metadataParts.push(`on ${renderRelativeTime(device.versionLastUpdated)}`);
-          }
-          postureLines.push({ html: `Metadata last updated ${metadataParts.join(" ")}.` });
         }
         document.getElementById("device-drawer-posture").innerHTML = postureLines
           .map((line) => `<p>${line.html || escapeHtml(line.text)}</p>`)
@@ -5917,7 +6098,7 @@
           return {
             capable: false,
             behind,
-            label: "Physical",
+            label: "Site visit",
             className: "ota-pill--physical",
             icon: "bi-person-walking",
             description: "Firmware updates require physical access to this device",
@@ -5970,7 +6151,7 @@
         if (info.capable === null) {
           return "";
         }
-        const mutedClass = info.behind ? "" : " ota-pill--muted";
+        const mutedClass = info.capable === true && !info.behind ? " ota-pill--muted" : "";
         return `<span class="ota-pill ${info.className}${mutedClass}" title="${escapeHtml(info.description)}"><i class="bi ${info.icon}"></i>${escapeHtml(info.label)}</span>`;
       }
 
@@ -5985,13 +6166,6 @@
         return `<span class="ota-pill ota-pill--muted" title="${escapeHtml(title)}"><i class="bi bi-cloud-arrow-up"></i>Pending ${escapeHtml(device.pendingOtaVersion)}</span>`;
       }
 
-      function renderHardwareNoteIcon(device) {
-        if (!hasValue(device.hardwareNote)) {
-          return "";
-        }
-        return `<i class="bi bi-wrench-adjustable hardware-note-icon" title="${escapeHtml(device.hardwareNote)}"></i>`;
-      }
-
       function renderLastSeenBadge(device) {
         const seen = getLastSeenInfo(device);
         if (!seen.available) {
@@ -6004,7 +6178,7 @@
       function buildUpdatePlan(devices) {
         const plan = { ota: [], visit: [], hardware: [], unknown: [] };
         devices.forEach((device) => {
-          if (hasValue(device.hardwareNote)) {
+          if (device.otaCapable === false) {
             plan.hardware.push(device);
           }
           if (!isDeviceBehindTarget(device)) {
@@ -6041,7 +6215,7 @@
           return;
         }
 
-        note.textContent = `${behindCount} behind target | ${plan.hardware.length} hardware change${plan.hardware.length === 1 ? "" : "s"} pending`;
+        note.textContent = `${behindCount} behind target | ${plan.hardware.length} non-OTA device${plan.hardware.length === 1 ? "" : "s"} tracked for long-term modernization`;
 
         const buckets = [
           {
@@ -6062,8 +6236,8 @@
             devices: plan.hardware,
             className: "plan-bucket--hardware",
             icon: "bi-wrench-adjustable",
-            title: "Hardware change pending",
-            copy: "Devices with a recorded hardware note.",
+            title: "Future hardware modernization",
+            copy: "Non-OTA devices. They work as-is, but hardware can be modernized over time to support remote updates.",
           },
           {
             devices: plan.unknown,
@@ -6261,22 +6435,22 @@
             score += 12;
             signals.push({
               icon: "bi-person-walking",
-              title: "Physical access required",
-              detail: "Behind target and not OTA-capable — updating requires a site visit.",
+              title: "Site visit required",
+              detail: "Behind target and not OTA-capable; updating requires a site visit.",
             });
           } else if (device.otaCapable === null) {
             score += 6;
             signals.push({
               icon: "bi-question-diamond",
               title: "Update path unverified",
-              detail: "Behind target with unknown OTA capability — verify the hardware before planning the update.",
+              detail: "Behind target with unknown OTA capability; verify the hardware before planning the update.",
             });
           } else if (lastSeenInfo.available && lastSeenInfo.silent) {
             score += 10;
             signals.push({
               icon: "bi-broadcast",
               title: "Device silent",
-              detail: `OTA-capable but ${lastSeenInfo.relative} — a silent device cannot pick up remote updates.`,
+              detail: `OTA-capable but ${lastSeenInfo.relative}; a silent device cannot pick up remote updates.`,
             });
           }
         }

@@ -144,9 +144,9 @@ def extract_location(device_data: dict[str, Any], entry: dict[str, Any]) -> str:
     settings = device_data.get("settings") or {}
     sensor_location = settings.get("sensorLocation") or {}
     return (
-        safe_string(sensor_location.get("description"))
+        safe_string(entry.get("location"))
+        or safe_string(sensor_location.get("description"))
         or safe_string((device_data.get("location") or {}).get("name"))
-        or safe_string(entry.get("location"))
         or ""
     )
 
@@ -350,7 +350,6 @@ def build_repo_device_summaries(
                 "components": configured_components or extract_components_from_config(config_data),
                 "hardware": hardware,
                 "ota_capable": resolve_ota_capable(registry_entry, hardware, capabilities),
-                "hardware_note": safe_string(registry_entry.get("hardware_note")),
                 "last_seen": None,
                 "location": entry_value(registry_entry, "location") or safe_string(version_data.get("deployment_location")),
                 "last_deployed": entry_last_firmware_update(registry_entry) or safe_string(version_data.get("deployment_date")),
@@ -457,20 +456,22 @@ def build_section_tracks(registry_section: dict[str, Any], version_section: dict
         }
     else:
         base_track_id = safe_string(registry_section.get("id")) or "default-track"
-        track_map = {
-            base_track_id: normalize_track(
-                {
-                    "id": base_track_id,
-                    "label": safe_string(version_section.get("label")) or safe_string(registry_section.get("label")) or "Default track",
-                    "repo_name": safe_string(version_section.get("repo_name")),
-                    "latest_version": version_section.get("latest_version"),
-                    "last_commit_date": version_section.get("last_commit_date"),
-                    "version_changes": version_section.get("version_changes", []) or [],
-                },
-                base_track_id,
-                safe_string(registry_section.get("label")) or "Default track",
-            )
-        }
+        track_map = {}
+        if not isinstance(registry_section.get("tracks"), list) or not registry_section["tracks"]:
+            track_map = {
+                base_track_id: normalize_track(
+                    {
+                        "id": base_track_id,
+                        "label": safe_string(version_section.get("label")) or safe_string(registry_section.get("label")) or "Default track",
+                        "repo_name": safe_string(version_section.get("repo_name")),
+                        "latest_version": version_section.get("latest_version"),
+                        "last_commit_date": version_section.get("last_commit_date"),
+                        "version_changes": version_section.get("version_changes", []) or [],
+                    },
+                    base_track_id,
+                    safe_string(registry_section.get("label")) or "Default track",
+                )
+            }
 
     registry_tracks = registry_section.get("tracks")
     if isinstance(registry_tracks, list):
@@ -486,7 +487,7 @@ def build_section_tracks(registry_section: dict[str, Any], version_section: dict
                 "id": track_id,
                 "label": safe_string(registry_track.get("label")) or existing.get("label") or track_id,
                 "repo_name": safe_string(registry_track.get("repo_name")) or existing.get("repo_name", ""),
-                "latest_version": existing.get("latest_version", ""),
+                "latest_version": existing.get("latest_version", "") or normalize_version(registry_track.get("latest_version")),
                 "last_commit_date": existing.get("last_commit_date", ""),
                 "version_changes": existing.get("version_changes", []),
             }
@@ -577,10 +578,10 @@ def fetch_device_summary(
     except URLError:
         firmware_data = None
 
-    firmware_version = normalize_version((firmware_data or {}).get("version"))
+    firmware_version = entry_version(entry) or normalize_version((firmware_data or {}).get("version"))
     firmware_build_date = safe_string((firmware_data or {}).get("buildDate"))
     hardware = extract_hardware(entry)
-    last_deployed = firmware_build_date.split("T")[0] if firmware_build_date else entry_last_firmware_update(entry)
+    last_deployed = entry_last_firmware_update(entry) or (firmware_build_date.split("T")[0] if firmware_build_date else "")
 
     return {
         "name": label or safe_string(device_data.get("deviceName")) or mac,
@@ -589,7 +590,6 @@ def fetch_device_summary(
         "components": extract_components(device_data, entry),
         "hardware": hardware,
         "ota_capable": resolve_ota_capable(entry, hardware, capabilities),
-        "hardware_note": safe_string(entry.get("hardware_note")),
         "last_seen": extract_last_seen(device_data),
         "location": extract_location(device_data, entry),
         "last_deployed": last_deployed,
@@ -627,11 +627,10 @@ def build_failure_device(
     return {
         "name": label or mac,
         "mac": mac,
-        "version": "",
+        "version": entry_version(entry),
         "components": components,
         "hardware": hardware,
         "ota_capable": resolve_ota_capable(entry, hardware, capabilities),
-        "hardware_note": safe_string(entry.get("hardware_note")),
         "last_seen": None,
         "location": safe_string(entry.get("location")),
         "last_deployed": entry_last_firmware_update(entry),

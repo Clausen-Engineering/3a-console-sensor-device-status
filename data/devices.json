@@ -225,7 +225,8 @@
         {
           "id": "heat-controller",
           "label": "Heat Controller",
-          "repo_name": "glaecier-sensorhub-heat-controller"
+          "repo_name": "glaecier-sensorhub-heat-controller",
+          "latest_version": "v2.1.6"
         },
         {
           "id": "humidity-controller",
