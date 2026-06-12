@@ -39,7 +39,7 @@ jobs:
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git add data/dashboard-data.json
+          git add data/dashboard-data.json data/version-history.json
           if git diff --cached --quiet; then
             echo "No dashboard data changes to commit."
             exit 0

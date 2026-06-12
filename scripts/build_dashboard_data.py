@@ -18,6 +18,8 @@ DATA_DIR = ROOT / "data"
 DEVICES_PATH = DATA_DIR / "devices.json"
 VERSION_CHANGES_PATH = DATA_DIR / "version-changes.json"
 OUTPUT_PATH = DATA_DIR / "dashboard-data.json"
+VERSION_HISTORY_PATH = DATA_DIR / "version-history.json"
+VERSION_HISTORY_RETENTION = 730
 SENSORHUB_REPO_NAMES = {
     "glaecier-sensorhub-data-collector",
     "sensorhub-data-collector",
@@ -608,6 +610,86 @@ def build_failure_device(
     }
 
 
+def count_versions_by_section(sections: list[dict[str, Any]]) -> dict[str, dict[str, int]]:
+    section_counts: dict[str, dict[str, int]] = {}
+    for section in sections:
+        section_id = safe_string(section.get("id"))
+        if not section_id:
+            continue
+
+        version_counts: dict[str, int] = {}
+        for device in section.get("devices", []) or []:
+            if not isinstance(device, dict):
+                continue
+            version = normalize_version(device.get("version"))
+            version_counts[version] = version_counts.get(version, 0) + 1
+        section_counts[section_id] = dict(sorted(version_counts.items()))
+
+    return section_counts
+
+
+def normalize_version_history(data: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    snapshots = data.get("snapshots")
+    if not isinstance(snapshots, list):
+        return {"snapshots": []}
+
+    normalized_snapshots: list[dict[str, Any]] = []
+    for snapshot in snapshots:
+        if not isinstance(snapshot, dict):
+            continue
+
+        date = safe_string(snapshot.get("date"))
+        sections = snapshot.get("sections")
+        if not date or not isinstance(sections, dict):
+            continue
+
+        normalized_sections: dict[str, dict[str, int]] = {}
+        for section_id, counts in sections.items():
+            normalized_section_id = safe_string(section_id)
+            if not normalized_section_id or not isinstance(counts, dict):
+                continue
+
+            normalized_counts: dict[str, int] = {}
+            for version, count in counts.items():
+                try:
+                    numeric_count = int(count)
+                except (TypeError, ValueError):
+                    continue
+                if numeric_count < 0:
+                    continue
+                normalized_counts[normalize_version(safe_string(version))] = numeric_count
+
+            normalized_sections[normalized_section_id] = dict(sorted(normalized_counts.items()))
+
+        normalized_snapshots.append(
+            {
+                "date": date,
+                "sections": dict(sorted(normalized_sections.items())),
+            }
+        )
+
+    normalized_snapshots.sort(key=lambda item: item["date"])
+    return {"snapshots": normalized_snapshots[-VERSION_HISTORY_RETENTION:]}
+
+
+def upsert_version_history_snapshot(sections: list[dict[str, Any]], snapshot_date: str) -> None:
+    history = normalize_version_history(load_json_if_present(VERSION_HISTORY_PATH))
+    next_snapshot = {
+        "date": snapshot_date,
+        "sections": count_versions_by_section(sections),
+    }
+    snapshots_by_date = {
+        safe_string(snapshot.get("date")): snapshot
+        for snapshot in history["snapshots"]
+        if isinstance(snapshot, dict) and safe_string(snapshot.get("date"))
+    }
+    snapshots_by_date[snapshot_date] = next_snapshot
+    snapshots = [snapshots_by_date[date] for date in sorted(snapshots_by_date)]
+    history = {"snapshots": snapshots[-VERSION_HISTORY_RETENTION:]}
+    VERSION_HISTORY_PATH.write_text(json.dumps(history, indent=2), encoding="utf-8")
+    print(f"Wrote {VERSION_HISTORY_PATH}")
+
+
 def main() -> int:
     if not DEVICES_PATH.exists():
         print(f"Missing required file: {DEVICES_PATH}", file=sys.stderr)
@@ -713,6 +795,7 @@ def main() -> int:
 
     OUTPUT_PATH.write_text(json.dumps(output, indent=2), encoding="utf-8")
     print(f"Wrote {OUTPUT_PATH}")
+    upsert_version_history_snapshot(output_sections, datetime.now(timezone.utc).date().isoformat())
 
     if failures:
         print("Completed with device fetch failures:", file=sys.stderr)
