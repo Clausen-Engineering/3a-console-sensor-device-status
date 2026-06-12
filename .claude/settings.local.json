@@ -12,7 +12,8 @@
       "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --window-size=1920,3500 --virtual-time-budget=8000 --screenshot=/tmp/dashboard-full.png \"http://localhost:8765/index.html\")",
       "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --dump-dom \"http://localhost:8765/index.html\")",
       "Read(//tmp/**)",
-      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --window-size=1920,1080 --virtual-time-budget=8000 --dump-dom \"http://localhost:8765/index.html\")"
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --window-size=1920,1080 --virtual-time-budget=8000 --dump-dom \"http://localhost:8765/index.html\")",
+      "Bash(python *)"
     ]
   }
 }
