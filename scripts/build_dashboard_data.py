@@ -4,6 +4,7 @@ from __future__ import annotations
 import base64
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -198,18 +199,71 @@ def get_hardware_capabilities(device_registry: dict[str, Any]) -> dict[str, dict
     }
 
 
+def version_tuple(version: str) -> tuple[int, int, int] | None:
+    match = re.match(r"v?(\d+)\.(\d+)\.(\d+)", safe_string(version))
+    if not match:
+        return None
+    return (int(match.group(1)), int(match.group(2)), int(match.group(3)))
+
+
 def resolve_ota_capable(
     entry: dict[str, Any],
     hardware: str,
     capabilities: dict[str, dict[str, Any]],
+    installed_version: str,
 ) -> bool | None:
+    """OTA needs both axes: a board the OTA firmware builds for, and that
+    firmware actually installed. ota_min_firmware is the first release with
+    an OTA client for the board; absent means no release ever shipped OTA
+    for it."""
     override = entry.get("ota_override")
     if isinstance(override, bool):
         return override
     capability = capabilities.get(hardware)
-    if isinstance(capability, dict) and isinstance(capability.get("ota"), bool):
-        return capability["ota"]
-    return None
+    if not isinstance(capability, dict) or not capability:
+        return None
+    minimum = version_tuple(safe_string(capability.get("ota_min_firmware")))
+    if minimum is None:
+        return False
+    installed = version_tuple(installed_version)
+    if installed is None:
+        return None
+    return installed >= minimum
+
+
+def resolve_hardware_eol(
+    hardware: str,
+    capabilities: dict[str, dict[str, Any]],
+    target_version: str,
+) -> bool | None:
+    """True when the tracked target release no longer builds for this board,
+    so no update path (OTA or cable) can reach it without a hardware swap."""
+    capability = capabilities.get(hardware)
+    if not isinstance(capability, dict) or not capability:
+        return None
+    maximum = version_tuple(safe_string(capability.get("max_firmware")))
+    if maximum is None:
+        return False
+    target = version_tuple(target_version)
+    if target is None:
+        return None
+    return target > maximum
+
+
+def hardware_capability_fields(
+    entry: dict[str, Any],
+    hardware: str,
+    capabilities: dict[str, dict[str, Any]],
+    installed_version: str,
+    target_version: str,
+) -> dict[str, Any]:
+    capability = capabilities.get(hardware)
+    max_firmware = normalize_version((capability or {}).get("max_firmware")) if isinstance(capability, dict) else ""
+    return {
+        "ota_capable": resolve_ota_capable(entry, hardware, capabilities, installed_version),
+        "hardware_eol": resolve_hardware_eol(hardware, capabilities, target_version),
+        "hardware_max_firmware": max_firmware,
+    }
 
 
 # Candidate field names for a last-contact timestamp on GET /devices/{mac}.
@@ -349,7 +403,7 @@ def build_repo_device_summaries(
                 "version": installed_version,
                 "components": configured_components or extract_components_from_config(config_data),
                 "hardware": hardware,
-                "ota_capable": resolve_ota_capable(registry_entry, hardware, capabilities),
+                **hardware_capability_fields(registry_entry, hardware, capabilities, installed_version, track.get("latest_version", "")),
                 "last_seen": None,
                 "location": entry_value(registry_entry, "location") or safe_string(version_data.get("deployment_location")),
                 "last_deployed": entry_last_firmware_update(registry_entry) or safe_string(version_data.get("deployment_date")),
@@ -589,7 +643,7 @@ def fetch_device_summary(
         "version": firmware_version,
         "components": extract_components(device_data, entry),
         "hardware": hardware,
-        "ota_capable": resolve_ota_capable(entry, hardware, capabilities),
+        **hardware_capability_fields(entry, hardware, capabilities, firmware_version, track.get("latest_version", "")),
         "last_seen": extract_last_seen(device_data),
         "location": extract_location(device_data, entry),
         "last_deployed": last_deployed,
@@ -630,7 +684,7 @@ def build_failure_device(
         "version": entry_version(entry),
         "components": components,
         "hardware": hardware,
-        "ota_capable": resolve_ota_capable(entry, hardware, capabilities),
+        **hardware_capability_fields(entry, hardware, capabilities, entry_version(entry), track.get("latest_version", "")),
         "last_seen": None,
         "location": safe_string(entry.get("location")),
         "last_deployed": entry_last_firmware_update(entry),

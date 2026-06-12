@@ -1143,6 +1143,12 @@
         transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
       }
 
+      .fleet-pulse__node::after {
+        content: "";
+        position: absolute;
+        inset: -6px -2px;
+      }
+
       .fleet-pulse__node.is-silent {
         opacity: 0.38;
         filter: saturate(0.55);
@@ -1640,6 +1646,7 @@
       }
 
       .timeline-shell {
+        position: relative;
         display: grid;
         gap: 1rem;
         padding: 1.25rem;
@@ -1682,101 +1689,9 @@
         gap: 1rem;
       }
 
-      .migration-map__scroll {
-        overflow-x: auto;
-        padding-bottom: 0.35rem;
-        scrollbar-width: thin;
-      }
-
-      .migration-map {
-        --mig-cell: 0.7rem;
-        --mig-gap: 2px;
-        display: grid;
-        gap: 3px 0;
-        width: max-content;
-        min-width: 100%;
-      }
-
-      .migration-map__row {
-        display: flex;
-        align-items: center;
-      }
-
-      .migration-map__label {
-        position: sticky;
-        left: 0;
-        z-index: 1;
-        flex: 0 0 9.5rem;
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 0.5rem;
-        padding-right: 0.75rem;
-        background: linear-gradient(90deg, rgba(33, 26, 19, 1) 86%, rgba(33, 26, 19, 0));
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.74rem;
-        color: var(--muted);
-        white-space: nowrap;
-      }
-
-      .migration-map__row.is-latest .migration-map__label {
-        color: var(--accent-teal);
-      }
-
-      .migration-map__row.is-unknown .migration-map__label {
-        color: var(--primary);
-      }
-
-      .migration-map__count {
-        font-size: 0.7rem;
-        color: var(--text);
-        opacity: 0.85;
-      }
-
-      .mig-cell {
-        flex: 0 0 var(--mig-cell);
-        height: var(--mig-cell);
-        margin-right: var(--mig-gap);
-        border-radius: 2px;
-      }
-
-      .mig-cell.is-change {
-        box-shadow: 0 0 0 1px rgba(234, 227, 217, 0.7);
-      }
-
-      .migration-map__month {
-        flex: 0 0 auto;
-        overflow: hidden;
-        white-space: nowrap;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.68rem;
-        color: var(--muted);
-        opacity: 0.8;
-      }
-
-      .migration-map__legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.4rem 1rem;
-        font-size: 0.72rem;
-        color: var(--muted);
-      }
-
-      .migration-map__legend span {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-      }
-
-      .migration-map__legend i {
-        width: 0.6rem;
-        height: 0.6rem;
-        border-radius: 2px;
-      }
-
-      .migration-map__legend i.legend-ring {
-        background: transparent;
-        box-shadow: 0 0 0 1px rgba(234, 227, 217, 0.7);
+      .migration-chart-wrap {
+        position: relative;
+        height: 250px;
       }
 
       .migration-feed {
@@ -2804,6 +2719,10 @@
           grid-template-columns: 1fr;
         }
 
+        .migration-chart-wrap {
+          height: 200px;
+        }
+
         .device-drawer__hero,
         .device-drawer__hero-side {
           display: grid;
@@ -3081,7 +3000,7 @@
                 <div class="ota-filter-row">
                   <button type="button" class="filter-chip ota-filter active" data-ota="all"><span>All</span><strong id="ota-count-all">0</strong></button>
                   <button type="button" class="filter-chip ota-filter" data-ota="ota"><span>OTA</span><strong id="ota-count-ota">0</strong></button>
-                  <button type="button" class="filter-chip ota-filter" data-ota="physical"><span>Site visit</span><strong id="ota-count-physical">0</strong></button>
+                  <button type="button" class="filter-chip ota-filter" data-ota="physical"><span>No OTA</span><strong id="ota-count-physical">0</strong></button>
                   <button type="button" class="filter-chip ota-filter" data-ota="unknown"><span>Unknown</span><strong id="ota-count-unknown">0</strong></button>
                 </div>
               </div>
@@ -3201,7 +3120,7 @@
             <div class="version-migration-panel">
               <div class="version-migration-panel__head">
                 <div>
-                  <div class="panel-title">Fleet migration map</div>
+                  <div class="panel-title">Fleet update adoption</div>
                   <p id="version-migration-caption" class="version-migration-caption">Loading version adoption history...</p>
                 </div>
                 <span id="version-migration-count" class="section-badge">0 snapshots</span>
@@ -3457,6 +3376,7 @@
       };
 
       let statusChart;
+      let migrationChart;
       let copyLinkResetHandle;
       let preferencesWriteHandle;
 
@@ -3862,6 +3782,12 @@
             : typeof device?.otaCapable === "boolean"
               ? device.otaCapable
               : null,
+          hardwareEol: typeof device?.hardware_eol === "boolean"
+            ? device.hardware_eol
+            : typeof device?.hardwareEol === "boolean"
+              ? device.hardwareEol
+              : null,
+          hardwareMaxFirmware: String(device?.hardware_max_firmware || device?.hardwareMaxFirmware || "").trim(),
           lastSeen: String(device?.last_seen || device?.lastSeen || "").trim(),
           deploymentEnvironment: String(device?.deployment_environment || device?.deploymentEnvironment || "").trim(),
           declaredDeploymentVersion: String(device?.declared_deployment_version || device?.declaredDeploymentVersion || "").trim(),
@@ -4932,25 +4858,29 @@
             <div class="timeline-popover__meta">${chips}</div>
           `;
 
-          // Position above the button
-          const containerRect = container.getBoundingClientRect();
-          const buttonRect = button.getBoundingClientRect();
+          // Position above the dot, relative to the popover's offset parent (.timeline-shell)
+          const shellEl = popover.offsetParent || container;
+          const shellRect = shellEl.getBoundingClientRect();
+          const dot = button.querySelector(".timeline-node__dot") || button;
+          const dotRect = dot.getBoundingClientRect();
           const popoverWidth = 340;
 
-          const buttonCenterX = buttonRect.left + buttonRect.width / 2 - containerRect.left;
-          let left = buttonCenterX - popoverWidth / 2;
+          const paddingBoxLeft = shellRect.left + shellEl.clientLeft;
+          const paddingBoxTop = shellRect.top + shellEl.clientTop;
+          const dotCenterX = dotRect.left + dotRect.width / 2 - paddingBoxLeft;
+          let left = dotCenterX - popoverWidth / 2;
 
-          // Clamp to container bounds
-          const maxLeft = container.clientWidth - popoverWidth - 8;
+          // Clamp to shell bounds
+          const maxLeft = shellEl.clientWidth - popoverWidth - 8;
           left = Math.max(8, Math.min(left, maxLeft));
 
-          // Arrow position tracks the button center
-          const arrowLeft = Math.max(20, Math.min(buttonCenterX - left, popoverWidth - 20));
+          // Arrow position tracks the dot center
+          const arrowLeft = Math.max(20, Math.min(dotCenterX - left, popoverWidth - 20));
 
-          const top = buttonRect.top - containerRect.top - 10;
+          const top = dotRect.top - paddingBoxTop - 10;
 
           popover.style.left = `${left}px`;
-          popover.style.bottom = `${container.clientHeight - top}px`;
+          popover.style.bottom = `${shellEl.clientHeight - top}px`;
           popover.style.top = "auto";
           popover.style.setProperty("--arrow-left", `${arrowLeft}px`);
           popover.classList.add("visible");
@@ -5005,11 +4935,16 @@
 
         countBadge.textContent = `${snapshots.length} snapshot${snapshots.length === 1 ? "" : "s"}`;
 
+        if (migrationChart) {
+          migrationChart.destroy();
+          migrationChart = null;
+        }
+
         if (snapshots.length <= 1) {
           shell.hidden = true;
           shell.innerHTML = "";
           emptyState.hidden = false;
-          caption.textContent = "History accumulating - map appears after a few days of snapshots.";
+          caption.textContent = "History accumulating - chart appears after a few days of snapshots.";
           return;
         }
 
@@ -5020,15 +4955,16 @@
         const events = buildVersionMovementEvents(snapshots);
         const lastMovement = events.length ? formatAbsoluteDate(events[events.length - 1].date) : null;
         caption.textContent = lastMovement
-          ? `Latest release coverage: ${metrics.upToDate} of ${metrics.totalDevices} devices - last movement ${lastMovement}`
-          : `Latest release coverage: ${metrics.upToDate} of ${metrics.totalDevices} devices - no movements recorded yet`;
+          ? `Devices grouped by update status, day by day. Today ${metrics.upToDate} of ${metrics.totalDevices} on the latest release - last movement ${lastMovement}.`
+          : `Devices grouped by update status, day by day. Today ${metrics.upToDate} of ${metrics.totalDevices} on the latest release - no movements recorded yet.`;
 
-        shell.innerHTML = buildMigrationMapHtml(snapshots) + buildMovementFeedHtml(events);
+        shell.innerHTML = `
+          <div class="migration-chart-wrap">
+            <canvas id="migration-chart" role="img" aria-label="Stacked chart of device counts per update status for each daily snapshot. Dashed vertical lines mark firmware release days."></canvas>
+          </div>
+        ` + buildMovementFeedHtml(events);
 
-        const scroller = shell.querySelector(".migration-map__scroll");
-        if (scroller) {
-          scroller.scrollLeft = scroller.scrollWidth;
-        }
+        migrationChart = createMigrationChart(document.getElementById("migration-chart"), buildAdoptionSeries(snapshots));
       }
 
       function getActiveVersionHistorySnapshots() {
@@ -5047,136 +4983,190 @@
           .sort((left, right) => parseDateForSort(left.date) - parseDateForSort(right.date));
       }
 
-      function buildMigrationMapRows(snapshots) {
-        const versionSet = new Set();
-        let hasUnknown = false;
+      const ADOPTION_STATUSES = ["Up to date", "Patch available", "Needs update", "No version reported"];
 
-        snapshots.forEach((snapshot) => {
-          Object.entries(snapshot.counts).forEach(([version, count]) => {
-            if (!Number(count)) {
+      function buildAdoptionSeries(snapshots) {
+        const releases = dashboardState.versionChanges
+          .map((change) => ({
+            version: normalizeVersionLabel(change.version),
+            time: parseDate(change.date)?.getTime(),
+          }))
+          .filter((release) => release.version && Number.isFinite(release.time));
+
+        let fleetMaxVersion = "";
+        return snapshots.map((snapshot) => {
+          const snapshotTime = parseDate(snapshot.date)?.getTime();
+          let latestKnown = "";
+          const releasedToday = [];
+          releases.forEach((release) => {
+            if (release.time > snapshotTime) {
               return;
             }
-            if (version) {
-              versionSet.add(version);
-            } else {
-              hasUnknown = true;
+            if (release.time === snapshotTime) {
+              releasedToday.push(release.version);
+            }
+            if (!latestKnown || compareVersionsAscending(latestKnown, release.version) < 0) {
+              latestKnown = release.version;
             }
           });
+
+          Object.entries(snapshot.counts).forEach(([version, count]) => {
+            if (version && Number(count) && (!fleetMaxVersion || compareVersionsAscending(fleetMaxVersion, version) < 0)) {
+              fleetMaxVersion = version;
+            }
+          });
+
+          // Without a release log for this section, the newest version seen in the
+          // fleet so far is the only available reference for "latest".
+          const reference = latestKnown || fleetMaxVersion;
+
+          const bands = {};
+          ADOPTION_STATUSES.forEach((status) => {
+            bands[status] = { count: 0, parts: [] };
+          });
+
+          Object.entries(snapshot.counts).forEach(([version, rawCount]) => {
+            const count = Number(rawCount) || 0;
+            if (!count) {
+              return;
+            }
+            let status = "No version reported";
+            if (version) {
+              status = getUpdateStatus(version, reference);
+              if (!bands[status]) {
+                status = "No version reported";
+              }
+            }
+            bands[status].count += count;
+            if (version) {
+              bands[status].parts.push({ version, count });
+            }
+          });
+
+          ADOPTION_STATUSES.forEach((status) => {
+            bands[status].parts.sort((left, right) => compareVersionsAscending(right.version, left.version));
+          });
+
+          return { date: snapshot.date, reference, bands, releasedToday };
         });
+      }
 
-        const versions = [...versionSet].sort(compareVersionsAscending);
-        const MAX_VERSION_ROWS = 9;
-        const recentVersions = versions.slice(-MAX_VERSION_ROWS).reverse();
-        const olderVersions = versions.slice(0, Math.max(0, versions.length - MAX_VERSION_ROWS));
+      function createMigrationChart(canvas, series) {
+        if (!canvas || typeof Chart === "undefined") {
+          return null;
+        }
 
-        const teal = getThemeColor("--accent-teal", "#5DC8BE");
-        const gold = getThemeColor("--accent-gold", "#E7B85C");
+        const reduceMotion = prefersReducedMotion();
+        const muted = getThemeColor("--muted", "#A99A88");
+        const bandStyles = {
+          "Up to date": getThemeColor("--success", "#5DC896"),
+          "Patch available": getThemeColor("--info", "#7AABE8"),
+          "Needs update": getThemeColor("--warning", "#E8A84C"),
+          "No version reported": muted,
+        };
 
-        const rows = recentVersions.map((version) => ({
-          label: version,
-          keys: [version],
-          color: version === dashboardState.latestVersion ? teal : gold,
-          modifier: version === dashboardState.latestVersion ? "is-latest" : "",
+        const datasets = ADOPTION_STATUSES.map((status, index) => ({
+          label: status,
+          data: series.map((point) => point.bands[status].count),
+          borderColor: bandStyles[status],
+          backgroundColor: colorWithAlpha(bandStyles[status], 0.42),
+          fill: index === 0 ? "origin" : "-1",
+          stepped: true,
+          pointRadius: 0,
+          pointHoverRadius: 3,
+          borderWidth: 1.5,
         }));
 
-        if (olderVersions.length) {
-          rows.push({
-            label: `Older (${olderVersions.length} builds)`,
-            keys: olderVersions,
-            color: getThemeColor("--muted", "#A99A88"),
-            modifier: "",
-          });
-        }
+        const releaseMarkerIndices = series
+          .map((point, index) => (point.releasedToday.length ? index : -1))
+          .filter((index) => index >= 0);
 
-        if (hasUnknown) {
-          rows.push({
-            label: "Not deployed",
-            keys: [""],
-            color: getThemeColor("--primary", "#D94E59"),
-            modifier: "is-unknown",
-          });
-        }
+        const releaseMarkers = {
+          id: "releaseMarkers",
+          afterDatasetsDraw(chart) {
+            const { ctx, chartArea, scales } = chart;
+            if (!chartArea || !scales.x) {
+              return;
+            }
+            ctx.save();
+            ctx.strokeStyle = "rgba(234, 227, 217, 0.3)";
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 4]);
+            releaseMarkerIndices.forEach((index) => {
+              const x = scales.x.getPixelForValue(index);
+              ctx.beginPath();
+              ctx.moveTo(x, chartArea.top);
+              ctx.lineTo(x, chartArea.bottom);
+              ctx.stroke();
+            });
+            ctx.restore();
+          },
+        };
 
-        return rows;
-      }
-
-      function sumVersionCounts(counts, versions) {
-        return versions.reduce((sum, version) => sum + Number(counts[version] || 0), 0);
-      }
-
-      function buildMigrationMapHtml(snapshots) {
-        const rows = buildMigrationMapRows(snapshots);
-        const maxCount = Math.max(
-          1,
-          ...snapshots.flatMap((snapshot) => rows.map((row) => sumVersionCounts(snapshot.counts, row.keys)))
-        );
-        const lastSnapshot = snapshots[snapshots.length - 1];
-        const teal = getThemeColor("--accent-teal", "#5DC8BE");
-        const gold = getThemeColor("--accent-gold", "#E7B85C");
-        const primary = getThemeColor("--primary", "#D94E59");
-
-        const rowsHtml = rows
-          .map((row) => {
-            const currentCount = sumVersionCounts(lastSnapshot.counts, row.keys);
-            const cells = snapshots
-              .map((snapshot, index) => {
-                const count = sumVersionCounts(snapshot.counts, row.keys);
-                const changed = index > 0 && count !== sumVersionCounts(snapshots[index - 1].counts, row.keys);
-                const background = count
-                  ? colorWithAlpha(row.color, 0.18 + 0.72 * (count / maxCount))
-                  : "rgba(200, 170, 130, 0.07)";
-                const tooltip = `${row.label}: ${count} device${count === 1 ? "" : "s"} - ${snapshot.date}`;
-                return `<span class="mig-cell${changed ? " is-change" : ""}" style="background:${background}" title="${escapeHtml(tooltip)}"></span>`;
-              })
-              .join("");
-            return `
-              <div class="migration-map__row ${row.modifier}">
-                <span class="migration-map__label">
-                  <span>${escapeHtml(row.label)}</span>
-                  <span class="migration-map__count">${currentCount}</span>
-                </span>${cells}
-              </div>
-            `;
-          })
-          .join("");
-
-        return `
-          <div class="migration-map__scroll">
-            <div class="migration-map" role="img" aria-label="Firmware version adoption per day">
-              ${rowsHtml}
-              <div class="migration-map__row">
-                <span class="migration-map__label"></span>${buildMigrationMonthLabels(snapshots)}
-              </div>
-            </div>
-          </div>
-          <div class="migration-map__legend">
-            <span><i style="background:${teal}"></i> latest release</span>
-            <span><i style="background:${gold}"></i> earlier builds</span>
-            <span><i style="background:${primary}"></i> not deployed</span>
-            <span><i class="legend-ring"></i> count changed that day</span>
-          </div>
-        `;
-      }
-
-      function buildMigrationMonthLabels(snapshots) {
-        const groups = [];
-        snapshots.forEach((snapshot) => {
-          const date = parseDate(snapshot.date);
-          const key = date ? `${date.getFullYear()}-${date.getMonth()}` : "unknown";
-          const label = date ? new Intl.DateTimeFormat("en-GB", { month: "short" }).format(date) : "";
-          const last = groups[groups.length - 1];
-          if (last && last.key === key) {
-            last.span += 1;
-          } else {
-            groups.push({ key, label, span: 1 });
-          }
+        return new Chart(canvas.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: series.map((point) => formatShortDate(point.date)),
+            datasets,
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: reduceMotion ? false : { duration: 600, easing: "easeOutQuart" },
+            interaction: { mode: "index", intersect: false },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: muted, maxRotation: 0, autoSkip: true, maxTicksLimit: 8, font: { size: 11 } },
+              },
+              y: {
+                stacked: true,
+                beginAtZero: true,
+                grid: { color: "rgba(200, 170, 130, 0.08)" },
+                ticks: { color: muted, precision: 0, font: { size: 11 } },
+                title: { display: true, text: "devices", color: muted, font: { size: 11 } },
+              },
+            },
+            plugins: {
+              legend: {
+                position: "top",
+                align: "start",
+                labels: { color: muted, usePointStyle: true, boxWidth: 8, boxHeight: 8, font: { size: 11 } },
+              },
+              tooltip: {
+                backgroundColor: "rgba(40, 32, 23, 0.97)",
+                borderColor: "rgba(200, 170, 130, 0.18)",
+                borderWidth: 1,
+                titleColor: "#EAE3D9",
+                bodyColor: "#9A8A78",
+                footerColor: "#9A8A78",
+                footerFont: { weight: "normal" },
+                padding: 12,
+                filter: (item) => Number(item.raw) > 0,
+                callbacks: {
+                  title: (items) => (items.length ? formatAbsoluteDate(series[items[0].dataIndex].date) : ""),
+                  label: (item) => ` ${item.dataset.label}: ${item.raw}`,
+                  afterLabel: (item) => {
+                    const parts = series[item.dataIndex].bands[item.dataset.label].parts;
+                    return parts.length ? `   ${parts.map((part) => `${part.version} x${part.count}`).join(", ")}` : "";
+                  },
+                  footer: (items) => {
+                    if (!items.length) {
+                      return "";
+                    }
+                    const point = series[items[0].dataIndex];
+                    const lines = [`Latest release: ${point.reference || "unknown"}`];
+                    if (point.releasedToday.length) {
+                      lines.push(`Shipped this day: ${point.releasedToday.join(", ")}`);
+                    }
+                    return lines;
+                  },
+                },
+              },
+            },
+          },
+          plugins: [releaseMarkers],
         });
-        return groups
-          .map((group) => {
-            const label = group.span > 2 ? group.label : "";
-            return `<span class="migration-map__month" style="width: calc(${group.span} * (var(--mig-cell) + var(--mig-gap)))">${escapeHtml(label)}</span>`;
-          })
-          .join("");
       }
 
       function buildVersionMovementEvents(snapshots) {
@@ -5219,7 +5209,7 @@
             const chips = event.changes
               .map((change) => {
                 const isUnknown = !change.version;
-                const label = isUnknown ? "not deployed" : change.version;
+                const label = isUnknown ? "no version" : change.version;
                 const rising = change.to > change.from;
                 const tone = isUnknown
                   ? (rising ? "is-alert" : "is-up")
@@ -5324,7 +5314,7 @@
           activeFilters.push(`component: ${dashboardState.ui.component}`);
         }
         if (dashboardState.ui.ota !== "all") {
-          const otaFilterLabels = { ota: "OTA", physical: "site visit", unknown: "unknown" };
+          const otaFilterLabels = { ota: "OTA", physical: "no OTA", unknown: "unknown" };
           activeFilters.push(`update path: ${otaFilterLabels[dashboardState.ui.ota] || dashboardState.ui.ota}`);
         }
         if (dashboardState.ui.search) {
@@ -5518,9 +5508,11 @@
         const otaInfo = getOtaInfo(device);
         document.getElementById("device-drawer-ota").textContent =
           otaInfo.capable === true
-            ? "OTA — remote update supported"
+            ? "OTA — installed firmware and hardware support remote updates"
             : otaInfo.capable === false
-              ? "Site visit — firmware updates require physical access"
+              ? device.hardwareEol === true
+                ? `None — the current firmware line no longer builds for this board${hasValue(device.hardwareMaxFirmware) ? ` (supports up to ${device.hardwareMaxFirmware})` : ""}; a hardware swap is required`
+                : "None — installed firmware predates OTA support; the next update needs a cable flash"
               : "Unknown — hardware capability not verified";
 
         const lastSeenRow = document.getElementById("device-drawer-last-seen-row");
@@ -6091,17 +6083,28 @@
             label: "OTA",
             className: "ota-pill--ota",
             icon: "bi-cloud-arrow-down",
-            description: "Hardware supports over-the-air updates",
+            description: "Installed firmware and hardware both support over-the-air updates",
           };
         }
         if (device.otaCapable === false) {
+          if (device.hardwareEol === true) {
+            const ceiling = hasValue(device.hardwareMaxFirmware) ? ` (supports up to ${device.hardwareMaxFirmware})` : "";
+            return {
+              capable: false,
+              behind,
+              label: "Hardware swap",
+              className: "ota-pill--physical",
+              icon: "bi-wrench-adjustable",
+              description: `Current firmware no longer builds for this board${ceiling}; reaching the target needs a hardware swap`,
+            };
+          }
           return {
             capable: false,
             behind,
             label: "Site visit",
             className: "ota-pill--physical",
             icon: "bi-person-walking",
-            description: "Firmware updates require physical access to this device",
+            description: "Installed firmware predates OTA support; the next update needs a cable flash",
           };
         }
         return {
@@ -6178,8 +6181,9 @@
       function buildUpdatePlan(devices) {
         const plan = { ota: [], visit: [], hardware: [], unknown: [] };
         devices.forEach((device) => {
-          if (device.otaCapable === false) {
+          if (device.hardwareEol === true) {
             plan.hardware.push(device);
+            return;
           }
           if (!isDeviceBehindTarget(device)) {
             return;
@@ -6215,7 +6219,7 @@
           return;
         }
 
-        note.textContent = `${behindCount} behind target | ${plan.hardware.length} non-OTA device${plan.hardware.length === 1 ? "" : "s"} tracked for long-term modernization`;
+        note.textContent = `${behindCount} behind target | ${plan.hardware.length} legacy-hardware device${plan.hardware.length === 1 ? "" : "s"} tracked for modernization`;
 
         const buckets = [
           {
@@ -6230,14 +6234,14 @@
             className: "plan-bucket--visit",
             icon: "bi-person-walking",
             title: "Needs site visit",
-            copy: "Behind target and not remotely updatable. Plan physical access.",
+            copy: "Behind target on firmware that predates OTA, or unreachable. One cable flash brings them onto a self-updating release.",
           },
           {
             devices: plan.hardware,
             className: "plan-bucket--hardware",
             icon: "bi-wrench-adjustable",
             title: "Future hardware modernization",
-            copy: "Non-OTA devices. They work as-is, but hardware can be modernized over time to support remote updates.",
+            copy: "The current firmware line no longer builds for these boards. They work as-is, but reaching the fleet target requires a hardware swap.",
           },
           {
             devices: plan.unknown,
@@ -6431,12 +6435,19 @@
 
         if (isDeviceBehindTarget(device)) {
           const lastSeenInfo = getLastSeenInfo(device);
-          if (device.otaCapable === false) {
+          if (device.hardwareEol === true) {
+            score += 12;
+            signals.push({
+              icon: "bi-wrench-adjustable",
+              title: "Hardware modernization required",
+              detail: "The current firmware line no longer builds for this board; it cannot reach the target without a hardware swap.",
+            });
+          } else if (device.otaCapable === false) {
             score += 12;
             signals.push({
               icon: "bi-person-walking",
               title: "Site visit required",
-              detail: "Behind target and not OTA-capable; updating requires a site visit.",
+              detail: "Behind target on firmware that predates OTA support; a one-time cable flash is needed.",
             });
           } else if (device.otaCapable === null) {
             score += 6;

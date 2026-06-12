@@ -13,7 +13,9 @@
       "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --dump-dom \"http://localhost:8765/index.html\")",
       "Read(//tmp/**)",
       "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --window-size=1920,1080 --virtual-time-budget=8000 --dump-dom \"http://localhost:8765/index.html\")",
-      "Bash(python *)"
+      "Bash(python *)",
+      "Bash(cp /c/tmp/dash-debug/probe3.js /tmp/dash-debug/)",
+      "Bash(node probe3.js)"
     ]
   }
 }

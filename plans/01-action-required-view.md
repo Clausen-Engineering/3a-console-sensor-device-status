@@ -12,7 +12,9 @@ Turn the dashboard from a passive version tracker into a triage tool that direct
 
 ## Design decision (already made — do not re-litigate)
 
-**OTA capability is hardware-based.** Whether a device can OTA-update is determined by its board/hardware type, not its firmware version. The mapping lives in `data/devices.json`.
+**SUPERSEDED (2026-06): OTA capability is firmware AND hardware based.** OTA shipped in firmware v3.4.0; v3.0.0 dropped C3/WROOM-32/Feather Reverse boards and v3.6.0 dropped Feather TFT, so legacy boards can never run an OTA-capable release (the v2.16.1 OTA backport is abandoned legacy code and will never be flashed). `data/devices.json` `hardware_capabilities` now maps each board to `ota_min_firmware` (first OTA release that builds for it) and `max_firmware` (highest release it can run); the pipeline derives `ota_capable` (installed >= ota_min_firmware) and `hardware_eol` (target > max_firmware) per device. The original hardware-only text below is kept for history.
+
+~~**OTA capability is hardware-based.** Whether a device can OTA-update is determined by its board/hardware type, not its firmware version. The mapping lives in `data/devices.json`.~~
 
 ## Implementation
 
