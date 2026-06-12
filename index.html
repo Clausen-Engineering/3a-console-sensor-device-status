@@ -346,6 +346,7 @@
       .section-tab-row,
       .status-filter-row,
       .component-filter-row,
+      .ota-filter-row,
       .toggle-cluster,
       .sort-cluster,
       .component-tags {
@@ -1800,6 +1801,204 @@
         }
       }
 
+      .ota-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        min-height: 1.7rem;
+        padding: 0 0.55rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid transparent;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .ota-pill i {
+        font-size: 0.78rem;
+      }
+
+      .ota-pill--ota {
+        color: #8ee8e2;
+        background: rgba(93, 200, 190, 0.12);
+        border-color: rgba(93, 200, 190, 0.22);
+      }
+
+      .ota-pill--physical {
+        color: #f5c87a;
+        background: rgba(232, 168, 76, 0.12);
+        border-color: rgba(232, 168, 76, 0.22);
+      }
+
+      .ota-pill--muted {
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(200, 170, 130, 0.12);
+        opacity: 0.7;
+      }
+
+      .device-card__pill-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.4rem;
+        flex-shrink: 0;
+      }
+
+      .hardware-note-icon {
+        color: var(--accent);
+        margin-left: 0.35rem;
+        cursor: help;
+      }
+
+      .last-seen {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: var(--accent-teal);
+        font-size: 0.78rem;
+      }
+
+      .last-seen--silent {
+        color: var(--muted);
+      }
+
+      .update-plan-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        align-items: start;
+      }
+
+      .plan-bucket {
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        padding: 1rem 1.05rem;
+        border-radius: var(--radius-lg);
+        background: rgba(40, 32, 23, 0.90);
+        border: 1px solid rgba(200, 170, 130, 0.11);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+      }
+
+      .plan-bucket::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 3px;
+        background: var(--muted);
+        opacity: 0.55;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      .plan-bucket--ota::before { background: var(--accent-teal); }
+      .plan-bucket--visit::before { background: var(--warning); }
+      .plan-bucket--hardware::before { background: var(--accent-gold); }
+      .plan-bucket--unknown::before { background: var(--danger); }
+
+      .plan-bucket__head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .plan-bucket__title {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+
+      .plan-bucket--ota .plan-bucket__title i { color: var(--accent-teal); }
+      .plan-bucket--visit .plan-bucket__title i { color: var(--warning); }
+      .plan-bucket--hardware .plan-bucket__title i { color: var(--accent-gold); }
+      .plan-bucket--unknown .plan-bucket__title i { color: var(--danger); }
+
+      .plan-bucket__count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.9rem;
+        height: 1.9rem;
+        padding: 0 0.5rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.07);
+        font-family: "Fraunces", serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+
+      .plan-bucket__copy {
+        margin-bottom: 0.75rem;
+        color: var(--muted);
+        font-size: 0.82rem;
+        line-height: 1.45;
+      }
+
+      .plan-device-list {
+        display: grid;
+        gap: 0.45rem;
+      }
+
+      .plan-device-row {
+        display: block;
+        width: 100%;
+        padding: 0.5rem 0.65rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(200, 170, 130, 0.10);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 0.18s ease, background-color 0.18s ease;
+      }
+
+      .plan-device-row:hover,
+      .plan-device-row:focus-visible {
+        border-color: rgba(212, 70, 84, 0.30);
+        background: rgba(212, 70, 84, 0.06);
+      }
+
+      .plan-device-row__name {
+        font-size: 0.86rem;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      .plan-device-row__meta {
+        margin-top: 0.15rem;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        word-break: break-word;
+      }
+
+      .plan-bucket__empty {
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-style: italic;
+      }
+
+      .update-plan-converged {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.85rem 1rem;
+        border-radius: var(--radius-lg);
+        background: rgba(93, 200, 150, 0.08);
+        border: 1px solid rgba(93, 200, 150, 0.20);
+        color: #8eedc7;
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
 
       .hero-panel .col-lg-5 {
         align-self: flex-end;
@@ -2012,6 +2211,19 @@
             </div>
           </div>
 
+          <div class="surface chart-surface">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Update Plan</span>
+                <h2>Action required</h2>
+              </div>
+              <span id="update-plan-note" class="section-badge">Calculating plan</span>
+            </div>
+            <div id="update-plan-body" class="update-plan-grid">
+              <div class="plan-bucket__empty">Loading update plan...</div>
+            </div>
+          </div>
+
         </section>
 
         <section id="devices" class="dashboard-section fade-in delay-4">
@@ -2046,6 +2258,17 @@
                   <button type="button" class="filter-chip status-filter" data-status="not-deployed"><span>Not deployed</span><strong id="status-count-not-deployed">0</strong></button>
                   <button type="button" class="filter-chip status-filter" data-status="in-development"><span>In development</span><strong id="status-count-in-development">0</strong></button>
                   <button type="button" class="filter-chip status-filter" data-status="unknown"><span>Unknown</span><strong id="status-count-unknown">0</strong></button>
+                </div>
+              </div>
+              <div class="control-block">
+                <div class="control-head">
+                  <span class="control-label">Update path</span>
+                </div>
+                <div class="ota-filter-row">
+                  <button type="button" class="filter-chip ota-filter active" data-ota="all"><span>All</span><strong id="ota-count-all">0</strong></button>
+                  <button type="button" class="filter-chip ota-filter" data-ota="ota"><span>OTA</span><strong id="ota-count-ota">0</strong></button>
+                  <button type="button" class="filter-chip ota-filter" data-ota="physical"><span>Physical</span><strong id="ota-count-physical">0</strong></button>
+                  <button type="button" class="filter-chip ota-filter" data-ota="unknown"><span>Unknown</span><strong id="ota-count-unknown">0</strong></button>
                 </div>
               </div>
               <div class="control-block">
@@ -2093,13 +2316,14 @@
                     <th scope="col">Device</th>
                     <th scope="col">Status</th>
                     <th scope="col">Version</th>
+                    <th scope="col">Hardware</th>
                     <th scope="col">Components</th>
                     <th scope="col">Location</th>
                     <th scope="col">Last deployed</th>
                   </tr>
                 </thead>
                 <tbody id="device-table-body">
-                  <tr><td colspan="6" class="table-subtle">Loading devices...</td></tr>
+                  <tr><td colspan="7" class="table-subtle">Loading devices...</td></tr>
                 </tbody>
               </table>
             </div>
@@ -2212,6 +2436,18 @@
                   <div class="repo-detail">
                     <dt>Hardware</dt>
                     <dd id="device-drawer-hardware">--</dd>
+                  </div>
+                  <div class="repo-detail">
+                    <dt>Update path</dt>
+                    <dd id="device-drawer-ota">--</dd>
+                  </div>
+                  <div class="repo-detail" id="device-drawer-hardware-note-row" hidden>
+                    <dt>Hardware note</dt>
+                    <dd id="device-drawer-hardware-note">--</dd>
+                  </div>
+                  <div class="repo-detail" id="device-drawer-last-seen-row" hidden>
+                    <dt>Last seen</dt>
+                    <dd id="device-drawer-last-seen">--</dd>
                   </div>
                   <div class="repo-detail">
                     <dt>Location</dt>
@@ -2327,6 +2563,7 @@
           search: "",
           status: "all",
           component: "all",
+          ota: "all",
           sortBy: "date",
           view: "card",
         },
@@ -2382,7 +2619,7 @@
         }
       }
 
-      async function fetchDeviceFromApi(apiBase, entry, trackMap = new Map(), fallbackSectionVersion = "") {
+      async function fetchDeviceFromApi(apiBase, entry, trackMap = new Map(), fallbackSectionVersion = "", hardwareCapabilities = {}) {
         const mac = String(entry?.mac || "").trim();
         const fallbackLabel = String(entry?.label || "").trim();
         const hardware = String(entry?.hardware || "").trim();
@@ -2424,6 +2661,9 @@
           version: firmwareVersion ? `v${firmwareVersion.replace(/^v/, "")}` : "",
           components,
           hardware,
+          ota_capable: resolveOtaCapable(entry, hardware, hardwareCapabilities),
+          hardware_note: String(entry?.hardware_note || "").trim(),
+          last_seen: null,
           location: deviceData.settings?.sensorLocation?.description || deviceData.location?.name || "",
           last_deployed: firmwareBuildDate ? firmwareBuildDate.split("T")[0] : "",
           initial_deployed: "",
@@ -2625,6 +2865,13 @@
           deviceKey: createDeviceKey(device, trackId),
           components,
           hardware: String(device?.hardware || "").trim(),
+          otaCapable: typeof device?.ota_capable === "boolean"
+            ? device.ota_capable
+            : typeof device?.otaCapable === "boolean"
+              ? device.otaCapable
+              : null,
+          hardwareNote: String(device?.hardware_note || device?.hardwareNote || "").trim(),
+          lastSeen: String(device?.last_seen || device?.lastSeen || "").trim(),
           deploymentEnvironment: String(device?.deployment_environment || device?.deploymentEnvironment || "").trim(),
           declaredDeploymentVersion: String(device?.declared_deployment_version || device?.declaredDeploymentVersion || "").trim(),
           sensorSummary: String(device?.sensor_summary || device?.sensorSummary || "").trim(),
@@ -2657,8 +2904,9 @@
             }
 
             const trackMap = new Map(section.tracks.map((track) => [track.id, track]));
+            const hardwareCapabilities = deviceRegistry?.hardware_capabilities || {};
             const settledResults = await Promise.allSettled(
-              registryDevices.map((entry) => fetchDeviceFromApi(apiBase, entry, trackMap, section.latestVersion))
+              registryDevices.map((entry) => fetchDeviceFromApi(apiBase, entry, trackMap, section.latestVersion, hardwareCapabilities))
             );
             const devices = settledResults.map((result, index) => {
               if (result.status === "fulfilled") {
@@ -2667,12 +2915,16 @@
 
               const entry = registryDevices[index] || {};
               const track = trackMap.get(String(entry?.track || "").trim()) || null;
+              const entryHardware = String(entry?.hardware || "").trim();
               return normalizeDevice(
                 {
                   name: String(entry?.label || entry?.mac || "Unknown device").trim(),
                   version: "",
                   components: Array.isArray(entry?.components) ? entry.components : [],
-                  hardware: String(entry?.hardware || "").trim(),
+                  hardware: entryHardware,
+                  ota_capable: resolveOtaCapable(entry, entryHardware, hardwareCapabilities),
+                  hardware_note: String(entry?.hardware_note || "").trim(),
+                  last_seen: null,
                   location: "",
                   last_deployed: "",
                   initial_deployed: "",
@@ -2837,6 +3089,7 @@
         dashboardState.ui.search = "";
         dashboardState.ui.status = "all";
         dashboardState.ui.component = "all";
+        dashboardState.ui.ota = "all";
         const searchInput = document.getElementById("device-search");
         if (searchInput) {
           searchInput.value = "";
@@ -2852,6 +3105,13 @@
         document.querySelectorAll(".status-filter").forEach((button) => {
           button.addEventListener("click", () => {
             dashboardState.ui.status = button.dataset.status;
+            applyFiltersAndRender();
+          });
+        });
+
+        document.querySelectorAll(".ota-filter").forEach((button) => {
+          button.addEventListener("click", () => {
+            dashboardState.ui.ota = button.dataset.ota;
             applyFiltersAndRender();
           });
         });
@@ -2974,9 +3234,11 @@
         document.getElementById("stat-total-context").textContent = `${metrics.deployedDevices} with a recorded deployment date`;
         document.getElementById("stat-coverage").textContent = `${metrics.coveragePercent}%`;
         document.getElementById("stat-coverage-context").textContent = coverageContext;
+        const updatePlan = buildUpdatePlan(dashboardState.devices);
+        const unverifiedCount = metrics.attentionDevices - updatePlan.ota.length - updatePlan.visit.length;
         document.getElementById("stat-attention").textContent = metrics.attentionDevices;
         document.getElementById("stat-attention-context").textContent = metrics.attentionDevices
-          ? `${metrics.needsUpdate} major/minor gaps, ${metrics.patchAvailable} patch-only`
+          ? `${updatePlan.ota.length} remote / ${updatePlan.visit.length} on-site${unverifiedCount > 0 ? ` / ${unverifiedCount} unverified` : ""}`
           : "No devices currently flagged";
         document.getElementById("stat-components").textContent = metrics.uniqueComponents;
         document.getElementById("stat-components-context").textContent = `${metrics.missingLocationCount} missing a location assignment`;
@@ -2989,8 +3251,21 @@
         document.getElementById("status-chart-total").textContent = metrics.totalDevices;
 
         populateStatusCounts();
+        populateOtaCounts();
         renderStatusBreakdown(metrics.totalDevices);
         renderTrackSummaries();
+        renderUpdatePlan();
+      }
+
+      function populateOtaCounts() {
+        const counts = { ota: 0, physical: 0, unknown: 0 };
+        dashboardState.devices.forEach((device) => {
+          counts[getOtaFilterKey(device)] += 1;
+        });
+        document.getElementById("ota-count-all").textContent = dashboardState.devices.length;
+        document.getElementById("ota-count-ota").textContent = counts.ota;
+        document.getElementById("ota-count-physical").textContent = counts.physical;
+        document.getElementById("ota-count-unknown").textContent = counts.unknown;
       }
 
       function buildMetrics() {
@@ -3147,7 +3422,8 @@
           const searchMatch = matchesSearch(device, dashboardState.ui.search);
           const statusMatch = dashboardState.ui.status === "all" || STATUS_LABELS[device.calculatedStatus] === dashboardState.ui.status;
           const componentMatch = dashboardState.ui.component === "all" || device.components.some((component) => slugify(component) === dashboardState.ui.component);
-          return searchMatch && statusMatch && componentMatch;
+          const otaMatch = dashboardState.ui.ota === "all" || getOtaFilterKey(device) === dashboardState.ui.ota;
+          return searchMatch && statusMatch && componentMatch && otaMatch;
         });
       }
 
@@ -3160,6 +3436,8 @@
           device.name,
           device.location,
           device.hardware,
+          device.hardwareNote,
+          getOtaInfo(device).label,
           device.trackLabel,
           device.versionDisplay,
           device.targetVersion,
@@ -3199,14 +3477,19 @@
             const hardwareMarkup = hasValue(device.hardware)
               ? escapeHtml(device.hardware)
               : "Hardware not specified";
+            const otaPillMarkup = renderOtaPill(device);
+            const lastSeenMarkup = renderLastSeenBadge(device);
             return `
               <div class="col-sm-6 col-xl-4">
                 <article class="device-card status-${statusClass}">
                   <div class="device-card__top">
                     <div>
-                      <div class="device-card__title">${escapeHtml(device.name || "Unnamed device")}</div>
+                      <div class="device-card__title">${escapeHtml(device.name || "Unnamed device")}${renderHardwareNoteIcon(device)}</div>
                     </div>
-                    <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
+                    <div class="device-card__pill-stack">
+                      <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
+                      ${otaPillMarkup}
+                    </div>
                   </div>
                   <div class="device-card__meta">
                     <div class="device-card__detail"><div class="device-card__detail-label">Installed version</div><div class="device-card__detail-value">${versionMarkup}${versionDeltaMarkup}</div></div>
@@ -3218,7 +3501,7 @@
                     <h3>Components</h3>
                     <div class="component-tags">${generateComponentTags(device.components)}</div>
                     <div class="device-card__footer">
-                      <div class="table-subtle">${escapeHtml(risk.primarySignal)}</div>
+                      <div class="table-subtle">${escapeHtml(risk.primarySignal)}${lastSeenMarkup ? ` ${lastSeenMarkup}` : ""}</div>
                       <button type="button" class="device-card__open" data-device-key="${escapeHtml(device.deviceKey)}">
                         <i class="bi bi-arrow-up-right-circle"></i> Open device room
                       </button>
@@ -3239,7 +3522,7 @@
         tableWrap.hidden = dashboardState.ui.view !== "list";
 
         if (!devices.length) {
-          tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><h3>No matching devices</h3><p>Adjust the search term or clear one of the active filters.</p></div></td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><h3>No matching devices</h3><p>Adjust the search term or clear one of the active filters.</p></div></td></tr>`;
           return;
         }
 
@@ -3248,12 +3531,14 @@
             const statusClass = STATUS_LABELS[device.calculatedStatus];
             const risk = computeDeviceRisk(device);
             const versionDelta = describeVersionDelta(device.version, device.targetVersion, device);
-            const subtitleParts = [device.hardware].filter(Boolean);
+            const otaPillMarkup = renderOtaPill(device);
+            const lastSeenMarkup = renderLastSeenBadge(device);
             return `
               <tr>
                 <td>
-                  <div class="table-device-name">${escapeHtml(device.name || "Unnamed device")}</div>
-                  <div class="table-subtle">${escapeHtml(subtitleParts.join(" | ") || "Device")}</div>
+                  <div class="table-device-name">${escapeHtml(device.name || "Unnamed device")}${renderHardwareNoteIcon(device)}</div>
+                  <div class="table-subtle">${escapeHtml(device.trackLabel || "Device")}</div>
+                  ${lastSeenMarkup}
                   <button type="button" class="table-link-button" data-device-key="${escapeHtml(device.deviceKey)}">
                     <i class="bi bi-stars"></i> Open device room
                   </button>
@@ -3262,6 +3547,10 @@
                 <td>
                   <span class="version-badge">${escapeHtml(device.versionDisplay)}</span>
                   ${versionDelta ? `<div class="table-subtle">${escapeHtml(versionDelta)}</div>` : ""}
+                </td>
+                <td>
+                  <div class="table-subtle">${hasValue(device.hardware) ? escapeHtml(device.hardware) : "Not specified"}</div>
+                  ${otaPillMarkup ? `<div style="margin-top:0.4rem">${otaPillMarkup}</div>` : ""}
                 </td>
                 <td>
                   ${generateComponentTags(device.components)}
@@ -3574,6 +3863,10 @@
           button.classList.toggle("active", button.dataset.component === dashboardState.ui.component);
         });
 
+        document.querySelectorAll(".ota-filter").forEach((button) => {
+          button.classList.toggle("active", button.dataset.ota === dashboardState.ui.ota);
+        });
+
         document.querySelectorAll("[data-view]").forEach((button) => {
           const isActive = button.dataset.view === dashboardState.ui.view;
           button.classList.toggle("active", isActive);
@@ -3585,7 +3878,10 @@
         });
 
         document.getElementById("clear-filters-btn").disabled =
-          !dashboardState.ui.search && dashboardState.ui.status === "all" && dashboardState.ui.component === "all";
+          !dashboardState.ui.search &&
+          dashboardState.ui.status === "all" &&
+          dashboardState.ui.component === "all" &&
+          dashboardState.ui.ota === "all";
       }
 
       function updateResultsSummary(filteredCount) {
@@ -3596,6 +3892,9 @@
         }
         if (dashboardState.ui.component !== "all") {
           activeFilters.push(`component: ${dashboardState.ui.component}`);
+        }
+        if (dashboardState.ui.ota !== "all") {
+          activeFilters.push(`update path: ${dashboardState.ui.ota}`);
         }
         if (dashboardState.ui.search) {
           activeFilters.push(`search: "${dashboardState.ui.search}"`);
@@ -3784,6 +4083,26 @@
         document.getElementById("device-drawer-version").textContent = device.versionDisplay || "Unknown";
         document.getElementById("device-drawer-target").textContent = device.targetVersion || "No tracked release";
         document.getElementById("device-drawer-hardware").textContent = hasValue(device.hardware) ? device.hardware : "Hardware not specified";
+
+        const otaInfo = getOtaInfo(device);
+        document.getElementById("device-drawer-ota").textContent =
+          otaInfo.capable === true
+            ? "OTA — remote update supported"
+            : otaInfo.capable === false
+              ? "Physical — requires site access"
+              : "Unknown — hardware capability not verified";
+
+        const noteRow = document.getElementById("device-drawer-hardware-note-row");
+        noteRow.hidden = !hasValue(device.hardwareNote);
+        document.getElementById("device-drawer-hardware-note").textContent = device.hardwareNote || "--";
+
+        const lastSeenRow = document.getElementById("device-drawer-last-seen-row");
+        const lastSeenInfo = getLastSeenInfo(device);
+        lastSeenRow.hidden = !lastSeenInfo.available;
+        document.getElementById("device-drawer-last-seen").textContent = lastSeenInfo.available
+          ? `${formatDateTime(device.lastSeen)} (${lastSeenInfo.relative})`
+          : "--";
+
         document.getElementById("device-drawer-location").textContent = getDisplayLocation(device.location);
         document.getElementById("device-drawer-deployed").textContent = getDisplayDate(device.last_deployed, device);
         document.getElementById("device-drawer-components").innerHTML = generateComponentTags(device.components);
@@ -3853,6 +4172,7 @@
         const search = String(params.get("search") || "").trim().toLowerCase();
         const status = String(params.get("status") || "all").trim();
         const component = String(params.get("component") || "all").trim();
+        const ota = String(params.get("ota") || "all").trim();
         const sortBy = String(params.get("sort") || "date").trim();
         const view = String(params.get("view") || "card").trim();
         const deviceKey = String(params.get("device") || "").trim();
@@ -3862,6 +4182,9 @@
         }
         if (["all", "up-to-date", "patch-available", "needs-update", "not-deployed", "in-development", "unknown"].includes(status)) {
           dashboardState.ui.status = status;
+        }
+        if (["all", "ota", "physical", "unknown"].includes(ota)) {
+          dashboardState.ui.ota = ota;
         }
         if (["date", "name", "status", "risk", "location"].includes(sortBy)) {
           dashboardState.ui.sortBy = sortBy;
@@ -3886,6 +4209,7 @@
         if (dashboardState.ui.search) params.set("search", dashboardState.ui.search);
         if (dashboardState.ui.status !== "all") params.set("status", dashboardState.ui.status);
         if (dashboardState.ui.component !== "all") params.set("component", dashboardState.ui.component);
+        if (dashboardState.ui.ota !== "all") params.set("ota", dashboardState.ui.ota);
         if (dashboardState.ui.sortBy !== "date") params.set("sort", dashboardState.ui.sortBy);
         if (dashboardState.ui.view !== "card") params.set("view", dashboardState.ui.view);
         if (dashboardState.selectedDeviceKey) params.set("device", dashboardState.selectedDeviceKey);
@@ -3976,7 +4300,7 @@
         document.getElementById("sensor-zones").innerHTML = errorMarkup;
         document.getElementById("sensor-atlas").innerHTML = errorMarkup;
         document.getElementById("device-cards").innerHTML = `<div class="col-12">${errorMarkup}</div>`;
-        document.getElementById("device-table-body").innerHTML = `<tr><td colspan="6">${errorMarkup}</td></tr>`;
+        document.getElementById("device-table-body").innerHTML = `<tr><td colspan="7">${errorMarkup}</td></tr>`;
         document.getElementById("version-changes-list").innerHTML = errorMarkup;
       }
 
@@ -4011,6 +4335,208 @@
         if (parsedDevice.major === latest.major && parsedDevice.minor < latest.minor) return "Needs update";
         if (parsedDevice.major === latest.major && parsedDevice.minor === latest.minor && parsedDevice.patch < latest.patch) return "Patch available";
         return "Up to date";
+      }
+
+      function resolveOtaCapable(entry, hardware, capabilities) {
+        if (typeof entry?.ota_override === "boolean") {
+          return entry.ota_override;
+        }
+        const capability = hardware ? capabilities?.[hardware] : null;
+        if (capability && typeof capability.ota === "boolean") {
+          return capability.ota;
+        }
+        return null;
+      }
+
+      function isDeviceBehindTarget(device) {
+        return device.calculatedStatus === "Needs update" || device.calculatedStatus === "Patch available";
+      }
+
+      function getOtaInfo(device) {
+        const behind = isDeviceBehindTarget(device);
+        if (device.otaCapable === true) {
+          return {
+            capable: true,
+            behind,
+            label: "OTA",
+            className: "ota-pill--ota",
+            icon: "bi-cloud-arrow-down",
+            description: "Hardware supports over-the-air updates",
+          };
+        }
+        if (device.otaCapable === false) {
+          return {
+            capable: false,
+            behind,
+            label: "Physical",
+            className: "ota-pill--physical",
+            icon: "bi-person-walking",
+            description: "Firmware updates require physical access to this device",
+          };
+        }
+        return {
+          capable: null,
+          behind,
+          label: "",
+          className: "",
+          icon: "",
+          description: "OTA capability is unknown for this hardware",
+        };
+      }
+
+      function getLastSeenInfo(device) {
+        const date = parseDate(device.lastSeen);
+        if (!date) {
+          return { available: false, silent: false, relative: "", days: null };
+        }
+
+        const elapsedMs = Math.max(0, Date.now() - date.getTime());
+        const minutes = Math.round(elapsedMs / 60000);
+        const days = elapsedMs / 86400000;
+        const silent = days > 1;
+        let relative;
+        if (silent) {
+          const wholeDays = Math.max(1, Math.floor(days));
+          relative = `silent ${wholeDays} day${wholeDays === 1 ? "" : "s"}`;
+        } else if (minutes < 1) {
+          relative = "just now";
+        } else if (minutes < 60) {
+          relative = `${minutes} min ago`;
+        } else {
+          const hours = Math.round(minutes / 60);
+          relative = `${hours} h ago`;
+        }
+
+        return { available: true, silent, relative, days };
+      }
+
+      function getOtaFilterKey(device) {
+        if (device.otaCapable === true) return "ota";
+        if (device.otaCapable === false) return "physical";
+        return "unknown";
+      }
+
+      function renderOtaPill(device) {
+        const info = getOtaInfo(device);
+        if (info.capable === null) {
+          return "";
+        }
+        const mutedClass = info.behind ? "" : " ota-pill--muted";
+        return `<span class="ota-pill ${info.className}${mutedClass}" title="${escapeHtml(info.description)}"><i class="bi ${info.icon}"></i>${escapeHtml(info.label)}</span>`;
+      }
+
+      function renderHardwareNoteIcon(device) {
+        if (!hasValue(device.hardwareNote)) {
+          return "";
+        }
+        return `<i class="bi bi-wrench-adjustable hardware-note-icon" title="${escapeHtml(device.hardwareNote)}"></i>`;
+      }
+
+      function renderLastSeenBadge(device) {
+        const seen = getLastSeenInfo(device);
+        if (!seen.available) {
+          return "";
+        }
+        return `<span class="last-seen${seen.silent ? " last-seen--silent" : ""}" title="A silent device cannot pick up OTA updates"><i class="bi bi-broadcast"></i>${escapeHtml(seen.relative)}</span>`;
+      }
+
+      function buildUpdatePlan(devices) {
+        const plan = { ota: [], visit: [], hardware: [], unknown: [] };
+        devices.forEach((device) => {
+          if (hasValue(device.hardwareNote)) {
+            plan.hardware.push(device);
+          }
+          if (!isDeviceBehindTarget(device)) {
+            return;
+          }
+          const seen = getLastSeenInfo(device);
+          if (device.otaCapable === true && !(seen.available && seen.silent)) {
+            plan.ota.push(device);
+          } else if (device.otaCapable === false || (seen.available && seen.silent)) {
+            plan.visit.push(device);
+          } else {
+            plan.unknown.push(device);
+          }
+        });
+        return plan;
+      }
+
+      function renderUpdatePlan() {
+        const container = document.getElementById("update-plan-body");
+        const note = document.getElementById("update-plan-note");
+        const plan = buildUpdatePlan(dashboardState.devices);
+        const behindCount = plan.ota.length + plan.visit.length + plan.unknown.length;
+
+        if (!behindCount && !plan.hardware.length) {
+          note.textContent = "Nothing queued";
+          container.innerHTML = `<div class="update-plan-converged"><i class="bi bi-check-circle-fill"></i> Fleet converged &mdash; nothing to do.</div>`;
+          return;
+        }
+
+        note.textContent = `${behindCount} behind target | ${plan.hardware.length} hardware change${plan.hardware.length === 1 ? "" : "s"} pending`;
+
+        const buckets = [
+          {
+            devices: plan.ota,
+            className: "plan-bucket--ota",
+            icon: "bi-cloud-arrow-down",
+            title: "Self-updating via OTA",
+            copy: "Behind target but OTA-capable and reachable. These should converge on their own.",
+          },
+          {
+            devices: plan.visit,
+            className: "plan-bucket--visit",
+            icon: "bi-person-walking",
+            title: "Needs site visit",
+            copy: "Behind target and not remotely updatable. Plan physical access.",
+          },
+          {
+            devices: plan.hardware,
+            className: "plan-bucket--hardware",
+            icon: "bi-wrench-adjustable",
+            title: "Hardware change pending",
+            copy: "Devices with a recorded hardware note.",
+          },
+          {
+            devices: plan.unknown,
+            className: "plan-bucket--unknown",
+            icon: "bi-question-diamond",
+            title: "Unknown update path",
+            copy: "Behind target with unverified OTA capability. Confirm the hardware first.",
+          },
+        ];
+
+        container.innerHTML = buckets
+          .map((bucket) => {
+            const rows = bucket.devices.length
+              ? `<div class="plan-device-list">${bucket.devices
+                  .map((device) => {
+                    const versionPart = `${device.versionDisplay || "Unknown"} → ${device.targetVersion || "no target"}`;
+                    const metaParts = [versionPart, hasValue(device.hardware) ? device.hardware : "Hardware unknown"];
+                    return `
+                      <button type="button" class="plan-device-row" data-device-key="${escapeHtml(device.deviceKey)}">
+                        <div class="plan-device-row__name">${escapeHtml(device.name || "Unnamed device")}</div>
+                        <div class="plan-device-row__meta">${escapeHtml(metaParts.join(" | "))}</div>
+                      </button>
+                    `;
+                  })
+                  .join("")}</div>`
+              : `<div class="plan-bucket__empty">None</div>`;
+
+            return `
+              <article class="plan-bucket ${bucket.className}">
+                <div class="plan-bucket__head">
+                  <span class="plan-bucket__title"><i class="bi ${bucket.icon}"></i>${escapeHtml(bucket.title)}</span>
+                  <span class="plan-bucket__count">${bucket.devices.length}</span>
+                </div>
+                <div class="plan-bucket__copy">${escapeHtml(bucket.copy)}</div>
+                ${rows}
+              </article>
+            `;
+          })
+          .join("");
+
+        bindDeviceDetailTriggers(container);
       }
 
       function parseVersion(version) {
@@ -4116,6 +4642,32 @@
             title: "Release alignment healthy",
             detail: describeVersionGap(device.version, device.targetVersion, device),
           });
+        }
+
+        if (isDeviceBehindTarget(device)) {
+          const lastSeenInfo = getLastSeenInfo(device);
+          if (device.otaCapable === false) {
+            score += 12;
+            signals.push({
+              icon: "bi-person-walking",
+              title: "Physical access required",
+              detail: "Behind target and not OTA-capable — updating requires a site visit.",
+            });
+          } else if (device.otaCapable === null) {
+            score += 6;
+            signals.push({
+              icon: "bi-question-diamond",
+              title: "Update path unverified",
+              detail: "Behind target with unknown OTA capability — verify the hardware before planning the update.",
+            });
+          } else if (lastSeenInfo.available && lastSeenInfo.silent) {
+            score += 10;
+            signals.push({
+              icon: "bi-broadcast",
+              title: "Device silent",
+              detail: `OTA-capable but ${lastSeenInfo.relative} — a silent device cannot pick up remote updates.`,
+            });
+          }
         }
 
         const deploymentAge = getDeploymentAge(device.last_deployed);

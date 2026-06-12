@@ -1,5 +1,15 @@
 {
   "default_section": "sensor-hub",
+  "hardware_capabilities": {
+    "_note": "OTA flags verified 2026-06-12. Per-device 'ota_override' on a device entry wins over this map.",
+    "Sensor hub v1.2 / Adafruit TFT Feather Reverse": { "ota": true },
+    "Sensor hub v1.3 / ESP32-WROOM-32E dev board": { "ota": true },
+    "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16": { "ota": true },
+    "GPIO breakout board / ESP32-C3 Super Mini": { "ota": false },
+    "ESP32-C3 Super Mini (no sensor board)": { "ota": false },
+    "Adafruit Feather ESP32-S3 TFT": { "ota": true },
+    "ESP32-C3 DevKitM-1": { "ota": false }
+  },
   "sections": [
     {
       "id": "sensor-hub",
@@ -14,22 +24,22 @@
         }
       ],
       "devices": [
-        { "mac": "64:E8:33:74:70:8C", "label": "Carbonated water CO2 Tank Pressure (hallway)", "track": "sensor-hub" },
-        { "mac": "B8:F8:62:D5:D0:88", "label": "Carbonated water CO2 Tank Pressure (lounge)", "track": "sensor-hub" },
-        { "mac": "68:FE:71:16:A7:58", "label": "Water System Temperatures", "track": "sensor-hub" },
-        { "mac": "68:FE:71:16:A9:78", "label": "Lounge Floor Temperature", "track": "sensor-hub" },
-        { "mac": "64:E8:33:74:76:FC", "label": "Main Power In", "track": "sensor-hub" },
-        { "mac": "18:8B:0E:2F:D6:A0", "label": "MOG Tank Cycle Count", "track": "sensor-hub" },
+        { "mac": "64:E8:33:74:70:8C", "label": "Carbonated water CO2 Tank Pressure (hallway)", "track": "sensor-hub", "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse" },
+        { "mac": "B8:F8:62:D5:D0:88", "label": "Carbonated water CO2 Tank Pressure (lounge)", "track": "sensor-hub", "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse" },
+        { "mac": "68:FE:71:16:A7:58", "label": "Water System Temperatures", "track": "sensor-hub", "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board" },
+        { "mac": "68:FE:71:16:A9:78", "label": "Lounge Floor Temperature", "track": "sensor-hub", "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board" },
+        { "mac": "64:E8:33:74:76:FC", "label": "Main Power In", "track": "sensor-hub", "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board" },
+        { "mac": "18:8B:0E:2F:D6:A0", "label": "MOG Tank Cycle Count", "track": "sensor-hub", "hardware": "GPIO breakout board / ESP32-C3 Super Mini" },
         { "mac": "3C:84:27:AF:4C:F0", "label": "Music Switch Lounge", "track": "sensor-hub" },
         { "mac": "3C:84:27:AD:71:9C", "label": "Music Switch Sauna", "track": "sensor-hub" },
-        { "mac": "68:FE:71:16:86:78", "label": "Sauna floor temperature", "track": "sensor-hub" },
-        { "mac": "3C:84:27:AE:EB:E0", "label": "Sauna Power", "track": "sensor-hub" },
-        { "mac": "D8:3B:DA:34:FA:74", "label": "Sauna Temperature and Humidity", "track": "sensor-hub" },
-        { "mac": "68:FE:71:16:BF:60", "label": "Water flow - Pre heater in", "track": "sensor-hub" },
+        { "mac": "68:FE:71:16:86:78", "label": "Sauna floor temperature", "track": "sensor-hub", "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16" },
+        { "mac": "3C:84:27:AE:EB:E0", "label": "Sauna Power", "track": "sensor-hub", "hardware": "GPIO breakout board / ESP32-C3 Super Mini" },
+        { "mac": "D8:3B:DA:34:FA:74", "label": "Sauna Temperature and Humidity", "track": "sensor-hub", "hardware": "ESP32-C3 Super Mini (no sensor board)" },
+        { "mac": "68:FE:71:16:BF:60", "label": "Water flow - Pre heater in", "track": "sensor-hub", "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board" },
         { "mac": "64:E8:33:88:C3:E4", "label": "Water Heater Power", "track": "sensor-hub" },
-        { "mac": "64:E8:33:74:74:48", "label": "Water Heater Power Consumption", "track": "sensor-hub" },
+        { "mac": "64:E8:33:74:74:48", "label": "Water Heater Power Consumption", "track": "sensor-hub", "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse" },
         { "mac": "3C:84:27:AD:43:BC", "label": "Water System Temperatures", "track": "sensor-hub" },
-        { "mac": "68:FE:71:16:85:68", "label": "Water Heater Temperatures", "track": "sensor-hub" }
+        { "mac": "68:FE:71:16:85:68", "label": "Water Heater Temperatures", "track": "sensor-hub", "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board" }
       ]
     },
     {

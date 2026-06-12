@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-12 10:45:01",
+  "last_updated": "2026-06-12 14:08:23",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.20.0",
       "latest_version_label": "v3.20.0",
       "last_commit_date": "2026-06-09 16:08:04",
-      "last_updated": "2026-06-12 10:45:01",
+      "last_updated": "2026-06-12 14:08:23",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1936,28 +1936,6 @@
       ],
       "devices": [
         {
-          "name": "Audio Player Scheduler",
-          "mac": "58:8c:81:c4:62:f8",
-          "version": "v3.11.2",
-          "components": [
-            "dfplayer",
-            "core"
-          ],
-          "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
-          "location": "Technician room",
-          "last_deployed": "2026-04-09",
-          "initial_deployed": "2026-03-20",
-          "deployment_environment": "production",
-          "declared_deployment_version": "v3.11.2",
-          "sensor_summary": "DFPlayer audio scheduling controller",
-          "notes": "",
-          "updated_by": "Codex",
-          "version_last_updated": "2026-04-20",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.20.0"
-        },
-        {
           "name": "Emergency Button Monitor",
           "mac": "e0:72:a1:f5:0d:cc",
           "version": "v3.14.3",
@@ -1966,6 +1944,9 @@
             "core"
           ],
           "hardware": "",
+          "ota_capable": null,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Landgang ind",
           "last_deployed": "2026-05-04",
           "initial_deployed": "2025-08-25",
@@ -1988,6 +1969,9 @@
             "core"
           ],
           "hardware": "",
+          "ota_capable": null,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Technician room",
           "last_deployed": "2026-05-01",
           "initial_deployed": "2026-04-30",
@@ -2010,6 +1994,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Lounge",
           "last_deployed": "",
           "initial_deployed": "",
@@ -2032,6 +2019,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Technician room - Inside electrical box next to power meter for heaters",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-18",
@@ -2054,6 +2044,9 @@
             "core"
           ],
           "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
+          "ota_capable": false,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Crawl space",
           "last_deployed": "2025-05-14",
           "initial_deployed": "2025-03-28",
@@ -2076,6 +2069,9 @@
             "core"
           ],
           "hardware": "",
+          "ota_capable": null,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Test bench",
           "last_deployed": "2026-05-28",
           "initial_deployed": "2026-05-28",
@@ -2098,6 +2094,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Hallway",
           "last_deployed": "",
           "initial_deployed": "",
@@ -2120,6 +2119,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Lounge",
           "last_deployed": "",
           "initial_deployed": "",
@@ -2142,6 +2144,9 @@
             "core"
           ],
           "hardware": "",
+          "ota_capable": null,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "",
           "last_deployed": "",
           "initial_deployed": "",
@@ -2164,6 +2169,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Crawl space",
           "last_deployed": "2026-03-19",
           "initial_deployed": "2026-03-19",
@@ -2186,6 +2194,9 @@
             "core"
           ],
           "hardware": "",
+          "ota_capable": null,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "",
           "last_deployed": "",
           "initial_deployed": "",
@@ -2208,6 +2219,9 @@
             "core"
           ],
           "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
+          "ota_capable": false,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Basement (left side) - Rear electrical box",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-18",
@@ -2230,6 +2244,9 @@
             "core"
           ],
           "hardware": "ESP32-C3 Super Mini (no sensor board)",
+          "ota_capable": false,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Basement (left side) - On top of box next to fridge",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-18",
@@ -2252,6 +2269,9 @@
             "core"
           ],
           "hardware": "",
+          "ota_capable": null,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Under lounge table",
           "last_deployed": "2026-05-04",
           "initial_deployed": "2026-05-04",
@@ -2274,6 +2294,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Technician room - Inside electrical box next to power meter for heaters",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-18",
@@ -2296,6 +2319,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Technician room",
           "last_deployed": "",
           "initial_deployed": "",
@@ -2319,6 +2345,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Technician room - Box left of door",
           "last_deployed": "2025-08-21",
           "initial_deployed": "2025-03-28",
@@ -2342,6 +2371,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Technician room",
           "last_deployed": "2025-12-02",
           "initial_deployed": "2025-03-28",
@@ -2365,7 +2397,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-12 10:45:01",
+      "last_updated": "2026-06-12 14:08:23",
       "tracks": [
         {
           "id": "controllers",
@@ -2397,7 +2429,7 @@
         {
           "name": "Glaecier #1 Heat & cooling controller",
           "mac": "b7:14:da:59:c3:14",
-          "version": "v1.2.8",
+          "version": "",
           "components": [
             "control",
             "cooling",
@@ -2405,8 +2437,11 @@
             "core"
           ],
           "hardware": "Adafruit Feather ESP32-S3 TFT",
-          "location": "Glaecier #1 Water: cooling & heating",
-          "last_deployed": "2026-05-16",
+          "ota_capable": true,
+          "hardware_note": "",
+          "last_seen": null,
+          "location": "",
+          "last_deployed": "",
           "initial_deployed": "",
           "deployment_environment": "",
           "declared_deployment_version": "",
@@ -2429,6 +2464,9 @@
             "core"
           ],
           "hardware": "ESP32-C3 DevKitM-1",
+          "ota_capable": false,
+          "hardware_note": "",
+          "last_seen": null,
           "location": "Next to sauna ovens",
           "last_deployed": "",
           "initial_deployed": "",
@@ -3558,28 +3596,6 @@
   ],
   "devices": [
     {
-      "name": "Audio Player Scheduler",
-      "mac": "58:8c:81:c4:62:f8",
-      "version": "v3.11.2",
-      "components": [
-        "dfplayer",
-        "core"
-      ],
-      "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
-      "location": "Technician room",
-      "last_deployed": "2026-04-09",
-      "initial_deployed": "2026-03-20",
-      "deployment_environment": "production",
-      "declared_deployment_version": "v3.11.2",
-      "sensor_summary": "DFPlayer audio scheduling controller",
-      "notes": "",
-      "updated_by": "Codex",
-      "version_last_updated": "2026-04-20",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.20.0"
-    },
-    {
       "name": "Emergency Button Monitor",
       "mac": "e0:72:a1:f5:0d:cc",
       "version": "v3.14.3",
@@ -3588,6 +3604,9 @@
         "core"
       ],
       "hardware": "",
+      "ota_capable": null,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Landgang ind",
       "last_deployed": "2026-05-04",
       "initial_deployed": "2025-08-25",
@@ -3610,6 +3629,9 @@
         "core"
       ],
       "hardware": "",
+      "ota_capable": null,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Technician room",
       "last_deployed": "2026-05-01",
       "initial_deployed": "2026-04-30",
@@ -3632,6 +3654,9 @@
         "core"
       ],
       "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+      "ota_capable": true,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Lounge",
       "last_deployed": "",
       "initial_deployed": "",
@@ -3654,6 +3679,9 @@
         "core"
       ],
       "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+      "ota_capable": true,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Technician room - Inside electrical box next to power meter for heaters",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18",
@@ -3676,6 +3704,9 @@
         "core"
       ],
       "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
+      "ota_capable": false,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Crawl space",
       "last_deployed": "2025-05-14",
       "initial_deployed": "2025-03-28",
@@ -3698,6 +3729,9 @@
         "core"
       ],
       "hardware": "",
+      "ota_capable": null,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Test bench",
       "last_deployed": "2026-05-28",
       "initial_deployed": "2026-05-28",
@@ -3720,6 +3754,9 @@
         "core"
       ],
       "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+      "ota_capable": true,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Hallway",
       "last_deployed": "",
       "initial_deployed": "",
@@ -3742,6 +3779,9 @@
         "core"
       ],
       "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+      "ota_capable": true,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Lounge",
       "last_deployed": "",
       "initial_deployed": "",
@@ -3764,6 +3804,9 @@
         "core"
       ],
       "hardware": "",
+      "ota_capable": null,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "",
       "last_deployed": "",
       "initial_deployed": "",
@@ -3786,6 +3829,9 @@
         "core"
       ],
       "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+      "ota_capable": true,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Crawl space",
       "last_deployed": "2026-03-19",
       "initial_deployed": "2026-03-19",
@@ -3808,6 +3854,9 @@
         "core"
       ],
       "hardware": "",
+      "ota_capable": null,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "",
       "last_deployed": "",
       "initial_deployed": "",
@@ -3830,6 +3879,9 @@
         "core"
       ],
       "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
+      "ota_capable": false,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Basement (left side) - Rear electrical box",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18",
@@ -3852,6 +3904,9 @@
         "core"
       ],
       "hardware": "ESP32-C3 Super Mini (no sensor board)",
+      "ota_capable": false,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Basement (left side) - On top of box next to fridge",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18",
@@ -3874,6 +3929,9 @@
         "core"
       ],
       "hardware": "",
+      "ota_capable": null,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Under lounge table",
       "last_deployed": "2026-05-04",
       "initial_deployed": "2026-05-04",
@@ -3896,6 +3954,9 @@
         "core"
       ],
       "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
+      "ota_capable": true,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Technician room - Inside electrical box next to power meter for heaters",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-18",
@@ -3918,6 +3979,9 @@
         "core"
       ],
       "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+      "ota_capable": true,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Technician room",
       "last_deployed": "",
       "initial_deployed": "",
@@ -3941,6 +4005,9 @@
         "core"
       ],
       "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+      "ota_capable": true,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Technician room - Box left of door",
       "last_deployed": "2025-08-21",
       "initial_deployed": "2025-03-28",
@@ -3964,6 +4031,9 @@
         "core"
       ],
       "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+      "ota_capable": true,
+      "hardware_note": "",
+      "last_seen": null,
       "location": "Technician room",
       "last_deployed": "2025-12-02",
       "initial_deployed": "2025-03-28",
