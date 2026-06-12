@@ -1049,7 +1049,8 @@
       .sensor-intelligence-grid {
         display: grid;
         gap: 1rem;
-        grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
       }
 
       .sensor-panel {
@@ -1060,107 +1061,6 @@
       .sensor-atlas-list {
         display: grid;
         gap: 0.9rem;
-      }
-
-      .floorplan-wrap {
-        display: grid;
-        gap: 1rem;
-      }
-
-      .floorplan-shell {
-        position: relative;
-        aspect-ratio: 1135 / 580;
-        border-radius: 24px;
-        overflow: hidden;
-        background:
-          linear-gradient(180deg, rgba(250, 248, 244, 0.98), rgba(228, 224, 218, 0.96)),
-          radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 34%);
-        border: 1px solid rgba(152, 131, 115, 0.18);
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4), 0 20px 42px rgba(0, 0, 0, 0.16);
-      }
-
-      .floorplan-image {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-        pointer-events: none;
-        user-select: none;
-      }
-
-      .floorplan-markers {
-        position: absolute;
-        inset: 0;
-      }
-
-      .floorplan-marker {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        min-width: 2.2rem;
-        min-height: 2.2rem;
-        padding: 0.3rem 0.55rem;
-        border-radius: 999px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.35rem;
-        color: #fff;
-        font-size: 0.78rem;
-        font-weight: 700;
-        border: 2px solid rgba(255, 255, 255, 0.50);
-        box-shadow: 0 4px 14px rgba(40, 20, 10, 0.24);
-        backdrop-filter: blur(4px);
-      }
-
-      .floorplan-marker::after {
-        content: attr(data-label);
-        position: absolute;
-        top: calc(100% + 0.45rem);
-        left: 50%;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        color: #453d36;
-        font-size: 0.72rem;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      .floorplan-marker.status-up-to-date {
-        background: linear-gradient(135deg, rgba(83, 211, 157, 0.86), rgba(67, 167, 158, 0.92));
-      }
-
-      .floorplan-marker.status-patch-available {
-        background: linear-gradient(135deg, rgba(140, 164, 255, 0.86), rgba(109, 149, 180, 0.92));
-      }
-
-      .floorplan-marker.status-needs-update {
-        background: linear-gradient(135deg, rgba(241, 163, 95, 0.88), rgba(211, 138, 74, 0.94));
-      }
-
-      .floorplan-marker.status-unknown {
-        background: linear-gradient(135deg, rgba(220, 106, 135, 0.88), rgba(184, 101, 129, 0.94));
-      }
-
-      .floorplan-marker.status-not-deployed {
-        background: linear-gradient(135deg, rgba(216, 176, 110, 0.88), rgba(211, 138, 74, 0.92));
-      }
-
-      .floorplan-marker.status-in-development {
-        background: linear-gradient(135deg, rgba(67, 167, 158, 0.88), rgba(109, 149, 180, 0.92));
-      }
-
-      .floorplan-note {
-        color: var(--muted);
-        font-size: 0.88rem;
-        line-height: 1.55;
-      }
-
-      .floorplan-zone-grid,
-      .offfloor-list {
-        display: grid;
-        gap: 0.85rem;
       }
 
       .sensor-zone-card,
@@ -2229,34 +2129,21 @@
               <span class="eyebrow">Sensor Topology</span>
               <h2>Locations and families</h2>
             </div>
-            <p class="section-note">Spatial groupings and component relationships for the currently filtered fleet.</p>
+            <p class="section-note">Location assignments and component relationships for the currently filtered fleet.</p>
           </div>
           <div class="sensor-intelligence-grid">
             <div class="surface sensor-panel sensor-zones-surface">
               <div class="section-heading">
                 <div>
-                  <span class="eyebrow">Ground Floor</span>
-                  <h2>Location map</h2>
+                  <span class="eyebrow">Field Layout</span>
+                  <h2>Location groups</h2>
                 </div>
-                <span id="floorplan-summary" class="section-badge">Mapping devices</span>
+                <span id="location-summary" class="section-badge">Grouping devices</span>
               </div>
-              <div class="floorplan-wrap">
-                <div class="floorplan-shell">
-                  <img class="floorplan-image" src="assets/floorplan.png" alt="Ground floor plan" />
-                  <div id="ground-floor-markers" class="floorplan-markers"></div>
-                </div>
-                <div class="floorplan-note">Ground-floor markers show mapped device clusters. Basement, crawlspace, and unplaced devices are grouped below to avoid implying a false position on this plan.</div>
-                <div id="ground-floor-zones" class="floorplan-zone-grid">
-                  <div class="empty-state">
-                    <h3>Loading mapped zones</h3>
-                    <p>Preparing ground-floor device anchors.</p>
-                  </div>
-                </div>
-                <div id="offfloor-list" class="offfloor-list">
-                  <div class="empty-state">
-                    <h3>Loading off-floor groups</h3>
-                    <p>Collecting basement, crawlspace, and unassigned devices.</p>
-                  </div>
+              <div id="sensor-zones" class="sensor-zone-list">
+                <div class="empty-state">
+                  <h3>Loading location groups</h3>
+                  <p>Organizing devices by assigned field location.</p>
                 </div>
               </div>
             </div>
@@ -2426,41 +2313,6 @@
         "digital-switch": "#6a4a10",
         digital_switch: "#d8b06e",
       };
-
-      const GROUND_FLOOR_ZONES = [
-        {
-          id: "technician-room",
-          title: "Technician room",
-          shortLabel: "Technician",
-          left: 86,
-          top: 18,
-          locations: ["Technician room"],
-        },
-        {
-          id: "technician-door-box",
-          title: "Technician room door-side box",
-          shortLabel: "Door box",
-          left: 72,
-          top: 28,
-          locations: ["Technician room - Box left of door"],
-        },
-        {
-          id: "technician-electrical",
-          title: "Heater power-meter box",
-          shortLabel: "Power box",
-          left: 90,
-          top: 55,
-          locations: ["Technician room - Inside electrical box next to power meter for heaters"],
-        },
-        {
-          id: "glaecier-water",
-          title: "Glaecier #1 Water",
-          shortLabel: "Water loop",
-          left: 50,
-          top: 72,
-          locations: ["Glaecier #1 Water: cooling & heating"],
-        },
-      ];
 
       function createEmptyStatusCounts() {
         return {
@@ -3798,107 +3650,61 @@
       }
 
       function renderSensorTopology(devices) {
-        renderGroundFloorMap(devices);
+        renderLocationGroups(devices);
         renderSensorAtlas(devices);
       }
 
-      function renderGroundFloorMap(devices) {
-        const markers = document.getElementById("ground-floor-markers");
-        const zones = document.getElementById("ground-floor-zones");
-        const offfloor = document.getElementById("offfloor-list");
-        const summary = document.getElementById("floorplan-summary");
+      function renderLocationGroups(devices) {
+        const container = document.getElementById("sensor-zones");
+        const summary = document.getElementById("location-summary");
 
         if (!devices.length) {
-          markers.innerHTML = "";
-          zones.innerHTML = `<div class="empty-state"><h3>No mapped devices</h3><p>The current filters hide every ground-floor marker.</p></div>`;
-          offfloor.innerHTML = `<div class="empty-state"><h3>No off-floor devices</h3><p>Everything in the current view is filtered out.</p></div>`;
-          summary.textContent = "No mapped devices";
+          container.innerHTML = `
+            <div class="empty-state">
+              <h3>No location groups</h3>
+              <p>The current filters hide every device in the fleet.</p>
+            </div>
+          `;
+          summary.textContent = "No devices visible";
           return;
         }
 
-        const zoneEntries = GROUND_FLOOR_ZONES
-          .map((zone) => ({
-            ...zone,
-            devices: devices.filter((device) => zone.locations.includes(String(device.location || "").trim())),
-          }))
-          .filter((zone) => zone.devices.length);
+        const groups = buildLocationGroups(devices);
+        const assignedCount = devices.filter((device) => hasValue(device.location)).length;
+        const missingCount = devices.length - assignedCount;
+        summary.textContent = missingCount
+          ? `${groups.length} groups | ${missingCount} unassigned`
+          : `${groups.length} groups`;
 
-        const groundFloorCount = zoneEntries.reduce((total, zone) => total + zone.devices.length, 0);
-        summary.textContent = `${groundFloorCount} mapped on the ground floor`;
+        container.innerHTML = groups
+          .map((group) => {
+            const componentCount = new Set(
+              group.devices.flatMap((device) => device.components.map((component) => slugify(component))).filter((slug) => slug !== "core")
+            ).size;
+            const tokens = group.devices
+              .sort((left, right) => compareText(left.name, right.name))
+              .map((device) => {
+                const color = getComponentColor(getDeviceAccentComponent(device));
+                return `<button type="button" class="sensor-device-token" style="color:${color}" data-device-key="${escapeHtml(device.deviceKey)}">${escapeHtml(device.name || "Unnamed device")}</button>`;
+              })
+              .join("");
 
-        markers.innerHTML = zoneEntries
-          .map((zone) => {
-            const statusClass = getAggregateStatusClass(zone.devices);
             return `
-              <div
-                class="floorplan-marker ${statusClass}"
-                style="left:${zone.left}%; top:${zone.top}%"
-                data-label="${escapeHtml(zone.shortLabel)}"
-                title="${escapeHtml(zone.title)}"
-              >
-                ${zone.devices.length}
-              </div>
+              <article class="sensor-zone-card">
+                <div class="sensor-zone-card__head">
+                  <div>
+                    <div class="sensor-zone-card__title">${escapeHtml(group.title)}</div>
+                    <div class="sensor-zone-card__meta">${group.devices.length} device${group.devices.length === 1 ? "" : "s"} | ${componentCount} component families</div>
+                  </div>
+                  <span class="section-badge">${group.devices.length}</span>
+                </div>
+                <div class="sensor-zone-device-list">${tokens}</div>
+              </article>
             `;
           })
           .join("");
 
-        zones.innerHTML = zoneEntries.length
-          ? zoneEntries
-              .map((zone) => {
-                const componentCount = new Set(
-                  zone.devices.flatMap((device) => device.components.map((component) => slugify(component))).filter((slug) => slug !== "core")
-                ).size;
-                const tokens = zone.devices
-                  .sort((left, right) => compareText(left.name, right.name))
-                  .map((device) => {
-                    const color = getComponentColor(getDeviceAccentComponent(device));
-                    return `<button type="button" class="sensor-device-token" style="color:${color}" data-device-key="${escapeHtml(device.deviceKey)}">${escapeHtml(device.name || "Unnamed device")}</button>`;
-                  })
-                  .join("");
-
-                return `
-                  <article class="sensor-zone-card">
-                    <div class="sensor-zone-card__head">
-                      <div>
-                        <div class="sensor-zone-card__title">${escapeHtml(zone.title)}</div>
-                        <div class="sensor-zone-card__meta">${zone.devices.length} device${zone.devices.length === 1 ? "" : "s"} | ${componentCount} component families</div>
-                      </div>
-                      <span class="section-badge">${zone.devices.length}</span>
-                    </div>
-                    <div class="sensor-zone-device-list">${tokens}</div>
-                  </article>
-                `;
-              })
-              .join("")
-          : `<div class="empty-state"><h3>No ground-floor placements</h3><p>The current filters only include basement, crawlspace, or unassigned devices.</p></div>`;
-
-        const offFloorGroups = buildOffFloorGroups(devices.filter((device) => !zoneEntries.some((zone) => zone.devices.includes(device))));
-        offfloor.innerHTML = offFloorGroups.length
-          ? offFloorGroups
-              .map((group) => {
-                const tokens = group.devices
-                  .sort((left, right) => compareText(left.name, right.name))
-                  .map((device) => `<button type="button" class="sensor-device-token" style="color:${getComponentColor(getDeviceAccentComponent(device))}" data-device-key="${escapeHtml(device.deviceKey)}">${escapeHtml(device.name || "Unnamed device")}</button>`)
-                  .join("");
-
-                return `
-                  <article class="sensor-zone-card">
-                    <div class="sensor-zone-card__head">
-                      <div>
-                        <div class="sensor-zone-card__title">${escapeHtml(group.title)}</div>
-                        <div class="sensor-zone-card__meta">${group.devices.length} device${group.devices.length === 1 ? "" : "s"}</div>
-                      </div>
-                      <span class="section-badge">${group.devices.length}</span>
-                    </div>
-                    <div class="sensor-zone-device-list">${tokens}</div>
-                  </article>
-                `;
-              })
-              .join("")
-          : `<div class="empty-state"><h3>No off-floor devices</h3><p>Everything in the current filtered view is mapped to the ground floor.</p></div>`;
-
-        bindDeviceDetailTriggers(zones);
-        bindDeviceDetailTriggers(offfloor);
+        bindDeviceDetailTriggers(container);
       }
 
       function renderSensorAtlas(devices) {
@@ -3962,40 +3768,26 @@
         return slugify(firstNonCore || "core");
       }
 
-      function buildOffFloorGroups(devices) {
-        const groups = [
-          { id: "basement-left", title: "Basement - left side", devices: [] },
-          { id: "basement-right", title: "Basement - right side", devices: [] },
-          { id: "crawlspace", title: "Crawl space", devices: [] },
-          { id: "unassigned", title: "Unassigned / missing location", devices: [] },
-          { id: "other", title: "Other unmapped locations", devices: [] },
-        ];
+      function buildLocationGroups(devices) {
+        const groups = new Map();
 
         devices.forEach((device) => {
-          const location = String(device.location || "").trim();
-          if (!location) {
-            groups[3].devices.push(device);
-          } else if (location.startsWith("Basement (left side)")) {
-            groups[0].devices.push(device);
-          } else if (location.startsWith("Basement - right side")) {
-            groups[1].devices.push(device);
-          } else if (location.startsWith("Crawl space")) {
-            groups[2].devices.push(device);
-          } else {
-            groups[4].devices.push(device);
+          const location = hasValue(device.location) ? String(device.location).trim() : "Unassigned / missing location";
+          if (!groups.has(location)) {
+            groups.set(location, {
+              title: location,
+              devices: [],
+              missingLocation: !hasValue(device.location),
+            });
           }
+          groups.get(location).devices.push(device);
         });
 
-        return groups.filter((group) => group.devices.length);
-      }
-
-      function getAggregateStatusClass(devices) {
-        if (devices.some((device) => device.calculatedStatus === "Needs update")) return "status-needs-update";
-        if (devices.some((device) => device.calculatedStatus === "Unknown")) return "status-unknown";
-        if (devices.some((device) => device.calculatedStatus === "Patch available")) return "status-patch-available";
-        if (devices.some((device) => device.calculatedStatus === "Not deployed")) return "status-not-deployed";
-        if (devices.some((device) => device.calculatedStatus === "In development")) return "status-in-development";
-        return "status-up-to-date";
+        return [...groups.values()].sort((left, right) => {
+          if (left.missingLocation && !right.missingLocation) return 1;
+          if (right.missingLocation && !left.missingLocation) return -1;
+          return compareText(left.title, right.title);
+        });
       }
 
       function getComponentColor(componentSlug) {
