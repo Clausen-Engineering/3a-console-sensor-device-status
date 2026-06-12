@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-12 22:11:32",
+  "last_updated": "2026-06-12 22:26:07",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.21.0",
       "latest_version_label": "v3.21.0",
       "last_commit_date": "2026-06-12 15:21:09",
-      "last_updated": "2026-06-12 22:11:32",
+      "last_updated": "2026-06-12 22:26:07",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2332,7 +2332,7 @@
         },
         {
           "name": "Water System Temperatures",
-          "mac": "3C:0F:02:C7:BC:48",
+          "mac": "3c:0f:02:c7:bc:48",
           "version": "v3.19.0",
           "components": [
             "core",
@@ -2366,7 +2366,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-12 22:11:32",
+      "last_updated": "2026-06-12 22:26:07",
       "tracks": [
         {
           "id": "heat-controller",
@@ -3945,7 +3945,7 @@
     },
     {
       "name": "Water System Temperatures",
-      "mac": "3C:0F:02:C7:BC:48",
+      "mac": "3c:0f:02:c7:bc:48",
       "version": "v3.19.0",
       "components": [
         "core",
