@@ -3722,6 +3722,8 @@
           lastSeen: String(device?.last_seen || device?.lastSeen || "").trim(),
           deploymentEnvironment: String(device?.deployment_environment || device?.deploymentEnvironment || "").trim(),
           declaredDeploymentVersion: String(device?.declared_deployment_version || device?.declaredDeploymentVersion || "").trim(),
+          pendingOtaVersion: String(device?.pending_ota_version || device?.pendingOtaVersion || "").trim(),
+          pendingOtaCreated: String(device?.pending_ota_created || device?.pendingOtaCreated || "").trim(),
           sensorSummary: String(device?.sensor_summary || device?.sensorSummary || "").trim(),
           notes: String(device?.notes || "").trim(),
           updatedBy: String(device?.updated_by || device?.updatedBy || "").trim(),
@@ -4422,6 +4424,7 @@
           device.trackLabel,
           device.versionDisplay,
           device.targetVersion,
+          device.pendingOtaVersion,
           device.calculatedStatus,
           device.components.join(" "),
           device.last_deployed,
@@ -4462,6 +4465,7 @@
               ? escapeHtml(device.hardware)
               : "Hardware not specified";
             const otaPillMarkup = renderOtaPill(device);
+            const pendingOtaMarkup = renderPendingOtaBadge(device);
             const lastSeenMarkup = renderLastSeenBadge(device);
             const staggerDelay = Math.min(index * staggerStep, staggerCap);
             return `
@@ -4474,6 +4478,7 @@
                     <div class="device-card__pill-stack">
                       <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
                       ${otaPillMarkup}
+                      ${pendingOtaMarkup}
                     </div>
                   </div>
                   <div class="device-card__meta">
@@ -4518,6 +4523,7 @@
             const risk = computeDeviceRisk(device);
             const versionDelta = describeVersionDelta(device.version, device.targetVersion, device);
             const otaPillMarkup = renderOtaPill(device);
+            const pendingOtaMarkup = renderPendingOtaBadge(device);
             const lastSeenMarkup = renderLastSeenBadge(device);
             return `
               <tr>
@@ -4533,6 +4539,7 @@
                 <td>
                   <span class="version-badge">${escapeHtml(device.versionDisplay)}</span>
                   ${versionDelta ? `<div class="table-subtle">${escapeHtml(versionDelta)}</div>` : ""}
+                  ${pendingOtaMarkup ? `<div style="margin-top:0.4rem">${pendingOtaMarkup}</div>` : ""}
                 </td>
                 <td>
                   <div class="table-subtle">${hasValue(device.hardware) ? escapeHtml(device.hardware) : "Not specified"}</div>
@@ -5351,6 +5358,13 @@
           { text: deploymentAge.copy },
           { text: device.targetVersion ? `Track target is ${device.targetVersion}.` : "No tracked release target is configured for this device." },
         ];
+        if (hasValue(device.pendingOtaVersion)) {
+          postureLines.push({
+            text: hasValue(device.pendingOtaCreated)
+              ? `OTA ${device.pendingOtaVersion} was queued ${formatRelativeTime(device.pendingOtaCreated)} and is not yet marked installed.`
+              : `OTA ${device.pendingOtaVersion} is queued and not yet marked installed.`,
+          });
+        }
         if (hasValue(device.notes)) {
           postureLines.push({ text: `Notes: ${device.notes}` });
         }
@@ -5958,6 +5972,17 @@
         }
         const mutedClass = info.behind ? "" : " ota-pill--muted";
         return `<span class="ota-pill ${info.className}${mutedClass}" title="${escapeHtml(info.description)}"><i class="bi ${info.icon}"></i>${escapeHtml(info.label)}</span>`;
+      }
+
+      function renderPendingOtaBadge(device) {
+        if (!hasValue(device.pendingOtaVersion)) {
+          return "";
+        }
+        const created = hasValue(device.pendingOtaCreated)
+          ? ` Created ${formatAbsoluteDateTime(device.pendingOtaCreated)}.`
+          : "";
+        const title = `OTA firmware ${device.pendingOtaVersion} has been queued, but this dashboard has not marked it as installed yet.${created}`;
+        return `<span class="ota-pill ota-pill--muted" title="${escapeHtml(title)}"><i class="bi bi-cloud-arrow-up"></i>Pending ${escapeHtml(device.pendingOtaVersion)}</span>`;
       }
 
       function renderHardwareNoteIcon(device) {

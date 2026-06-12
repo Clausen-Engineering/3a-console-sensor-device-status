@@ -155,6 +155,38 @@ def extract_hardware(entry: dict[str, Any]) -> str:
     return safe_string(entry.get("hardware"))
 
 
+def entry_value(entry: dict[str, Any], *field_names: str) -> str:
+    for field_name in field_names:
+        value = safe_string(entry.get(field_name))
+        if value:
+            return value
+    return ""
+
+
+def entry_version(entry: dict[str, Any]) -> str:
+    return normalize_version(
+        entry_value(
+            entry,
+            "installed_firmware_version",
+            "declared_deployment_version",
+            "deployment_version",
+            "deploymentVersion",
+        )
+    )
+
+
+def entry_version_field(entry: dict[str, Any], *field_names: str) -> str:
+    return normalize_version(entry_value(entry, *field_names))
+
+
+def entry_last_firmware_update(entry: dict[str, Any]) -> str:
+    return entry_value(entry, "last_firmware_update", "last_deployed", "deployment_date")
+
+
+def entry_first_installed(entry: dict[str, Any]) -> str:
+    return entry_value(entry, "first_installed", "initial_deployed", "initial_deployment_date")
+
+
 def get_hardware_capabilities(device_registry: dict[str, Any]) -> dict[str, dict[str, Any]]:
     capabilities = device_registry.get("hardware_capabilities")
     if not isinstance(capabilities, dict):
@@ -299,33 +331,35 @@ def build_repo_device_summaries(
             continue
 
         registry_entry = registry_entry_map.get(mac, {})
+        if registry_entry_map and not registry_entry:
+            continue
+
         hardware = (
-            safe_string(version_data.get("hardware_target"))
+            extract_hardware(registry_entry)
+            or safe_string(version_data.get("hardware_target"))
             or safe_string(version_data.get("hardware"))
-            or extract_hardware(registry_entry)
         )
+        configured_components = extract_components(registry_entry, registry_entry) if registry_entry else []
+        installed_version = entry_version(registry_entry) or choose_repo_device_version(version_data)
 
         output.append(
             {
-                "name": safe_string(device_meta.get("name")) or humanize_slug(device_dir.name),
+                "name": safe_string(registry_entry.get("label")) or safe_string(device_meta.get("name")) or humanize_slug(device_dir.name),
                 "mac": mac,
-                "version": choose_repo_device_version(version_data),
-                "components": extract_components_from_config(config_data),
+                "version": installed_version,
+                "components": configured_components or extract_components_from_config(config_data),
                 "hardware": hardware,
                 "ota_capable": resolve_ota_capable(registry_entry, hardware, capabilities),
                 "hardware_note": safe_string(registry_entry.get("hardware_note")),
                 "last_seen": None,
-                "location": safe_string(version_data.get("deployment_location")),
-                "last_deployed": safe_string(version_data.get("deployment_date")),
-                "initial_deployed": safe_string(version_data.get("initial_deployment_date")),
-                "deployment_environment": safe_string(version_data.get("deployment_environment")),
-                "declared_deployment_version": (
-                    safe_string(version_data.get("deployment_version")) or safe_string(version_data.get("deploymentVersion"))
-                ),
-                "sensor_summary": safe_string(version_data.get("sensor_summary")),
-                "notes": safe_string(version_data.get("notes")),
-                "updated_by": safe_string(version_data.get("updated_by")),
-                "version_last_updated": safe_string(version_data.get("last_updated")),
+                "location": entry_value(registry_entry, "location") or safe_string(version_data.get("deployment_location")),
+                "last_deployed": entry_last_firmware_update(registry_entry) or safe_string(version_data.get("deployment_date")),
+                "initial_deployed": entry_first_installed(registry_entry) or safe_string(version_data.get("initial_deployment_date")),
+                "declared_deployment_version": installed_version,
+                "pending_ota_version": entry_version_field(registry_entry, "pending_ota_version", "pendingOtaVersion"),
+                "pending_ota_created": entry_value(registry_entry, "pending_ota_created", "pendingOtaCreated"),
+                "sensor_summary": entry_value(registry_entry, "sensor_summary") or safe_string(version_data.get("sensor_summary")),
+                "notes": entry_value(registry_entry, "notes") or safe_string(version_data.get("notes")),
                 "track": track.get("id", ""),
                 "track_label": track.get("label", ""),
                 "target_version": track.get("latest_version", ""),
@@ -546,7 +580,7 @@ def fetch_device_summary(
     firmware_version = normalize_version((firmware_data or {}).get("version"))
     firmware_build_date = safe_string((firmware_data or {}).get("buildDate"))
     hardware = extract_hardware(entry)
-    last_deployed = firmware_build_date.split("T")[0] if firmware_build_date else safe_string(entry.get("last_deployed"))
+    last_deployed = firmware_build_date.split("T")[0] if firmware_build_date else entry_last_firmware_update(entry)
 
     return {
         "name": label or safe_string(device_data.get("deviceName")) or mac,
@@ -559,15 +593,12 @@ def fetch_device_summary(
         "last_seen": extract_last_seen(device_data),
         "location": extract_location(device_data, entry),
         "last_deployed": last_deployed,
-        "initial_deployed": safe_string(entry.get("initial_deployed")),
-        "deployment_environment": safe_string(entry.get("deployment_environment")),
-        "declared_deployment_version": (
-            safe_string(entry.get("declared_deployment_version")) or safe_string(entry.get("deployment_version"))
-        ),
+        "initial_deployed": entry_first_installed(entry),
+        "declared_deployment_version": entry_version(entry),
+        "pending_ota_version": entry_version_field(entry, "pending_ota_version", "pendingOtaVersion"),
+        "pending_ota_created": entry_value(entry, "pending_ota_created", "pendingOtaCreated"),
         "sensor_summary": safe_string(entry.get("sensor_summary")),
         "notes": safe_string(entry.get("notes")),
-        "updated_by": safe_string(entry.get("updated_by")),
-        "version_last_updated": safe_string(entry.get("version_last_updated")) or safe_string(entry.get("last_updated")),
         "track": track_id,
         "track_label": track.get("label", track_id),
         "target_version": track.get("latest_version", ""),
@@ -603,16 +634,13 @@ def build_failure_device(
         "hardware_note": safe_string(entry.get("hardware_note")),
         "last_seen": None,
         "location": safe_string(entry.get("location")),
-        "last_deployed": safe_string(entry.get("last_deployed")),
-        "initial_deployed": safe_string(entry.get("initial_deployed")),
-        "deployment_environment": safe_string(entry.get("deployment_environment")),
-        "declared_deployment_version": (
-            safe_string(entry.get("declared_deployment_version")) or safe_string(entry.get("deployment_version"))
-        ),
+        "last_deployed": entry_last_firmware_update(entry),
+        "initial_deployed": entry_first_installed(entry),
+        "declared_deployment_version": entry_version(entry),
+        "pending_ota_version": entry_version_field(entry, "pending_ota_version", "pendingOtaVersion"),
+        "pending_ota_created": entry_value(entry, "pending_ota_created", "pendingOtaCreated"),
         "sensor_summary": safe_string(entry.get("sensor_summary")),
         "notes": safe_string(entry.get("notes")),
-        "updated_by": safe_string(entry.get("updated_by")),
-        "version_last_updated": safe_string(entry.get("version_last_updated")) or safe_string(entry.get("last_updated")),
         "track": track_id,
         "track_label": track.get("label", track_id),
         "target_version": track.get("latest_version", ""),
