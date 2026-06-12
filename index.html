@@ -197,6 +197,17 @@
         animation: pulse-dot 2s ease-in-out infinite;
       }
 
+      .topbar-status.is-stale {
+        border-color: rgba(232, 168, 76, 0.38);
+        color: #f5c87a;
+      }
+
+      .topbar-status.is-stale::before {
+        background: var(--warning);
+        box-shadow: none;
+        animation: none;
+      }
+
       .navbar-toggler {
         border-color: rgba(196, 158, 108, 0.24);
         border-radius: var(--radius-sm);
@@ -494,6 +505,16 @@
         transform: translateY(-1px);
         border-color: rgba(212, 70, 84, 0.30);
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.26);
+      }
+
+      .status-pill {
+        transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .status-pill:hover {
+        transform: translateY(-1px);
+        background-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.24);
       }
 
       .section-tab {
@@ -924,6 +945,11 @@
         align-items: center;
       }
 
+      .readiness-visuals {
+        display: grid;
+        gap: 1.2rem;
+      }
+
       .chart-shell {
         position: relative;
         max-width: 320px;
@@ -946,6 +972,117 @@
       .status-value strong {
         font-size: clamp(1.4rem, 3vw, 2.6rem);
         line-height: 1;
+      }
+
+      .fleet-pulse {
+        display: grid;
+        gap: 0.7rem;
+        padding: 0.95rem;
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(200, 170, 130, 0.12);
+        background: rgba(255, 255, 255, 0.035);
+      }
+
+      .fleet-pulse__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+      }
+
+      .fleet-pulse__title {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .fleet-pulse__note {
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .fleet-pulse__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(1.05rem, 1fr));
+        gap: 0.55rem;
+        align-items: center;
+      }
+
+      .fleet-pulse__node {
+        position: relative;
+        width: 1.05rem;
+        aspect-ratio: 1;
+        justify-self: center;
+        border: 0;
+        border-radius: 0.3rem;
+        background: var(--node-color, var(--muted));
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 0 rgba(255, 255, 255, 0);
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(6px) scale(0.96);
+        animation:
+          pulse-node-enter 0.34s ease-out both,
+          pulse-node-breathe 3s ease-in-out infinite;
+        animation-delay: var(--node-enter-delay, 0ms), var(--node-pulse-delay, 0ms);
+        transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      }
+
+      .fleet-pulse__node.is-silent {
+        opacity: 0.38;
+        filter: saturate(0.55);
+        animation: pulse-node-enter 0.34s ease-out both;
+        animation-delay: var(--node-enter-delay, 0ms);
+      }
+
+      .fleet-pulse__node:hover,
+      .fleet-pulse__node:focus-visible {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.13);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18), 0 0 18px var(--node-glow, rgba(255, 255, 255, 0.24));
+        z-index: 2;
+      }
+
+      .fleet-pulse__tooltip {
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 0.55rem);
+        min-width: 12rem;
+        max-width: 15rem;
+        padding: 0.55rem 0.65rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(200, 170, 130, 0.18);
+        background: rgba(30, 24, 18, 0.98);
+        color: var(--text);
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, 4px);
+        transition: opacity 0.16s ease, transform 0.16s ease;
+      }
+
+      .fleet-pulse__node:hover .fleet-pulse__tooltip,
+      .fleet-pulse__node:focus-visible .fleet-pulse__tooltip {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      .fleet-pulse__tooltip strong,
+      .fleet-pulse__tooltip span {
+        display: block;
+      }
+
+      .fleet-pulse__tooltip strong {
+        font-size: 0.8rem;
+        line-height: 1.25;
+      }
+
+      .fleet-pulse__tooltip span {
+        margin-top: 0.18rem;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.68rem;
+        line-height: 1.35;
       }
 
       .controls-surface {
@@ -1040,6 +1177,10 @@
         border-color: rgba(212, 70, 84, 0.30);
         color: var(--primary);
         font-weight: 600;
+      }
+
+      .filter-chip.active.is-springing {
+        animation: chip-spring 0.2s cubic-bezier(0.34, 1.5, 0.64, 1) both;
       }
 
       .filter-chip strong,
@@ -1227,6 +1368,11 @@
         border: 1px solid rgba(200, 170, 130, 0.12);
         box-shadow: var(--shadow);
         transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      }
+
+      .device-card.card-enter {
+        animation: card-filter-in 0.24s ease-out both;
+        animation-delay: var(--stagger-delay, 0ms);
       }
 
       .device-card::before {
@@ -1787,7 +1933,7 @@
         inset: 0;
         border: none;
         background: rgba(5, 4, 3, 0.62);
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(4px);
       }
 
       .device-drawer__panel {
@@ -1801,6 +1947,14 @@
         border-left: 1px solid rgba(200, 170, 130, 0.14);
         box-shadow: -16px 0 48px rgba(0, 0, 0, 0.38);
         overflow-y: auto;
+      }
+
+      .device-drawer:not([hidden]) .device-drawer__backdrop {
+        animation: drawer-backdrop-in 0.22s ease-out both;
+      }
+
+      .device-drawer:not([hidden]) .device-drawer__panel {
+        animation: drawer-panel-in 0.32s cubic-bezier(0.34, 1.3, 0.64, 1) both;
       }
 
       .device-drawer__head,
@@ -2005,6 +2159,61 @@
         }
       }
 
+      @keyframes card-filter-in {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes chip-spring {
+        0% { transform: scale(1); }
+        55% { transform: scale(1.055); }
+        100% { transform: scale(1); }
+      }
+
+      @keyframes pulse-node-enter {
+        from {
+          opacity: 0;
+          transform: translateY(6px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes pulse-node-breathe {
+        0%, 100% {
+          transform: translateY(0) scale(1);
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 0 var(--node-glow, rgba(255, 255, 255, 0));
+        }
+        50% {
+          transform: translateY(0) scale(1.06);
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 0 16px var(--node-glow, rgba(255, 255, 255, 0.18));
+        }
+      }
+
+      @keyframes drawer-backdrop-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes drawer-panel-in {
+        from {
+          opacity: 0.8;
+          transform: translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
       @keyframes pulse-dot {
         0%, 100% {
           opacity: 1;
@@ -2175,6 +2384,11 @@
         transition: border-color 0.18s ease, background-color 0.18s ease;
       }
 
+      .plan-device-row.plan-row-enter {
+        animation: card-filter-in 0.24s ease-out both;
+        animation-delay: var(--stagger-delay, 0ms);
+      }
+
       .plan-device-row:hover,
       .plan-device-row:focus-visible {
         border-color: rgba(212, 70, 84, 0.30);
@@ -2214,6 +2428,28 @@
         font-weight: 600;
       }
 
+      .update-plan-check {
+        width: 1.25rem;
+        height: 1.25rem;
+        flex: 0 0 auto;
+      }
+
+      .update-plan-check__path {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 26;
+        stroke-dashoffset: 26;
+        animation: checkmark-draw 0.6s ease-out forwards;
+      }
+
+      @keyframes checkmark-draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
 
       .hero-panel .col-lg-5 {
         align-self: flex-end;
@@ -2319,6 +2555,27 @@
           width: 100vw;
           padding: 1rem;
         }
+
+        .fleet-pulse__grid {
+          grid-template-columns: repeat(auto-fill, minmax(0.9rem, 1fr));
+          gap: 0.45rem;
+        }
+
+        .fleet-pulse__node {
+          width: 0.9rem;
+          border-radius: 0.24rem;
+        }
+
+        .fleet-pulse__tooltip {
+          left: auto;
+          right: 0;
+          transform: translateY(4px);
+        }
+
+        .fleet-pulse__node:hover .fleet-pulse__tooltip,
+        .fleet-pulse__node:focus-visible .fleet-pulse__tooltip {
+          transform: translateY(0);
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -2331,6 +2588,19 @@
         *::after {
           animation: none !important;
           transition: none !important;
+        }
+
+        .fleet-pulse__node {
+          opacity: 1;
+          transform: none;
+        }
+
+        .fleet-pulse__node.is-silent {
+          opacity: 0.38;
+        }
+
+        .update-plan-check__path {
+          stroke-dashoffset: 0;
         }
       }
     </style>
@@ -2451,11 +2721,22 @@
               <span id="snapshot-note" class="section-badge">Awaiting snapshot</span>
             </div>
             <div class="chart-layout">
-              <div class="chart-shell">
-                <canvas id="status-chart"></canvas>
-                <div class="chart-center">
-                  <strong id="status-chart-total">0</strong>
-                  <span>Devices tracked</span>
+              <div class="readiness-visuals">
+                <div class="chart-shell">
+                  <canvas id="status-chart"></canvas>
+                  <div class="chart-center">
+                    <strong id="status-chart-total">0</strong>
+                    <span>Devices tracked</span>
+                  </div>
+                </div>
+                <div class="fleet-pulse" aria-label="Fleet pulse">
+                  <div class="fleet-pulse__head">
+                    <span class="fleet-pulse__title">Fleet pulse</span>
+                    <span id="fleet-pulse-note" class="fleet-pulse__note">Waiting for devices</span>
+                  </div>
+                  <div id="fleet-pulse-grid" class="fleet-pulse__grid">
+                    <span class="fleet-pulse__note">Loading nodes</span>
+                  </div>
                 </div>
               </div>
               <div id="status-breakdown" class="status-breakdown">
@@ -2818,6 +3099,43 @@
 
       const PREFS_STORAGE_KEY = "sensor-dashboard-prefs";
       const DATA_STALE_MS = 2 * 60 * 60 * 1000;
+      const COUNT_ANIMATION_MS = 700;
+      const countAnimationFrames = new WeakMap();
+
+      function prefersReducedMotion() {
+        return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches === true;
+      }
+
+      function animateCount(element, target, options = {}) {
+        if (!element) {
+          return;
+        }
+        const suffix = options.suffix || "";
+        const finalValue = Number.isFinite(target) ? Math.round(target) : 0;
+        const existingFrame = countAnimationFrames.get(element);
+        if (existingFrame) {
+          cancelAnimationFrame(existingFrame);
+        }
+        if (prefersReducedMotion()) {
+          element.textContent = `${finalValue}${suffix}`;
+          return;
+        }
+
+        const duration = options.duration || COUNT_ANIMATION_MS;
+        const start = performance.now();
+        const easeOutQuart = (value) => 1 - Math.pow(1 - value, 4);
+        const tick = (now) => {
+          const progress = Math.min(1, (now - start) / duration);
+          const current = Math.round(finalValue * easeOutQuart(progress));
+          element.textContent = `${current}${suffix}`;
+          if (progress < 1) {
+            countAnimationFrames.set(element, requestAnimationFrame(tick));
+          }
+        };
+
+        element.textContent = `0${suffix}`;
+        countAnimationFrames.set(element, requestAnimationFrame(tick));
+      }
 
       function createEmptyStatusCounts() {
         return {
@@ -2852,6 +3170,9 @@
           query: "",
           activeIndex: 0,
           results: [],
+        },
+        motion: {
+          deviceCardsRendered: false,
         },
         ui: {
           search: "",
@@ -3423,6 +3744,7 @@
         dashboardState.tracks = nextSection.tracks;
         dashboardState.devices = nextSection.devices;
         dashboardState.statusCounts = countStatuses(nextSection.devices);
+        dashboardState.motion.deviceCardsRendered = false;
         if (dashboardState.selectedDeviceKey && !dashboardState.devices.some((device) => device.deviceKey === dashboardState.selectedDeviceKey)) {
           closeDeviceDrawer(false);
         }
@@ -3500,6 +3822,7 @@
           button.addEventListener("click", () => {
             dashboardState.ui.status = button.dataset.status;
             applyFiltersAndRender();
+            springActiveChip(button);
           });
         });
 
@@ -3507,6 +3830,7 @@
           button.addEventListener("click", () => {
             dashboardState.ui.ota = button.dataset.ota;
             applyFiltersAndRender();
+            springActiveChip(button);
           });
         });
 
@@ -3601,6 +3925,16 @@
         targets.forEach((target) => observer.observe(target));
       }
 
+      function springActiveChip(button) {
+        if (!button || prefersReducedMotion()) {
+          return;
+        }
+        button.classList.remove("is-springing");
+        void button.offsetWidth;
+        button.classList.add("is-springing");
+        window.setTimeout(() => button.classList.remove("is-springing"), 220);
+      }
+
       function populateOverview() {
         const metrics = buildMetrics();
         const health = deriveHealthState();
@@ -3644,17 +3978,17 @@
         document.getElementById("repo-description").textContent =
           dashboardState.sectionDescription || "No section description provided.";
 
-        document.getElementById("stat-total-devices").textContent = metrics.totalDevices;
+        animateCount(document.getElementById("stat-total-devices"), metrics.totalDevices);
         document.getElementById("stat-total-context").textContent = `${metrics.deployedDevices} with a recorded deployment date`;
-        document.getElementById("stat-coverage").textContent = `${metrics.coveragePercent}%`;
+        animateCount(document.getElementById("stat-coverage"), metrics.coveragePercent, { suffix: "%" });
         document.getElementById("stat-coverage-context").textContent = coverageContext;
         const updatePlan = buildUpdatePlan(dashboardState.devices);
         const unverifiedCount = metrics.attentionDevices - updatePlan.ota.length - updatePlan.visit.length;
-        document.getElementById("stat-attention").textContent = metrics.attentionDevices;
+        animateCount(document.getElementById("stat-attention"), metrics.attentionDevices);
         document.getElementById("stat-attention-context").textContent = metrics.attentionDevices
           ? `${updatePlan.ota.length} remote / ${updatePlan.visit.length} on-site${unverifiedCount > 0 ? ` / ${unverifiedCount} unverified` : ""}`
           : "No devices currently flagged";
-        document.getElementById("stat-components").textContent = metrics.uniqueComponents;
+        animateCount(document.getElementById("stat-components"), metrics.uniqueComponents);
         document.getElementById("stat-components-context").textContent = `${metrics.missingLocationCount} missing a location assignment`;
 
         const healthBadge = document.getElementById("health-badge");
@@ -3662,11 +3996,12 @@
         healthBadge.textContent = health.label;
 
         document.getElementById("snapshot-note").textContent = `${metrics.totalDevices} devices across ${metrics.uniqueComponents} component types`;
-        document.getElementById("status-chart-total").textContent = metrics.totalDevices;
+        animateCount(document.getElementById("status-chart-total"), metrics.totalDevices);
 
         populateStatusCounts();
         populateOtaCounts();
         renderStatusBreakdown(metrics.totalDevices);
+        renderFleetPulseGrid();
         renderTrackSummaries();
         renderUpdatePlan();
       }
@@ -3675,12 +4010,17 @@
         const snapshot = document.getElementById("data-snapshot");
         const date = parseDate(dashboardState.lastUpdated);
         const isStale = date ? Date.now() - date.getTime() > DATA_STALE_MS : false;
+        const liveIndicator = document.querySelector(".topbar-status");
         snapshot.classList.toggle("is-stale", isStale);
         snapshot.title = formatAbsoluteDateTime(dashboardState.lastUpdated);
         snapshot.innerHTML = `
           <i class="bi bi-clock-history"></i>
           <span>Data snapshot: ${escapeHtml(formatRelativeTime(dashboardState.lastUpdated))}</span>
         `;
+        if (liveIndicator) {
+          liveIndicator.classList.toggle("is-stale", isStale);
+          liveIndicator.textContent = isStale ? "Stale snapshot" : "Live Fleet";
+        }
       }
 
       function populateOtaCounts() {
@@ -3792,6 +4132,58 @@
           .join("");
       }
 
+      function renderFleetPulseGrid() {
+        const grid = document.getElementById("fleet-pulse-grid");
+        const note = document.getElementById("fleet-pulse-note");
+        if (!grid || !note) {
+          return;
+        }
+
+        const devices = dashboardState.devices;
+        if (!devices.length) {
+          note.textContent = "No devices";
+          grid.innerHTML = `<span class="fleet-pulse__note">No fleet nodes available</span>`;
+          return;
+        }
+
+        const silentCount = devices.filter((device) => getLastSeenInfo(device).silent).length;
+        note.textContent = silentCount
+          ? `${devices.length - silentCount} breathing / ${silentCount} silent`
+          : `${devices.length} breathing`;
+
+        grid.innerHTML = devices
+          .map((device, index) => {
+            const status = device.calculatedStatus || "Unknown";
+            const color = getFleetPulseColor(status);
+            const seen = getLastSeenInfo(device);
+            const className = seen.silent ? "fleet-pulse__node is-silent" : "fleet-pulse__node";
+            const tooltipMeta = [
+              device.versionDisplay || "Unknown version",
+              status,
+              seen.available ? seen.relative : "last seen not tracked",
+            ].join(" | ");
+            const enterDelay = Math.min(index * 25, 500);
+            const pulseDelay = (index * 173) % 3000;
+            return `
+              <button
+                type="button"
+                class="${className}"
+                data-device-key="${escapeHtml(device.deviceKey)}"
+                aria-label="${escapeHtml(`${device.name || "Unnamed device"} - ${tooltipMeta}`)}"
+                style="--node-color:${color};--node-glow:${colorWithAlpha(color, 0.34)};--node-enter-delay:${enterDelay}ms;--node-pulse-delay:${pulseDelay}ms"
+              >
+                <span class="fleet-pulse__tooltip">
+                  <strong>${escapeHtml(device.name || "Unnamed device")}</strong>
+                  <span>${escapeHtml(tooltipMeta)}</span>
+                </span>
+              </button>
+            `;
+          })
+          .join("");
+
+        bindDeviceDetailTriggers(grid);
+      }
+
       function renderComponentFilters() {
         const container = document.getElementById("component-filters");
         const componentCounts = new Map();
@@ -3828,6 +4220,7 @@
           button.addEventListener("click", () => {
             dashboardState.ui.component = dashboardState.ui.component === button.dataset.component ? "all" : button.dataset.component;
             applyFiltersAndRender();
+            springActiveChip(button);
           });
         });
       }
@@ -3893,8 +4286,11 @@
           return;
         }
 
+        const staggerStep = dashboardState.motion.deviceCardsRendered ? 16 : 40;
+        const staggerCap = dashboardState.motion.deviceCardsRendered ? 240 : 600;
+
         container.innerHTML = devices
-          .map((device) => {
+          .map((device, index) => {
             const statusClass = STATUS_LABELS[device.calculatedStatus];
             const risk = computeDeviceRisk(device);
             const versionMarkup = `<span class="version-badge">${escapeHtml(device.versionDisplay)}</span>`;
@@ -3907,9 +4303,10 @@
               : "Hardware not specified";
             const otaPillMarkup = renderOtaPill(device);
             const lastSeenMarkup = renderLastSeenBadge(device);
+            const staggerDelay = Math.min(index * staggerStep, staggerCap);
             return `
               <div class="col-sm-6 col-xl-4">
-                <article class="device-card status-${statusClass}">
+                <article class="device-card card-enter status-${statusClass}" style="--stagger-delay:${staggerDelay}ms">
                   <div class="device-card__top">
                     <div>
                       <div class="device-card__title">${escapeHtml(device.name || "Unnamed device")}${renderHardwareNoteIcon(device)}</div>
@@ -3941,6 +4338,7 @@
           })
           .join("");
 
+        dashboardState.motion.deviceCardsRendered = true;
         bindDeviceDetailTriggers(container);
       }
 
@@ -4286,6 +4684,7 @@
 
         const chartData = buildVersionMigrationChartData(snapshots);
         const context = canvas.getContext("2d");
+        const reduceMotion = prefersReducedMotion();
         if (versionMigrationChart) {
           versionMigrationChart.destroy();
         }
@@ -4300,8 +4699,19 @@
             responsive: true,
             maintainAspectRatio: false,
             animation: {
-              duration: 900,
+              duration: reduceMotion ? 0 : 900,
               easing: "easeOutQuart",
+              delay: (context) => reduceMotion || context.type !== "data"
+                ? 0
+                : Math.min(context.datasetIndex * 90, 540),
+            },
+            animations: {
+              y: {
+                from: (context) => context.chart.scales.y.getPixelForValue(0),
+                duration: reduceMotion ? 0 : 900,
+                easing: "easeOutQuart",
+                delay: (context) => reduceMotion ? 0 : Math.min(context.datasetIndex * 90, 540),
+              },
             },
             interaction: {
               mode: "index",
@@ -5192,6 +5602,7 @@
       function createStatusChart() {
         const context = document.getElementById("status-chart").getContext("2d");
         document.querySelector(".chart-shell")?.classList.remove("is-loading");
+        const reduceMotion = prefersReducedMotion();
         if (statusChart) {
           statusChart.destroy();
         }
@@ -5217,6 +5628,12 @@
             responsive: true,
             maintainAspectRatio: false,
             cutout: "72%",
+            animation: {
+              animateRotate: !reduceMotion,
+              animateScale: false,
+              duration: reduceMotion ? 0 : 900,
+              easing: "easeOutQuart",
+            },
             plugins: {
               legend: { display: false },
               tooltip: {
@@ -5428,7 +5845,14 @@
 
         if (!behindCount && !plan.hardware.length) {
           note.textContent = "Nothing queued";
-          container.innerHTML = `<div class="update-plan-converged"><i class="bi bi-check-circle-fill"></i> Fleet converged &mdash; nothing to do.</div>`;
+          container.innerHTML = `
+            <div class="update-plan-converged">
+              <svg class="update-plan-check" viewBox="0 0 24 24" aria-hidden="true">
+                <path class="update-plan-check__path" d="M4.5 12.5 9.5 17.5 19.5 6.5"></path>
+              </svg>
+              Fleet converged &mdash; nothing to do.
+            </div>
+          `;
           return;
         }
 
@@ -5469,11 +5893,12 @@
           .map((bucket) => {
             const rows = bucket.devices.length
               ? `<div class="plan-device-list">${bucket.devices
-                  .map((device) => {
+                  .map((device, index) => {
                     const versionPart = `${device.versionDisplay || "Unknown"} → ${device.targetVersion || "no target"}`;
                     const metaParts = [versionPart, hasValue(device.hardware) ? device.hardware : "Hardware unknown"];
+                    const staggerDelay = Math.min(index * 40, 600);
                     return `
-                      <button type="button" class="plan-device-row" data-device-key="${escapeHtml(device.deviceKey)}">
+                      <button type="button" class="plan-device-row plan-row-enter" data-device-key="${escapeHtml(device.deviceKey)}" style="--stagger-delay:${staggerDelay}ms">
                         <div class="plan-device-row__name">${escapeHtml(device.name || "Unnamed device")}</div>
                         <div class="plan-device-row__meta">${escapeHtml(metaParts.join(" | "))}</div>
                       </button>
@@ -5517,6 +5942,18 @@
       function getThemeColor(name, fallback) {
         const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
         return value || fallback;
+      }
+
+      function getFleetPulseColor(status) {
+        const colors = {
+          "Up to date": getThemeColor("--success", "#5DC896"),
+          "Patch available": getThemeColor("--info", "#7AABE8"),
+          "Needs update": getThemeColor("--warning", "#E8A84C"),
+          "Not deployed": getThemeColor("--accent-gold", "#E7B85C"),
+          "In development": getThemeColor("--accent-teal", "#5DC8BE"),
+          Unknown: getThemeColor("--danger", "#D44654"),
+        };
+        return colors[status] || getThemeColor("--muted", "#A99A88");
       }
 
       function colorWithAlpha(color, alpha) {
