@@ -1269,7 +1269,7 @@
       .device-card.status-in-development::before { background: #2a7a6e; }
 
       .device-card__meta {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         margin-top: 0.8rem;
         margin-bottom: 1.1rem;
         gap: 0.65rem;
@@ -1286,6 +1286,13 @@
         margin-top: 0.2rem;
         font-size: 0.9rem;
         word-break: break-word;
+      }
+
+      .version-delta {
+        margin-top: 0.45rem;
+        color: var(--muted);
+        font-size: 0.78rem;
+        line-height: 1.35;
       }
 
       .device-card__section,
@@ -3378,9 +3385,10 @@
             const statusClass = STATUS_LABELS[device.calculatedStatus];
             const risk = computeDeviceRisk(device);
             const versionMarkup = `<span class="version-badge">${escapeHtml(device.versionDisplay)}</span>`;
-            const targetVersionMarkup = device.targetVersion
-              ? `<span class="version-badge">${escapeHtml(device.targetVersion)}</span>`
-              : `<span class="table-subtle">No tracked release</span>`;
+            const versionDelta = describeVersionDelta(device.version, device.targetVersion, device);
+            const versionDeltaMarkup = versionDelta
+              ? `<div class="version-delta">${escapeHtml(versionDelta)}</div>`
+              : "";
             const hardwareMarkup = hasValue(device.hardware)
               ? escapeHtml(device.hardware)
               : "Hardware not specified";
@@ -3394,8 +3402,7 @@
                     <span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span>
                   </div>
                   <div class="device-card__meta">
-                    <div class="device-card__detail"><div class="device-card__detail-label">Installed version</div><div class="device-card__detail-value">${versionMarkup}</div></div>
-                    <div class="device-card__detail"><div class="device-card__detail-label">Track target</div><div class="device-card__detail-value">${targetVersionMarkup}</div></div>
+                    <div class="device-card__detail"><div class="device-card__detail-label">Installed version</div><div class="device-card__detail-value">${versionMarkup}${versionDeltaMarkup}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Hardware</div><div class="device-card__detail-value">${hardwareMarkup}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Location</div><div class="device-card__detail-value">${escapeHtml(getDisplayLocation(device.location))}</div></div>
                     <div class="device-card__detail"><div class="device-card__detail-label">Last deployed</div><div class="device-card__detail-value">${escapeHtml(getDisplayDate(device.last_deployed, device))}</div></div>
@@ -3433,7 +3440,7 @@
           .map((device) => {
             const statusClass = STATUS_LABELS[device.calculatedStatus];
             const risk = computeDeviceRisk(device);
-            const targetText = device.targetVersion ? `Target ${device.targetVersion}` : "No tracked release";
+            const versionDelta = describeVersionDelta(device.version, device.targetVersion, device);
             const subtitleParts = [device.hardware].filter(Boolean);
             return `
               <tr>
@@ -3447,7 +3454,7 @@
                 <td><span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span></td>
                 <td>
                   <span class="version-badge">${escapeHtml(device.versionDisplay)}</span>
-                  <div class="table-subtle">${escapeHtml(targetText)}</div>
+                  ${versionDelta ? `<div class="table-subtle">${escapeHtml(versionDelta)}</div>` : ""}
                 </td>
                 <td>
                   ${generateComponentTags(device.components)}
@@ -4463,6 +4470,44 @@
         return "risk-pill--stable";
       }
 
+      function describeVersionDelta(deviceVersion, targetVersion, device = null) {
+        const lifecycleStatus = getLifecycleStatus(device);
+        if (lifecycleStatus || !hasValue(deviceVersion) || !hasValue(targetVersion)) {
+          return "";
+        }
+
+        const installed = parseVersion(deviceVersion);
+        const target = parseVersion(targetVersion);
+        if (!installed || !target) {
+          return "";
+        }
+
+        if (installed.major === target.major && installed.minor === target.minor && installed.patch === target.patch) {
+          return "";
+        }
+
+        const direction =
+          installed.major > target.major ||
+          (installed.major === target.major && installed.minor > target.minor) ||
+          (installed.major === target.major && installed.minor === target.minor && installed.patch > target.patch)
+            ? "ahead of"
+            : "behind";
+        const delta =
+          installed.major !== target.major
+            ? Math.abs(target.major - installed.major)
+            : installed.minor !== target.minor
+              ? Math.abs(target.minor - installed.minor)
+              : Math.abs(target.patch - installed.patch);
+        const unit =
+          installed.major !== target.major
+            ? "major"
+            : installed.minor !== target.minor
+              ? "minor"
+              : "patch";
+
+        return `${delta} ${unit} version${delta === 1 ? "" : "s"} ${direction} target`;
+      }
+
       function describeVersionGap(deviceVersion, targetVersion, device = null) {
         const lifecycleStatus = getLifecycleStatus(device);
         if (!hasValue(targetVersion)) {
@@ -4483,16 +4528,11 @@
         if (!installed || !target) {
           return `Installed ${deviceVersion} compared with target ${targetVersion}.`;
         }
+        const versionDelta = describeVersionDelta(deviceVersion, targetVersion, device);
         if (installed.major === target.major && installed.minor === target.minor && installed.patch === target.patch) {
-          return `Installed firmware is aligned with target ${targetVersion}.`;
+          return "Aligned with target.";
         }
-        if (installed.major < target.major || (installed.major === target.major && installed.minor < target.minor)) {
-          return `Installed ${deviceVersion} is behind feature target ${targetVersion}.`;
-        }
-        if (installed.major === target.major && installed.minor === target.minor && installed.patch < target.patch) {
-          return `Installed ${deviceVersion} is behind patch target ${targetVersion}.`;
-        }
-        return `Installed ${deviceVersion} is ahead of target ${targetVersion}.`;
+        return versionDelta ? `${versionDelta}.` : "Compared with target.";
       }
 
       function getDeploymentAge(value) {
