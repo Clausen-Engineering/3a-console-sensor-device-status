@@ -250,7 +250,6 @@
 
       .hero-panel,
       .chart-surface,
-      .insight-surface,
       .controls-surface,
       .table-surface,
       .hero-aside {
@@ -737,7 +736,6 @@
       }
 
       .repo-meta,
-      .insight-list,
       .status-breakdown,
       .version-grid {
         display: grid;
@@ -882,13 +880,12 @@
       }
 
       .overview-grid {
-        grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.9fr);
+        grid-template-columns: 1fr;
         align-items: stretch;
         margin-top: 1.6rem;
       }
 
-      .overview-grid .chart-surface,
-      .overview-grid .insight-surface {
+      .overview-grid .chart-surface {
         align-self: stretch;
       }
 
@@ -939,7 +936,6 @@
       }
 
       .chart-surface::after,
-      .insight-surface::after,
       .hero-aside::after,
       .table-surface::after {
         display: none;
@@ -1981,7 +1977,7 @@
                     <dd id="last-commit-date">--</dd>
                   </div>
                   <div class="repo-detail">
-                    <dt>Dashboard sync</dt>
+                    <dt>Last updated</dt>
                     <dd id="last-updated">--</dd>
                   </div>
                 </dl>
@@ -2016,19 +2012,6 @@
             </div>
           </div>
 
-          <div class="surface insight-surface">
-            <div class="section-heading">
-              <div>
-                <span class="eyebrow">Operational Readout</span>
-                <h2>Deployment posture</h2>
-              </div>
-            </div>
-            <div id="insight-list" class="insight-list">
-              <div class="insight-item">
-                <div class="insight-copy">Loading deployment insights...</div>
-              </div>
-            </div>
-          </div>
         </section>
 
         <section id="devices" class="dashboard-section fade-in delay-4">
@@ -3007,7 +2990,6 @@
 
         populateStatusCounts();
         renderStatusBreakdown(metrics.totalDevices);
-        renderInsights(metrics);
         renderTrackSummaries();
       }
 
@@ -3020,12 +3002,9 @@
         const attentionDevices = patchAvailable + needsUpdate + unknown;
         const deployedDevices = dashboardState.devices.filter((device) => hasValue(device.last_deployed)).length;
         const missingLocationCount = dashboardState.devices.filter((device) => !hasValue(device.location)).length;
-        const staleDeployments = dashboardState.devices.filter((device) => isStaleDeployment(device.last_deployed, 120)).length;
         const uniqueComponents = new Set(
           dashboardState.devices.flatMap((device) => device.components.map((component) => slugify(component)))
         ).size;
-        const highestRiskDevice = [...dashboardState.devices]
-          .sort((left, right) => computeDeviceRisk(right).score - computeDeviceRisk(left).score)[0] || null;
 
         return {
           totalDevices,
@@ -3036,9 +3015,7 @@
           attentionDevices,
           deployedDevices,
           missingLocationCount,
-          staleDeployments,
           uniqueComponents,
-          highestRiskDevice,
           coveragePercent: totalDevices ? Math.round((upToDate / totalDevices) * 100) : 0,
         };
       }
@@ -3052,28 +3029,6 @@
         document.getElementById("status-count-not-deployed").textContent = dashboardState.statusCounts["Not deployed"];
         document.getElementById("status-count-in-development").textContent = dashboardState.statusCounts["In development"];
         document.getElementById("status-count-unknown").textContent = dashboardState.statusCounts.Unknown;
-      }
-
-      function renderInsights(metrics) {
-        const list = document.getElementById("insight-list");
-        const latestDeployment = getLatestDeploymentDate();
-        const highestRisk = metrics.highestRiskDevice ? computeDeviceRisk(metrics.highestRiskDevice) : null;
-        const insights = [
-          `${metrics.attentionDevices} ${dashboardState.sectionLabel.toLowerCase() || "fleet"} devices currently need review before the next release cycle.`,
-          `${metrics.deployedDevices} of ${metrics.totalDevices} devices have a recorded deployment date.`,
-          `${metrics.staleDeployments} devices have not been deployed in the last 120 days.`,
-          `${metrics.missingLocationCount} devices still need a location assignment for cleaner field operations.`,
-          highestRisk
-            ? `${metrics.highestRiskDevice.name || "Unnamed device"} currently leads the risk queue at ${highestRisk.score}/100.`
-            : "No device currently stands out as a risk hotspot.",
-          latestDeployment
-            ? `Most recent deployment recorded on ${formatDateOnly(latestDeployment)}.`
-            : "No device has a recorded deployment date yet.",
-        ];
-
-        list.innerHTML = insights
-          .map((insight) => `<div class="insight-item"><div class="insight-copy">${escapeHtml(insight)}</div></div>`)
-          .join("");
       }
 
       function renderTrackSummaries() {
@@ -4018,7 +3973,6 @@
         `;
 
         document.getElementById("status-breakdown").innerHTML = errorMarkup;
-        document.getElementById("insight-list").innerHTML = errorMarkup;
         document.getElementById("sensor-zones").innerHTML = errorMarkup;
         document.getElementById("sensor-atlas").innerHTML = errorMarkup;
         document.getElementById("device-cards").innerHTML = `<div class="col-12">${errorMarkup}</div>`;
@@ -4394,23 +4348,6 @@
             return `<span class="component-tag ${escapeHtml(slug)}">${escapeHtml(component)}</span>`;
           })
           .join("");
-      }
-
-      function getLatestDeploymentDate() {
-        const dates = dashboardState.devices
-          .map((device) => parseDate(device.last_deployed))
-          .filter(Boolean)
-          .sort((left, right) => right - left);
-        return dates[0] || null;
-      }
-
-      function isStaleDeployment(value, thresholdDays) {
-        const date = parseDate(value);
-        if (!date) {
-          return false;
-        }
-
-        return Date.now() - date.getTime() > thresholdDays * 86400000;
       }
 
       function compareText(left, right) {
