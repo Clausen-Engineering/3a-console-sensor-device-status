@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
+from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
 
@@ -73,6 +73,152 @@ def fetch_json(url: str, headers: dict[str, str]) -> Any:
         return json.load(response)
 
 
+def post_json(url: str, data: dict[str, Any], headers: dict[str, str]) -> Any:
+    """POST a JSON body and return the parsed response."""
+    body = json.dumps(data).encode("utf-8")
+    req_headers = {**headers, "Content-Type": "application/json"}
+    request = Request(url, data=body, headers=req_headers, method="POST")
+    with urlopen(request, timeout=30) as response:
+        return json.load(response)
+
+
+def post_form(url: str, fields: dict[str, str], headers: dict[str, str]) -> Any:
+    """POST an application/x-www-form-urlencoded body and return the parsed response."""
+    body = urlencode(fields).encode("utf-8")
+    req_headers = {**headers, "Content-Type": "application/x-www-form-urlencoded"}
+    request = Request(url, data=body, headers=req_headers, method="POST")
+    with urlopen(request, timeout=30) as response:
+        return json.load(response)
+
+
+def build_auth(api_base: str) -> dict[str, str]:
+    """Return auth headers, preferring Bearer JWT; falls back to Basic.
+
+    Tries POST {api_base}/auth/token with form fields username/password from
+    env API_USERNAME/API_PASSWORD.  On any failure returns the same Basic-auth
+    headers that build_headers() would produce (or an empty dict when no
+    credentials are configured).
+    """
+    base_headers: dict[str, str] = {
+        "Accept": "application/json",
+        "User-Agent": "3a-console-sensor-device-status-builder/2.0",
+    }
+    username = os.getenv("API_USERNAME", "").strip()
+    password = os.getenv("API_PASSWORD", "").strip()
+    if not username or not password:
+        return base_headers
+
+    # Attempt Bearer token first.
+    try:
+        response = post_form(
+            f"{api_base}/auth/token",
+            {"username": username, "password": password},
+            base_headers,
+        )
+        token = safe_string(response.get("token") or response.get("access_token"))
+        if token:
+            return {**base_headers, "Authorization": f"Bearer {token}"}
+    except (HTTPError, URLError, Exception):
+        pass
+
+    # Fall back to HTTP Basic.
+    encoded = base64.b64encode(f"{username}:{password}".encode("utf-8")).decode("ascii")
+    return {**base_headers, "Authorization": f"Basic {encoded}"}
+
+
+def fetch_device_directory(api_base: str, headers: dict[str, str]) -> dict[str, dict[str, Any]]:
+    """Fetch GET /devices?limit=500 and return a dict keyed by normalized MAC.
+
+    Handles both a bare list and a {"devices": [...]} wrapper shape.
+    Returns {} on HTTPError / URLError so callers fall back to per-device fetches.
+    """
+    try:
+        data = fetch_json(f"{api_base}/devices?limit=500", headers)
+    except (HTTPError, URLError):
+        return {}
+
+    if isinstance(data, list):
+        devices = data
+    elif isinstance(data, dict):
+        devices = data.get("devices") or []
+    else:
+        devices = []
+
+    return {
+        normalize_mac(entry.get("macAddress") or entry.get("mac")): entry
+        for entry in devices
+        if isinstance(entry, dict)
+        and (safe_string(entry.get("macAddress")) or safe_string(entry.get("mac")))
+    }
+
+
+def fetch_ota_history(api_base: str, mac: str, headers: dict[str, str]) -> list[dict[str, Any]]:
+    """Fetch OTA events for a device, returning code-119 events newest-first, max 10.
+
+    Event code 119 = "OTA Update Completed".  The code may live at
+    event["code"] or event["eventType"]["code"].
+    Tolerates 401 / 403 / 404 by returning [].
+    """
+    encoded_mac = quote(mac, safe="")
+    try:
+        events = fetch_json(f"{api_base}/devices/{encoded_mac}/events", headers)
+    except HTTPError as error:
+        if error.code in (401, 403, 404):
+            return []
+        raise
+    except URLError:
+        return []
+
+    if not isinstance(events, list):
+        events = []
+
+    ota_events: list[dict[str, Any]] = []
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        # Code may be top-level or nested under eventType.
+        code = event.get("code")
+        if code is None:
+            event_type = event.get("eventType")
+            if isinstance(event_type, dict):
+                code = event_type.get("code")
+        if code != 119:
+            continue
+        payload = event.get("payload") or {}
+        raw_version = safe_string(payload.get("firmwareVersion"))
+        ota_events.append(
+            {
+                "date": safe_string(event.get("createdAt")),
+                "version": normalize_version(raw_version),
+                "version_code": payload.get("newVersionCode"),
+            }
+        )
+
+    # Sort newest-first by date string (ISO-8601 sorts lexicographically).
+    ota_events.sort(key=lambda e: e.get("date", ""), reverse=True)
+    return ota_events[:10]
+
+
+def derive_pending_ota(
+    reported_version: str,
+    latest_firmware_version: str,
+    ota_capable: bool | None,
+) -> str:
+    """Return pending OTA version when latest > reported AND ota_capable is True.
+
+    Uses version_tuple for comparison; returns "" for any unknown/ineligible case.
+    """
+    if not ota_capable:
+        return ""
+    reported_t = version_tuple(reported_version)
+    latest_t = version_tuple(latest_firmware_version)
+    if reported_t is None or latest_t is None:
+        return ""
+    if latest_t > reported_t:
+        return normalize_version(latest_firmware_version)
+    return ""
+
+
 def normalize_version(raw_version: str | None) -> str:
     if not raw_version:
         return ""
@@ -126,7 +272,8 @@ def extract_components(device_data: dict[str, Any], entry: dict[str, Any]) -> li
             components.append("core")
         return components
 
-    sensors = device_data.get("settings", {}).get("sensors", []) or []
+    settings_obj = device_data.get("settings") or {}
+    sensors = settings_obj.get("sensors", []) or []
     sensor_types = sorted(
         {
             safe_string(sensor.get("type"))
@@ -396,6 +543,7 @@ def build_repo_device_summaries(
         configured_components = extract_components(registry_entry, registry_entry) if registry_entry else []
         installed_version = entry_version(registry_entry) or choose_repo_device_version(version_data)
 
+        registry_pending = entry_version_field(registry_entry, "pending_ota_version", "pendingOtaVersion")
         output.append(
             {
                 "name": safe_string(registry_entry.get("label")) or safe_string(device_meta.get("name")) or humanize_slug(device_dir.name),
@@ -405,12 +553,19 @@ def build_repo_device_summaries(
                 "hardware": hardware,
                 **hardware_capability_fields(registry_entry, hardware, capabilities, installed_version, track.get("latest_version", "")),
                 "last_seen": None,
+                "is_online": None,
+                "reported_version": "",
+                "version_source": "registry" if installed_version else "",
+                "version_mismatch": False,
+                "battery_level": None,
                 "location": entry_value(registry_entry, "location") or safe_string(version_data.get("deployment_location")),
                 "last_deployed": entry_last_firmware_update(registry_entry) or safe_string(version_data.get("deployment_date")),
                 "initial_deployed": entry_first_installed(registry_entry) or safe_string(version_data.get("initial_deployment_date")),
                 "declared_deployment_version": installed_version,
-                "pending_ota_version": entry_version_field(registry_entry, "pending_ota_version", "pendingOtaVersion"),
+                "pending_ota_version": registry_pending,
+                "pending_ota_source": "registry" if registry_pending else "",
                 "pending_ota_created": entry_value(registry_entry, "pending_ota_created", "pendingOtaCreated"),
+                "ota_history": [],
                 "sensor_summary": entry_value(registry_entry, "sensor_summary") or safe_string(version_data.get("sensor_summary")),
                 "notes": entry_value(registry_entry, "notes") or safe_string(version_data.get("notes")),
                 "track": track.get("id", ""),
@@ -606,12 +761,50 @@ def build_section_meta(
     }
 
 
+def _derive_last_seen(
+    dir_entry: dict[str, Any] | None,
+    device_data: dict[str, Any],
+    log_data: dict[str, Any] | None,
+) -> str | None:
+    """Return ISO-8601 last-seen timestamp from best available source."""
+    # 1. lastLog.createdAt from directory entry or device_data.
+    for source in (dir_entry or {}, device_data):
+        last_log = source.get("lastLog")
+        if isinstance(last_log, dict):
+            ts = safe_string(last_log.get("createdAt"))
+            if ts:
+                parsed = parse_timestamp(ts)
+                if parsed != datetime.min.replace(tzinfo=timezone.utc):
+                    return parsed.isoformat()
+
+    # 2. lastReportedAt from directory entry or device_data.
+    for source in (dir_entry or {}, device_data):
+        ts = safe_string(source.get("lastReportedAt"))
+        if ts:
+            parsed = parse_timestamp(ts)
+            if parsed != datetime.min.replace(tzinfo=timezone.utc):
+                return parsed.isoformat()
+
+    # 3. createdAt from a separately-fetched log.
+    if log_data and isinstance(log_data, dict):
+        ts = safe_string(log_data.get("createdAt"))
+        if ts:
+            parsed = parse_timestamp(ts)
+            if parsed != datetime.min.replace(tzinfo=timezone.utc):
+                return parsed.isoformat()
+
+    # 4. Legacy candidate fields on device_data (extract_last_seen).
+    return extract_last_seen(device_data)
+
+
 def fetch_device_summary(
     api_base: str,
     entry: dict[str, Any],
     track_map: dict[str, dict[str, Any]],
     headers: dict[str, str],
     capabilities: dict[str, dict[str, Any]],
+    *,
+    directory_entry: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     mac = safe_string(entry.get("mac"))
     label = safe_string(entry.get("label"))
@@ -632,25 +825,140 @@ def fetch_device_summary(
     except URLError:
         firmware_data = None
 
-    firmware_version = entry_version(entry) or normalize_version((firmware_data or {}).get("version"))
-    firmware_build_date = safe_string((firmware_data or {}).get("buildDate"))
+    # --- Live telemetry from directory entry (Task 1) ---
+    # If no directory_entry was supplied (empty dict = no match in directory),
+    # attempt a per-device fallback via /logs/latest.
+    dir_entry: dict[str, Any] = directory_entry if directory_entry else {}
+    log_data: dict[str, Any] | None = None
+    if not dir_entry:
+        try:
+            log_data = fetch_json(f"{api_base}/devices/{encoded_mac}/logs/latest", headers)
+        except HTTPError as error:
+            if error.code not in (401, 403, 404):
+                raise
+            log_data = None
+        except URLError:
+            log_data = None
+
+    # Derive reported_version from lastLog (directory entry, device_data, or log_data).
+    last_log: dict[str, Any] = {}
+    for source in (dir_entry, device_data, log_data or {}):
+        candidate = source.get("lastLog") if isinstance(source, dict) else None
+        if isinstance(candidate, dict) and candidate:
+            last_log = candidate
+            break
+    # If log_data itself is a log object (not a device wrapper), use it directly.
+    if not last_log and isinstance(log_data, dict) and log_data.get("firmwareVersion"):
+        last_log = log_data
+
+    raw_reported = safe_string(last_log.get("firmwareVersion"))
+    reported_version = normalize_version(raw_reported) if raw_reported else ""
+    battery_level: float | None = last_log.get("batteryLevel") if isinstance(last_log.get("batteryLevel"), (int, float)) else None
+
+    # is_online: from directory entry or device_data.
+    is_online: bool | None = None
+    for source in (dir_entry, device_data):
+        if isinstance(source, dict) and "isOnline" in source:
+            val = source["isOnline"]
+            if isinstance(val, bool):
+                is_online = val
+                break
+
+    # last_seen from all sources.
+    last_seen = _derive_last_seen(dir_entry if dir_entry else None, device_data, log_data)
+
+    # --- Version resolution (reported beats registry beats firmware API) ---
+    registry_version = entry_version(entry)
+    api_firmware_version = normalize_version((firmware_data or {}).get("version"))
+    # Effective version: reported > registry > firmware-API
+    if reported_version:
+        version = reported_version
+        version_source = "reported"
+    elif registry_version:
+        version = registry_version
+        version_source = "registry"
+    elif api_firmware_version:
+        version = api_firmware_version
+        version_source = "registry"
+    else:
+        version = ""
+        version_source = ""
+
+    # version_mismatch: only when BOTH reported and registry exist and differ.
+    version_mismatch = bool(
+        reported_version and registry_version and reported_version != registry_version
+    )
+
+    # Hardware: registry entry wins; fall back to API device settings.hardwareInfo.board.
     hardware = extract_hardware(entry)
+    if not hardware:
+        settings = device_data.get("settings")
+        if isinstance(settings, dict):
+            hardware_info = settings.get("hardwareInfo") or {}
+            hardware = safe_string(hardware_info.get("board")) if isinstance(hardware_info, dict) else ""
+
+    firmware_build_date = safe_string((firmware_data or {}).get("buildDate"))
     last_deployed = entry_last_firmware_update(entry) or (firmware_build_date.split("T")[0] if firmware_build_date else "")
+
+    # Effective installed version for OTA capability check uses version (device truth).
+    hw_cap_fields = hardware_capability_fields(entry, hardware, capabilities, version, track.get("latest_version", ""))
+    ota_capable = hw_cap_fields.get("ota_capable")
+
+    # --- OTA audit trail (Task 2) ---
+    ota_history = fetch_ota_history(api_base, mac, headers)
+
+    # --- Derive pending OTA (Task 2) ---
+    latest_firmware_version = track.get("latest_version", "")
+    api_derived_pending = derive_pending_ota(version, latest_firmware_version, ota_capable)
+
+    # Registry fallback: use registry pending if API derivation came up empty.
+    registry_pending = entry_version_field(entry, "pending_ota_version", "pendingOtaVersion")
+
+    if api_derived_pending:
+        # Clear if device has already received this update.
+        reported_t = version_tuple(version)
+        pending_t = version_tuple(api_derived_pending)
+        if reported_t is not None and pending_t is not None and reported_t >= pending_t:
+            pending_ota_version = ""
+            pending_ota_source = ""
+        else:
+            pending_ota_version = api_derived_pending
+            pending_ota_source = "api"
+    elif registry_pending:
+        # Clear registry pending if device is already at or above it.
+        reported_t = version_tuple(version)
+        pending_t = version_tuple(registry_pending)
+        if reported_t is not None and pending_t is not None and reported_t >= pending_t:
+            pending_ota_version = ""
+            pending_ota_source = ""
+        else:
+            pending_ota_version = registry_pending
+            pending_ota_source = "registry"
+    else:
+        pending_ota_version = ""
+        pending_ota_source = ""
 
     return {
         "name": label or safe_string(device_data.get("deviceName")) or mac,
         "mac": safe_string(device_data.get("macAddress")) or mac,
-        "version": firmware_version,
+        "version": version,
         "components": extract_components(device_data, entry),
         "hardware": hardware,
-        **hardware_capability_fields(entry, hardware, capabilities, firmware_version, track.get("latest_version", "")),
-        "last_seen": extract_last_seen(device_data),
+        **hw_cap_fields,
+        "last_seen": last_seen,
+        "is_online": is_online,
+        "reported_version": reported_version,
+        "version_source": version_source,
+        "version_mismatch": version_mismatch,
+        "battery_level": battery_level,
         "location": extract_location(device_data, entry),
         "last_deployed": last_deployed,
         "initial_deployed": entry_first_installed(entry),
-        "declared_deployment_version": entry_version(entry),
-        "pending_ota_version": entry_version_field(entry, "pending_ota_version", "pendingOtaVersion"),
+        "declared_deployment_version": registry_version,
+        "pending_ota_version": pending_ota_version,
+        "pending_ota_source": pending_ota_source,
         "pending_ota_created": entry_value(entry, "pending_ota_created", "pendingOtaCreated"),
+        "ota_history": ota_history,
         "sensor_summary": safe_string(entry.get("sensor_summary")),
         "notes": safe_string(entry.get("notes")),
         "track": track_id,
@@ -677,21 +985,29 @@ def build_failure_device(
     if "core" not in components:
         components.append("core")
     hardware = extract_hardware(entry)
+    registry_version = entry_version(entry)
 
     return {
         "name": label or mac,
         "mac": mac,
-        "version": entry_version(entry),
+        "version": registry_version,
         "components": components,
         "hardware": hardware,
-        **hardware_capability_fields(entry, hardware, capabilities, entry_version(entry), track.get("latest_version", "")),
+        **hardware_capability_fields(entry, hardware, capabilities, registry_version, track.get("latest_version", "")),
         "last_seen": None,
+        "is_online": None,
+        "reported_version": "",
+        "version_source": "",
+        "version_mismatch": False,
+        "battery_level": None,
         "location": safe_string(entry.get("location")),
         "last_deployed": entry_last_firmware_update(entry),
         "initial_deployed": entry_first_installed(entry),
-        "declared_deployment_version": entry_version(entry),
+        "declared_deployment_version": registry_version,
         "pending_ota_version": entry_version_field(entry, "pending_ota_version", "pendingOtaVersion"),
+        "pending_ota_source": "registry" if entry_version_field(entry, "pending_ota_version", "pendingOtaVersion") else "",
         "pending_ota_created": entry_value(entry, "pending_ota_created", "pendingOtaCreated"),
+        "ota_history": [],
         "sensor_summary": safe_string(entry.get("sensor_summary")),
         "notes": safe_string(entry.get("notes")),
         "track": track_id,
@@ -790,7 +1106,18 @@ def main() -> int:
     default_section, registry_sections = get_registry_sections(device_registry)
     version_section_map = get_version_section_map(version_data)
     hardware_capabilities = get_hardware_capabilities(device_registry)
-    headers = build_headers()
+
+    # Determine the primary api_base for auth (use the first section's api_base).
+    primary_api_base = ""
+    for _section in registry_sections:
+        if isinstance(_section, dict):
+            _base = safe_string(_section.get("api_base")) or safe_string(device_registry.get("api_base"))
+            if _base:
+                primary_api_base = _base
+                break
+
+    # Try Bearer auth; fall back to Basic.
+    headers = build_auth(primary_api_base) if primary_api_base else build_headers()
     last_updated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
     output_sections: list[dict[str, Any]] = []
@@ -845,6 +1172,16 @@ def main() -> int:
             print(f"Section '{section_id}' is missing api_base", file=sys.stderr)
             return 1
 
+        # Fetch device directory once per section for live telemetry (Task 1).
+        # Falls back gracefully to {} when the endpoint is unavailable.
+        device_directory: dict[str, dict[str, Any]] = {}
+        if api_base:
+            device_directory = fetch_device_directory(api_base, headers)
+            if device_directory:
+                print(f"Fetched device directory for section '{section_id}': {len(device_directory)} devices")
+            else:
+                print(f"Device directory unavailable for section '{section_id}', using per-device fallback")
+
         for entry in device_entries:
             if not isinstance(entry, dict):
                 continue
@@ -855,8 +1192,13 @@ def main() -> int:
             if normalize_mac(mac) in represented_macs:
                 continue
 
+            dir_entry = device_directory.get(normalize_mac(mac))
+
             try:
-                device_summary = fetch_device_summary(api_base, entry, track_map, headers, hardware_capabilities)
+                device_summary = fetch_device_summary(
+                    api_base, entry, track_map, headers, hardware_capabilities,
+                    directory_entry=dir_entry,
+                )
             except HTTPError as error:
                 failures.append(f"{section_id}:{mac}: HTTP {error.code}")
                 device_summary = build_failure_device(entry, track_map, hardware_capabilities)
