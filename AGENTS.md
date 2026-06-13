@@ -1,21 +1,25 @@
 # AGENTS.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code agents when working with code in this repository.
 
 ## Project Overview
 
-ESP32 Sensor Device Status Dashboard — a static single-page monitoring dashboard for ESP32 IoT sensor devices. Tracks firmware versions, deployment status, and device health across a fleet of ~16 devices (CO2 tanks, temperature sensors, power monitors, etc.) deployed by Clausen Engineering.
+ESP32 Sensor Device Status Dashboard — a live fleet-operations dashboard for monitoring and managing firmware rollouts across ~16 ESP32 IoT sensor devices. Tracks device-reported firmware versions, deployment status, OTA history, and coordinates orchestrated rollouts with canary support.
 
 ## Tech Stack
 
-- **Frontend:** Vanilla HTML/CSS/JavaScript in a single `index.html` (~2,268 lines). No framework, no bundler, no build step.
-- **Data Pipeline:** Python 3.12+ script (`scripts/build_dashboard_data.py`) using only stdlib. Fetches device data from a monitoring API and writes `data/dashboard-data.json`.
-- **CI/CD:** GitHub Actions runs the data pipeline every 30 minutes and commits updated JSON.
+- **Frontend:** Vanilla HTML/CSS/JavaScript in a single `index.html` (~7,338 lines). No framework, no bundler, no build step.
+- **Data Pipeline:** Python 3.12+ scripts using only stdlib. No pip dependencies.
+  - `scripts/build_dashboard_data.py` — fetches live device telemetry from the monitoring API, writes `data/dashboard-data.json`
+  - `scripts/rollout_firmware.py`, `scripts/check_rollout.py`, `scripts/rollout_common.py` — firmware rollout orchestration with canary mode
+  - `scripts/check_fleet_alerts.py` — evaluates stale/behind/stalled device rules, creates GitHub issues
+  - `scripts/update_device_registry.py`, `scripts/backfill_version_history.py` — utility scripts
+- **CI/CD:** GitHub Actions workflows for data pipeline (every 30 min), rollout monitoring (every 30 min), alerts (every 30 min).
 - **Hosting:** GitHub Pages (static).
 
 ## Commands
 
-There is no build system. The dashboard is served as static HTML.
+No build system. The dashboard is served as static HTML.
 
 ```bash
 # Run the data pipeline locally (requires API credentials)
@@ -23,49 +27,112 @@ python scripts/build_dashboard_data.py
 
 # Serve locally for development
 python -m http.server 8000
+
+# Run all tests
+python -m unittest discover -s tests -v
 ```
 
-The Python script requires `API_USERNAME` and `API_PASSWORD` environment variables (HTTP Basic Auth against `https://monitoring-api.3aentreprise.com`).
+Environment variables for scripts:
+- `API_USERNAME`, `API_PASSWORD` — monitoring API credentials
+- `SENSORHUB_REPO_PAT` (optional) — GitHub token for firmware repo metadata
+- `GITHUB_TOKEN` (in Actions) — for fleet alerts (GitHub issues)
 
 ## Architecture
 
 ### Data Flow
 
-1. GitHub Actions (or manual run) executes `scripts/build_dashboard_data.py`
-2. Script reads device MACs from `data/devices.json`, calls the monitoring API for each device's settings and firmware version
-3. Outputs `data/dashboard-data.json` with aggregated device summaries
-4. `index.html` loads this JSON (plus `data/version-changes.json` and `data/devices.json`) at runtime via fetch
+1. **Live Telemetry (every 30 min):** GitHub Actions → `scripts/build_dashboard_data.py`
+   - Fetches device list from `GET /devices?limit=500` (device-reported version, last_seen, is_online, battery_level)
+   - Falls back to per-device `GET /devices/{mac}/logs/latest` if list fetch fails
+   - Fetches OTA history from `GET /devices/{mac}/events?code=119` (successful OTA updates)
+   - Merges with `data/devices.json` registry (fallback for offline/unknown devices)
+   - Outputs `data/dashboard-data.json` with per-device telemetry, capabilities, and version state
+
+2. **Frontend Initialization:** `index.html` loads `dashboard-data.json`, `devices.json`, `version-changes.json`, and `rollout-state.json` via fetch
+
+3. **Rollout Orchestration:** GitHub Actions (`firmware-rollout.yml` workflow_dispatch)
+   - Operator specifies target version, device list, optional canary MAC
+   - `scripts/rollout_firmware.py --execute` creates firmware records in the API for each target device
+   - Stores rollout state in `data/rollout-state.json` (active rollout metadata, device states, history)
+   - Monitor job (`firmware-rollout-monitor.yml`, every 30 min) runs `scripts/check_rollout.py`
+     - Polls device logs to detect successful updates
+     - Advances canary → offered state when canary succeeds
+     - Halts on canary deadline exceeded; completes when all devices updated
+
+4. **Fleet Alerts:** After data pipeline, GitHub Actions runs `scripts/check_fleet_alerts.py`
+   - Evaluates rules against `dashboard-data.json`, `rollout-state.json`, `version-changes.json`
+   - Creates/closes GitHub issues for silent, behind, and stalled devices
 
 ### Frontend State
 
-All UI state lives in a single `dashboardState` object in `index.html`. Key rendering functions:
-- `initializeDashboard()` — entry point, parallel data fetching
-- `renderDeviceCards()` / `renderDeviceTable()` — card vs list views
+All UI state lives in `dashboardState` object in `index.html`. Key rendering functions:
+- `initializeDashboard()` — entry point, parallel data fetching, state initialization
+- `renderDeviceCards()` / `renderDeviceTable()` — card vs. list views
 - `renderVersionHistory()` — interactive version timeline
 - `renderStatusBreakdown()` — Chart.js doughnut chart
 - `applyFiltersAndRender()` — orchestrates filtering, sorting, re-rendering
+- Device drawer renderer for detailed telemetry and OTA history
 
 ### Device Status Logic
 
-Status is determined by comparing device firmware version to latest:
-- **Up to date** — exact match
+Status determined by comparing device firmware to track target:
+- **Up to date** — version equals target_version
 - **Patch available** — same major.minor, behind on patch
 - **Needs update** — behind on major or minor
-- **Unknown** — missing version data
+- **In development** — track has no target version
+- **Not deployed** — device has no version record
+- **Unknown** — version data missing or indeterminate
+
+Version source of truth: device-reported version (from API) is preferred; registry fallback when offline.
 
 ### Key Data Files
 
-- `data/devices.json` — device registry (MAC addresses + labels). Edit this to add/remove devices.
-- `data/version-changes.json` — release history with component tags and descriptions. Edit this to document new firmware releases.
-- `data/dashboard-data.json` — generated by the pipeline, not manually edited. Listed in `.gitignore`.
+- `data/devices.json` — device registry (MACs, labels, hardware, capabilities, registry version fallback). Edit to add/remove devices or update manual data.
+- `data/version-changes.json` — release history with component tags. Edit to document new firmware releases.
+- `data/dashboard-data.json` — generated by pipeline every 30 min. **Not in `.gitignore`; GitHub Actions commits it.** Contains live telemetry + version state.
+- `data/version-history.json` — historical per-device version records (filled by `backfill_version_history.py`).
+- `data/rollout-state.json` — active rollout metadata and device states. Updated by rollout scripts and monitor job.
+
+**.gitignore state:** `version-changes.json` is listed; `dashboard-data.json` is **not** ignored (workflow git-adds it). All other data files are committed.
 
 ## API Endpoints
 
 Base: `https://monitoring-api.3aentreprise.com`
-- `GET /devices/{macAddress}` — device settings, sensors, components
-- `GET /firmwares/latest?deviceMac={macAddress}` — latest firmware version and build date
 
-Auth: HTTP Basic Auth. Credentials in GitHub Secrets (`API_USERNAME`, `API_PASSWORD`).
+**Device telemetry:**
+- `GET /devices?limit=500` — device list with lastLog (firmwareVersion, createdAt, batteryLevel), isOnline, lastReportedAt
+- `GET /devices/{mac}/logs/latest` — latest log for one device (fallback if list fails)
+- `GET /devices/{mac}/events?date_from=ISO&limit=N` — event history; code 119 = OTA Update Completed
+
+**Firmware management:**
+- `GET /firmwares/latest?deviceMac={mac}` — latest available firmware for device
+- `GET /firmwares?limit=500` — list all firmware records (filter client-side by versionCode)
+- `POST /firmwares` — create a device-scoped firmware record (used by rollout scripts)
+
+**Authentication:**
+- `POST /auth/token` — form fields `username`, `password` → Bearer JWT (preferred)
+- Fallback: HTTP Basic Auth with same credentials
+
+Auth strategy: scripts try JWT first; on failure use Basic Auth.
+
+## Scripts Overview
+
+- **`build_dashboard_data.py`** — main pipeline. Fetches live telemetry + history, merges with registry, emits dashboard JSON.
+- **`rollout_firmware.py`** — starts/plans firmware rollouts. Validates eligibility, creates API records, writes rollout state. `--dry-run` (default) or `--execute`.
+- **`check_rollout.py`** — monitors active rollout. Polls device logs, advances canary, halts on deadline, completes on success.
+- **`rollout_common.py`** — shared helpers for rollout scripts (auth, API calls, state mutations).
+- **`check_fleet_alerts.py`** — evaluates alert rules, creates/closes GitHub issues. `--dry-run` (default) or `--execute`.
+- **`update_device_registry.py`** — utility to bulk-update `devices.json` fields.
+- **`backfill_version_history.py`** — populates `version-history.json` from existing version-changes.
+
+## Tests
+
+Test files in `tests/`:
+- `test_build_dashboard_data.py` — pipeline logic (version merging, telemetry extraction, OTA history, fallback behavior)
+- `test_rollout.py` — rollout eligibility, state transitions, canary logic, deadline handling
+- `test_fleet_alerts.py` — alert rule evaluation (silent, behind, stalled thresholds)
+
+All tests use monkeypatched network access (no real API calls). Run with `python -m unittest discover -s tests -v`.
 
 ## Sensor Component Types
 
@@ -74,7 +141,9 @@ Tags used in version-changes.json and device tracking: `core`, `OneWire`, `MODBU
 ## Conventions
 
 - All styles and scripts are embedded in `index.html` (no external JS/CSS files).
-- XSS prevention: device names and locations are escaped via `escapeHtml()`.
-- Version strings are normalized with a `v` prefix (e.g., `v3.7.1`).
+- XSS prevention: device names and locations escaped via `escapeHtml()`.
+- Version strings normalized with `v` prefix (e.g., `v3.7.1`); comparison via `version_tuple()` for semver logic.
+- Snake_case in JSON output and Python (`last_seen`, `reported_version`, `ota_history`); camelCase only in frontend state.
 - CDN dependencies: Bootstrap 5.2.3, Bootstrap Icons, Chart.js, Google Fonts (JetBrains Mono, Noto Sans).
-- Dark theme with blue accents. Color scheme uses CSS custom properties.
+- Dark theme with blue accents; CSS custom properties for theming.
+- Firmware deployment scripts live in `glaecier-sensorhub-data-collector/scripts/` (build, upload, OTA management).
