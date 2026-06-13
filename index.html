@@ -272,8 +272,18 @@
         align-self: end;
       }
 
+      /* Action row is the first element under the navbar; override the overview-grid's
+         default margin-top so it doesn't double up with dashboard-main's padding-top */
+      #overview.overview-grid {
+        margin-top: 0;
+      }
+
+      #hero {
+        margin-top: 1.6rem;
+      }
+
       .hero-panel {
-        padding: clamp(1.5rem, 4vw, 2.7rem);
+        padding: clamp(0.75rem, 2vw, 1.35rem);
         background:
           radial-gradient(ellipse at top left, rgba(217, 78, 89, 0.20) 0%, transparent 55%),
           radial-gradient(ellipse at bottom right, rgba(231, 184, 92, 0.20) 0%, transparent 55%),
@@ -382,7 +392,6 @@
         cursor: help;
       }
 
-      .hero-actions,
       .section-tab-row,
       .status-filter-row,
       .component-filter-row,
@@ -393,10 +402,6 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.7rem;
-      }
-
-      .hero-actions {
-        margin: 1rem 0 1.35rem;
       }
 
       .section-tab-row {
@@ -2874,7 +2879,61 @@
       </nav>
 
       <main class="container dashboard-main">
-        <section id="overview" class="surface hero-panel fade-in">
+        <!-- Action row: sits directly under the navbar, above the hero -->
+        <section id="overview" class="overview-grid fade-in">
+          <div class="surface chart-surface">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Update Plan</span>
+                <h2>Action required</h2>
+              </div>
+              <span id="update-plan-note" class="section-badge">Calculating plan</span>
+            </div>
+            <div id="update-plan-body" class="update-plan-grid">
+              <div class="plan-bucket__empty">Loading update plan...</div>
+            </div>
+          </div>
+
+          <div class="surface chart-surface">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Fleet Readiness</span>
+                <h2>Status balance</h2>
+              </div>
+              <span id="snapshot-note" class="section-badge">Awaiting snapshot</span>
+            </div>
+            <div class="chart-layout">
+              <div class="readiness-visuals">
+                <div class="chart-shell">
+                  <canvas id="status-chart"></canvas>
+                  <div class="chart-center">
+                    <strong id="status-chart-total">0</strong>
+                    <span>Devices tracked</span>
+                  </div>
+                </div>
+              </div>
+              <div class="readiness-stack">
+                <div id="status-breakdown" class="status-breakdown">
+                  <div class="status-row">
+                    <div><span class="status-copy">Loading status distribution</span></div>
+                  </div>
+                </div>
+                <div class="fleet-pulse" aria-label="Fleet pulse">
+                  <div class="fleet-pulse__head">
+                    <span class="fleet-pulse__title">Readiness lanes</span>
+                    <span id="fleet-pulse-note" class="fleet-pulse__note">Waiting for devices</span>
+                  </div>
+                  <div id="fleet-pulse-grid" class="fleet-pulse__grid">
+                    <span class="fleet-pulse__note">Loading nodes</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <section id="hero" class="surface hero-panel fade-in delay-2">
           <div class="row g-4">
             <div class="col-lg-7">
               <span id="hero-eyebrow" class="eyebrow">Device Command View</span>
@@ -2891,10 +2950,6 @@
                   <span class="section-tab__label">Loading sections</span>
                   <span class="section-tab__meta">Preparing dashboard views</span>
                 </button>
-              </div>
-              <div class="hero-actions">
-                <a class="cta-button" href="#devices"><i class="bi bi-grid-1x2-fill"></i><span>Inspect devices</span></a>
-                <a class="secondary-button" href="#versions"><i class="bi bi-bezier2"></i> Review timeline</a>
               </div>
               <div class="hero-metrics">
                 <article class="metric-card fade-in delay-1">
@@ -2952,59 +3007,6 @@
               </aside>
             </div>
           </div>
-        </section>
-
-        <section class="overview-grid fade-in delay-3">
-          <div class="surface chart-surface">
-            <div class="section-heading">
-              <div>
-                <span class="eyebrow">Fleet Readiness</span>
-                <h2>Status balance</h2>
-              </div>
-              <span id="snapshot-note" class="section-badge">Awaiting snapshot</span>
-            </div>
-            <div class="chart-layout">
-              <div class="readiness-visuals">
-                <div class="chart-shell">
-                  <canvas id="status-chart"></canvas>
-                  <div class="chart-center">
-                    <strong id="status-chart-total">0</strong>
-                    <span>Devices tracked</span>
-                  </div>
-                </div>
-              </div>
-              <div class="readiness-stack">
-                <div id="status-breakdown" class="status-breakdown">
-                  <div class="status-row">
-                    <div><span class="status-copy">Loading status distribution</span></div>
-                  </div>
-                </div>
-                <div class="fleet-pulse" aria-label="Fleet pulse">
-                  <div class="fleet-pulse__head">
-                    <span class="fleet-pulse__title">Readiness lanes</span>
-                    <span id="fleet-pulse-note" class="fleet-pulse__note">Waiting for devices</span>
-                  </div>
-                  <div id="fleet-pulse-grid" class="fleet-pulse__grid">
-                    <span class="fleet-pulse__note">Loading nodes</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="surface chart-surface">
-            <div class="section-heading">
-              <div>
-                <span class="eyebrow">Update Plan</span>
-                <h2>Action required</h2>
-              </div>
-              <span id="update-plan-note" class="section-badge">Calculating plan</span>
-            </div>
-            <div id="update-plan-body" class="update-plan-grid">
-              <div class="plan-bucket__empty">Loading update plan...</div>
-            </div>
-          </div>
-
         </section>
 
         <section id="devices" class="dashboard-section fade-in delay-4">
