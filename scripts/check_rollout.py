@@ -76,6 +76,14 @@ def do_check(args):
 
     halted = active.get("state") == "halted"
 
+    # Capture the canary's OFFER timestamp (the updated_at present in state when
+    # the canary record was created) BEFORE step 1 marks the canary "updated"
+    # and clobbers updated_at to now. The healthy check below must compare the
+    # post-update heartbeat against the offer time, not the processing time.
+    canary_offer_at = None
+    if canary_mac and canary_mac in by_mac:
+        canary_offer_at = rc.parse_timestamp(by_mac[canary_mac].get("updated_at"))
+
     # 1) Refresh canary/offered devices from their latest logs.
     for dev in devices:
         if dev.get("state") not in ("canary", "offered"):
@@ -93,7 +101,9 @@ def do_check(args):
         canary = by_mac.get(canary_mac)
         has_pending = any(d.get("state") == "pending" for d in devices)
         if canary is not None and has_pending:
-            canary_record_at = rc.parse_timestamp(canary.get("updated_at"))
+            # Use the OFFER timestamp captured before step 1 mutated updated_at,
+            # so the heartbeat-vs-offer comparison is independent of wall clock.
+            canary_record_at = canary_offer_at
             _, canary_log_at = _reported_code(API_BASE, canary_mac, headers)
             healthy = (
                 canary.get("state") == "updated"
