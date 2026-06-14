@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.21.0",
+  "latest_version": "v3.22.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-06-12 15:21:09",
-  "last_updated": "2026-06-12 13:21:38",
+  "last_commit_date": "2026-06-14 11:04:04",
+  "last_updated": "2026-06-14 09:15:24",
   "version_changes": [
+    {
+      "version": "v3.22.0",
+      "date": "2026-06-14",
+      "components": [
+        "core"
+      ],
+      "description": "Merge pull request #3 from Glaecier-Development/feature/hardware-identity"
+    },
     {
       "version": "v3.21.0",
       "date": "2026-06-12",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.21.0"
+      "description": "Remove dfplayer/audio sensor; API-driven display config sync"
     },
     {
       "version": "v3.20.0",
