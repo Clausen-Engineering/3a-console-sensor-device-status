@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-14 18:06:32",
+  "last_updated": "2026-06-14 20:02:53",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.0",
       "latest_version_label": "v3.22.0",
       "last_commit_date": "2026-06-14 11:04:04",
-      "last_updated": "2026-06-14 18:06:32",
+      "last_updated": "2026-06-14 20:02:53",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2497,7 +2497,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-14 18:06:32",
+      "last_updated": "2026-06-14 20:02:53",
       "tracks": [
         {
           "id": "heat-controller",
@@ -2566,7 +2566,7 @@
           "ota_capable": false,
           "hardware_eol": null,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": "2026-06-14T18:06:03.498336+00:00",
+          "last_seen": "2026-06-14T20:01:03.486736+00:00",
           "is_online": null,
           "reported_version": "",
           "version_source": "",
