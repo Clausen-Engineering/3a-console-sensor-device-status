@@ -1962,7 +1962,7 @@
             "core",
             "digital"
           ],
-          "hardware": "ESP32-S3 (no sensor hub, so no screen but has OTA)",
+          "hardware": "ESP32-S3 DevKit",
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
@@ -3701,7 +3701,7 @@
         "core",
         "digital"
       ],
-      "hardware": "ESP32-S3 (no sensor hub, so no screen but has OTA)",
+      "hardware": "ESP32-S3 DevKit",
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",

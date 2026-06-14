@@ -406,6 +406,7 @@
 
       .section-tab-row {
         margin-top: 1rem;
+        margin-bottom: 1.5rem;
       }
 
       .cta-button,
@@ -2994,70 +2995,7 @@
       </div>
 
       <main class="container dashboard-main">
-        <!-- Action row: sits directly under the navbar, above the hero -->
-        <section id="overview" class="overview-grid fade-in">
-          <div class="surface chart-surface">
-            <div class="section-heading">
-              <div>
-                <span class="eyebrow">Update Plan</span>
-                <h2>Action required</h2>
-              </div>
-              <span id="update-plan-note" class="section-badge">Calculating plan</span>
-            </div>
-            <div id="update-plan-body" class="update-plan-grid">
-              <div class="plan-bucket__empty">Loading update plan...</div>
-            </div>
-            <!-- Rollout progress strip: shown when active rollout exists -->
-            <div id="rollout-strip" class="rollout-strip" hidden>
-              <div class="rollout-strip__head">
-                <i class="bi bi-broadcast-pin"></i>
-                <span id="rollout-strip-title">Active rollout</span>
-              </div>
-              <div id="rollout-strip-chips" class="rollout-chips"></div>
-              <div id="rollout-strip-devices" class="plan-device-list"></div>
-            </div>
-          </div>
-
-          <div class="surface chart-surface">
-            <div class="section-heading">
-              <div>
-                <span class="eyebrow">Fleet Readiness</span>
-                <h2>Status balance</h2>
-              </div>
-              <span id="snapshot-note" class="section-badge">Awaiting snapshot</span>
-            </div>
-            <div class="chart-layout">
-              <div class="readiness-visuals">
-                <div class="chart-shell">
-                  <canvas id="status-chart"></canvas>
-                  <div class="chart-center">
-                    <strong id="status-chart-total">0</strong>
-                    <span>Devices tracked</span>
-                  </div>
-                </div>
-              </div>
-              <div class="readiness-stack">
-                <div id="status-breakdown" class="status-breakdown">
-                  <div class="status-row">
-                    <div><span class="status-copy">Loading status distribution</span></div>
-                  </div>
-                </div>
-                <div class="fleet-pulse" aria-label="Fleet pulse">
-                  <div class="fleet-pulse__head">
-                    <span class="fleet-pulse__title">Readiness lanes</span>
-                    <span id="fleet-pulse-note" class="fleet-pulse__note">Waiting for devices</span>
-                  </div>
-                  <div id="fleet-pulse-grid" class="fleet-pulse__grid">
-                    <span class="fleet-pulse__note">Loading nodes</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-        <section id="hero" class="surface hero-panel fade-in delay-2">
+        <section id="hero" class="surface hero-panel fade-in">
           <div class="row g-4">
             <div class="col-lg-7">
               <span id="hero-eyebrow" class="eyebrow">Device Command View</span>
@@ -3133,6 +3071,69 @@
           </div>
         </section>
 
+        <!-- Action row: sits beneath the page header -->
+        <section id="overview" class="overview-grid fade-in">
+          <div class="surface chart-surface">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Update Plan</span>
+                <h2>Action required</h2>
+              </div>
+              <span id="update-plan-note" class="section-badge">Calculating plan</span>
+            </div>
+            <div id="update-plan-body" class="update-plan-grid">
+              <div class="plan-bucket__empty">Loading update plan...</div>
+            </div>
+            <!-- Rollout progress strip: shown when active rollout exists -->
+            <div id="rollout-strip" class="rollout-strip" hidden>
+              <div class="rollout-strip__head">
+                <i class="bi bi-broadcast-pin"></i>
+                <span id="rollout-strip-title">Active rollout</span>
+              </div>
+              <div id="rollout-strip-chips" class="rollout-chips"></div>
+              <div id="rollout-strip-devices" class="plan-device-list"></div>
+            </div>
+          </div>
+
+          <div class="surface chart-surface">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Fleet Readiness</span>
+                <h2>Status balance</h2>
+              </div>
+              <span id="snapshot-note" class="section-badge">Awaiting snapshot</span>
+            </div>
+            <div class="chart-layout">
+              <div class="readiness-visuals">
+                <div class="chart-shell">
+                  <canvas id="status-chart"></canvas>
+                  <div class="chart-center">
+                    <strong id="status-chart-total">0</strong>
+                    <span>Devices tracked</span>
+                  </div>
+                </div>
+              </div>
+              <div class="readiness-stack">
+                <div id="status-breakdown" class="status-breakdown">
+                  <div class="status-row">
+                    <div><span class="status-copy">Loading status distribution</span></div>
+                  </div>
+                </div>
+                <div class="fleet-pulse" aria-label="Fleet pulse">
+                  <div class="fleet-pulse__head">
+                    <span class="fleet-pulse__title">Readiness lanes</span>
+                    <span id="fleet-pulse-note" class="fleet-pulse__note">Waiting for devices</span>
+                  </div>
+                  <div id="fleet-pulse-grid" class="fleet-pulse__grid">
+                    <span class="fleet-pulse__note">Loading nodes</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
         <section id="devices" class="dashboard-section fade-in delay-4">
           <div class="section-heading">
             <div>
@@ -3196,7 +3197,6 @@
                   <button type="button" class="sort-button active" data-sort="date">Latest deployed</button>
                   <button type="button" class="sort-button" data-sort="name">Name</button>
                   <button type="button" class="sort-button" data-sort="status">Status</button>
-                  <button type="button" class="sort-button" data-sort="risk">Risk</button>
                   <button type="button" class="sort-button" data-sort="location">Location</button>
                 </div>
                 <button id="copy-link-btn" type="button" class="secondary-button">
@@ -3364,7 +3364,6 @@
               </div>
               <div class="device-drawer__hero-side">
                 <span id="device-drawer-status" class="status-pill patch-available">Status</span>
-                <div id="device-drawer-risk" class="risk-pill risk-pill--elevated">Risk 0</div>
               </div>
             </div>
             <div class="device-drawer__grid">
@@ -3416,7 +3415,7 @@
                 <ul id="device-drawer-ota-history" class="ota-history-list"></ul>
               </section>
               <section class="drawer-card">
-                <div class="panel-title">Risk Signals</div>
+                <div class="panel-title">Attention signals</div>
                 <div id="device-drawer-signals" class="drawer-signal-list">
                   <div class="insight-copy">Waiting for device selection...</div>
                 </div>
@@ -4748,6 +4747,13 @@
             const otaPillMarkup = renderOtaPill(device);
             const pendingOtaMarkup = renderPendingOtaBadge(device);
             const lastSeenMarkup = renderLastSeenBadge(device);
+            // The footer signal restates the version delta for version-gap statuses,
+            // which already appears under "Installed version" — drop the duplicate.
+            const primarySignal = risk.primarySignal || "";
+            const footerSignal =
+              versionDelta && primarySignal.replace(/\.\s*$/, "").trim() === versionDelta.trim()
+                ? ""
+                : primarySignal;
             const staggerDelay = Math.min(index * staggerStep, staggerCap);
             return `
               <div class="col-sm-6 col-xl-4">
@@ -4772,7 +4778,7 @@
                     <h3>Components</h3>
                     <div class="component-tags">${generateComponentTags(device.components)}</div>
                     <div class="device-card__footer">
-                      <div class="table-subtle">${escapeHtml(risk.primarySignal)}${lastSeenMarkup ? ` ${lastSeenMarkup}` : ""}</div>
+                      <div class="table-subtle">${footerSignal ? escapeHtml(footerSignal) : ""}${lastSeenMarkup ? `${footerSignal ? " " : ""}${lastSeenMarkup}` : ""}</div>
                       <button type="button" class="device-card__open" data-device-key="${escapeHtml(device.deviceKey)}">
                         <i class="bi bi-arrow-up-right-circle"></i> Open device room
                       </button>
@@ -4801,7 +4807,6 @@
         tbody.innerHTML = devices
           .map((device) => {
             const statusClass = STATUS_LABELS[device.calculatedStatus];
-            const risk = computeDeviceRisk(device);
             const versionDelta = describeVersionDelta(device.version, device.targetVersion, device);
             const otaPillMarkup = renderOtaPill(device);
             const pendingOtaMarkup = renderPendingOtaBadge(device);
@@ -4828,7 +4833,6 @@
                 </td>
                 <td>
                   ${generateComponentTags(device.components)}
-                  <div class="table-subtle" style="margin-top:0.5rem"><span class="risk-pill ${getRiskClassName(risk.level)}">Risk ${risk.score}</span></div>
                 </td>
                 <td>${escapeHtml(getDisplayLocation(device.location))}</td>
                 <td>${getDisplayDateMarkup(device.last_deployed, device)}</td>
@@ -5678,10 +5682,6 @@
         statusBadge.className = `status-pill ${STATUS_LABELS[device.calculatedStatus]}`;
         statusBadge.textContent = device.calculatedStatus;
 
-        const riskBadge = document.getElementById("device-drawer-risk");
-        riskBadge.className = `risk-pill ${getRiskClassName(risk.level)}`;
-        riskBadge.textContent = `Risk ${risk.score}`;
-
         // Version display: show versionDisplay text; if versionMismatch, add amber hint + dot
         document.getElementById("device-drawer-version").textContent = device.versionDisplay || "Unknown";
         const mismatchHint = document.getElementById("device-drawer-version-mismatch");
@@ -5845,7 +5845,7 @@
         if (["all", "ota", "physical", "unknown"].includes(prefs.ota)) {
           dashboardState.ui.ota = prefs.ota;
         }
-        if (["date", "name", "status", "risk", "location"].includes(prefs.sortBy)) {
+        if (["date", "name", "status", "location"].includes(prefs.sortBy)) {
           dashboardState.ui.sortBy = prefs.sortBy;
         }
         if (["card", "list"].includes(prefs.view)) {
@@ -5874,7 +5874,7 @@
         if (["all", "ota", "physical", "unknown"].includes(ota)) {
           dashboardState.ui.ota = ota;
         }
-        if (["date", "name", "status", "risk", "location"].includes(sortBy)) {
+        if (["date", "name", "status", "location"].includes(sortBy)) {
           dashboardState.ui.sortBy = sortBy;
         }
         if (["card", "list"].includes(view)) {
@@ -6595,6 +6595,7 @@
         ];
 
         container.innerHTML = buckets
+          .filter((bucket) => bucket.devices.length)
           .map((bucket) => {
             const rows = bucket.devices.length
               ? `<div class="plan-device-list">${bucket.devices
@@ -6908,7 +6909,6 @@
         sorted.sort((left, right) => {
           if (sortBy === "name") return compareText(left.name, right.name);
           if (sortBy === "status") return STATUS_ORDER[left.calculatedStatus] - STATUS_ORDER[right.calculatedStatus] || compareText(left.name, right.name);
-          if (sortBy === "risk") return computeDeviceRisk(right).score - computeDeviceRisk(left).score || compareText(left.name, right.name);
           if (sortBy === "location") return compareText(left.location, right.location) || compareText(left.name, right.name);
           return parseDateForSort(right.last_deployed) - parseDateForSort(left.last_deployed);
         });
@@ -7209,7 +7209,11 @@
           return new Date(`${year}-${month}-${day}T00:00:00`);
         }
         const normalized = raw.includes("T") ? raw : raw.replace(" ", "T");
-        const date = new Date(normalized);
+        // Pipeline timestamps (e.g. last_updated) are UTC but emitted without a
+        // timezone marker. Without this, the browser parses them as local time,
+        // which inflates the apparent age and falsely trips the "stale" threshold.
+        const hasTimezone = /[zZ]$|[+-]\d{2}:?\d{2}$/.test(normalized);
+        const date = new Date(hasTimezone ? normalized : `${normalized}Z`);
         return Number.isNaN(date.getTime()) ? null : date;
       }
 
