@@ -1,0 +1,74 @@
+name: Firmware Rollout
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Target firmware version (e.g. v3.21.0)"
+        required: true
+      devices:
+        description: "CSV of target MACs, or 'all-eligible'"
+        required: true
+        default: "all-eligible"
+      canary_mac:
+        description: "Optional canary device MAC (rolls out to canary first)"
+        required: false
+        default: ""
+      confirm:
+        description: "Type the exact target version to confirm"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  firmware-rollout:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Confirm gate
+        # Safety invariant #2: confirm must literally equal the target version.
+        run: |
+          if [ "${{ github.event.inputs.confirm }}" != "${{ github.event.inputs.version }}" ]; then
+            echo "Confirmation '${{ github.event.inputs.confirm }}' does not match version '${{ github.event.inputs.version }}'. Aborting."
+            exit 1
+          fi
+          echo "Confirmation matches target version."
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Start rollout
+        env:
+          API_USERNAME: ${{ secrets.API_USERNAME }}
+          API_PASSWORD: ${{ secrets.API_PASSWORD }}
+        run: |
+          if [ "${{ github.event.inputs.devices }}" = "all-eligible" ]; then
+            DEVICE_ARG="--all-eligible"
+          else
+            DEVICE_ARG="--devices ${{ github.event.inputs.devices }}"
+          fi
+          CANARY_ARG=""
+          if [ -n "${{ github.event.inputs.canary_mac }}" ]; then
+            CANARY_ARG="--canary ${{ github.event.inputs.canary_mac }}"
+          fi
+          python scripts/rollout_firmware.py \
+            --version "${{ github.event.inputs.version }}" \
+            $DEVICE_ARG $CANARY_ARG --execute
+
+      - name: Commit rollout state
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add data/rollout-state.json
+          if git diff --cached --quiet; then
+            echo "No rollout state changes to commit."
+            exit 0
+          fi
+          git commit -m "Rollout: start ${{ github.event.inputs.version }}"
+          git push

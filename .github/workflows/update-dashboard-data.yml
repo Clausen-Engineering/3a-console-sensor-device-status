@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   update-dashboard-data:
@@ -46,3 +47,8 @@ jobs:
           fi
           git commit -m "Update dashboard data"
           git push
+
+      - name: Check fleet alerts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/check_fleet_alerts.py --execute

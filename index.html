@@ -272,8 +272,18 @@
         align-self: end;
       }
 
+      /* Action row is the first element under the navbar; override the overview-grid's
+         default margin-top so it doesn't double up with dashboard-main's padding-top */
+      #overview.overview-grid {
+        margin-top: 0;
+      }
+
+      #hero {
+        margin-top: 1.6rem;
+      }
+
       .hero-panel {
-        padding: clamp(1.5rem, 4vw, 2.7rem);
+        padding: clamp(0.75rem, 2vw, 1.35rem);
         background:
           radial-gradient(ellipse at top left, rgba(217, 78, 89, 0.20) 0%, transparent 55%),
           radial-gradient(ellipse at bottom right, rgba(231, 184, 92, 0.20) 0%, transparent 55%),
@@ -382,7 +392,6 @@
         cursor: help;
       }
 
-      .hero-actions,
       .section-tab-row,
       .status-filter-row,
       .component-filter-row,
@@ -393,10 +402,6 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.7rem;
-      }
-
-      .hero-actions {
-        margin: 1rem 0 1.35rem;
       }
 
       .section-tab-row {
@@ -1631,6 +1636,7 @@
       .version-badge {
         display: inline-flex;
         align-items: center;
+        gap: 0.35rem;
         min-height: 2rem;
         padding: 0 0.75rem;
         border-radius: var(--radius-sm);
@@ -1639,6 +1645,40 @@
         color: #F0D090;
         font-family: "JetBrains Mono", monospace;
         font-size: 0.85rem;
+      }
+
+      /* Amber dot on version badge when reported vs registry values differ */
+      .version-mismatch-dot {
+        display: inline-block;
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 50%;
+        background: #e6bb5a;
+        flex-shrink: 0;
+      }
+
+      /* Drawer: amber mismatch hint below version dd */
+      .version-mismatch-hint {
+        font-size: 0.78rem;
+        color: #e6bb5a;
+        margin-top: 0.2rem;
+      }
+
+      /* Drawer: OTA history section */
+      .ota-history-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+      .ota-history-list li {
+        font-size: 0.82rem;
+        color: var(--text-muted, #9ca3af);
+      }
+      .ota-history-list .mono {
+        color: var(--text-primary, #e2e8f0);
       }
 
       .version-grid {
@@ -2464,6 +2504,19 @@
         color: var(--muted);
       }
 
+      /* Online/offline dot rendered beside last-seen badge */
+      .online-dot {
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-right: 0.2rem;
+        flex-shrink: 0;
+      }
+      .online-dot--on  { background: var(--accent-teal, #4fd1c5); }
+      .online-dot--off { background: var(--muted, #6c757d); }
+
       .update-plan-grid {
         display: grid;
         gap: 1rem;
@@ -2798,6 +2851,115 @@
           stroke-dashoffset: 0;
         }
       }
+
+      /* ── Rollout banner ─────────────────────────────── */
+      .rollout-banner {
+        padding: 0.55rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.86rem;
+        font-weight: 500;
+        background: rgba(232, 168, 76, 0.18);
+        border-bottom: 1px solid rgba(232, 168, 76, 0.35);
+        color: var(--warning, #E8A84C);
+      }
+      .rollout-banner--halted {
+        background: rgba(212, 70, 84, 0.18);
+        border-bottom-color: rgba(212, 70, 84, 0.35);
+        color: var(--danger, #D44654);
+      }
+      .rollout-banner i {
+        flex-shrink: 0;
+      }
+
+      /* ── Rollout progress strip inside Update Plan card ─ */
+      .rollout-strip {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border, rgba(255,255,255,0.08));
+      }
+      .rollout-strip__head {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.6rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .rollout-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 0.75rem;
+      }
+      .rollout-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.76rem;
+        font-weight: 600;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.05);
+      }
+      .rollout-chip--canary   { color: var(--accent-teal, #5DC8BE); border-color: rgba(93,200,190,0.35); }
+      .rollout-chip--offered  { color: var(--info, #7AABE8); border-color: rgba(122,171,232,0.35); }
+      .rollout-chip--pending  { color: var(--muted, #A99A88); }
+      .rollout-chip--updated  { color: var(--success, #5DC896); border-color: rgba(93,200,150,0.35); }
+      .rollout-chip--failed   { color: var(--danger, #D44654); border-color: rgba(212,70,84,0.35); }
+      .rollout-chip--skipped  { color: var(--muted, #A99A88); }
+
+      /* ── Release readiness card ─────────────────────── */
+      .readiness-card {
+        margin-bottom: 1.5rem;
+      }
+      .readiness-card__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+      .readiness-target-form {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .readiness-target-form label {
+        font-size: 0.82rem;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .readiness-target-input {
+        background: var(--bg-alt, #211A15);
+        border: 1px solid var(--border, rgba(255,255,255,0.12));
+        color: var(--text, #F0ECE6);
+        border-radius: 0.4rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.83rem;
+        font-family: 'JetBrains Mono', monospace;
+        width: 9rem;
+        transition: border-color 0.15s;
+      }
+      .readiness-target-input:focus {
+        outline: none;
+        border-color: var(--accent-teal, #5DC8BE);
+      }
+      .readiness-target-input.is-invalid {
+        border-color: var(--danger, #D44654);
+      }
+      .readiness-buckets {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+        gap: 1rem;
+      }
     </style>
   </head>
   <body>
@@ -2825,8 +2987,77 @@
         </div>
       </nav>
 
+      <!-- Rollout banner: shown when data/rollout-state.json has an active rollout -->
+      <div id="rollout-banner" class="rollout-banner" hidden>
+        <i class="bi bi-broadcast-pin"></i>
+        <span id="rollout-banner-text">Rollout in progress</span>
+      </div>
+
       <main class="container dashboard-main">
-        <section id="overview" class="surface hero-panel fade-in">
+        <!-- Action row: sits directly under the navbar, above the hero -->
+        <section id="overview" class="overview-grid fade-in">
+          <div class="surface chart-surface">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Update Plan</span>
+                <h2>Action required</h2>
+              </div>
+              <span id="update-plan-note" class="section-badge">Calculating plan</span>
+            </div>
+            <div id="update-plan-body" class="update-plan-grid">
+              <div class="plan-bucket__empty">Loading update plan...</div>
+            </div>
+            <!-- Rollout progress strip: shown when active rollout exists -->
+            <div id="rollout-strip" class="rollout-strip" hidden>
+              <div class="rollout-strip__head">
+                <i class="bi bi-broadcast-pin"></i>
+                <span id="rollout-strip-title">Active rollout</span>
+              </div>
+              <div id="rollout-strip-chips" class="rollout-chips"></div>
+              <div id="rollout-strip-devices" class="plan-device-list"></div>
+            </div>
+          </div>
+
+          <div class="surface chart-surface">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Fleet Readiness</span>
+                <h2>Status balance</h2>
+              </div>
+              <span id="snapshot-note" class="section-badge">Awaiting snapshot</span>
+            </div>
+            <div class="chart-layout">
+              <div class="readiness-visuals">
+                <div class="chart-shell">
+                  <canvas id="status-chart"></canvas>
+                  <div class="chart-center">
+                    <strong id="status-chart-total">0</strong>
+                    <span>Devices tracked</span>
+                  </div>
+                </div>
+              </div>
+              <div class="readiness-stack">
+                <div id="status-breakdown" class="status-breakdown">
+                  <div class="status-row">
+                    <div><span class="status-copy">Loading status distribution</span></div>
+                  </div>
+                </div>
+                <div class="fleet-pulse" aria-label="Fleet pulse">
+                  <div class="fleet-pulse__head">
+                    <span class="fleet-pulse__title">Readiness lanes</span>
+                    <span id="fleet-pulse-note" class="fleet-pulse__note">Waiting for devices</span>
+                  </div>
+                  <div id="fleet-pulse-grid" class="fleet-pulse__grid">
+                    <span class="fleet-pulse__note">Loading nodes</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <section id="hero" class="surface hero-panel fade-in delay-2">
           <div class="row g-4">
             <div class="col-lg-7">
               <span id="hero-eyebrow" class="eyebrow">Device Command View</span>
@@ -2843,10 +3074,6 @@
                   <span class="section-tab__label">Loading sections</span>
                   <span class="section-tab__meta">Preparing dashboard views</span>
                 </button>
-              </div>
-              <div class="hero-actions">
-                <a class="cta-button" href="#devices"><i class="bi bi-grid-1x2-fill"></i><span>Inspect devices</span></a>
-                <a class="secondary-button" href="#versions"><i class="bi bi-bezier2"></i> Review timeline</a>
               </div>
               <div class="hero-metrics">
                 <article class="metric-card fade-in delay-1">
@@ -2904,59 +3131,6 @@
               </aside>
             </div>
           </div>
-        </section>
-
-        <section class="overview-grid fade-in delay-3">
-          <div class="surface chart-surface">
-            <div class="section-heading">
-              <div>
-                <span class="eyebrow">Fleet Readiness</span>
-                <h2>Status balance</h2>
-              </div>
-              <span id="snapshot-note" class="section-badge">Awaiting snapshot</span>
-            </div>
-            <div class="chart-layout">
-              <div class="readiness-visuals">
-                <div class="chart-shell">
-                  <canvas id="status-chart"></canvas>
-                  <div class="chart-center">
-                    <strong id="status-chart-total">0</strong>
-                    <span>Devices tracked</span>
-                  </div>
-                </div>
-              </div>
-              <div class="readiness-stack">
-                <div id="status-breakdown" class="status-breakdown">
-                  <div class="status-row">
-                    <div><span class="status-copy">Loading status distribution</span></div>
-                  </div>
-                </div>
-                <div class="fleet-pulse" aria-label="Fleet pulse">
-                  <div class="fleet-pulse__head">
-                    <span class="fleet-pulse__title">Readiness lanes</span>
-                    <span id="fleet-pulse-note" class="fleet-pulse__note">Waiting for devices</span>
-                  </div>
-                  <div id="fleet-pulse-grid" class="fleet-pulse__grid">
-                    <span class="fleet-pulse__note">Loading nodes</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="surface chart-surface">
-            <div class="section-heading">
-              <div>
-                <span class="eyebrow">Update Plan</span>
-                <h2>Action required</h2>
-              </div>
-              <span id="update-plan-note" class="section-badge">Calculating plan</span>
-            </div>
-            <div id="update-plan-body" class="update-plan-grid">
-              <div class="plan-bucket__empty">Loading update plan...</div>
-            </div>
-          </div>
-
         </section>
 
         <section id="devices" class="dashboard-section fade-in delay-4">
@@ -3106,6 +3280,31 @@
         </section>
 
         <section id="versions" class="dashboard-section fade-in">
+          <!-- Release readiness card — sits at the top of the versions section -->
+          <div class="surface readiness-card" id="release-readiness-card">
+            <div class="readiness-card__head">
+              <div>
+                <span class="eyebrow">Release Readiness</span>
+                <h2 style="font-size:1.1rem;margin:0">Hypothetical target analysis</h2>
+              </div>
+              <div class="readiness-target-form">
+                <label for="readiness-target-input">Target version:</label>
+                <input
+                  type="text"
+                  id="readiness-target-input"
+                  class="readiness-target-input"
+                  placeholder="v3.21.0"
+                  pattern="v?\d+\.\d+\.\d+"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+              </div>
+            </div>
+            <div id="readiness-buckets" class="readiness-buckets">
+              <div class="plan-bucket__empty">Select a section to compute readiness.</div>
+            </div>
+          </div>
+
           <div class="section-heading">
             <div>
               <span class="eyebrow">Release Intelligence</span>
@@ -3175,6 +3374,8 @@
                   <div class="repo-detail">
                     <dt>Installed version</dt>
                     <dd id="device-drawer-version" class="mono">--</dd>
+                    <div id="device-drawer-version-mismatch" class="version-mismatch-hint" hidden></div>
+                    <div id="device-drawer-version-source" style="font-size:0.78rem;color:var(--muted,#6c757d);margin-top:0.15rem" hidden></div>
                   </div>
                   <div class="repo-detail">
                     <dt>Track target</dt>
@@ -3192,6 +3393,14 @@
                     <dt>Last seen</dt>
                     <dd id="device-drawer-last-seen">--</dd>
                   </div>
+                  <div class="repo-detail" id="device-drawer-battery-row" hidden>
+                    <dt>Battery</dt>
+                    <dd id="device-drawer-battery">--</dd>
+                  </div>
+                  <div class="repo-detail" id="device-drawer-rollout-row" hidden>
+                    <dt>Rollout</dt>
+                    <dd id="device-drawer-rollout">--</dd>
+                  </div>
                   <div class="repo-detail">
                     <dt>Location</dt>
                     <dd id="device-drawer-location">--</dd>
@@ -3201,6 +3410,10 @@
                     <dd id="device-drawer-deployed">--</dd>
                   </div>
                 </dl>
+              </section>
+              <section class="drawer-card" id="device-drawer-ota-history-section" hidden>
+                <div class="panel-title">Update history</div>
+                <ul id="device-drawer-ota-history" class="ota-history-list"></ul>
               </section>
               <section class="drawer-card">
                 <div class="panel-title">Risk Signals</div>
@@ -3356,6 +3569,8 @@
         statusCounts: createEmptyStatusCounts(),
         selectedDeviceKey: "",
         preferencesReady: false,
+        // rolloutState: loaded from data/rollout-state.json; null when file absent or fetch fails
+        rolloutState: null,
         commandPalette: {
           open: false,
           query: "",
@@ -3387,6 +3602,10 @@
 
       async function initializeDashboard() {
         try {
+          // Fetch rollout-state.json alongside other data; 404 → null (feature hidden)
+          const rolloutPromise = fetch("data/rollout-state.json", { cache: "no-store" })
+            .then((response) => response.ok ? response.json() : null)
+            .catch(() => null);
           const historyPromise = fetch("data/version-history.json", { cache: "no-store" })
             .then((response) => response.ok ? response.json() : null)
             .catch(() => null);
@@ -3410,8 +3629,11 @@
 
             const versionData = await versionResponse.json();
             const deviceRegistry = await registryResponse.json();
-            payload = await buildDashboardPayloadFromSourceFiles(versionData, deviceRegistry, await historyPromise);
+            payload = buildDashboardPayloadFromSourceFiles(versionData, deviceRegistry, await historyPromise);
           }
+
+          // Store rollout state (may be null if file absent/404)
+          dashboardState.rolloutState = await rolloutPromise;
 
           hydrateDashboardState(payload);
           hydrateUiStateFromPreferences();
@@ -3494,67 +3716,9 @@
         }
       }
 
-      async function fetchDeviceFromApi(apiBase, entry, trackMap = new Map(), fallbackSectionVersion = "", hardwareCapabilities = {}) {
-        const mac = String(entry?.mac || "").trim();
-        const fallbackLabel = String(entry?.label || "").trim();
-        const hardware = String(entry?.hardware || "").trim();
-        const explicitComponents = Array.isArray(entry?.components)
-          ? entry.components.map((component) => String(component).trim()).filter(Boolean)
-          : null;
-        const trackId = String(entry?.track || "").trim();
-        const track = trackMap.get(trackId) || null;
-        const encodedMac = encodeURIComponent(mac);
-
-        const [deviceResponse, firmwareResponse] = await Promise.all([
-          fetch(`${apiBase}/devices/${encodedMac}`),
-          fetch(`${apiBase}/firmwares/latest?deviceMac=${encodedMac}`).catch(() => null),
-        ]);
-
-        if (!deviceResponse.ok) {
-          throw new Error(`Device ${mac}: HTTP ${deviceResponse.status}`);
-        }
-
-        const deviceData = await deviceResponse.json();
-
-        let firmwareData = null;
-        if (firmwareResponse && firmwareResponse.ok) {
-          firmwareData = await firmwareResponse.json();
-        }
-
-        const sensors = deviceData.settings?.sensors || [];
-        const sensorTypes = explicitComponents || [...new Set(sensors.map((s) => s.type).filter(Boolean))];
-        const hasVirtual = sensors.some((s) => s.virtual && s.virtual > 0);
-        const components = [...new Set([...sensorTypes, ...(hasVirtual ? ["virtual"] : []), "core"])].sort();
-
-        const firmwareVersion = firmwareData?.version || "";
-        const firmwareBuildDate = firmwareData?.buildDate || "";
-        const registryVersion = getRegistryInstalledVersion(entry);
-        const normalizedFirmwareVersion = normalizeRegistryVersion(firmwareVersion);
-        const targetVersion = String(entry?.target_version || "").trim() || track?.latestVersion || fallbackSectionVersion;
-        const apiLocation = String(deviceData.settings?.sensorLocation?.description || deviceData.location?.name || "").trim();
-        const registryLocation = String(entry?.location || "").trim();
-
-        return {
-          name: fallbackLabel || deviceData.deviceName || mac,
-          mac: deviceData.macAddress || mac,
-          version: registryVersion || normalizedFirmwareVersion,
-          components,
-          hardware,
-          ota_capable: resolveOtaCapable(entry, hardware, hardwareCapabilities),
-          last_seen: null,
-          location: registryLocation || apiLocation,
-          last_deployed: getRegistryLastFirmwareUpdate(entry) || (firmwareBuildDate ? firmwareBuildDate.split("T")[0] : ""),
-          initial_deployed: getRegistryFirstInstalled(entry),
-          declared_deployment_version: registryVersion,
-          pending_ota_version: normalizeRegistryVersion(entry?.pending_ota_version || entry?.pendingOtaVersion || ""),
-          pending_ota_created: String(entry?.pending_ota_created || entry?.pendingOtaCreated || "").trim(),
-          sensor_summary: String(entry?.sensor_summary || "").trim(),
-          notes: String(entry?.notes || "").trim(),
-          track: trackId,
-          track_label: track?.label || "",
-          target_version: targetVersion,
-        };
-      }
+      // fetchDeviceFromApi() removed — the browser cannot authenticate against the monitoring API.
+      // The source-file fallback (devices.json + version-changes.json) now builds registry-only
+      // device entries directly inside buildDashboardPayloadFromSourceFiles().
 
       function normalizeDashboardPayload(data, versionHistoryData = null) {
         const rawSections = Array.isArray(data?.sections) && data.sections.length ? data.sections : buildLegacySections(data);
@@ -3789,6 +3953,29 @@
               : null,
           hardwareMaxFirmware: String(device?.hardware_max_firmware || device?.hardwareMaxFirmware || "").trim(),
           lastSeen: String(device?.last_seen || device?.lastSeen || "").trim(),
+          isOnline: typeof device?.is_online === "boolean"
+            ? device.is_online
+            : typeof device?.isOnline === "boolean"
+              ? device.isOnline
+              : null,
+          reportedVersion: String(device?.reported_version || device?.reportedVersion || "").trim(),
+          versionSource: String(device?.version_source || device?.versionSource || "").trim(),
+          versionMismatch: typeof device?.version_mismatch === "boolean"
+            ? device.version_mismatch
+            : typeof device?.versionMismatch === "boolean"
+              ? device.versionMismatch
+              : false,
+          batteryLevel: typeof device?.battery_level === "number"
+            ? device.battery_level
+            : typeof device?.batteryLevel === "number"
+              ? device.batteryLevel
+              : null,
+          otaHistory: Array.isArray(device?.ota_history)
+            ? device.ota_history
+            : Array.isArray(device?.otaHistory)
+              ? device.otaHistory
+              : [],
+          pendingOtaSource: String(device?.pending_ota_source || device?.pendingOtaSource || "").trim(),
           deploymentEnvironment: String(device?.deployment_environment || device?.deploymentEnvironment || "").trim(),
           declaredDeploymentVersion: String(device?.declared_deployment_version || device?.declaredDeploymentVersion || "").trim(),
           pendingOtaVersion: String(device?.pending_ota_version || device?.pendingOtaVersion || "").trim(),
@@ -3827,73 +4014,62 @@
         return String(entry?.first_installed || entry?.initial_deployed || entry?.initial_deployment_date || "").trim();
       }
 
-      async function buildDashboardPayloadFromSourceFiles(versionData, deviceRegistry, versionHistoryData = null) {
-        const basePayload = normalizeDashboardPayload({
+      // Fallback when dashboard-data.json is unavailable: build from registry + version data
+      // (registry-only, no browser API calls — the monitoring API requires server-side auth).
+      function buildDashboardPayloadFromSourceFiles(versionData, deviceRegistry, versionHistoryData = null) {
+        const rawSections = buildSectionsFromSourceFiles(versionData, deviceRegistry);
+        const hardwareCapabilities = deviceRegistry?.hardware_capabilities || {};
+
+        const sections = rawSections.map((section) => {
+          const registrySection = getRegistrySection(deviceRegistry, section.id);
+          const registryDevices = Array.isArray(registrySection?.devices) ? registrySection.devices : [];
+          const trackMap = new Map(section.tracks.map((track) => [track.id, track]));
+
+          const devices = registryDevices.map((entry) => {
+            const track = trackMap.get(String(entry?.track || "").trim()) || null;
+            const entryHardware = String(entry?.hardware || "").trim();
+            const registryVersion = getRegistryInstalledVersion(entry);
+            return normalizeDevice(
+              {
+                name: String(entry?.label || entry?.mac || "Unknown device").trim(),
+                mac: String(entry?.mac || "").trim(),
+                version: registryVersion,
+                components: Array.isArray(entry?.components) ? entry.components : [],
+                hardware: entryHardware,
+                ota_capable: resolveOtaCapable(entry, entryHardware, hardwareCapabilities),
+                last_seen: null,
+                is_online: null,
+                reported_version: "",
+                version_source: "registry",
+                version_mismatch: false,
+                battery_level: null,
+                ota_history: [],
+                pending_ota_source: "",
+                location: String(entry?.location || "").trim(),
+                last_deployed: getRegistryLastFirmwareUpdate(entry),
+                initial_deployed: getRegistryFirstInstalled(entry),
+                declared_deployment_version: registryVersion,
+                pending_ota_version: normalizeRegistryVersion(entry?.pending_ota_version || entry?.pendingOtaVersion || ""),
+                pending_ota_created: String(entry?.pending_ota_created || entry?.pendingOtaCreated || "").trim(),
+                sensor_summary: String(entry?.sensor_summary || "").trim(),
+                notes: String(entry?.notes || "").trim(),
+                track: String(entry?.track || "").trim(),
+                track_label: track?.label || "",
+                target_version: track?.latestVersion || section.latestVersion || "",
+              },
+              trackMap,
+              section.latestVersion
+            );
+          });
+
+          return { ...section, devices };
+        });
+
+        return normalizeDashboardPayload({
           default_section: deviceRegistry?.default_section || versionData?.default_section || "sensor-hub",
           last_updated: new Date().toISOString(),
-          sections: buildSectionsFromSourceFiles(versionData, deviceRegistry),
+          sections,
         }, versionHistoryData);
-
-        const hydratedSections = await Promise.all(
-          basePayload.sections.map(async (section) => {
-            const registrySection = getRegistrySection(deviceRegistry, section.id);
-            const apiBase = String(registrySection?.api_base || deviceRegistry?.api_base || "").trim();
-            const registryDevices = Array.isArray(registrySection?.devices) ? registrySection.devices : [];
-            if (!apiBase || !registryDevices.length) {
-              return section;
-            }
-
-            const trackMap = new Map(section.tracks.map((track) => [track.id, track]));
-            const hardwareCapabilities = deviceRegistry?.hardware_capabilities || {};
-            const settledResults = await Promise.allSettled(
-              registryDevices.map((entry) => fetchDeviceFromApi(apiBase, entry, trackMap, section.latestVersion, hardwareCapabilities))
-            );
-            const devices = settledResults.map((result, index) => {
-              if (result.status === "fulfilled") {
-                return normalizeDevice(result.value, trackMap, section.latestVersion);
-              }
-
-              const entry = registryDevices[index] || {};
-              const track = trackMap.get(String(entry?.track || "").trim()) || null;
-              const entryHardware = String(entry?.hardware || "").trim();
-              const registryVersion = getRegistryInstalledVersion(entry);
-              return normalizeDevice(
-                {
-                  name: String(entry?.label || entry?.mac || "Unknown device").trim(),
-                  mac: String(entry?.mac || "").trim(),
-                  version: registryVersion,
-                  components: Array.isArray(entry?.components) ? entry.components : [],
-                  hardware: entryHardware,
-                  ota_capable: resolveOtaCapable(entry, entryHardware, hardwareCapabilities),
-                  last_seen: null,
-                  location: String(entry?.location || "").trim(),
-                  last_deployed: getRegistryLastFirmwareUpdate(entry),
-                  initial_deployed: getRegistryFirstInstalled(entry),
-                  declared_deployment_version: registryVersion,
-                  pending_ota_version: normalizeRegistryVersion(entry?.pending_ota_version || entry?.pendingOtaVersion || ""),
-                  pending_ota_created: String(entry?.pending_ota_created || entry?.pendingOtaCreated || "").trim(),
-                  sensor_summary: String(entry?.sensor_summary || "").trim(),
-                  notes: String(entry?.notes || "").trim(),
-                  track: String(entry?.track || "").trim(),
-                  track_label: track?.label || "",
-                  target_version: track?.latestVersion || section.latestVersion || "",
-                },
-                trackMap,
-                section.latestVersion
-              );
-            });
-
-            return {
-              ...section,
-              devices,
-            };
-          })
-        );
-
-        return {
-          ...basePayload,
-          sections: hydratedSections,
-        };
       }
 
       function buildSectionsFromSourceFiles(versionData, deviceRegistry) {
@@ -4104,6 +4280,7 @@
         });
         document.getElementById("command-palette-input").addEventListener("keydown", handleCommandPaletteKeydown);
         bindTopbarNavigation();
+        bindReadinessInput();
         document.addEventListener("keydown", (event) => {
           if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
@@ -4242,6 +4419,9 @@
         renderFleetPulseGrid();
         renderTrackSummaries();
         renderUpdatePlan();
+        renderRolloutBanner();
+        renderRolloutProgressStrip();
+        renderReleaseReadiness();
       }
 
       function renderDataSnapshot() {
@@ -4518,6 +4698,7 @@
 
         const haystack = [
           device.name,
+          device.mac,
           device.location,
           device.hardware,
           getOtaInfo(device).label,
@@ -4556,7 +4737,7 @@
           .map((device, index) => {
             const statusClass = STATUS_LABELS[device.calculatedStatus];
             const risk = computeDeviceRisk(device);
-            const versionMarkup = `<span class="version-badge">${escapeHtml(device.versionDisplay)}</span>`;
+            const versionMarkup = renderVersionBadge(device);
             const versionDelta = describeVersionDelta(device.version, device.targetVersion, device);
             const versionDeltaMarkup = versionDelta
               ? `<div class="version-delta">${escapeHtml(versionDelta)}</div>`
@@ -4637,7 +4818,7 @@
                 </td>
                 <td><span class="status-pill ${statusClass}">${escapeHtml(device.calculatedStatus)}</span></td>
                 <td>
-                  <span class="version-badge">${escapeHtml(device.versionDisplay)}</span>
+                  ${renderVersionBadge(device)}
                   ${versionDelta ? `<div class="table-subtle">${escapeHtml(versionDelta)}</div>` : ""}
                   ${pendingOtaMarkup ? `<div style="margin-top:0.4rem">${pendingOtaMarkup}</div>` : ""}
                 </td>
@@ -5501,7 +5682,24 @@
         riskBadge.className = `risk-pill ${getRiskClassName(risk.level)}`;
         riskBadge.textContent = `Risk ${risk.score}`;
 
+        // Version display: show versionDisplay text; if versionMismatch, add amber hint + dot
         document.getElementById("device-drawer-version").textContent = device.versionDisplay || "Unknown";
+        const mismatchHint = document.getElementById("device-drawer-version-mismatch");
+        if (device.versionMismatch && hasValue(device.declaredDeploymentVersion)) {
+          mismatchHint.textContent = `registry says ${device.declaredDeploymentVersion}`;
+          mismatchHint.hidden = false;
+        } else {
+          mismatchHint.hidden = true;
+        }
+        const versionSourceEl = document.getElementById("device-drawer-version-source");
+        if (hasValue(device.versionSource)) {
+          const sourceLabel = device.versionSource === "reported" ? "device-reported" : device.versionSource === "registry" ? "registry" : device.versionSource;
+          versionSourceEl.textContent = `Source: ${sourceLabel}`;
+          versionSourceEl.hidden = false;
+        } else {
+          versionSourceEl.hidden = true;
+        }
+
         document.getElementById("device-drawer-target").textContent = device.targetVersion || "No tracked release";
         document.getElementById("device-drawer-hardware").textContent = hasValue(device.hardware) ? device.hardware : "Hardware not specified";
 
@@ -5521,6 +5719,32 @@
         document.getElementById("device-drawer-last-seen").innerHTML = lastSeenInfo.available
           ? renderRelativeTime(device.lastSeen)
           : "--";
+
+        // Battery level (shown only when non-null)
+        const batteryRow = document.getElementById("device-drawer-battery-row");
+        if (device.batteryLevel !== null && device.batteryLevel !== undefined) {
+          document.getElementById("device-drawer-battery").textContent = `${Math.round(device.batteryLevel)}%`;
+          batteryRow.hidden = false;
+        } else {
+          batteryRow.hidden = true;
+        }
+
+        // Rollout row: shown when device participates in the active rollout
+        const rolloutRow = document.getElementById("device-drawer-rollout-row");
+        const rolloutEl = document.getElementById("device-drawer-rollout");
+        if (rolloutRow && rolloutEl) {
+          const rolloutEntry = getDeviceRolloutEntry(device);
+          if (rolloutEntry) {
+            const active = dashboardState.rolloutState?.active;
+            const stateLabel = String(rolloutEntry.state || "unknown");
+            const versionLabel = String(active?.version || "");
+            const reasonPart = hasValue(rolloutEntry.reason) ? ` — ${String(rolloutEntry.reason)}` : "";
+            rolloutEl.textContent = `${stateLabel} (${versionLabel})${reasonPart}`;
+            rolloutRow.hidden = false;
+          } else {
+            rolloutRow.hidden = true;
+          }
+        }
 
         document.getElementById("device-drawer-location").textContent = getDisplayLocation(device.location);
         document.getElementById("device-drawer-deployed").innerHTML = getDisplayDateMarkup(device.last_deployed, device);
@@ -5554,6 +5778,26 @@
         document.getElementById("device-drawer-posture").innerHTML = postureLines
           .map((line) => `<p>${line.html || escapeHtml(line.text)}</p>`)
           .join("");
+
+        // OTA Update history section (hidden when empty)
+        const otaHistorySection = document.getElementById("device-drawer-ota-history-section");
+        const otaHistoryList = document.getElementById("device-drawer-ota-history");
+        const otaHistory = Array.isArray(device.otaHistory) ? device.otaHistory : [];
+        if (otaHistory.length) {
+          otaHistoryList.innerHTML = otaHistory
+            .map((entry) => {
+              const ver = escapeHtml(String(entry?.version || "").trim() || "Unknown");
+              const dateStr = String(entry?.date || "").trim();
+              const dateDisplay = dateStr ? escapeHtml(formatRelativeTime(dateStr)) : "Unknown date";
+              const dateTitle = dateStr ? escapeHtml(formatAbsoluteDateTime(dateStr)) : "";
+              return `<li><span class="mono">${ver}</span> &mdash; <span title="${dateTitle}">${dateDisplay}</span>, OTA</li>`;
+            })
+            .join("");
+          otaHistorySection.hidden = false;
+        } else {
+          otaHistoryList.innerHTML = "";
+          otaHistorySection.hidden = true;
+        }
 
         drawer.hidden = false;
         drawer.setAttribute("aria-hidden", "false");
@@ -6120,15 +6364,22 @@
       function getLastSeenInfo(device) {
         const date = parseDate(device.lastSeen);
         if (!date) {
+          // No last_seen timestamp — treat as unavailable; but if API says offline, surface that
+          if (device.isOnline === false) {
+            return { available: true, silent: true, relative: "offline", days: null };
+          }
           return { available: false, silent: false, relative: "", days: null };
         }
 
         const elapsedMs = Math.max(0, Date.now() - date.getTime());
         const minutes = Math.round(elapsedMs / 60000);
         const days = elapsedMs / 86400000;
-        const silent = days > 1;
+        // Treat as silent if: more than 24 h ago, OR the API explicitly reports offline
+        const silent = days > 1 || device.isOnline === false;
         let relative;
-        if (silent) {
+        if (device.isOnline === false && days <= 1) {
+          relative = "offline";
+        } else if (silent) {
           const wholeDays = Math.max(1, Math.floor(days));
           relative = `silent ${wholeDays} day${wholeDays === 1 ? "" : "s"}`;
         } else if (minutes < 1) {
@@ -6158,9 +6409,49 @@
         return `<span class="ota-pill ${info.className}${mutedClass}" title="${escapeHtml(info.description)}"><i class="bi ${info.icon}"></i>${escapeHtml(info.label)}</span>`;
       }
 
+      // Renders the version badge with an optional amber mismatch dot when
+      // device-reported and registry versions differ.
+      function renderVersionBadge(device) {
+        const label = escapeHtml(device.versionDisplay || "Unknown");
+        if (device.versionMismatch && hasValue(device.declaredDeploymentVersion)) {
+          const tip = escapeHtml(`Version mismatch — device reports ${device.versionDisplay || "unknown"}, registry says ${device.declaredDeploymentVersion}`);
+          return `<span class="version-badge" title="${tip}">${label}<span class="version-mismatch-dot" aria-hidden="true"></span></span>`;
+        }
+        return `<span class="version-badge">${label}</span>`;
+      }
+
+      // Returns the active-rollout device entry for a given device, or null.
+      function getDeviceRolloutEntry(device) {
+        const active = dashboardState.rolloutState?.active;
+        if (!active) return null;
+        const devices = Array.isArray(active.devices) ? active.devices : [];
+        const macNorm = String(device.mac || device.macAddress || "").toLowerCase().replace(/[^0-9a-f]/g, "");
+        if (!macNorm) return null;
+        return devices.find((d) => d && String(d.mac || "").toLowerCase().replace(/[^0-9a-f]/g, "") === macNorm) || null;
+      }
+
       function renderPendingOtaBadge(device) {
+        // Rollout state wins: if device participates in an active rollout with offered/canary
+        // state, show the rollout pill instead of the old registry-pending pill.
+        const rolloutEntry = getDeviceRolloutEntry(device);
+        if (rolloutEntry && (rolloutEntry.state === "offered" || rolloutEntry.state === "canary")) {
+          const active = dashboardState.rolloutState?.active;
+          if (!active) return "";
+          const version = escapeHtml(String(active.version || "").trim() || "?");
+          const stateLabel = rolloutEntry.state === "canary" ? "Canary" : "Offered";
+          const title = `Rollout ${active.version || ""} — device is in ${rolloutEntry.state} state`;
+          return `<span class="ota-pill ota-pill--muted" title="${escapeHtml(title)}"><i class="bi bi-broadcast-pin"></i>${stateLabel} ${version}</span>`;
+        }
         if (!hasValue(device.pendingOtaVersion)) {
           return "";
+        }
+        // Suppress registry-pending pill when device is in any non-terminal rollout state
+        // for the same version (rollout state is the authoritative source)
+        if (rolloutEntry && rolloutEntry.state !== "skipped" && rolloutEntry.state !== "failed") {
+          const active = dashboardState.rolloutState?.active;
+          if (active && active.version === device.pendingOtaVersion) {
+            return "";
+          }
         }
         const created = hasValue(device.pendingOtaCreated)
           ? ` Created ${formatAbsoluteDateTime(device.pendingOtaCreated)}.`
@@ -6175,27 +6466,78 @@
           return "";
         }
         const title = `${formatAbsoluteDateTime(device.lastSeen)}${seen.silent ? " - A silent device cannot pick up OTA updates" : ""}`;
-        return `<span class="last-seen${seen.silent ? " last-seen--silent" : ""}" title="${escapeHtml(title)}"><i class="bi bi-broadcast"></i>${escapeHtml(seen.relative)}</span>`;
+        // Online/offline dot: shown only when isOnline is non-null
+        let onlineDot = "";
+        if (device.isOnline === true) {
+          onlineDot = `<span class="online-dot online-dot--on" title="Online" aria-label="Online"></span>`;
+        } else if (device.isOnline === false) {
+          onlineDot = `<span class="online-dot online-dot--off" title="Offline" aria-label="Offline"></span>`;
+        }
+        return `${onlineDot}<span class="last-seen${seen.silent ? " last-seen--silent" : ""}" title="${escapeHtml(title)}"><i class="bi bi-broadcast"></i>${escapeHtml(seen.relative)}</span>`;
       }
 
+      // Classify a single device against an explicit targetVersion string.
+      // Returns one of: "hardware" | "ota" | "visit" | "unknown" | "current"
+      // "current" means device is already at or above the target.
+      // This is the shared classifier used by both buildUpdatePlan and buildReadinessPlan.
+      function classifyDeviceForTarget(device, targetVersion) {
+        // Hardware EOL check is independent of target version
+        if (device.hardwareEol === true) {
+          return "hardware";
+        }
+        // Check if device version is already at or above the target
+        const deviceStatus = getUpdateStatus(device.version, targetVersion, device);
+        const isBehind = deviceStatus === "Needs update" || deviceStatus === "Patch available";
+        if (!isBehind) {
+          return "current";
+        }
+        // Device is behind — classify by update path
+        const seen = getLastSeenInfo(device);
+        if (device.otaCapable === true && !(seen.available && seen.silent)) {
+          return "ota";
+        }
+        if (device.otaCapable === false || (seen.available && seen.silent)) {
+          return "visit";
+        }
+        return "unknown";
+      }
+
+      // Build the existing Update Plan buckets. Calls classifyDeviceForTarget with each
+      // device's own targetVersion so existing behaviour is byte-identical.
       function buildUpdatePlan(devices) {
         const plan = { ota: [], visit: [], hardware: [], unknown: [] };
         devices.forEach((device) => {
-          if (device.hardwareEol === true) {
-            plan.hardware.push(device);
-            return;
+          const bucket = classifyDeviceForTarget(device, device.targetVersion);
+          if (bucket === "current") return;
+          plan[bucket].push(device);
+        });
+        return plan;
+      }
+
+      // Build a readiness plan against a hypothetical targetVersion.
+      // Returns { ota, visit, hardware, unknown, current } — same as Update Plan plus "current".
+      function buildReadinessPlan(devices, targetVersion) {
+        const plan = { ota: [], visit: [], hardware: [], unknown: [], current: [] };
+        if (!targetVersion) return plan;
+        const parsedTarget = parseVersion(targetVersion);
+        if (!parsedTarget) return plan;
+        devices.forEach((device) => {
+          // For the readiness panel, also check hardware_max_firmware vs target
+          // (stranded: hardware_max_firmware exists and is less than target)
+          if (device.hardwareEol !== true && hasValue(device.hardwareMaxFirmware)) {
+            const parsedHwMax = parseVersion(device.hardwareMaxFirmware);
+            if (parsedHwMax) {
+              const hwMaxBehind = parsedHwMax.major < parsedTarget.major
+                || (parsedHwMax.major === parsedTarget.major && parsedHwMax.minor < parsedTarget.minor)
+                || (parsedHwMax.major === parsedTarget.major && parsedHwMax.minor === parsedTarget.minor && parsedHwMax.patch < parsedTarget.patch);
+              if (hwMaxBehind) {
+                plan.hardware.push(device);
+                return;
+              }
+            }
           }
-          if (!isDeviceBehindTarget(device)) {
-            return;
-          }
-          const seen = getLastSeenInfo(device);
-          if (device.otaCapable === true && !(seen.available && seen.silent)) {
-            plan.ota.push(device);
-          } else if (device.otaCapable === false || (seen.available && seen.silent)) {
-            plan.visit.push(device);
-          } else {
-            plan.unknown.push(device);
-          }
+          const bucket = classifyDeviceForTarget(device, targetVersion);
+          plan[bucket].push(device);
         });
         return plan;
       }
@@ -6284,6 +6626,211 @@
           .join("");
 
         bindDeviceDetailTriggers(container);
+      }
+
+      // ── Release readiness panel ─────────────────────────────────────────────
+
+      // Renders the plan-bucket rows for the readiness panel, reusing existing styles.
+      function renderReadinessBucketHtml(plan, targetVersion) {
+        const readinessBuckets = [
+          {
+            devices: plan.ota,
+            className: "plan-bucket--ota",
+            icon: "bi-cloud-arrow-down",
+            title: "Would self-update (OTA)",
+            copy: "OTA-capable and reachable; would converge automatically after the release.",
+          },
+          {
+            devices: plan.visit,
+            className: "plan-bucket--visit",
+            icon: "bi-person-walking",
+            title: "Needs site visit",
+            copy: "Behind target but cannot OTA-update — requires a cable flash or has gone silent.",
+          },
+          {
+            devices: plan.hardware,
+            className: "plan-bucket--hardware",
+            icon: "bi-wrench-adjustable",
+            title: "Stranded — hardware ceiling",
+            copy: "Hardware cannot reach this target version. A hardware swap would be required.",
+          },
+          {
+            devices: plan.unknown,
+            className: "plan-bucket--unknown",
+            icon: "bi-question-diamond",
+            title: "Unknown update path",
+            copy: "Behind target with unverified OTA capability.",
+          },
+          {
+            devices: plan.current,
+            className: "plan-bucket--ota",
+            icon: "bi-check-circle",
+            title: "Already at or above target",
+            copy: "Device version is already at or above the chosen target.",
+          },
+        ];
+
+        return readinessBuckets.map((bucket) => {
+          const rows = bucket.devices.length
+            ? `<div class="plan-device-list">${bucket.devices
+                .map((device, index) => {
+                  const metaParts = [device.versionDisplay || "Unknown", hasValue(device.hardware) ? device.hardware : "Hardware unknown"];
+                  const staggerDelay = Math.min(index * 40, 600);
+                  return `<button type="button" class="plan-device-row plan-row-enter" data-device-key="${escapeHtml(device.deviceKey)}" style="--stagger-delay:${staggerDelay}ms">
+                    <div class="plan-device-row__name">${escapeHtml(device.name || "Unnamed device")}</div>
+                    <div class="plan-device-row__meta">${escapeHtml(metaParts.join(" | "))} &rarr; ${escapeHtml(targetVersion || "?")}</div>
+                  </button>`;
+                })
+                .join("")}</div>`
+            : `<div class="plan-bucket__empty">None</div>`;
+
+          return `<article class="plan-bucket ${escapeHtml(bucket.className)}">
+            <div class="plan-bucket__head">
+              <span class="plan-bucket__title"><i class="bi ${escapeHtml(bucket.icon)}"></i>${escapeHtml(bucket.title)}</span>
+              <span class="plan-bucket__count">${bucket.devices.length}</span>
+            </div>
+            <div class="plan-bucket__copy">${escapeHtml(bucket.copy)}</div>
+            ${rows}
+          </article>`;
+        }).join("");
+      }
+
+      function renderReleaseReadiness() {
+        const container = document.getElementById("readiness-buckets");
+        const input = document.getElementById("readiness-target-input");
+        if (!container || !input) return;
+
+        // Default target: track's latest version
+        const defaultTarget = dashboardState.latestVersion || "";
+        if (!input.value && defaultTarget) {
+          input.value = defaultTarget;
+        }
+
+        const rawTarget = String(input.value || "").trim();
+        // Validate by reusing parseVersion (which internally uses v?(\d+)\.(\d+)\.(\d+))
+        const isValid = !!parseVersion(rawTarget);
+        input.classList.toggle("is-invalid", rawTarget.length > 0 && !isValid);
+
+        if (!dashboardState.devices.length) {
+          container.innerHTML = `<div class="plan-bucket__empty">No device data loaded.</div>`;
+          return;
+        }
+
+        if (!rawTarget || !isValid) {
+          container.innerHTML = `<div class="plan-bucket__empty">${rawTarget ? "Enter a valid version (e.g. v3.21.0) to compute readiness." : "Enter a target version above to compute readiness."}</div>`;
+          return;
+        }
+
+        const plan = buildReadinessPlan(dashboardState.devices, rawTarget);
+        container.innerHTML = renderReadinessBucketHtml(plan, rawTarget);
+        bindDeviceDetailTriggers(container);
+      }
+
+      function bindReadinessInput() {
+        const input = document.getElementById("readiness-target-input");
+        if (!input) return;
+        let debounceHandle;
+        input.addEventListener("input", () => {
+          clearTimeout(debounceHandle);
+          debounceHandle = window.setTimeout(() => renderReleaseReadiness(), 200);
+        });
+      }
+
+      // ── Rollout banner ──────────────────────────────────────────────────────
+
+      function renderRolloutBanner() {
+        const banner = document.getElementById("rollout-banner");
+        const textEl = document.getElementById("rollout-banner-text");
+        if (!banner || !textEl) return;
+
+        const active = dashboardState.rolloutState?.active;
+        if (!active) {
+          banner.hidden = true;
+          return;
+        }
+
+        const isHalted = active.state === "halted";
+        banner.hidden = false;
+        banner.className = isHalted ? "rollout-banner rollout-banner--halted" : "rollout-banner";
+
+        const version = escapeHtml(String(active.version || "").trim() || "unknown");
+        const devices = Array.isArray(active.devices) ? active.devices : [];
+        const updatedCount = devices.filter((d) => d && d.state === "updated").length;
+        const pendingCount = devices.filter((d) => d && (d.state === "pending" || d.state === "offered" || d.state === "canary")).length;
+        const phase = active.mode === "canary" ? "canary phase" : "full rollout";
+        const haltedSuffix = isHalted ? " — HALTED" : "";
+
+        // Intentionally use innerHTML-safe string — all dynamic parts are escaped
+        textEl.textContent = `Rollout ${active.version || ""} in progress — ${phase}: ${updatedCount} updated / ${pendingCount} pending${haltedSuffix}`;
+      }
+
+      // ── Rollout progress strip (inside Update Plan card) ───────────────────
+
+      function renderRolloutProgressStrip() {
+        const strip = document.getElementById("rollout-strip");
+        const chipsEl = document.getElementById("rollout-strip-chips");
+        const devicesEl = document.getElementById("rollout-strip-devices");
+        const titleEl = document.getElementById("rollout-strip-title");
+        if (!strip || !chipsEl || !devicesEl || !titleEl) return;
+
+        const active = dashboardState.rolloutState?.active;
+        if (!active) {
+          strip.hidden = true;
+          return;
+        }
+
+        strip.hidden = false;
+        titleEl.textContent = `Active rollout: ${active.version || ""}${active.state === "halted" ? " (halted)" : ""}`;
+
+        const devices = Array.isArray(active.devices) ? active.devices : [];
+        // Count per-state
+        const stateCounts = {};
+        devices.forEach((d) => {
+          if (!d) return;
+          const s = String(d.state || "unknown");
+          stateCounts[s] = (stateCounts[s] || 0) + 1;
+        });
+
+        const stateOrder = ["canary", "offered", "pending", "updated", "failed", "skipped"];
+        const chipLabels = {
+          canary: "Canary",
+          offered: "Offered",
+          pending: "Pending",
+          updated: "Updated",
+          failed: "Failed",
+          skipped: "Skipped",
+        };
+        chipsEl.innerHTML = stateOrder
+          .filter((s) => stateCounts[s])
+          .map((s) => `<span class="rollout-chip rollout-chip--${escapeHtml(s)}">${escapeHtml(chipLabels[s] || s)}: ${stateCounts[s]}</span>`)
+          .join("");
+
+        // Device list — clickable rows opening device drawer
+        devicesEl.innerHTML = devices
+          .filter((d) => d)
+          .map((d, index) => {
+            const label = escapeHtml(String(d.label || d.mac || "Unknown").trim());
+            const state = escapeHtml(String(d.state || "unknown").trim());
+            const reason = hasValue(d.reason) ? escapeHtml(String(d.reason)) : "";
+            // Find matching device key for drawer
+            const matchedDevice = dashboardState.devices.find(
+              (dev) => String(dev.mac || dev.macAddress || "").toLowerCase().replace(/[^0-9a-f]/g, "") ===
+                String(d.mac || "").toLowerCase().replace(/[^0-9a-f]/g, "")
+            );
+            const deviceKey = matchedDevice ? escapeHtml(matchedDevice.deviceKey) : "";
+            const staggerDelay = Math.min(index * 40, 600);
+            return `<button type="button" class="plan-device-row plan-row-enter"
+              ${deviceKey ? `data-device-key="${deviceKey}"` : ""}
+              style="--stagger-delay:${staggerDelay}ms">
+              <div class="plan-device-row__name">${label}</div>
+              <div class="plan-device-row__meta">${state}${reason ? ` — ${reason}` : ""}</div>
+            </button>`;
+          })
+          .join("");
+
+        if (devicesEl.querySelectorAll("[data-device-key]").length) {
+          bindDeviceDetailTriggers(devicesEl);
+        }
       }
 
       function parseVersion(version) {
