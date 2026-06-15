@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.22.0",
+  "latest_version": "v3.22.1",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-06-14 11:04:04",
-  "last_updated": "2026-06-14 09:15:24",
+  "last_commit_date": "2026-06-15 11:40:31",
+  "last_updated": "2026-06-15 09:40:44",
   "version_changes": [
+    {
+      "version": "v3.22.1",
+      "date": "2026-06-15",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.22.1"
+    },
     {
       "version": "v3.22.0",
       "date": "2026-06-14",
       "components": [
         "core"
       ],
-      "description": "Merge pull request #3 from Glaecier-Development/feature/hardware-identity"
+      "description": "Self-reported hardware identity in registration"
     },
     {
       "version": "v3.21.0",
