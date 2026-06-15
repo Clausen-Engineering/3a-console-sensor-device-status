@@ -2824,68 +2824,6 @@
         }
       }
 
-      /* ── Rollout banner ─────────────────────────────── */
-      .rollout-banner {
-        padding: 0.55rem 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        font-size: 0.86rem;
-        font-weight: 500;
-        background: rgba(232, 168, 76, 0.18);
-        border-bottom: 1px solid rgba(232, 168, 76, 0.35);
-        color: var(--warning, #E8A84C);
-      }
-      .rollout-banner--halted {
-        background: rgba(212, 70, 84, 0.18);
-        border-bottom-color: rgba(212, 70, 84, 0.35);
-        color: var(--danger, #D44654);
-      }
-      .rollout-banner i {
-        flex-shrink: 0;
-      }
-
-      /* ── Rollout progress strip inside Update Plan card ─ */
-      .rollout-strip {
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid var(--border, rgba(255,255,255,0.08));
-      }
-      .rollout-strip__head {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.6rem;
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: var(--muted);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      .rollout-chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.4rem;
-        margin-bottom: 0.75rem;
-      }
-      .rollout-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-        padding: 0.2rem 0.55rem;
-        border-radius: 999px;
-        font-size: 0.76rem;
-        font-weight: 600;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-      }
-      .rollout-chip--canary   { color: var(--accent-teal, #5DC8BE); border-color: rgba(93,200,190,0.35); }
-      .rollout-chip--offered  { color: var(--info, #7AABE8); border-color: rgba(122,171,232,0.35); }
-      .rollout-chip--pending  { color: var(--muted, #A99A88); }
-      .rollout-chip--updated  { color: var(--success, #5DC896); border-color: rgba(93,200,150,0.35); }
-      .rollout-chip--failed   { color: var(--danger, #D44654); border-color: rgba(212,70,84,0.35); }
-      .rollout-chip--skipped  { color: var(--muted, #A99A88); }
-
       /* ── Release readiness card ─────────────────────── */
       .readiness-card {
         margin-bottom: 1.5rem;
@@ -2958,12 +2896,6 @@
           </div>
         </div>
       </nav>
-
-      <!-- Rollout banner: shown when data/rollout-state.json has an active rollout -->
-      <div id="rollout-banner" class="rollout-banner" hidden>
-        <i class="bi bi-broadcast-pin"></i>
-        <span id="rollout-banner-text">Rollout in progress</span>
-      </div>
 
       <main class="container dashboard-main">
         <section id="hero" class="surface hero-panel fade-in">
@@ -3054,15 +2986,6 @@
             </div>
             <div id="update-plan-body" class="update-plan-grid">
               <div class="plan-bucket__empty">Loading update plan...</div>
-            </div>
-            <!-- Rollout progress strip: shown when active rollout exists -->
-            <div id="rollout-strip" class="rollout-strip" hidden>
-              <div class="rollout-strip__head">
-                <i class="bi bi-broadcast-pin"></i>
-                <span id="rollout-strip-title">Active rollout</span>
-              </div>
-              <div id="rollout-strip-chips" class="rollout-chips"></div>
-              <div id="rollout-strip-devices" class="plan-device-list"></div>
             </div>
           </div>
 
@@ -3363,10 +3286,6 @@
                     <dt>Battery</dt>
                     <dd id="device-drawer-battery">--</dd>
                   </div>
-                  <div class="repo-detail" id="device-drawer-rollout-row" hidden>
-                    <dt>Rollout</dt>
-                    <dd id="device-drawer-rollout">--</dd>
-                  </div>
                   <div class="repo-detail">
                     <dt>Location</dt>
                     <dd id="device-drawer-location">--</dd>
@@ -3538,8 +3457,6 @@
         statusCounts: createEmptyStatusCounts(),
         selectedDeviceKey: "",
         preferencesReady: false,
-        // rolloutState: loaded from data/rollout-state.json; null when file absent or fetch fails
-        rolloutState: null,
         commandPalette: {
           open: false,
           query: "",
@@ -3571,10 +3488,6 @@
 
       async function initializeDashboard() {
         try {
-          // Fetch rollout-state.json alongside other data; 404 → null (feature hidden)
-          const rolloutPromise = fetch("data/rollout-state.json", { cache: "no-store" })
-            .then((response) => response.ok ? response.json() : null)
-            .catch(() => null);
           const historyPromise = fetch("data/version-history.json", { cache: "no-store" })
             .then((response) => response.ok ? response.json() : null)
             .catch(() => null);
@@ -3600,9 +3513,6 @@
             const deviceRegistry = await registryResponse.json();
             payload = buildDashboardPayloadFromSourceFiles(versionData, deviceRegistry, await historyPromise);
           }
-
-          // Store rollout state (may be null if file absent/404)
-          dashboardState.rolloutState = await rolloutPromise;
 
           hydrateDashboardState(payload);
           hydrateUiStateFromPreferences();
@@ -4381,8 +4291,6 @@
         renderFleetPulseGrid();
         renderTrackSummaries();
         renderUpdatePlan();
-        renderRolloutBanner();
-        renderRolloutProgressStrip();
         renderReleaseReadiness();
       }
 
@@ -5675,23 +5583,6 @@
           batteryRow.hidden = true;
         }
 
-        // Rollout row: shown when device participates in the active rollout
-        const rolloutRow = document.getElementById("device-drawer-rollout-row");
-        const rolloutEl = document.getElementById("device-drawer-rollout");
-        if (rolloutRow && rolloutEl) {
-          const rolloutEntry = getDeviceRolloutEntry(device);
-          if (rolloutEntry) {
-            const active = dashboardState.rolloutState?.active;
-            const stateLabel = String(rolloutEntry.state || "unknown");
-            const versionLabel = String(active?.version || "");
-            const reasonPart = hasValue(rolloutEntry.reason) ? ` — ${String(rolloutEntry.reason)}` : "";
-            rolloutEl.textContent = `${stateLabel} (${versionLabel})${reasonPart}`;
-            rolloutRow.hidden = false;
-          } else {
-            rolloutRow.hidden = true;
-          }
-        }
-
         document.getElementById("device-drawer-location").textContent = getDisplayLocation(device.location);
         document.getElementById("device-drawer-deployed").innerHTML = getDisplayDateMarkup(device.last_deployed, device);
         document.getElementById("device-drawer-components").innerHTML = generateComponentTags(device.components);
@@ -6339,38 +6230,9 @@
         return `<span class="version-badge">${label}</span>`;
       }
 
-      // Returns the active-rollout device entry for a given device, or null.
-      function getDeviceRolloutEntry(device) {
-        const active = dashboardState.rolloutState?.active;
-        if (!active) return null;
-        const devices = Array.isArray(active.devices) ? active.devices : [];
-        const macNorm = String(device.mac || device.macAddress || "").toLowerCase().replace(/[^0-9a-f]/g, "");
-        if (!macNorm) return null;
-        return devices.find((d) => d && String(d.mac || "").toLowerCase().replace(/[^0-9a-f]/g, "") === macNorm) || null;
-      }
-
       function renderPendingOtaBadge(device) {
-        // Rollout state wins: if device participates in an active rollout with offered/canary
-        // state, show the rollout pill instead of the old registry-pending pill.
-        const rolloutEntry = getDeviceRolloutEntry(device);
-        if (rolloutEntry && (rolloutEntry.state === "offered" || rolloutEntry.state === "canary")) {
-          const active = dashboardState.rolloutState?.active;
-          if (!active) return "";
-          const version = escapeHtml(String(active.version || "").trim() || "?");
-          const stateLabel = rolloutEntry.state === "canary" ? "Canary" : "Offered";
-          const title = `Rollout ${active.version || ""} — device is in ${rolloutEntry.state} state`;
-          return `<span class="ota-pill ota-pill--muted" title="${escapeHtml(title)}"><i class="bi bi-broadcast-pin"></i>${stateLabel} ${version}</span>`;
-        }
         if (!hasValue(device.pendingOtaVersion)) {
           return "";
-        }
-        // Suppress registry-pending pill when device is in any non-terminal rollout state
-        // for the same version (rollout state is the authoritative source)
-        if (rolloutEntry && rolloutEntry.state !== "skipped" && rolloutEntry.state !== "failed") {
-          const active = dashboardState.rolloutState?.active;
-          if (active && active.version === device.pendingOtaVersion) {
-            return "";
-          }
         }
         const created = hasValue(device.pendingOtaCreated)
           ? ` Created ${formatAbsoluteDateTime(device.pendingOtaCreated)}.`
@@ -6637,103 +6499,6 @@
           clearTimeout(debounceHandle);
           debounceHandle = window.setTimeout(() => renderReleaseReadiness(), 200);
         });
-      }
-
-      // ── Rollout banner ──────────────────────────────────────────────────────
-
-      function renderRolloutBanner() {
-        const banner = document.getElementById("rollout-banner");
-        const textEl = document.getElementById("rollout-banner-text");
-        if (!banner || !textEl) return;
-
-        const active = dashboardState.rolloutState?.active;
-        if (!active) {
-          banner.hidden = true;
-          return;
-        }
-
-        const isHalted = active.state === "halted";
-        banner.hidden = false;
-        banner.className = isHalted ? "rollout-banner rollout-banner--halted" : "rollout-banner";
-
-        const version = escapeHtml(String(active.version || "").trim() || "unknown");
-        const devices = Array.isArray(active.devices) ? active.devices : [];
-        const updatedCount = devices.filter((d) => d && d.state === "updated").length;
-        const pendingCount = devices.filter((d) => d && (d.state === "pending" || d.state === "offered" || d.state === "canary")).length;
-        const phase = active.mode === "canary" ? "canary phase" : "full rollout";
-        const haltedSuffix = isHalted ? " — HALTED" : "";
-
-        // Intentionally use innerHTML-safe string — all dynamic parts are escaped
-        textEl.textContent = `Rollout ${active.version || ""} in progress — ${phase}: ${updatedCount} updated / ${pendingCount} pending${haltedSuffix}`;
-      }
-
-      // ── Rollout progress strip (inside Update Plan card) ───────────────────
-
-      function renderRolloutProgressStrip() {
-        const strip = document.getElementById("rollout-strip");
-        const chipsEl = document.getElementById("rollout-strip-chips");
-        const devicesEl = document.getElementById("rollout-strip-devices");
-        const titleEl = document.getElementById("rollout-strip-title");
-        if (!strip || !chipsEl || !devicesEl || !titleEl) return;
-
-        const active = dashboardState.rolloutState?.active;
-        if (!active) {
-          strip.hidden = true;
-          return;
-        }
-
-        strip.hidden = false;
-        titleEl.textContent = `Active rollout: ${active.version || ""}${active.state === "halted" ? " (halted)" : ""}`;
-
-        const devices = Array.isArray(active.devices) ? active.devices : [];
-        // Count per-state
-        const stateCounts = {};
-        devices.forEach((d) => {
-          if (!d) return;
-          const s = String(d.state || "unknown");
-          stateCounts[s] = (stateCounts[s] || 0) + 1;
-        });
-
-        const stateOrder = ["canary", "offered", "pending", "updated", "failed", "skipped"];
-        const chipLabels = {
-          canary: "Canary",
-          offered: "Offered",
-          pending: "Pending",
-          updated: "Updated",
-          failed: "Failed",
-          skipped: "Skipped",
-        };
-        chipsEl.innerHTML = stateOrder
-          .filter((s) => stateCounts[s])
-          .map((s) => `<span class="rollout-chip rollout-chip--${escapeHtml(s)}">${escapeHtml(chipLabels[s] || s)}: ${stateCounts[s]}</span>`)
-          .join("");
-
-        // Device list — clickable rows opening device drawer
-        devicesEl.innerHTML = devices
-          .filter((d) => d)
-          .map((d, index) => {
-            const label = escapeHtml(String(d.label || d.mac || "Unknown").trim());
-            const state = escapeHtml(String(d.state || "unknown").trim());
-            const reason = hasValue(d.reason) ? escapeHtml(String(d.reason)) : "";
-            // Find matching device key for drawer
-            const matchedDevice = dashboardState.devices.find(
-              (dev) => String(dev.mac || dev.macAddress || "").toLowerCase().replace(/[^0-9a-f]/g, "") ===
-                String(d.mac || "").toLowerCase().replace(/[^0-9a-f]/g, "")
-            );
-            const deviceKey = matchedDevice ? escapeHtml(matchedDevice.deviceKey) : "";
-            const staggerDelay = Math.min(index * 40, 600);
-            return `<button type="button" class="plan-device-row plan-row-enter"
-              ${deviceKey ? `data-device-key="${deviceKey}"` : ""}
-              style="--stagger-delay:${staggerDelay}ms">
-              <div class="plan-device-row__name">${label}</div>
-              <div class="plan-device-row__meta">${state}${reason ? ` — ${reason}` : ""}</div>
-            </button>`;
-          })
-          .join("");
-
-        if (devicesEl.querySelectorAll("[data-device-key]").length) {
-          bindDeviceDetailTriggers(devicesEl);
-        }
       }
 
       function parseVersion(version) {

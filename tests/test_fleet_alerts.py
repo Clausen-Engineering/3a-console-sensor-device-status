@@ -41,14 +41,6 @@ def _device(mac="aa:bb:cc:dd:ee:ff", status="Up to date",
     }
 
 
-def _rollout_device(mac, state, updated_at):
-    return {"mac": mac, "state": state, "updated_at": updated_at, "label": "Test"}
-
-
-def _rollout_active(devices):
-    return {"active": {"devices": devices, "version": "v3.21.0"}, "history": []}
-
-
 def _version_changes(versions):
     """versions: list of (version_str, date_str) tuples."""
     return {
@@ -75,7 +67,7 @@ class TestBehindRule(unittest.TestCase):
         device["_status"] = status
         dashboard = {"sections": [{"devices": [device]}]}
         vc = _version_changes([(target_version, release_date)])
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now)
+        alerts = cfa.evaluate_alerts(dashboard, vc, now)
         return [a for a in alerts if a.rule == "behind"]
 
     def test_behind_fresh_release_no_alert(self):
@@ -111,64 +103,9 @@ class TestBehindRule(unittest.TestCase):
         device["_status"] = "Needs update"
         dashboard = {"sections": [{"devices": [device]}]}
         vc = _version_changes([("v3.21.0", "2026-01-01")])  # v9.99.0 not present
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now)
+        alerts = cfa.evaluate_alerts(dashboard, vc, now)
         behind = [a for a in alerts if a.rule == "behind"]
         self.assertEqual(behind, [])
-
-
-# ---------------------------------------------------------------------------
-# Rule 2 — Rollout stalled (offered/canary > 48h)
-# ---------------------------------------------------------------------------
-
-class TestStalledRolloutRule(unittest.TestCase):
-
-    def _run(self, state, hours_ago):
-        now = _now()
-        updated_at = (now - timedelta(hours=hours_ago)).isoformat()
-        dev = _rollout_device("aa:bb:cc:dd:ee:ff", state=state, updated_at=updated_at)
-        rollout = _rollout_active([dev])
-        dashboard = {"sections": []}
-        alerts = cfa.evaluate_alerts(dashboard, rollout, _version_changes([]), now)
-        return [a for a in alerts if a.rule == "rollout-stalled"]
-
-    def test_stalled_canary_under_48h_no_alert(self):
-        """Canary in 'canary' state for 47h → no stalled alert."""
-        alerts = self._run("canary", hours_ago=47)
-        self.assertEqual(alerts, [])
-
-    def test_stalled_canary_exactly_48h_no_alert(self):
-        """Exactly 48h → boundary is exclusive, no alert."""
-        alerts = self._run("canary", hours_ago=48)
-        self.assertEqual(alerts, [])
-
-    def test_stalled_canary_over_48h_fires(self):
-        """Canary state for 49h → stalled alert."""
-        alerts = self._run("canary", hours_ago=49)
-        self.assertEqual(len(alerts), 1)
-        self.assertEqual(alerts[0].rule, "rollout-stalled")
-
-    def test_stalled_offered_over_48h_fires(self):
-        """Offered state for 50h → stalled alert."""
-        alerts = self._run("offered", hours_ago=50)
-        self.assertEqual(len(alerts), 1)
-
-    def test_stalled_updated_state_no_alert(self):
-        """Device in 'updated' state (not offered/canary) → no stalled alert."""
-        alerts = self._run("updated", hours_ago=100)
-        self.assertEqual(alerts, [])
-
-    def test_stalled_pending_state_no_alert(self):
-        """Device in 'pending' state → not yet offered, no stalled alert."""
-        alerts = self._run("pending", hours_ago=100)
-        self.assertEqual(alerts, [])
-
-    def test_no_active_rollout_no_alert(self):
-        """No active rollout → no rollout-stalled alerts."""
-        dashboard = {"sections": []}
-        rollout = {"active": None, "history": []}
-        alerts = cfa.evaluate_alerts(dashboard, rollout, _version_changes([]), _now())
-        stalled = [a for a in alerts if a.rule == "rollout-stalled"]
-        self.assertEqual(stalled, [])
 
 
 # ---------------------------------------------------------------------------
@@ -185,7 +122,7 @@ class TestAlertIdentity(unittest.TestCase):
         device["name"] = "Floating Platform Motion"
         dashboard = {"sections": [{"devices": [device]}]}
         vc = _version_changes([("v3.21.0", "2026-05-01")])
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now)
+        alerts = cfa.evaluate_alerts(dashboard, vc, now)
         behind = [a for a in alerts if a.rule == "behind"]
         self.assertEqual(len(behind), 1)
         alert = behind[0]
@@ -200,7 +137,7 @@ class TestAlertIdentity(unittest.TestCase):
         device["_status"] = "Needs update"
         dashboard = {"sections": [{"devices": [device]}]}
         vc = _version_changes([("v3.21.0", "2026-05-01")])
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now)
+        alerts = cfa.evaluate_alerts(dashboard, vc, now)
         behind = [a for a in alerts if a.rule == "behind"]
         self.assertEqual(len(behind), 1)
         self.assertIn("#device=3c0f02c7ebcc", behind[0].body)
@@ -212,7 +149,7 @@ class TestAlertIdentity(unittest.TestCase):
         device["_status"] = "Needs update"
         dashboard = {"sections": [{"devices": [device]}]}
         vc = _version_changes([("v3.21.0", "2026-05-01")])
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now)
+        alerts = cfa.evaluate_alerts(dashboard, vc, now)
         behind = [a for a in alerts if a.rule == "behind"]
         self.assertEqual(len(behind), 1)
         self.assertIn("#device=e072a1f50dcc", behind[0].body)
@@ -324,12 +261,12 @@ class TestNowInjection(unittest.TestCase):
 
         # now = 5 days after release → within 7-day window → no behind alert
         now_no_alert = release_dt + timedelta(days=5)
-        alerts_no = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now_no_alert)
+        alerts_no = cfa.evaluate_alerts(dashboard, vc, now_no_alert)
         self.assertEqual([a for a in alerts_no if a.rule == "behind"], [])
 
         # now = 10 days after release → past 7-day threshold → behind alert
         now_alert = release_dt + timedelta(days=10)
-        alerts_yes = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now_alert)
+        alerts_yes = cfa.evaluate_alerts(dashboard, vc, now_alert)
         self.assertEqual(len([a for a in alerts_yes if a.rule == "behind"]), 1)
 
 

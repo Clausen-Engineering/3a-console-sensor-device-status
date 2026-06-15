@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 """Fleet alert checker.
 
-Reads data/dashboard-data.json, data/rollout-state.json, and
-data/version-changes.json (all committed JSON — no API calls) and evaluates
-two alert rules:
+Reads data/dashboard-data.json and data/version-changes.json (all committed
+JSON — no API calls) and evaluates one alert rule:
 
   1. behind       — status "Needs update" AND the target release's date in
                     version-changes.json is older than 7 days.
-  2. rollout-stalled — active-rollout device in offered/canary for > 48 h
-                       (from its updated_at).
 
 Issue lifecycle (one issue per device+rule):
   - Existing open issue → no-op (no comment spam).
@@ -45,14 +42,12 @@ from typing import Any, Optional
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 DASHBOARD_PATH = DATA_DIR / "dashboard-data.json"
-ROLLOUT_PATH = DATA_DIR / "rollout-state.json"
 VERSION_CHANGES_PATH = DATA_DIR / "version-changes.json"
 
 DASHBOARD_BASE_URL = "https://clausen-engineering.github.io/3a-console-sensor-device-status"
 ISSUE_LABEL = "fleet-alert"
 
 BEHIND_THRESHOLD_DAYS = 7
-STALLED_THRESHOLD_H = 48
 
 
 # ---------------------------------------------------------------------------
@@ -62,7 +57,7 @@ STALLED_THRESHOLD_H = 48
 @dataclass
 class Alert:
     mac: str
-    rule: str          # "behind" | "rollout-stalled"
+    rule: str          # "behind"
     label: str         # human-readable device name
     title: str
     body: str
@@ -185,7 +180,6 @@ def _parse_date_only(date_str: str) -> Optional[datetime]:
 
 def evaluate_alerts(
     dashboard: dict[str, Any],
-    rollout: dict[str, Any],
     version_changes: dict[str, Any],
     now: datetime,
 ) -> list[Alert]:
@@ -194,7 +188,6 @@ def evaluate_alerts(
     Parameters
     ----------
     dashboard:       parsed dashboard-data.json
-    rollout:         parsed rollout-state.json
     version_changes: parsed version-changes.json
     now:             current datetime (timezone-aware); injected for determinism.
     """
@@ -242,39 +235,6 @@ def evaluate_alerts(
                                 f"**Dashboard:** {link}  \n"
                             ),
                         ))
-
-    # ---- Rule 3: Rollout stalled -----------------------------------------
-    active = rollout.get("active")
-    if active:
-        rollout_version = str(active.get("version") or "").strip()
-        for dev in active.get("devices", []):
-            state = str(dev.get("state") or "").strip()
-            if state not in ("offered", "canary"):
-                continue
-            mac = str(dev.get("mac") or "").strip()
-            label = str(dev.get("label") or mac).strip()
-            updated_at_str = dev.get("updated_at")
-            updated_at = _parse_iso(updated_at_str)
-            if updated_at is None:
-                continue
-            elapsed = now - updated_at
-            if elapsed > timedelta(hours=STALLED_THRESHOLD_H):
-                elapsed_h = int(elapsed.total_seconds() // 3600)
-                link = device_deep_link(mac)
-                alerts.append(Alert(
-                    mac=mac,
-                    rule="rollout-stalled",
-                    label=label,
-                    title=f"[fleet-alert] {label} ({mac}): rollout-stalled",
-                    body=(
-                        f"**Device:** {label}  \n"
-                        f"**MAC:** `{mac}`  \n"
-                        f"**Rule:** rollout-stalled — device has been in state "
-                        f"'{state}' for rollout `{rollout_version}` for {elapsed_h}h "
-                        f"(threshold {STALLED_THRESHOLD_H}h)  \n"
-                        f"**Dashboard:** {link}  \n"
-                    ),
-                ))
 
     return alerts
 
@@ -467,14 +427,11 @@ def main(argv: list[str] | None = None) -> int:
 
     # Load data files.
     dashboard = load_json_file(DASHBOARD_PATH)
-    rollout = load_json_file(ROLLOUT_PATH)
-    if not rollout:
-        rollout = {"active": None, "history": []}
     version_changes = load_json_file(VERSION_CHANGES_PATH)
 
     now = datetime.now(tz=timezone.utc)
 
-    alerts = evaluate_alerts(dashboard, rollout, version_changes, now)
+    alerts = evaluate_alerts(dashboard, version_changes, now)
 
     mode_str = "DRY RUN" if dry_run else "EXECUTE"
     print(f"[fleet-alerts] {mode_str} — {len(alerts)} alert(s) firing")
