@@ -414,27 +414,6 @@ def hardware_capability_fields(
 
 
 # Candidate field names for a last-contact timestamp on GET /devices/{mac}.
-# As of 2026-06 the API returns none of these; kept so the field starts
-# flowing automatically if the API adds one.
-LAST_SEEN_FIELDS = (
-    "lastSeen",
-    "last_seen",
-    "lastContact",
-    "lastReportTime",
-    "lastReportedAt",
-    "lastLogAt",
-    "updatedAt",
-)
-
-
-def extract_last_seen(device_data: dict[str, Any]) -> str | None:
-    for field in LAST_SEEN_FIELDS:
-        value = safe_string(device_data.get(field))
-        if value and parse_timestamp(value) != datetime.min.replace(tzinfo=timezone.utc):
-            return parse_timestamp(value).isoformat()
-    return None
-
-
 def extract_components_from_config(config_data: dict[str, Any]) -> list[str]:
     sensors = config_data.get("sensors", []) or []
     if not isinstance(sensors, list):
@@ -548,12 +527,11 @@ def build_repo_device_summaries(
             {
                 "name": safe_string(registry_entry.get("label")) or safe_string(device_meta.get("name")) or humanize_slug(device_dir.name),
                 "mac": mac,
+                "device_id": "",
                 "version": installed_version,
                 "components": configured_components or extract_components_from_config(config_data),
                 "hardware": hardware,
                 **hardware_capability_fields(registry_entry, hardware, capabilities, installed_version, track.get("latest_version", "")),
-                "last_seen": None,
-                "is_online": None,
                 "reported_version": "",
                 "version_source": "registry" if installed_version else "",
                 "version_mismatch": False,
@@ -761,42 +739,6 @@ def build_section_meta(
     }
 
 
-def _derive_last_seen(
-    dir_entry: dict[str, Any] | None,
-    device_data: dict[str, Any],
-    log_data: dict[str, Any] | None,
-) -> str | None:
-    """Return ISO-8601 last-seen timestamp from best available source."""
-    # 1. lastLog.createdAt from directory entry or device_data.
-    for source in (dir_entry or {}, device_data):
-        last_log = source.get("lastLog")
-        if isinstance(last_log, dict):
-            ts = safe_string(last_log.get("createdAt"))
-            if ts:
-                parsed = parse_timestamp(ts)
-                if parsed != datetime.min.replace(tzinfo=timezone.utc):
-                    return parsed.isoformat()
-
-    # 2. lastReportedAt from directory entry or device_data.
-    for source in (dir_entry or {}, device_data):
-        ts = safe_string(source.get("lastReportedAt"))
-        if ts:
-            parsed = parse_timestamp(ts)
-            if parsed != datetime.min.replace(tzinfo=timezone.utc):
-                return parsed.isoformat()
-
-    # 3. createdAt from a separately-fetched log.
-    if log_data and isinstance(log_data, dict):
-        ts = safe_string(log_data.get("createdAt"))
-        if ts:
-            parsed = parse_timestamp(ts)
-            if parsed != datetime.min.replace(tzinfo=timezone.utc):
-                return parsed.isoformat()
-
-    # 4. Legacy candidate fields on device_data (extract_last_seen).
-    return extract_last_seen(device_data)
-
-
 def fetch_device_summary(
     api_base: str,
     entry: dict[str, Any],
@@ -855,17 +797,8 @@ def fetch_device_summary(
     reported_version = normalize_version(raw_reported) if raw_reported else ""
     battery_level: float | None = last_log.get("batteryLevel") if isinstance(last_log.get("batteryLevel"), (int, float)) else None
 
-    # is_online: from directory entry or device_data.
-    is_online: bool | None = None
-    for source in (dir_entry, device_data):
-        if isinstance(source, dict) and "isOnline" in source:
-            val = source["isOnline"]
-            if isinstance(val, bool):
-                is_online = val
-                break
-
-    # last_seen from all sources.
-    last_seen = _derive_last_seen(dir_entry if dir_entry else None, device_data, log_data)
+    # Console device UUID (links the OTA pill to the firmware config page).
+    device_id = safe_string(dir_entry.get("id")) or safe_string(device_data.get("id"))
 
     # --- Version resolution (reported beats registry beats firmware API) ---
     registry_version = entry_version(entry)
@@ -941,12 +874,11 @@ def fetch_device_summary(
     return {
         "name": label or safe_string(device_data.get("deviceName")) or mac,
         "mac": safe_string(device_data.get("macAddress")) or mac,
+        "device_id": device_id,
         "version": version,
         "components": extract_components(device_data, entry),
         "hardware": hardware,
         **hw_cap_fields,
-        "last_seen": last_seen,
-        "is_online": is_online,
         "reported_version": reported_version,
         "version_source": version_source,
         "version_mismatch": version_mismatch,
@@ -990,12 +922,11 @@ def build_failure_device(
     return {
         "name": label or mac,
         "mac": mac,
+        "device_id": "",
         "version": registry_version,
         "components": components,
         "hardware": hardware,
         **hardware_capability_fields(entry, hardware, capabilities, registry_version, track.get("latest_version", "")),
-        "last_seen": None,
-        "is_online": None,
         "reported_version": "",
         "version_source": "",
         "version_mismatch": False,

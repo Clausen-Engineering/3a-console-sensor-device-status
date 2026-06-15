@@ -240,6 +240,7 @@
           "label": "Glaecier #1 Heat & cooling controller",
           "track": "heat-controller",
           "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16",
+          "ota_override": true,
           "components": ["control", "heat", "cooling"],
           "location": "Technician room",
           "last_firmware_update": "2026-06-12",

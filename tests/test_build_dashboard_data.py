@@ -190,30 +190,22 @@ class TestVersionPrefersReportedOverRegistry(unittest.TestCase):
         self.assertEqual(result["version_source"], "registry")
         self.assertFalse(result["version_mismatch"])
 
-    def test_last_seen_from_last_log_created_at(self) -> None:
+    def test_device_id_captured_from_directory_entry(self) -> None:
         entry = _make_entry()
         dir_entry = {
             "macAddress": "aa:bb:cc:dd:ee:ff",
+            "id": "2399e27e-f9ef-487f-99e0-47f49f53e377",
             "isOnline": True,
-            "lastLog": {
-                "firmwareVersion": "3.19.0",
-                "createdAt": "2026-06-13T08:21:44Z",
-                "batteryLevel": 87.0,
-            },
+            "lastLog": {"firmwareVersion": "3.20.0", "createdAt": "2026-06-13T08:00:00Z"},
         }
         result = self._run_summary(entry, directory_entry=dir_entry)
-        self.assertIsNotNone(result["last_seen"])
-        self.assertIn("2026-06-13", result["last_seen"])
+        self.assertEqual(result["device_id"], "2399e27e-f9ef-487f-99e0-47f49f53e377")
 
-    def test_is_online_passthrough(self) -> None:
+    def test_device_id_empty_when_absent(self) -> None:
         entry = _make_entry()
         dir_entry = {"macAddress": "aa:bb:cc:dd:ee:ff", "isOnline": True, "lastLog": {}}
         result = self._run_summary(entry, directory_entry=dir_entry)
-        self.assertTrue(result["is_online"])
-
-        dir_entry2 = {"macAddress": "aa:bb:cc:dd:ee:ff", "isOnline": False, "lastLog": {}}
-        result2 = self._run_summary(entry, directory_entry=dir_entry2)
-        self.assertFalse(result2["is_online"])
+        self.assertEqual(result["device_id"], "")
 
     def test_battery_level_extracted(self) -> None:
         entry = _make_entry()
@@ -375,8 +367,6 @@ class TestBuildFailureDeviceNewFields(unittest.TestCase):
         entry = _make_entry(installed="v3.16.6")
         track_map = {"sensor-hub": _make_track()}
         result = bdd.build_failure_device(entry, track_map, CAPABILITIES)
-        self.assertIsNone(result["last_seen"])
-        self.assertIsNone(result["is_online"])
         self.assertEqual(result["reported_version"], "")
         self.assertEqual(result["version_source"], "")
         self.assertFalse(result["version_mismatch"])

@@ -1155,13 +1155,6 @@
         inset: -6px -2px;
       }
 
-      .fleet-pulse__node.is-silent {
-        opacity: 0.38;
-        filter: saturate(0.55);
-        animation: pulse-node-enter 0.34s ease-out both;
-        animation-delay: var(--node-enter-delay, 0ms);
-      }
-
       .fleet-pulse__node:hover,
       .fleet-pulse__node:focus-visible {
         opacity: 1;
@@ -2460,6 +2453,13 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         white-space: nowrap;
+        text-decoration: none;
+      }
+
+      a.ota-pill:hover,
+      a.ota-pill:focus-visible {
+        filter: brightness(1.15);
+        border-color: currentColor;
       }
 
       .ota-pill i {
@@ -2492,31 +2492,6 @@
         gap: 0.4rem;
         flex-shrink: 0;
       }
-
-      .last-seen {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        color: var(--accent-teal);
-        font-size: 0.78rem;
-      }
-
-      .last-seen--silent {
-        color: var(--muted);
-      }
-
-      /* Online/offline dot rendered beside last-seen badge */
-      .online-dot {
-        display: inline-block;
-        width: 0.5rem;
-        height: 0.5rem;
-        border-radius: 50%;
-        vertical-align: middle;
-        margin-right: 0.2rem;
-        flex-shrink: 0;
-      }
-      .online-dot--on  { background: var(--accent-teal, #4fd1c5); }
-      .online-dot--off { background: var(--muted, #6c757d); }
 
       .update-plan-grid {
         display: grid;
@@ -2842,10 +2817,6 @@
         .fleet-pulse__node {
           opacity: 1;
           transform: none;
-        }
-
-        .fleet-pulse__node.is-silent {
-          opacity: 0.38;
         }
 
         .update-plan-check__path {
@@ -3388,10 +3359,6 @@
                     <dt>Update path</dt>
                     <dd id="device-drawer-ota">--</dd>
                   </div>
-                  <div class="repo-detail" id="device-drawer-last-seen-row" hidden>
-                    <dt>Last seen</dt>
-                    <dd id="device-drawer-last-seen">--</dd>
-                  </div>
                   <div class="repo-detail" id="device-drawer-battery-row" hidden>
                     <dt>Battery</dt>
                     <dd id="device-drawer-battery">--</dd>
@@ -3458,6 +3425,9 @@
       };
 
       const STATUS_SEQUENCE = ["Up to date", "Patch available", "Needs update", "Not deployed", "In development", "Unknown"];
+
+      // Console firmware-config page base; device UUID + "/firmwares" is appended.
+      const CONSOLE_FIRMWARE_BASE = "https://console.3aentreprise.com/devices/configure";
 
       const STATUS_ORDER = {
         "Needs update": 0,
@@ -3939,6 +3909,7 @@
           ...device,
           deviceKey: createDeviceKey(device, trackId),
           components,
+          deviceId: String(device?.device_id || device?.deviceId || "").trim(),
           hardware: String(device?.hardware || "").trim(),
           otaCapable: typeof device?.ota_capable === "boolean"
             ? device.ota_capable
@@ -3951,12 +3922,6 @@
               ? device.hardwareEol
               : null,
           hardwareMaxFirmware: String(device?.hardware_max_firmware || device?.hardwareMaxFirmware || "").trim(),
-          lastSeen: String(device?.last_seen || device?.lastSeen || "").trim(),
-          isOnline: typeof device?.is_online === "boolean"
-            ? device.is_online
-            : typeof device?.isOnline === "boolean"
-              ? device.isOnline
-              : null,
           reportedVersion: String(device?.reported_version || device?.reportedVersion || "").trim(),
           versionSource: String(device?.version_source || device?.versionSource || "").trim(),
           versionMismatch: typeof device?.version_mismatch === "boolean"
@@ -4036,8 +4001,6 @@
                 components: Array.isArray(entry?.components) ? entry.components : [],
                 hardware: entryHardware,
                 ota_capable: resolveOtaCapable(entry, entryHardware, hardwareCapabilities),
-                last_seen: null,
-                is_online: null,
                 reported_version: "",
                 version_source: "registry",
                 version_mismatch: false,
@@ -4363,7 +4326,7 @@
           "Template alignment, deployment readiness, and release history for the ESP32 based part of the 3A Console sensor fleet.";
 
         const repoName = dashboardState.repoName || "";
-        const repoUrl = repoName ? `https://github.com/Clausen-Engineering/${encodeURIComponent(repoName)}` : "";
+        const repoUrl = repoName ? `https://github.com/Glaecier-Development/${encodeURIComponent(repoName)}` : "";
         const latestVersion = dashboardState.latestVersion || "";
         const releaseUrl = repoUrl && latestVersion
           ? `${repoUrl}/releases/tag/${encodeURIComponent(latestVersion)}`
@@ -4563,11 +4526,8 @@
           return;
         }
 
-        const silentCount = devices.filter((device) => getLastSeenInfo(device).silent).length;
         const otaCount = devices.filter((device) => getOtaInfo(device).capable === true).length;
-        note.textContent = silentCount
-          ? `${devices.length} devices | ${silentCount} silent | ${otaCount} OTA`
-          : `${devices.length} devices | ${otaCount} OTA`;
+        note.textContent = `${devices.length} devices | ${otaCount} OTA`;
 
         grid.innerHTML = STATUS_SEQUENCE
           .map((status) => {
@@ -4577,17 +4537,14 @@
             }
             const color = getFleetPulseColor(status);
             const percent = Math.round((laneDevices.length / devices.length) * 100);
-            const laneSilentCount = laneDevices.filter((device) => getLastSeenInfo(device).silent).length;
             const laneOtaCount = laneDevices.filter((device) => getOtaInfo(device).capable === true).length;
             const nodes = laneDevices
               .map((device, index) => {
-                const seen = getLastSeenInfo(device);
-                const className = seen.silent ? "fleet-pulse__node is-silent" : "fleet-pulse__node";
+                const className = "fleet-pulse__node";
                 const tooltipMeta = [
                   device.versionDisplay || "Unknown version",
                   status,
                   getOtaInfo(device).label || "OTA unknown",
-                  seen.available ? seen.relative : "last seen not tracked",
                 ].join(" | ");
                 const enterDelay = Math.min(index * 25, 500);
                 const pulseDelay = (index * 173) % 3000;
@@ -4616,7 +4573,6 @@
                 <div class="fleet-pulse__rail">${nodes}</div>
                 <div class="fleet-pulse__metrics">
                   <span class="fleet-pulse__metric" title="OTA-capable devices" aria-label="${laneOtaCount} OTA-capable devices"><i class="bi bi-cloud-arrow-down"></i>${laneOtaCount}</span>
-                  <span class="fleet-pulse__metric${laneSilentCount ? " is-alert" : ""}" title="Silent for more than 24 hours" aria-label="${laneSilentCount} silent devices"><i class="bi bi-broadcast-pin"></i>${laneSilentCount}</span>
                 </div>
               </div>
             `;
@@ -4746,7 +4702,6 @@
               : "Hardware not specified";
             const otaPillMarkup = renderOtaPill(device);
             const pendingOtaMarkup = renderPendingOtaBadge(device);
-            const lastSeenMarkup = renderLastSeenBadge(device);
             // The footer signal restates the version delta for version-gap statuses,
             // which already appears under "Installed version" — drop the duplicate.
             const primarySignal = risk.primarySignal || "";
@@ -4778,7 +4733,7 @@
                     <h3>Components</h3>
                     <div class="component-tags">${generateComponentTags(device.components)}</div>
                     <div class="device-card__footer">
-                      <div class="table-subtle">${footerSignal ? escapeHtml(footerSignal) : ""}${lastSeenMarkup ? `${footerSignal ? " " : ""}${lastSeenMarkup}` : ""}</div>
+                      <div class="table-subtle">${footerSignal ? escapeHtml(footerSignal) : ""}</div>
                       <button type="button" class="device-card__open" data-device-key="${escapeHtml(device.deviceKey)}">
                         <i class="bi bi-arrow-up-right-circle"></i> Open device room
                       </button>
@@ -4810,13 +4765,11 @@
             const versionDelta = describeVersionDelta(device.version, device.targetVersion, device);
             const otaPillMarkup = renderOtaPill(device);
             const pendingOtaMarkup = renderPendingOtaBadge(device);
-            const lastSeenMarkup = renderLastSeenBadge(device);
             return `
               <tr>
                 <td>
                   <div class="table-device-name">${escapeHtml(device.name || "Unnamed device")}</div>
                   <div class="table-subtle">${escapeHtml(device.trackLabel || "Device")}</div>
-                  ${lastSeenMarkup}
                   <button type="button" class="table-link-button" data-device-key="${escapeHtml(device.deviceKey)}">
                     <i class="bi bi-stars"></i> Open device room
                   </button>
@@ -5713,13 +5666,6 @@
                 : "None — installed firmware predates OTA support; the next update needs a cable flash"
               : "Unknown — hardware capability not verified";
 
-        const lastSeenRow = document.getElementById("device-drawer-last-seen-row");
-        const lastSeenInfo = getLastSeenInfo(device);
-        lastSeenRow.hidden = !lastSeenInfo.available;
-        document.getElementById("device-drawer-last-seen").innerHTML = lastSeenInfo.available
-          ? renderRelativeTime(device.lastSeen)
-          : "--";
-
         // Battery level (shown only when non-null)
         const batteryRow = document.getElementById("device-drawer-battery-row");
         if (device.batteryLevel !== null && device.batteryLevel !== undefined) {
@@ -6361,39 +6307,6 @@
         };
       }
 
-      function getLastSeenInfo(device) {
-        const date = parseDate(device.lastSeen);
-        if (!date) {
-          // No last_seen timestamp — treat as unavailable; but if API says offline, surface that
-          if (device.isOnline === false) {
-            return { available: true, silent: true, relative: "offline", days: null };
-          }
-          return { available: false, silent: false, relative: "", days: null };
-        }
-
-        const elapsedMs = Math.max(0, Date.now() - date.getTime());
-        const minutes = Math.round(elapsedMs / 60000);
-        const days = elapsedMs / 86400000;
-        // Treat as silent if: more than 24 h ago, OR the API explicitly reports offline
-        const silent = days > 1 || device.isOnline === false;
-        let relative;
-        if (device.isOnline === false && days <= 1) {
-          relative = "offline";
-        } else if (silent) {
-          const wholeDays = Math.max(1, Math.floor(days));
-          relative = `silent ${wholeDays} day${wholeDays === 1 ? "" : "s"}`;
-        } else if (minutes < 1) {
-          relative = "just now";
-        } else if (minutes < 60) {
-          relative = `${minutes} min ago`;
-        } else {
-          const hours = Math.round(minutes / 60);
-          relative = `${hours} h ago`;
-        }
-
-        return { available: true, silent, relative, days };
-      }
-
       function getOtaFilterKey(device) {
         if (device.otaCapable === true) return "ota";
         if (device.otaCapable === false) return "physical";
@@ -6406,6 +6319,12 @@
           return "";
         }
         const mutedClass = info.capable === true && !info.behind ? " ota-pill--muted" : "";
+        // OTA-capable devices with a known console UUID link to the firmware config page.
+        if (info.capable === true && hasValue(device.deviceId)) {
+          const url = `${CONSOLE_FIRMWARE_BASE}/${encodeURIComponent(device.deviceId)}/firmwares`;
+          const title = `${info.description} — open firmware config in console`;
+          return `<a class="ota-pill ${info.className}${mutedClass}" href="${escapeHtml(url)}" target="_blank" rel="noopener" title="${escapeHtml(title)}"><i class="bi ${info.icon}"></i>${escapeHtml(info.label)} <i class="bi bi-box-arrow-up-right"></i></a>`;
+        }
         return `<span class="ota-pill ${info.className}${mutedClass}" title="${escapeHtml(info.description)}"><i class="bi ${info.icon}"></i>${escapeHtml(info.label)}</span>`;
       }
 
@@ -6460,22 +6379,6 @@
         return `<span class="ota-pill ota-pill--muted" title="${escapeHtml(title)}"><i class="bi bi-cloud-arrow-up"></i>Pending ${escapeHtml(device.pendingOtaVersion)}</span>`;
       }
 
-      function renderLastSeenBadge(device) {
-        const seen = getLastSeenInfo(device);
-        if (!seen.available) {
-          return "";
-        }
-        const title = `${formatAbsoluteDateTime(device.lastSeen)}${seen.silent ? " - A silent device cannot pick up OTA updates" : ""}`;
-        // Online/offline dot: shown only when isOnline is non-null
-        let onlineDot = "";
-        if (device.isOnline === true) {
-          onlineDot = `<span class="online-dot online-dot--on" title="Online" aria-label="Online"></span>`;
-        } else if (device.isOnline === false) {
-          onlineDot = `<span class="online-dot online-dot--off" title="Offline" aria-label="Offline"></span>`;
-        }
-        return `${onlineDot}<span class="last-seen${seen.silent ? " last-seen--silent" : ""}" title="${escapeHtml(title)}"><i class="bi bi-broadcast"></i>${escapeHtml(seen.relative)}</span>`;
-      }
-
       // Classify a single device against an explicit targetVersion string.
       // Returns one of: "hardware" | "ota" | "visit" | "unknown" | "current"
       // "current" means device is already at or above the target.
@@ -6492,11 +6395,10 @@
           return "current";
         }
         // Device is behind — classify by update path
-        const seen = getLastSeenInfo(device);
-        if (device.otaCapable === true && !(seen.available && seen.silent)) {
+        if (device.otaCapable === true) {
           return "ota";
         }
-        if (device.otaCapable === false || (seen.available && seen.silent)) {
+        if (device.otaCapable === false) {
           return "visit";
         }
         return "unknown";
@@ -6569,14 +6471,14 @@
             className: "plan-bucket--ota",
             icon: "bi-cloud-arrow-down",
             title: "Self-updating via OTA",
-            copy: "Behind target but OTA-capable and reachable. These should converge on their own.",
+            copy: "Behind target but OTA-capable. These should converge on their own.",
           },
           {
             devices: plan.visit,
             className: "plan-bucket--visit",
             icon: "bi-person-walking",
             title: "Needs site visit",
-            copy: "Behind target on firmware that predates OTA, or unreachable. One cable flash brings them onto a self-updating release.",
+            copy: "Behind target on firmware that predates OTA. One cable flash brings them onto a self-updating release.",
           },
           {
             devices: plan.hardware,
@@ -6639,14 +6541,14 @@
             className: "plan-bucket--ota",
             icon: "bi-cloud-arrow-down",
             title: "Would self-update (OTA)",
-            copy: "OTA-capable and reachable; would converge automatically after the release.",
+            copy: "OTA-capable; would converge automatically after the release.",
           },
           {
             devices: plan.visit,
             className: "plan-bucket--visit",
             icon: "bi-person-walking",
             title: "Needs site visit",
-            copy: "Behind target but cannot OTA-update — requires a cable flash or has gone silent.",
+            copy: "Behind target but cannot OTA-update — requires a cable flash.",
           },
           {
             devices: plan.hardware,
@@ -6981,7 +6883,6 @@
         }
 
         if (isDeviceBehindTarget(device)) {
-          const lastSeenInfo = getLastSeenInfo(device);
           if (device.hardwareEol === true) {
             score += 12;
             signals.push({
@@ -7002,13 +6903,6 @@
               icon: "bi-question-diamond",
               title: "Update path unverified",
               detail: "Behind target with unknown OTA capability; verify the hardware before planning the update.",
-            });
-          } else if (lastSeenInfo.available && lastSeenInfo.silent) {
-            score += 10;
-            signals.push({
-              icon: "bi-broadcast",
-              title: "Device silent",
-              detail: `OTA-capable but ${lastSeenInfo.relative}; a silent device cannot pick up remote updates.`,
             });
           }
         }

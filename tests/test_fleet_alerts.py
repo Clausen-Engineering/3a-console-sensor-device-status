@@ -25,14 +25,13 @@ def _now():
     return datetime(2026, 6, 13, 12, 0, 0, tzinfo=timezone.utc)
 
 
-def _device(mac="aa:bb:cc:dd:ee:ff", last_seen=None, status="Up to date",
+def _device(mac="aa:bb:cc:dd:ee:ff", status="Up to date",
             declared_deployment_version="v3.21.0", deployment_environment="",
             target_version="v3.21.0", version="v3.21.0"):
     """Return a minimal dashboard device dict."""
     return {
         "mac": mac,
         "name": f"Test Device ({mac})",
-        "last_seen": last_seen,
         "declared_deployment_version": declared_deployment_version,
         "deployment_environment": deployment_environment,
         "target_version": target_version,
@@ -60,67 +59,7 @@ def _version_changes(versions):
 
 
 # ---------------------------------------------------------------------------
-# Rule 1 — Silent device (last_seen older than 24h)
-# ---------------------------------------------------------------------------
-
-class TestSilentRule(unittest.TestCase):
-
-    def _run(self, last_seen_offset, status="Up to date"):
-        now = _now()
-        last_seen_dt = now + timedelta(hours=last_seen_offset)
-        last_seen_str = last_seen_dt.isoformat()
-        device = _device(last_seen=last_seen_str, status=status)
-        # Inject computed status so the helper can read it.
-        device["_status"] = status
-        dashboard = {"sections": [{"devices": [device]}]}
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, _version_changes([]), now)
-        return [a for a in alerts if a.rule == "silent"]
-
-    def test_silent_at_23h59m_no_alert(self):
-        """23h59m ago = not yet 24h → no silent alert."""
-        alerts = self._run(-23 - 59/60)
-        self.assertEqual(alerts, [])
-
-    def test_silent_at_24h01m_fires(self):
-        """24h01m ago = over 24h → silent alert fires."""
-        alerts = self._run(-24 - 1/60)
-        self.assertEqual(len(alerts), 1)
-        self.assertEqual(alerts[0].rule, "silent")
-        self.assertIn("aa:bb:cc:dd:ee:ff", alerts[0].mac)
-
-    def test_silent_boundary_exactly_24h_no_alert(self):
-        """Exactly 24h = not strictly greater than → no alert (boundary is exclusive)."""
-        alerts = self._run(-24)
-        self.assertEqual(alerts, [])
-
-    def test_silent_null_last_seen_no_alert(self):
-        """last_seen is null → no silent alert (we don't know when last seen)."""
-        device = _device(last_seen=None)
-        device["_status"] = "Up to date"
-        dashboard = {"sections": [{"devices": [device]}]}
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, _version_changes([]), _now())
-        silent = [a for a in alerts if a.rule == "silent"]
-        self.assertEqual(silent, [])
-
-    def test_silent_exemption_in_development(self):
-        """Devices with status 'In development' must be exempt from silent rule."""
-        alerts = self._run(-48, status="In development")
-        self.assertEqual(alerts, [])
-
-    def test_silent_exemption_not_deployed(self):
-        """Devices with status 'Not deployed' must be exempt from silent rule."""
-        alerts = self._run(-48, status="Not deployed")
-        self.assertEqual(alerts, [])
-
-    def test_silent_exemption_unknown(self):
-        """Devices with status 'Unknown' should not be silenced (not in exempt set)."""
-        # Unknown is not in {In development, Not deployed}, so still alerts.
-        alerts = self._run(-48, status="Unknown")
-        self.assertEqual(len(alerts), 1)
-
-
-# ---------------------------------------------------------------------------
-# Rule 2 — Behind (Needs update AND release older than 7 days)
+# Rule 1 — Behind (Needs update AND release older than 7 days)
 # ---------------------------------------------------------------------------
 
 class TestBehindRule(unittest.TestCase):
@@ -132,7 +71,6 @@ class TestBehindRule(unittest.TestCase):
             mac="11:22:33:44:55:66",
             version=device_version,
             target_version=target_version,
-            last_seen=None,
         )
         device["_status"] = status
         dashboard = {"sections": [{"devices": [device]}]}
@@ -179,7 +117,7 @@ class TestBehindRule(unittest.TestCase):
 
 
 # ---------------------------------------------------------------------------
-# Rule 3 — Rollout stalled (offered/canary > 48h)
+# Rule 2 — Rollout stalled (offered/canary > 48h)
 # ---------------------------------------------------------------------------
 
 class TestStalledRolloutRule(unittest.TestCase):
@@ -242,42 +180,42 @@ class TestAlertIdentity(unittest.TestCase):
     def test_alert_has_title_with_mac_and_rule_slug(self):
         """Alert title must include the label, mac, and rule slug."""
         now = _now()
-        last_seen = (now - timedelta(hours=25)).isoformat()
-        device = _device(mac="3c:0f:02:c7:eb:cc", last_seen=last_seen)
-        device["_status"] = "Up to date"
+        device = _device(mac="3c:0f:02:c7:eb:cc", version="v3.19.0", target_version="v3.21.0")
+        device["_status"] = "Needs update"
         device["name"] = "Floating Platform Motion"
         dashboard = {"sections": [{"devices": [device]}]}
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, _version_changes([]), now)
-        silent = [a for a in alerts if a.rule == "silent"]
-        self.assertEqual(len(silent), 1)
-        alert = silent[0]
+        vc = _version_changes([("v3.21.0", "2026-05-01")])
+        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now)
+        behind = [a for a in alerts if a.rule == "behind"]
+        self.assertEqual(len(behind), 1)
+        alert = behind[0]
         self.assertIn("[fleet-alert]", alert.title)
         self.assertIn("3c:0f:02:c7:eb:cc", alert.title)
-        self.assertIn("silent", alert.title)
+        self.assertIn("behind", alert.title)
 
     def test_deep_link_mac_encoding(self):
         """Deep link must encode MAC as hex-only lowercase (colons stripped)."""
         now = _now()
-        last_seen = (now - timedelta(hours=25)).isoformat()
-        device = _device(mac="3c:0f:02:c7:eb:cc", last_seen=last_seen)
-        device["_status"] = "Up to date"
+        device = _device(mac="3c:0f:02:c7:eb:cc", version="v3.19.0", target_version="v3.21.0")
+        device["_status"] = "Needs update"
         dashboard = {"sections": [{"devices": [device]}]}
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, _version_changes([]), now)
-        silent = [a for a in alerts if a.rule == "silent"]
-        self.assertEqual(len(silent), 1)
-        self.assertIn("#device=3c0f02c7ebcc", silent[0].body)
+        vc = _version_changes([("v3.21.0", "2026-05-01")])
+        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now)
+        behind = [a for a in alerts if a.rule == "behind"]
+        self.assertEqual(len(behind), 1)
+        self.assertIn("#device=3c0f02c7ebcc", behind[0].body)
 
     def test_deep_link_uppercase_mac_normalised(self):
         """MAC stored as uppercase (e.g. 'E0:72:A1:F5:0D:CC') → hex lowercase."""
         now = _now()
-        last_seen = (now - timedelta(hours=25)).isoformat()
-        device = _device(mac="E0:72:A1:F5:0D:CC", last_seen=last_seen)
-        device["_status"] = "Up to date"
+        device = _device(mac="E0:72:A1:F5:0D:CC", version="v3.19.0", target_version="v3.21.0")
+        device["_status"] = "Needs update"
         dashboard = {"sections": [{"devices": [device]}]}
-        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, _version_changes([]), now)
-        silent = [a for a in alerts if a.rule == "silent"]
-        self.assertEqual(len(silent), 1)
-        self.assertIn("#device=e072a1f50dcc", silent[0].body)
+        vc = _version_changes([("v3.21.0", "2026-05-01")])
+        alerts = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now)
+        behind = [a for a in alerts if a.rule == "behind"]
+        self.assertEqual(len(behind), 1)
+        self.assertIn("#device=e072a1f50dcc", behind[0].body)
 
 
 # ---------------------------------------------------------------------------
@@ -377,21 +315,22 @@ class TestNowInjection(unittest.TestCase):
 
     def test_evaluate_alerts_with_past_now(self):
         """Passing a past 'now' shifts all thresholds — proves now is used internally."""
-        # Device last seen at a fixed point
-        fixed_last_seen = datetime(2026, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
-        device = _device(last_seen=fixed_last_seen.isoformat())
-        device["_status"] = "Up to date"
+        # Target release at a fixed date; "behind" fires once it is >7 days old.
+        release_dt = datetime(2026, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+        device = _device(mac="11:22:33:44:55:66", version="v3.19.0", target_version="v3.21.0")
+        device["_status"] = "Needs update"
         dashboard = {"sections": [{"devices": [device]}]}
+        vc = _version_changes([("v3.21.0", "2026-01-01")])
 
-        # now = 23h after last_seen → no alert
-        now_no_alert = fixed_last_seen + timedelta(hours=23)
-        alerts_no = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, _version_changes([]), now_no_alert)
-        self.assertEqual([a for a in alerts_no if a.rule == "silent"], [])
+        # now = 5 days after release → within 7-day window → no behind alert
+        now_no_alert = release_dt + timedelta(days=5)
+        alerts_no = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now_no_alert)
+        self.assertEqual([a for a in alerts_no if a.rule == "behind"], [])
 
-        # now = 25h after last_seen → alert
-        now_alert = fixed_last_seen + timedelta(hours=25)
-        alerts_yes = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, _version_changes([]), now_alert)
-        self.assertEqual(len([a for a in alerts_yes if a.rule == "silent"]), 1)
+        # now = 10 days after release → past 7-day threshold → behind alert
+        now_alert = release_dt + timedelta(days=10)
+        alerts_yes = cfa.evaluate_alerts(dashboard, {"active": None, "history": []}, vc, now_alert)
+        self.assertEqual(len([a for a in alerts_yes if a.rule == "behind"]), 1)
 
 
 # ---------------------------------------------------------------------------

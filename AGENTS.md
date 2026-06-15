@@ -42,7 +42,7 @@ Environment variables for scripts:
 ### Data Flow
 
 1. **Live Telemetry (every 30 min):** GitHub Actions → `scripts/build_dashboard_data.py`
-   - Fetches device list from `GET /devices?limit=500` (device-reported version, last_seen, is_online, battery_level)
+   - Fetches device list from `GET /devices?limit=500` (device-reported version, battery_level)
    - Falls back to per-device `GET /devices/{mac}/logs/latest` if list fetch fails
    - Fetches OTA history from `GET /devices/{mac}/events?code=119` (successful OTA updates)
    - Merges with `data/devices.json` registry (fallback for offline/unknown devices)
@@ -61,7 +61,7 @@ Environment variables for scripts:
 
 4. **Fleet Alerts:** After data pipeline, GitHub Actions runs `scripts/check_fleet_alerts.py`
    - Evaluates rules against `dashboard-data.json`, `rollout-state.json`, `version-changes.json`
-   - Creates/closes GitHub issues for silent, behind, and stalled devices
+   - Creates/closes GitHub issues for behind and stalled devices
 
 ### Frontend State
 
@@ -130,7 +130,7 @@ Auth strategy: scripts try JWT first; on failure use Basic Auth.
 Test files in `tests/`:
 - `test_build_dashboard_data.py` — pipeline logic (version merging, telemetry extraction, OTA history, fallback behavior)
 - `test_rollout.py` — rollout eligibility, state transitions, canary logic, deadline handling
-- `test_fleet_alerts.py` — alert rule evaluation (silent, behind, stalled thresholds)
+- `test_fleet_alerts.py` — alert rule evaluation (behind, stalled thresholds)
 
 All tests use monkeypatched network access (no real API calls). Run with `python -m unittest discover -s tests -v`.
 
@@ -143,7 +143,7 @@ Tags used in version-changes.json and device tracking: `core`, `OneWire`, `MODBU
 - All styles and scripts are embedded in `index.html` (no external JS/CSS files).
 - XSS prevention: device names and locations escaped via `escapeHtml()`.
 - Version strings normalized with `v` prefix (e.g., `v3.7.1`); comparison via `version_tuple()` for semver logic.
-- Snake_case in JSON output and Python (`last_seen`, `reported_version`, `ota_history`); camelCase only in frontend state.
+- Snake_case in JSON output and Python (`reported_version`, `ota_history`, `pending_ota_version`); camelCase only in frontend state.
 - CDN dependencies: Bootstrap 5.2.3, Bootstrap Icons, Chart.js, Google Fonts (JetBrains Mono, Noto Sans).
 - Dark theme with blue accents; CSS custom properties for theming.
 - Firmware deployment scripts live in `glaecier-sensorhub-data-collector/scripts/` (build, upload, OTA management).
