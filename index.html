@@ -2453,6 +2453,13 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         white-space: nowrap;
+        text-decoration: none;
+      }
+
+      a.ota-pill:hover,
+      a.ota-pill:focus-visible {
+        filter: brightness(1.15);
+        border-color: currentColor;
       }
 
       .ota-pill i {
@@ -3419,6 +3426,9 @@
 
       const STATUS_SEQUENCE = ["Up to date", "Patch available", "Needs update", "Not deployed", "In development", "Unknown"];
 
+      // Console firmware-config page base; device UUID + "/firmwares" is appended.
+      const CONSOLE_FIRMWARE_BASE = "https://console.3aentreprise.com/devices/configure";
+
       const STATUS_ORDER = {
         "Needs update": 0,
         "Patch available": 1,
@@ -3899,6 +3909,7 @@
           ...device,
           deviceKey: createDeviceKey(device, trackId),
           components,
+          deviceId: String(device?.device_id || device?.deviceId || "").trim(),
           hardware: String(device?.hardware || "").trim(),
           otaCapable: typeof device?.ota_capable === "boolean"
             ? device.ota_capable
@@ -6308,6 +6319,12 @@
           return "";
         }
         const mutedClass = info.capable === true && !info.behind ? " ota-pill--muted" : "";
+        // OTA-capable devices with a known console UUID link to the firmware config page.
+        if (info.capable === true && hasValue(device.deviceId)) {
+          const url = `${CONSOLE_FIRMWARE_BASE}/${encodeURIComponent(device.deviceId)}/firmwares`;
+          const title = `${info.description} — open firmware config in console`;
+          return `<a class="ota-pill ${info.className}${mutedClass}" href="${escapeHtml(url)}" target="_blank" rel="noopener" title="${escapeHtml(title)}"><i class="bi ${info.icon}"></i>${escapeHtml(info.label)} <i class="bi bi-box-arrow-up-right"></i></a>`;
+        }
         return `<span class="ota-pill ${info.className}${mutedClass}" title="${escapeHtml(info.description)}"><i class="bi ${info.icon}"></i>${escapeHtml(info.label)}</span>`;
       }
 

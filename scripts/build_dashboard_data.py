@@ -527,6 +527,7 @@ def build_repo_device_summaries(
             {
                 "name": safe_string(registry_entry.get("label")) or safe_string(device_meta.get("name")) or humanize_slug(device_dir.name),
                 "mac": mac,
+                "device_id": "",
                 "version": installed_version,
                 "components": configured_components or extract_components_from_config(config_data),
                 "hardware": hardware,
@@ -796,6 +797,9 @@ def fetch_device_summary(
     reported_version = normalize_version(raw_reported) if raw_reported else ""
     battery_level: float | None = last_log.get("batteryLevel") if isinstance(last_log.get("batteryLevel"), (int, float)) else None
 
+    # Console device UUID (links the OTA pill to the firmware config page).
+    device_id = safe_string(dir_entry.get("id")) or safe_string(device_data.get("id"))
+
     # --- Version resolution (reported beats registry beats firmware API) ---
     registry_version = entry_version(entry)
     api_firmware_version = normalize_version((firmware_data or {}).get("version"))
@@ -870,6 +874,7 @@ def fetch_device_summary(
     return {
         "name": label or safe_string(device_data.get("deviceName")) or mac,
         "mac": safe_string(device_data.get("macAddress")) or mac,
+        "device_id": device_id,
         "version": version,
         "components": extract_components(device_data, entry),
         "hardware": hardware,
@@ -917,6 +922,7 @@ def build_failure_device(
     return {
         "name": label or mac,
         "mac": mac,
+        "device_id": "",
         "version": registry_version,
         "components": components,
         "hardware": hardware,
