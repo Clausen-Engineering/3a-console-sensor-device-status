@@ -3,13 +3,11 @@
 
 Reads data/dashboard-data.json, data/rollout-state.json, and
 data/version-changes.json (all committed JSON — no API calls) and evaluates
-three alert rules:
+two alert rules:
 
-  1. silent       — device last_seen non-null and older than 24 h,
-                    status not in {In development, Not deployed}.
-  2. behind       — status "Needs update" AND the target release's date in
+  1. behind       — status "Needs update" AND the target release's date in
                     version-changes.json is older than 7 days.
-  3. rollout-stalled — active-rollout device in offered/canary for > 48 h
+  2. rollout-stalled — active-rollout device in offered/canary for > 48 h
                        (from its updated_at).
 
 Issue lifecycle (one issue per device+rule):
@@ -53,11 +51,8 @@ VERSION_CHANGES_PATH = DATA_DIR / "version-changes.json"
 DASHBOARD_BASE_URL = "https://clausen-engineering.github.io/3a-console-sensor-device-status"
 ISSUE_LABEL = "fleet-alert"
 
-SILENT_THRESHOLD_H = 24
 BEHIND_THRESHOLD_DAYS = 7
 STALLED_THRESHOLD_H = 48
-
-SILENT_EXEMPT_STATUSES = {"In development", "Not deployed"}
 
 
 # ---------------------------------------------------------------------------
@@ -67,7 +62,7 @@ SILENT_EXEMPT_STATUSES = {"In development", "Not deployed"}
 @dataclass
 class Alert:
     mac: str
-    rule: str          # "silent" | "behind" | "rollout-stalled"
+    rule: str          # "behind" | "rollout-stalled"
     label: str         # human-readable device name
     title: str
     body: str
@@ -216,7 +211,7 @@ def evaluate_alerts(
         if v and dt:
             release_date_map[v] = dt
 
-    # ---- Rule 1 & 2: iterate devices from all sections --------------------
+    # ---- Behind rule: iterate devices from all sections -------------------
     for section in dashboard.get("sections", []):
         for device in section.get("devices", []):
             # Compute status (mirrors frontend; _status injection used in tests).
@@ -224,32 +219,7 @@ def evaluate_alerts(
             mac = str(device.get("mac") or "").strip()
             name = str(device.get("name") or mac).strip()
 
-            # -- Rule 1: Silent ------------------------------------------------
-            last_seen_str = device.get("last_seen")
-            if last_seen_str:
-                last_seen_dt = _parse_iso(last_seen_str)
-                if last_seen_dt is not None and status not in SILENT_EXEMPT_STATUSES:
-                    elapsed = now - last_seen_dt
-                    if elapsed > timedelta(hours=SILENT_THRESHOLD_H):
-                        last_seen_fmt = last_seen_dt.strftime("%Y-%m-%d %H:%M UTC")
-                        elapsed_h = int(elapsed.total_seconds() // 3600)
-                        link = device_deep_link(mac)
-                        alerts.append(Alert(
-                            mac=mac,
-                            rule="silent",
-                            label=name,
-                            title=f"[fleet-alert] {name} ({mac}): silent",
-                            body=(
-                                f"**Device:** {name}  \n"
-                                f"**MAC:** `{mac}`  \n"
-                                f"**Rule:** silent — last seen {elapsed_h}h ago "
-                                f"(at {last_seen_fmt}), threshold {SILENT_THRESHOLD_H}h  \n"
-                                f"**Status:** {status}  \n"
-                                f"**Dashboard:** {link}  \n"
-                            ),
-                        ))
-
-            # -- Rule 2: Behind ------------------------------------------------
+            # -- Behind rule ---------------------------------------------------
             if status == "Needs update":
                 target_version = str(device.get("target_version") or "").strip()
                 release_dt = release_date_map.get(target_version)
@@ -409,7 +379,7 @@ _TITLE_PREFIX = "[fleet-alert]"
 def _title_key(title: str) -> str:
     """Return the identifying suffix from a fleet-alert issue title.
 
-    Example: "[fleet-alert] Foo Bar (aa:bb:cc): silent" → "Foo Bar (aa:bb:cc): silent"
+    Example: "[fleet-alert] Foo Bar (aa:bb:cc): behind" → "Foo Bar (aa:bb:cc): behind"
     """
     if title.startswith(_TITLE_PREFIX):
         return title[len(_TITLE_PREFIX):].strip()
