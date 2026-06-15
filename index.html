@@ -2906,7 +2906,6 @@
                     <span class="eyebrow">Repo</span>
                     <h2>Release info</h2>
                   </div>
-                  <span id="health-badge" class="status-pill patch-available">Loading</span>
                 </div>
                 <p id="repo-description" class="repo-description">Loading section description...</p>
                 <dl class="repo-meta">
@@ -4168,7 +4167,6 @@
 
       function populateOverview() {
         const metrics = buildMetrics();
-        const health = deriveHealthState();
         const latestVersionContext = dashboardState.latestVersionLabel || "Unknown";
         const coverageContext = dashboardState.tracks.length > 1
           ? `${metrics.upToDate} of ${metrics.totalDevices} aligned to their track target`
@@ -4221,10 +4219,6 @@
           : "No devices currently flagged";
         animateCount(document.getElementById("stat-components"), metrics.uniqueComponents);
         document.getElementById("stat-components-context").textContent = `${metrics.missingLocationCount} missing a location assignment`;
-
-        const healthBadge = document.getElementById("health-badge");
-        healthBadge.className = `status-pill ${health.className}`;
-        healthBadge.textContent = health.label;
 
         document.getElementById("snapshot-note").textContent = `${metrics.totalDevices} devices across ${metrics.uniqueComponents} component types`;
         animateCount(document.getElementById("status-chart-total"), metrics.totalDevices);
@@ -6489,15 +6483,6 @@
           counts[device.calculatedStatus] += 1;
         });
         return counts;
-      }
-
-      function deriveHealthState() {
-        if (dashboardState.statusCounts["Needs update"] > 0) return { label: "Attention needed", className: "needs-update" };
-        if (dashboardState.statusCounts.Unknown > 0) return { label: "Unknown devices", className: "unknown" };
-        if (dashboardState.statusCounts["Patch available"] > 0) return { label: "Patch window", className: "patch-available" };
-        if (dashboardState.statusCounts["Not deployed"] > 0) return { label: "Deployment queue", className: "not-deployed" };
-        if (dashboardState.statusCounts["In development"] > 0) return { label: "Development work", className: "in-development" };
-        return { label: "Aligned", className: "up-to-date" };
       }
 
       function sortDevices(devices, sortBy) {
