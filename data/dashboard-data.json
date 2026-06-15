@@ -1,31 +1,39 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-15 05:32:52",
+  "last_updated": "2026-06-15 10:49:23",
   "sections": [
     {
       "id": "sensor-hub",
       "label": "Sensor Hub",
       "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
       "repo_name": "glaecier-sensorhub-data-collector",
-      "latest_version": "v3.22.0",
-      "latest_version_label": "v3.22.0",
-      "last_commit_date": "2026-06-14 11:04:04",
-      "last_updated": "2026-06-15 05:32:52",
+      "latest_version": "v3.22.1",
+      "latest_version_label": "v3.22.1",
+      "last_commit_date": "2026-06-15 11:40:31",
+      "last_updated": "2026-06-15 10:49:23",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
-          "latest_version": "v3.22.0",
-          "last_commit_date": "2026-06-14 11:04:04",
+          "latest_version": "v3.22.1",
+          "last_commit_date": "2026-06-15 11:40:31",
           "version_changes": [
+            {
+              "version": "v3.22.1",
+              "date": "2026-06-15",
+              "components": [
+                "core"
+              ],
+              "description": "Bump FIRMWARE_VERSION to 3.22.1"
+            },
             {
               "version": "v3.22.0",
               "date": "2026-06-14",
               "components": [
                 "core"
               ],
-              "description": "Merge pull request #3 from Glaecier-Development/feature/hardware-identity"
+              "description": "Self-reported hardware identity in registration"
             },
             {
               "version": "v3.21.0",
@@ -845,12 +853,23 @@
       ],
       "version_changes": [
         {
+          "version": "v3.22.1",
+          "date": "2026-06-15",
+          "components": [
+            "core"
+          ],
+          "description": "Bump FIRMWARE_VERSION to 3.22.1",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
           "version": "v3.22.0",
           "date": "2026-06-14",
           "components": [
             "core"
           ],
-          "description": "Merge pull request #3 from Glaecier-Development/feature/hardware-identity",
+          "description": "Self-reported hardware identity in registration",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -1976,6 +1995,7 @@
         {
           "name": "Emergency Button Monitor",
           "mac": "e0:72:a1:f5:0d:cc",
+          "device_id": "",
           "version": "v3.16.6",
           "components": [
             "core",
@@ -1985,8 +2005,6 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2003,11 +2021,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Floating Platform Motion",
           "mac": "3c:0f:02:c7:eb:cc",
+          "device_id": "",
           "version": "v3.19.0",
           "components": [
             "core",
@@ -2017,8 +2036,6 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2035,11 +2052,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Lounge Floor Temperature",
           "mac": "68:fe:71:16:a9:78",
+          "device_id": "",
           "version": "v2.11.2",
           "components": [
             "core",
@@ -2049,8 +2067,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2067,11 +2083,12 @@
           "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Main Power In",
           "mac": "64:e8:33:74:76:fc",
+          "device_id": "",
           "version": "v2.6.3",
           "components": [
             "core",
@@ -2081,8 +2098,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2099,11 +2114,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "MOG Tank Water Sensor",
           "mac": "18:8b:0e:2f:d6:a0",
+          "device_id": "",
           "version": "v2.2.0",
           "components": [
             "core",
@@ -2113,8 +2129,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2131,11 +2145,12 @@
           "notes": "Old registry label was 'MOG Tank Cycle Count'.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Hallway CO2 Pressure",
           "mac": "64:e8:33:74:70:8c",
+          "device_id": "",
           "version": "",
           "components": [
             "analog",
@@ -2145,8 +2160,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "",
           "version_mismatch": false,
@@ -2163,11 +2176,12 @@
           "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Lounge CO2 Pressure",
           "mac": "b8:f8:62:d5:d0:88",
+          "device_id": "",
           "version": "",
           "components": [
             "analog",
@@ -2177,8 +2191,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "",
           "version_mismatch": false,
@@ -2195,11 +2207,12 @@
           "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Sauna Floor Temperature",
           "mac": "68:fe:71:16:86:78",
+          "device_id": "",
           "version": "v3.7.2",
           "components": [
             "core",
@@ -2209,8 +2222,6 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2227,11 +2238,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Sauna Power Consumption",
           "mac": "3c:84:27:ae:eb:e0",
+          "device_id": "",
           "version": "v2.6.3",
           "components": [
             "core",
@@ -2241,8 +2253,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2259,11 +2269,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Sauna Temperature and Humidity",
           "mac": "d8:3b:da:34:fa:74",
+          "device_id": "",
           "version": "v2.6.3",
           "components": [
             "core",
@@ -2273,8 +2284,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2291,11 +2300,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Ventilation Boost Button",
           "mac": "3c:0f:02:c7:eb:90",
+          "device_id": "",
           "version": "v3.16.4",
           "components": [
             "action_button",
@@ -2305,8 +2315,6 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2323,11 +2331,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Water Heater Power Consumption",
           "mac": "64:e8:33:74:74:48",
+          "device_id": "",
           "version": "v2.6.3",
           "components": [
             "core",
@@ -2337,8 +2346,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2355,11 +2362,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Water Meter",
           "mac": "68:fe:71:16:bf:60",
+          "device_id": "",
           "version": "v2.11.2",
           "components": [
             "core",
@@ -2369,8 +2377,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2387,11 +2393,12 @@
           "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Water System Temperatures",
           "mac": "3c:0f:02:c7:bc:48",
+          "device_id": "",
           "version": "v3.19.0",
           "components": [
             "core",
@@ -2402,8 +2409,6 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2420,11 +2425,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Water Tank Temperatures",
           "mac": "68:fe:71:16:85:68",
+          "device_id": "",
           "version": "v2.11.2",
           "components": [
             "core",
@@ -2435,8 +2441,6 @@
           "ota_capable": false,
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "registry",
           "version_mismatch": false,
@@ -2453,11 +2457,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         },
         {
           "name": "Water Heater Power",
           "mac": "64:E8:33:88:C3:E4",
+          "device_id": "",
           "version": "",
           "components": [
             "core",
@@ -2467,8 +2472,6 @@
           "ota_capable": null,
           "hardware_eol": null,
           "hardware_max_firmware": "",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "",
           "version_mismatch": false,
@@ -2485,7 +2488,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.0"
+          "target_version": "v3.22.1"
         }
       ]
     },
@@ -2497,7 +2500,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-15 05:32:52",
+      "last_updated": "2026-06-15 10:49:23",
       "tracks": [
         {
           "id": "heat-controller",
@@ -2521,6 +2524,7 @@
         {
           "name": "Glaecier #1 Heat & cooling controller",
           "mac": "b7:14:da:59:c3:14",
+          "device_id": "",
           "version": "v2.1.6",
           "components": [
             "control",
@@ -2529,11 +2533,9 @@
             "core"
           ],
           "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16",
-          "ota_capable": false,
+          "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "last_seen": null,
-          "is_online": null,
           "reported_version": "",
           "version_source": "",
           "version_mismatch": false,
@@ -2555,6 +2557,7 @@
         {
           "name": "Glaecier #1 Sauna/roof humidity controller",
           "mac": "8b:c8:0e:2f:d6:c8",
+          "device_id": "af2d0b67-812a-4713-a33f-d911f8b558c4",
           "version": "",
           "components": [
             "control",
@@ -2566,8 +2569,6 @@
           "ota_capable": false,
           "hardware_eol": null,
           "hardware_max_firmware": "v2.16.1",
-          "last_seen": "2026-06-15T05:31:03.600548+00:00",
-          "is_online": null,
           "reported_version": "",
           "version_source": "",
           "version_mismatch": false,
@@ -2589,18 +2590,29 @@
       ]
     }
   ],
-  "latest_version": "v3.22.0",
-  "latest_version_label": "v3.22.0",
+  "latest_version": "v3.22.1",
+  "latest_version_label": "v3.22.1",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-06-14 11:04:04",
+  "last_commit_date": "2026-06-15 11:40:31",
   "version_changes": [
+    {
+      "version": "v3.22.1",
+      "date": "2026-06-15",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.22.1",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
     {
       "version": "v3.22.0",
       "date": "2026-06-14",
       "components": [
         "core"
       ],
-      "description": "Merge pull request #3 from Glaecier-Development/feature/hardware-identity",
+      "description": "Self-reported hardware identity in registration",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
@@ -3726,6 +3738,7 @@
     {
       "name": "Emergency Button Monitor",
       "mac": "e0:72:a1:f5:0d:cc",
+      "device_id": "",
       "version": "v3.16.6",
       "components": [
         "core",
@@ -3735,8 +3748,6 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -3753,11 +3764,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Floating Platform Motion",
       "mac": "3c:0f:02:c7:eb:cc",
+      "device_id": "",
       "version": "v3.19.0",
       "components": [
         "core",
@@ -3767,8 +3779,6 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -3785,11 +3795,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Lounge Floor Temperature",
       "mac": "68:fe:71:16:a9:78",
+      "device_id": "",
       "version": "v2.11.2",
       "components": [
         "core",
@@ -3799,8 +3810,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -3817,11 +3826,12 @@
       "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Main Power In",
       "mac": "64:e8:33:74:76:fc",
+      "device_id": "",
       "version": "v2.6.3",
       "components": [
         "core",
@@ -3831,8 +3841,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -3849,11 +3857,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "MOG Tank Water Sensor",
       "mac": "18:8b:0e:2f:d6:a0",
+      "device_id": "",
       "version": "v2.2.0",
       "components": [
         "core",
@@ -3863,8 +3872,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -3881,11 +3888,12 @@
       "notes": "Old registry label was 'MOG Tank Cycle Count'.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Hallway CO2 Pressure",
       "mac": "64:e8:33:74:70:8c",
+      "device_id": "",
       "version": "",
       "components": [
         "analog",
@@ -3895,8 +3903,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "",
       "version_mismatch": false,
@@ -3913,11 +3919,12 @@
       "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Lounge CO2 Pressure",
       "mac": "b8:f8:62:d5:d0:88",
+      "device_id": "",
       "version": "",
       "components": [
         "analog",
@@ -3927,8 +3934,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "",
       "version_mismatch": false,
@@ -3945,11 +3950,12 @@
       "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Sauna Floor Temperature",
       "mac": "68:fe:71:16:86:78",
+      "device_id": "",
       "version": "v3.7.2",
       "components": [
         "core",
@@ -3959,8 +3965,6 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -3977,11 +3981,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Sauna Power Consumption",
       "mac": "3c:84:27:ae:eb:e0",
+      "device_id": "",
       "version": "v2.6.3",
       "components": [
         "core",
@@ -3991,8 +3996,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -4009,11 +4012,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Sauna Temperature and Humidity",
       "mac": "d8:3b:da:34:fa:74",
+      "device_id": "",
       "version": "v2.6.3",
       "components": [
         "core",
@@ -4023,8 +4027,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -4041,11 +4043,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Ventilation Boost Button",
       "mac": "3c:0f:02:c7:eb:90",
+      "device_id": "",
       "version": "v3.16.4",
       "components": [
         "action_button",
@@ -4055,8 +4058,6 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -4073,11 +4074,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Water Heater Power Consumption",
       "mac": "64:e8:33:74:74:48",
+      "device_id": "",
       "version": "v2.6.3",
       "components": [
         "core",
@@ -4087,8 +4089,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -4105,11 +4105,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Water Meter",
       "mac": "68:fe:71:16:bf:60",
+      "device_id": "",
       "version": "v2.11.2",
       "components": [
         "core",
@@ -4119,8 +4120,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -4137,11 +4136,12 @@
       "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Water System Temperatures",
       "mac": "3c:0f:02:c7:bc:48",
+      "device_id": "",
       "version": "v3.19.0",
       "components": [
         "core",
@@ -4152,8 +4152,6 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -4170,11 +4168,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Water Tank Temperatures",
       "mac": "68:fe:71:16:85:68",
+      "device_id": "",
       "version": "v2.11.2",
       "components": [
         "core",
@@ -4185,8 +4184,6 @@
       "ota_capable": false,
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "registry",
       "version_mismatch": false,
@@ -4203,11 +4200,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     },
     {
       "name": "Water Heater Power",
       "mac": "64:E8:33:88:C3:E4",
+      "device_id": "",
       "version": "",
       "components": [
         "core",
@@ -4217,8 +4215,6 @@
       "ota_capable": null,
       "hardware_eol": null,
       "hardware_max_firmware": "",
-      "last_seen": null,
-      "is_online": null,
       "reported_version": "",
       "version_source": "",
       "version_mismatch": false,
@@ -4235,7 +4231,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.0"
+      "target_version": "v3.22.1"
     }
   ]
 }
