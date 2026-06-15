@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-15 11:43:50",
+  "last_updated": "2026-06-15 13:47:06",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.1",
       "latest_version_label": "v3.22.1",
       "last_commit_date": "2026-06-15 11:40:31",
-      "last_updated": "2026-06-15 11:43:50",
+      "last_updated": "2026-06-15 13:47:06",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1995,7 +1995,7 @@
         {
           "name": "Emergency Button Monitor",
           "mac": "e0:72:a1:f5:0d:cc",
-          "device_id": "",
+          "device_id": "691984c5-941e-43c9-bddb-d03dec97b689",
           "version": "v3.16.6",
           "components": [
             "core",
@@ -2005,8 +2005,8 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "",
-          "version_source": "registry",
+          "reported_version": "v3.16.6",
+          "version_source": "reported",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Landgang ind",
@@ -2016,7 +2016,33 @@
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
-          "ota_history": [],
+          "ota_history": [
+            {
+              "date": "2026-05-16T18:12:47.224135",
+              "version": "",
+              "version_code": 3160601
+            },
+            {
+              "date": "2026-05-16T12:12:07.507991",
+              "version": "",
+              "version_code": 3160501
+            },
+            {
+              "date": "2026-05-11T18:11:42.108352",
+              "version": "",
+              "version_code": 3160400
+            },
+            {
+              "date": "2026-05-11T06:11:06.531255",
+              "version": "",
+              "version_code": 3160200
+            },
+            {
+              "date": "2026-05-07T18:10:36.949012",
+              "version": "",
+              "version_code": 3160100
+            }
+          ],
           "sensor_summary": "Digital emergency button monitor",
           "notes": "",
           "track": "sensor-hub",
@@ -2026,7 +2052,7 @@
         {
           "name": "Floating Platform Motion",
           "mac": "3c:0f:02:c7:eb:cc",
-          "device_id": "",
+          "device_id": "6b2f4f34-389a-424a-997b-d5b288f572d4",
           "version": "v3.19.0",
           "components": [
             "core",
@@ -2036,8 +2062,8 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "",
-          "version_source": "registry",
+          "reported_version": "v3.19.0",
+          "version_source": "reported",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Pool house",
@@ -2057,7 +2083,7 @@
         {
           "name": "Lounge Floor Temperature",
           "mac": "68:fe:71:16:a9:78",
-          "device_id": "",
+          "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
           "version": "v2.11.2",
           "components": [
             "core",
@@ -2088,7 +2114,7 @@
         {
           "name": "Main Power In",
           "mac": "64:e8:33:74:76:fc",
-          "device_id": "",
+          "device_id": "798730a8-a5a1-4731-ab30-2ac620abd1cb",
           "version": "v2.6.3",
           "components": [
             "core",
@@ -2119,7 +2145,7 @@
         {
           "name": "MOG Tank Water Sensor",
           "mac": "18:8b:0e:2f:d6:a0",
-          "device_id": "",
+          "device_id": "5a30dc05-bc96-4213-9a2e-c6562dc016f2",
           "version": "v2.2.0",
           "components": [
             "core",
@@ -2150,7 +2176,7 @@
         {
           "name": "Hallway CO2 Pressure",
           "mac": "64:e8:33:74:70:8c",
-          "device_id": "",
+          "device_id": "3507a218-e2e7-406c-9ef4-9921d8c6f30f",
           "version": "",
           "components": [
             "analog",
@@ -2181,7 +2207,7 @@
         {
           "name": "Lounge CO2 Pressure",
           "mac": "b8:f8:62:d5:d0:88",
-          "device_id": "",
+          "device_id": "5c2ca1dc-59bd-4740-8f46-75a6c9780d8e",
           "version": "",
           "components": [
             "analog",
@@ -2243,7 +2269,7 @@
         {
           "name": "Sauna Power Consumption",
           "mac": "3c:84:27:ae:eb:e0",
-          "device_id": "",
+          "device_id": "f3c66d29-9b28-4dcb-9ae6-59ba86adc3bf",
           "version": "v2.6.3",
           "components": [
             "core",
@@ -2274,7 +2300,7 @@
         {
           "name": "Sauna Temperature and Humidity",
           "mac": "d8:3b:da:34:fa:74",
-          "device_id": "",
+          "device_id": "b4d2af37-b5a4-4b93-a43e-879f06e92036",
           "version": "v2.6.3",
           "components": [
             "core",
@@ -2305,7 +2331,7 @@
         {
           "name": "Ventilation Boost Button",
           "mac": "3c:0f:02:c7:eb:90",
-          "device_id": "",
+          "device_id": "9d1234ee-e518-4b2f-930f-1d564ab86279",
           "version": "v3.22.1",
           "components": [
             "action_button",
@@ -2315,8 +2341,8 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "",
-          "version_source": "registry",
+          "reported_version": "v3.22.1",
+          "version_source": "reported",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Under lounge table",
@@ -2326,7 +2352,23 @@
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
-          "ota_history": [],
+          "ota_history": [
+            {
+              "date": "2026-06-15T10:10:43.530115",
+              "version": "",
+              "version_code": 3220100
+            },
+            {
+              "date": "2026-06-15T08:14:16.444356",
+              "version": "",
+              "version_code": 3220000
+            },
+            {
+              "date": "2026-05-11T18:10:05.188426",
+              "version": "",
+              "version_code": 3160400
+            }
+          ],
           "sensor_summary": "Ventilation boost action button",
           "notes": "",
           "track": "sensor-hub",
@@ -2336,7 +2378,7 @@
         {
           "name": "Water Heater Power Consumption",
           "mac": "64:e8:33:74:74:48",
-          "device_id": "",
+          "device_id": "879e2e9d-35e7-4619-841c-c1010077eee0",
           "version": "v2.6.3",
           "components": [
             "core",
@@ -2367,7 +2409,7 @@
         {
           "name": "Water Meter",
           "mac": "68:fe:71:16:bf:60",
-          "device_id": "",
+          "device_id": "39cbbf52-07fb-46fb-ab11-28847d8da462",
           "version": "v2.11.2",
           "components": [
             "core",
@@ -2398,7 +2440,7 @@
         {
           "name": "Water System Temperatures",
           "mac": "3c:0f:02:c7:bc:48",
-          "device_id": "",
+          "device_id": "2399e27e-f9ef-487f-99e0-47f49f53e377",
           "version": "v3.19.0",
           "components": [
             "core",
@@ -2409,8 +2451,8 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "",
-          "version_source": "registry",
+          "reported_version": "v3.19.0",
+          "version_source": "reported",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Technician room",
@@ -2430,7 +2472,7 @@
         {
           "name": "Water Tank Temperatures",
           "mac": "68:fe:71:16:85:68",
-          "device_id": "",
+          "device_id": "60f9ed69-865f-4aac-a1a4-17ece50ec0aa",
           "version": "v2.11.2",
           "components": [
             "core",
@@ -2500,7 +2542,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-15 11:43:50",
+      "last_updated": "2026-06-15 13:47:06",
       "tracks": [
         {
           "id": "heat-controller",
@@ -3738,7 +3780,7 @@
     {
       "name": "Emergency Button Monitor",
       "mac": "e0:72:a1:f5:0d:cc",
-      "device_id": "",
+      "device_id": "691984c5-941e-43c9-bddb-d03dec97b689",
       "version": "v3.16.6",
       "components": [
         "core",
@@ -3748,8 +3790,8 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "",
-      "version_source": "registry",
+      "reported_version": "v3.16.6",
+      "version_source": "reported",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Landgang ind",
@@ -3759,7 +3801,33 @@
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
-      "ota_history": [],
+      "ota_history": [
+        {
+          "date": "2026-05-16T18:12:47.224135",
+          "version": "",
+          "version_code": 3160601
+        },
+        {
+          "date": "2026-05-16T12:12:07.507991",
+          "version": "",
+          "version_code": 3160501
+        },
+        {
+          "date": "2026-05-11T18:11:42.108352",
+          "version": "",
+          "version_code": 3160400
+        },
+        {
+          "date": "2026-05-11T06:11:06.531255",
+          "version": "",
+          "version_code": 3160200
+        },
+        {
+          "date": "2026-05-07T18:10:36.949012",
+          "version": "",
+          "version_code": 3160100
+        }
+      ],
       "sensor_summary": "Digital emergency button monitor",
       "notes": "",
       "track": "sensor-hub",
@@ -3769,7 +3837,7 @@
     {
       "name": "Floating Platform Motion",
       "mac": "3c:0f:02:c7:eb:cc",
-      "device_id": "",
+      "device_id": "6b2f4f34-389a-424a-997b-d5b288f572d4",
       "version": "v3.19.0",
       "components": [
         "core",
@@ -3779,8 +3847,8 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "",
-      "version_source": "registry",
+      "reported_version": "v3.19.0",
+      "version_source": "reported",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Pool house",
@@ -3800,7 +3868,7 @@
     {
       "name": "Lounge Floor Temperature",
       "mac": "68:fe:71:16:a9:78",
-      "device_id": "",
+      "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
       "version": "v2.11.2",
       "components": [
         "core",
@@ -3831,7 +3899,7 @@
     {
       "name": "Main Power In",
       "mac": "64:e8:33:74:76:fc",
-      "device_id": "",
+      "device_id": "798730a8-a5a1-4731-ab30-2ac620abd1cb",
       "version": "v2.6.3",
       "components": [
         "core",
@@ -3862,7 +3930,7 @@
     {
       "name": "MOG Tank Water Sensor",
       "mac": "18:8b:0e:2f:d6:a0",
-      "device_id": "",
+      "device_id": "5a30dc05-bc96-4213-9a2e-c6562dc016f2",
       "version": "v2.2.0",
       "components": [
         "core",
@@ -3893,7 +3961,7 @@
     {
       "name": "Hallway CO2 Pressure",
       "mac": "64:e8:33:74:70:8c",
-      "device_id": "",
+      "device_id": "3507a218-e2e7-406c-9ef4-9921d8c6f30f",
       "version": "",
       "components": [
         "analog",
@@ -3924,7 +3992,7 @@
     {
       "name": "Lounge CO2 Pressure",
       "mac": "b8:f8:62:d5:d0:88",
-      "device_id": "",
+      "device_id": "5c2ca1dc-59bd-4740-8f46-75a6c9780d8e",
       "version": "",
       "components": [
         "analog",
@@ -3986,7 +4054,7 @@
     {
       "name": "Sauna Power Consumption",
       "mac": "3c:84:27:ae:eb:e0",
-      "device_id": "",
+      "device_id": "f3c66d29-9b28-4dcb-9ae6-59ba86adc3bf",
       "version": "v2.6.3",
       "components": [
         "core",
@@ -4017,7 +4085,7 @@
     {
       "name": "Sauna Temperature and Humidity",
       "mac": "d8:3b:da:34:fa:74",
-      "device_id": "",
+      "device_id": "b4d2af37-b5a4-4b93-a43e-879f06e92036",
       "version": "v2.6.3",
       "components": [
         "core",
@@ -4048,7 +4116,7 @@
     {
       "name": "Ventilation Boost Button",
       "mac": "3c:0f:02:c7:eb:90",
-      "device_id": "",
+      "device_id": "9d1234ee-e518-4b2f-930f-1d564ab86279",
       "version": "v3.22.1",
       "components": [
         "action_button",
@@ -4058,8 +4126,8 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "",
-      "version_source": "registry",
+      "reported_version": "v3.22.1",
+      "version_source": "reported",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Under lounge table",
@@ -4069,7 +4137,23 @@
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
-      "ota_history": [],
+      "ota_history": [
+        {
+          "date": "2026-06-15T10:10:43.530115",
+          "version": "",
+          "version_code": 3220100
+        },
+        {
+          "date": "2026-06-15T08:14:16.444356",
+          "version": "",
+          "version_code": 3220000
+        },
+        {
+          "date": "2026-05-11T18:10:05.188426",
+          "version": "",
+          "version_code": 3160400
+        }
+      ],
       "sensor_summary": "Ventilation boost action button",
       "notes": "",
       "track": "sensor-hub",
@@ -4079,7 +4163,7 @@
     {
       "name": "Water Heater Power Consumption",
       "mac": "64:e8:33:74:74:48",
-      "device_id": "",
+      "device_id": "879e2e9d-35e7-4619-841c-c1010077eee0",
       "version": "v2.6.3",
       "components": [
         "core",
@@ -4110,7 +4194,7 @@
     {
       "name": "Water Meter",
       "mac": "68:fe:71:16:bf:60",
-      "device_id": "",
+      "device_id": "39cbbf52-07fb-46fb-ab11-28847d8da462",
       "version": "v2.11.2",
       "components": [
         "core",
@@ -4141,7 +4225,7 @@
     {
       "name": "Water System Temperatures",
       "mac": "3c:0f:02:c7:bc:48",
-      "device_id": "",
+      "device_id": "2399e27e-f9ef-487f-99e0-47f49f53e377",
       "version": "v3.19.0",
       "components": [
         "core",
@@ -4152,8 +4236,8 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "",
-      "version_source": "registry",
+      "reported_version": "v3.19.0",
+      "version_source": "reported",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Technician room",
@@ -4173,7 +4257,7 @@
     {
       "name": "Water Tank Temperatures",
       "mac": "68:fe:71:16:85:68",
-      "device_id": "",
+      "device_id": "60f9ed69-865f-4aac-a1a4-17ece50ec0aa",
       "version": "v2.11.2",
       "components": [
         "core",
