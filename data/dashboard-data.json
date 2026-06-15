@@ -2306,7 +2306,7 @@
           "name": "Ventilation Boost Button",
           "mac": "3c:0f:02:c7:eb:90",
           "device_id": "",
-          "version": "v3.16.4",
+          "version": "v3.22.1",
           "components": [
             "action_button",
             "core"
@@ -2320,9 +2320,9 @@
           "version_mismatch": false,
           "battery_level": null,
           "location": "Under lounge table",
-          "last_deployed": "2026-05-04",
+          "last_deployed": "2026-06-15",
           "initial_deployed": "2026-05-04",
-          "declared_deployment_version": "v3.16.4",
+          "declared_deployment_version": "v3.22.1",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
@@ -4049,7 +4049,7 @@
       "name": "Ventilation Boost Button",
       "mac": "3c:0f:02:c7:eb:90",
       "device_id": "",
-      "version": "v3.16.4",
+      "version": "v3.22.1",
       "components": [
         "action_button",
         "core"
@@ -4063,9 +4063,9 @@
       "version_mismatch": false,
       "battery_level": null,
       "location": "Under lounge table",
-      "last_deployed": "2026-05-04",
+      "last_deployed": "2026-06-15",
       "initial_deployed": "2026-05-04",
-      "declared_deployment_version": "v3.16.4",
+      "declared_deployment_version": "v3.22.1",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
