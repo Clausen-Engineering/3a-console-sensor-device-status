@@ -599,7 +599,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 0.75rem;
-        margin-top: 0.85rem;
+        margin-top: 0.55rem;
       }
 
       .risk-pill {
@@ -782,10 +782,6 @@
         font-family: "Fraunces", serif;
         font-weight: 600;
         letter-spacing: -0.02em;
-      }
-
-      .device-card__title {
-        min-height: 2.4em;
       }
 
       .section-heading {
@@ -1483,7 +1479,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        padding: 0.95rem;
+        padding: 0.8rem;
         border-radius: var(--radius-lg);
         background: linear-gradient(180deg, #291F16 0%, #221A12 100%);
         border: 1px solid rgba(200, 170, 130, 0.12);
@@ -1527,21 +1523,21 @@
 
       .device-card__meta {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        margin-top: 0.8rem;
-        margin-bottom: 1.1rem;
-        gap: 0.65rem;
+        margin-top: 0.55rem;
+        margin-bottom: 0.6rem;
+        gap: 0.45rem;
       }
 
       .device-card__detail {
-        padding: 0.65rem 0.75rem;
+        padding: 0.45rem 0.55rem;
         border-radius: var(--radius-sm);
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(200, 170, 130, 0.10);
       }
 
       .device-card__detail-value {
-        margin-top: 0.2rem;
-        font-size: 0.9rem;
+        margin-top: 0.15rem;
+        font-size: 0.88rem;
         word-break: break-word;
       }
 
@@ -1555,7 +1551,7 @@
       .device-card__section,
       .attention-panel {
         margin-top: auto;
-        padding-top: 0.8rem;
+        padding-top: 0.55rem;
         border-top: 1px solid var(--line);
       }
 
@@ -2487,9 +2483,11 @@
 
       .device-card__pill-stack {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0.4rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.35rem;
         flex-shrink: 0;
       }
 
@@ -2824,51 +2822,12 @@
         }
       }
 
-      /* ── Release readiness card ─────────────────────── */
-      .readiness-card {
-        margin-bottom: 1.5rem;
-      }
-      .readiness-card__head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        margin-bottom: 1rem;
-      }
-      .readiness-target-form {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-      }
-      .readiness-target-form label {
-        font-size: 0.82rem;
-        color: var(--muted);
-        white-space: nowrap;
-      }
-      .readiness-target-input {
-        background: var(--bg-alt, #211A15);
-        border: 1px solid var(--border, rgba(255,255,255,0.12));
-        color: var(--text, #F0ECE6);
-        border-radius: 0.4rem;
-        padding: 0.3rem 0.6rem;
-        font-size: 0.83rem;
-        font-family: 'JetBrains Mono', monospace;
-        width: 9rem;
-        transition: border-color 0.15s;
-      }
-      .readiness-target-input:focus {
-        outline: none;
-        border-color: var(--accent-teal, #5DC8BE);
-      }
-      .readiness-target-input.is-invalid {
-        border-color: var(--danger, #D44654);
-      }
+      /* ── Release readiness buckets ─────────────────────── */
       .readiness-buckets {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
         gap: 1rem;
+        margin-bottom: 1.5rem;
       }
     </style>
   </head>
@@ -3174,29 +3133,15 @@
         </section>
 
         <section id="versions" class="dashboard-section fade-in">
-          <!-- Release readiness card — sits at the top of the versions section -->
-          <div class="surface readiness-card" id="release-readiness-card">
-            <div class="readiness-card__head">
-              <div>
-                <span class="eyebrow">Release Readiness</span>
-                <h2 style="font-size:1.1rem;margin:0">Hypothetical target analysis</h2>
-              </div>
-              <div class="readiness-target-form">
-                <label for="readiness-target-input">Target version:</label>
-                <input
-                  type="text"
-                  id="readiness-target-input"
-                  class="readiness-target-input"
-                  placeholder="v3.21.0"
-                  pattern="v?\d+\.\d+\.\d+"
-                  autocomplete="off"
-                  spellcheck="false"
-                />
-              </div>
+          <!-- Release readiness — heading outside the card, matching the other sections -->
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Release Readiness</span>
+              <h2>Readiness for the latest release</h2>
             </div>
-            <div id="readiness-buckets" class="readiness-buckets">
-              <div class="plan-bucket__empty">Select a section to compute readiness.</div>
-            </div>
+          </div>
+          <div id="readiness-buckets" class="readiness-buckets">
+            <div class="plan-bucket__empty">Computing readiness...</div>
           </div>
 
           <div class="section-heading">
@@ -4152,7 +4097,6 @@
         });
         document.getElementById("command-palette-input").addEventListener("keydown", handleCommandPaletteKeydown);
         bindTopbarNavigation();
-        bindReadinessInput();
         document.addEventListener("keydown", (event) => {
           if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
@@ -6411,6 +6355,7 @@
             icon: "bi-person-walking",
             title: "Needs site visit",
             copy: "Behind target but cannot OTA-update — requires a cable flash.",
+            hideWhenEmpty: true,
           },
           {
             devices: plan.hardware,
@@ -6418,6 +6363,7 @@
             icon: "bi-wrench-adjustable",
             title: "Stranded — hardware ceiling",
             copy: "Hardware cannot reach this target version. A hardware swap would be required.",
+            hideWhenEmpty: true,
           },
           {
             devices: plan.unknown,
@@ -6425,6 +6371,7 @@
             icon: "bi-question-diamond",
             title: "Unknown update path",
             copy: "Behind target with unverified OTA capability.",
+            hideWhenEmpty: true,
           },
           {
             devices: plan.current,
@@ -6435,7 +6382,9 @@
           },
         ];
 
-        return readinessBuckets.map((bucket) => {
+        return readinessBuckets
+          .filter((bucket) => bucket.devices.length || !bucket.hideWhenEmpty)
+          .map((bucket) => {
           const rows = bucket.devices.length
             ? `<div class="plan-device-list">${bucket.devices
                 .map((device, index) => {
@@ -6462,43 +6411,23 @@
 
       function renderReleaseReadiness() {
         const container = document.getElementById("readiness-buckets");
-        const input = document.getElementById("readiness-target-input");
-        if (!container || !input) return;
+        if (!container) return;
 
-        // Default target: track's latest version
-        const defaultTarget = dashboardState.latestVersion || "";
-        if (!input.value && defaultTarget) {
-          input.value = defaultTarget;
-        }
-
-        const rawTarget = String(input.value || "").trim();
-        // Validate by reusing parseVersion (which internally uses v?(\d+)\.(\d+)\.(\d+))
-        const isValid = !!parseVersion(rawTarget);
-        input.classList.toggle("is-invalid", rawTarget.length > 0 && !isValid);
+        // Analyze against the track's latest release.
+        const target = String(dashboardState.latestVersion || "").trim();
 
         if (!dashboardState.devices.length) {
           container.innerHTML = `<div class="plan-bucket__empty">No device data loaded.</div>`;
           return;
         }
-
-        if (!rawTarget || !isValid) {
-          container.innerHTML = `<div class="plan-bucket__empty">${rawTarget ? "Enter a valid version (e.g. v3.21.0) to compute readiness." : "Enter a target version above to compute readiness."}</div>`;
+        if (!target || !parseVersion(target)) {
+          container.innerHTML = `<div class="plan-bucket__empty">No tracked release target available.</div>`;
           return;
         }
 
-        const plan = buildReadinessPlan(dashboardState.devices, rawTarget);
-        container.innerHTML = renderReadinessBucketHtml(plan, rawTarget);
+        const plan = buildReadinessPlan(dashboardState.devices, target);
+        container.innerHTML = renderReadinessBucketHtml(plan, target);
         bindDeviceDetailTriggers(container);
-      }
-
-      function bindReadinessInput() {
-        const input = document.getElementById("readiness-target-input");
-        if (!input) return;
-        let debounceHandle;
-        input.addEventListener("input", () => {
-          clearTimeout(debounceHandle);
-          debounceHandle = window.setTimeout(() => renderReleaseReadiness(), 200);
-        });
       }
 
       function parseVersion(version) {
