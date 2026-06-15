@@ -488,11 +488,29 @@ def resolve_local_repo_path(repo_names: list[str]) -> Path | None:
     return None
 
 
+def fetch_console_device_id(api_base: str, mac: str, headers: dict[str, str]) -> str:
+    """Return the console device UUID via GET /devices/{mac}.
+
+    Uses the per-device endpoint, which is reachable with the device-scoped
+    Basic credential (no JWT / device-list access required).  Returns "" on any
+    failure so callers degrade gracefully to an empty device_id.
+    """
+    if not api_base or not mac:
+        return ""
+    try:
+        data = fetch_json(f"{api_base}/devices/{quote(mac, safe='')}", headers)
+    except (HTTPError, URLError):
+        return ""
+    return safe_string(data.get("id")) if isinstance(data, dict) else ""
+
+
 def build_repo_device_summaries(
     repo_path: Path,
     track: dict[str, Any],
     capabilities: dict[str, dict[str, Any]],
     registry_entry_map: dict[str, dict[str, Any]],
+    api_base: str = "",
+    headers: dict[str, str] | None = None,
 ) -> list[dict[str, Any]]:
     devices_dir = repo_path / "devices"
     if not devices_dir.is_dir():
@@ -523,11 +541,16 @@ def build_repo_device_summaries(
         installed_version = entry_version(registry_entry) or choose_repo_device_version(version_data)
 
         registry_pending = entry_version_field(registry_entry, "pending_ota_version", "pendingOtaVersion")
+        # Per-device console UUID (links the OTA pill to the firmware config page).
+        # The repo path makes no live-telemetry call, so fetch the id explicitly
+        # via the per-device endpoint (works with the device-scoped Basic creds).
+        api_mac = safe_string(registry_entry.get("mac")) or safe_string(version_data.get("mac_address"))
+        device_id = fetch_console_device_id(api_base, api_mac, headers or {})
         output.append(
             {
                 "name": safe_string(registry_entry.get("label")) or safe_string(device_meta.get("name")) or humanize_slug(device_dir.name),
                 "mac": mac,
-                "device_id": "",
+                "device_id": device_id,
                 "version": installed_version,
                 "components": configured_components or extract_components_from_config(config_data),
                 "hardware": hardware,
@@ -1071,6 +1094,7 @@ def main() -> int:
             for entry in registry_section.get("devices", []) or []
             if isinstance(entry, dict) and safe_string(entry.get("mac"))
         }
+        api_base = safe_string(registry_section.get("api_base")) or safe_string(device_registry.get("api_base"))
         repo_devices: list[dict[str, Any]] = []
         local_repo_paths: list[str] = []
         for track in tracks:
@@ -1080,7 +1104,10 @@ def main() -> int:
             local_repo_path = resolve_local_repo_path([repo_name])
             if not local_repo_path:
                 continue
-            track_devices = build_repo_device_summaries(local_repo_path, track, hardware_capabilities, registry_entry_map)
+            track_devices = build_repo_device_summaries(
+                local_repo_path, track, hardware_capabilities, registry_entry_map,
+                api_base=api_base, headers=headers,
+            )
             if not track_devices:
                 continue
             repo_devices.extend(track_devices)
@@ -1091,7 +1118,6 @@ def main() -> int:
             print(f"Loaded {len(repo_devices)} devices for section '{section_id}' from {resolved_paths}")
             section_output["devices"].extend(repo_devices)
 
-        api_base = safe_string(registry_section.get("api_base")) or safe_string(device_registry.get("api_base"))
         device_entries = registry_section.get("devices", []) or []
         represented_macs = {
             normalize_mac(device.get("mac"))
