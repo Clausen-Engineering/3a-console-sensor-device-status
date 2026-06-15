@@ -5,7 +5,9 @@ Network is never hit: fetch_json / post_form / post_json are monkeypatched.
 """
 from __future__ import annotations
 
+import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
@@ -222,6 +224,82 @@ class TestVersionPrefersReportedOverRegistry(unittest.TestCase):
         dir_entry = {"macAddress": "aa:bb:cc:dd:ee:ff", "isOnline": True, "lastLog": {}}
         result = self._run_summary(entry, directory_entry=dir_entry)
         self.assertIsNone(result["battery_level"])
+
+
+class TestRepoDeviceSummariesDeviceId(unittest.TestCase):
+    """The local-repo build path must also populate device_id from the API.
+
+    Devices backed by the sensorhub-data-collector submodule are built by
+    build_repo_device_summaries(), which makes no live-telemetry call. It must
+    fetch the console UUID from the per-device endpoint (reachable with the
+    device-scoped Basic credential) so the OTA pill can link to the console.
+    """
+
+    MAC = "3C:0F:02:C7:EB:90"
+    UUID = "9d1234ee-e518-4b2f-930f-1d564ab86279"
+
+    def _make_repo(self, tmp: str) -> Path:
+        repo = Path(tmp)
+        device_dir = repo / "devices" / "ventilation-boost-button"
+        device_dir.mkdir(parents=True)
+        (device_dir / "config.json").write_text(
+            json.dumps({"device": {"name": "Ventilation Boost Button"}}), encoding="utf-8"
+        )
+        (device_dir / "version.json").write_text(
+            json.dumps({"mac_address": self.MAC, "installed_firmware_version": "v3.16.4"}),
+            encoding="utf-8",
+        )
+        return repo
+
+    def _registry_map(self) -> dict:
+        return {
+            bdd.normalize_mac(self.MAC): {
+                "mac": self.MAC,
+                "label": "Ventilation Boost Button",
+                "track": "sensor-hub",
+                "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+                "installed_firmware_version": "v3.16.4",
+            }
+        }
+
+    def test_device_id_fetched_from_per_device_endpoint(self) -> None:
+        def fake_fetch(url: str, headers: dict) -> dict:
+            if url.endswith("/devices/" + bdd.quote(self.MAC, safe="")):
+                return {"id": self.UUID, "macAddress": self.MAC}
+            raise HTTPError(url, 404, "Not Found", {}, None)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._make_repo(tmp)
+            with patch.object(bdd, "fetch_json", side_effect=fake_fetch):
+                result = bdd.build_repo_device_summaries(
+                    repo, _make_track("v3.22.1"), CAPABILITIES, self._registry_map(),
+                    api_base="https://api.example.com", headers={"Authorization": "Basic x"},
+                )
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["device_id"], self.UUID)
+
+    def test_device_id_empty_when_api_unavailable(self) -> None:
+        # No api_base supplied (offline build) -> device_id stays empty, no crash.
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._make_repo(tmp)
+            result = bdd.build_repo_device_summaries(
+                repo, _make_track("v3.22.1"), CAPABILITIES, self._registry_map(),
+            )
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["device_id"], "")
+
+    def test_device_id_empty_on_api_error(self) -> None:
+        def fake_fetch(url: str, headers: dict) -> dict:
+            raise HTTPError(url, 401, "Unauthorized", {}, None)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._make_repo(tmp)
+            with patch.object(bdd, "fetch_json", side_effect=fake_fetch):
+                result = bdd.build_repo_device_summaries(
+                    repo, _make_track("v3.22.1"), CAPABILITIES, self._registry_map(),
+                    api_base="https://api.example.com", headers={},
+                )
+        self.assertEqual(result[0]["device_id"], "")
 
 
 class TestDeviceListFetchFallback(unittest.TestCase):
