@@ -593,12 +593,12 @@ class TestOtaHistoryExtraction(unittest.TestCase):
             return {
                 "eventType": {"code": code, "name": "SomeEvent"},
                 "createdAt": date,
-                "payload": {"firmwareVersion": version, "newVersionCode": version_code},
+                "data": {"firmwareVersion": version, "newVersionCode": version_code},
             }
         return {
             "code": code,
             "createdAt": date,
-            "payload": {"firmwareVersion": version, "newVersionCode": version_code},
+            "data": {"firmwareVersion": version, "newVersionCode": version_code},
         }
 
     def test_filters_to_code_119_only(self) -> None:
@@ -620,6 +620,15 @@ class TestOtaHistoryExtraction(unittest.TestCase):
         with patch.object(bdd, "fetch_json", return_value=events):
             result = bdd.fetch_ota_history("https://api.example.com", "aa:bb:cc:dd:ee:ff", {})
         self.assertEqual(len(result), 1)
+
+    def test_handles_events_wrapper(self) -> None:
+        # Real API shape: {"events": [...]} with the version under "data".
+        wrapper = {"events": [self._make_event(119, "2026-05-16T20:12:00Z", "3.16.6", 3160600, use_nested=True)]}
+        with patch.object(bdd, "fetch_json", return_value=wrapper):
+            result = bdd.fetch_ota_history("https://api.example.com", "aa:bb:cc:dd:ee:ff", {})
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["version"], "v3.16.6")
+        self.assertEqual(result[0]["version_code"], 3160600)
 
     def test_newest_first_max_10(self) -> None:
         events = [
@@ -713,7 +722,7 @@ class TestPendingOtaDerivedWhenLatestFirmwareNewer(unittest.TestCase):
             {
                 "code": 119,
                 "createdAt": "2026-05-16T20:12:00Z",
-                "payload": {"firmwareVersion": "3.16.6", "newVersionCode": 3160600},
+                "data": {"firmwareVersion": "3.16.6", "newVersionCode": 3160600},
             }
         ]
 
@@ -808,7 +817,7 @@ class TestOtaHistoryInDeviceSummary(unittest.TestCase):
             {
                 "code": 119,
                 "createdAt": "2026-05-16T20:12:00Z",
-                "payload": {"firmwareVersion": "3.16.6", "newVersionCode": 3160600},
+                "data": {"firmwareVersion": "3.16.6", "newVersionCode": 3160600},
             }
         ]
 

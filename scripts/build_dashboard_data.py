@@ -152,51 +152,79 @@ def fetch_device_directory(api_base: str, headers: dict[str, str]) -> dict[str, 
     }
 
 
-def fetch_ota_history(api_base: str, mac: str, headers: dict[str, str]) -> list[dict[str, Any]]:
-    """Fetch OTA events for a device, returning code-119 events newest-first, max 10.
+def fetch_device_events(api_base: str, mac: str, headers: dict[str, str]) -> list[dict[str, Any]]:
+    """Fetch a device's events; return the events list, or [] on any failure.
 
-    Event code 119 = "OTA Update Completed".  The code may live at
-    event["code"] or event["eventType"]["code"].
-    Tolerates 401 / 403 / 404 by returning [].
+    GET /devices/{mac}/events returns a {"events": [...]} wrapper (older/other
+    shapes may return a bare list) — both are handled.  This endpoint requires a
+    Bearer token; it rejects Basic auth.
     """
-    encoded_mac = quote(mac, safe="")
-    try:
-        events = fetch_json(f"{api_base}/devices/{encoded_mac}/events", headers)
-    except HTTPError as error:
-        if error.code in (401, 403, 404):
-            return []
-        raise
-    except URLError:
+    if not api_base or not mac:
         return []
+    try:
+        data = fetch_json(f"{api_base}/devices/{quote(mac, safe='')}/events", headers)
+    except (HTTPError, URLError):
+        return []
+    events = data.get("events") if isinstance(data, dict) else data
+    return events if isinstance(events, list) else []
 
-    if not isinstance(events, list):
-        events = []
 
+def _event_code(event: dict[str, Any]) -> Any:
+    """Event code, whether nested under eventType.code or at the top level."""
+    event_type = event.get("eventType")
+    if isinstance(event_type, dict) and event_type.get("code") is not None:
+        return event_type.get("code")
+    return event.get("code")
+
+
+def extract_ota_history(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Code-119 (OTA_UPDATE_COMPLETED) events, newest-first, max 10.
+
+    The version payload lives under event["data"].
+    """
     ota_events: list[dict[str, Any]] = []
     for event in events:
-        if not isinstance(event, dict):
+        if not isinstance(event, dict) or _event_code(event) != 119:
             continue
-        # Code may be top-level or nested under eventType.
-        code = event.get("code")
-        if code is None:
-            event_type = event.get("eventType")
-            if isinstance(event_type, dict):
-                code = event_type.get("code")
-        if code != 119:
-            continue
-        payload = event.get("payload") or {}
-        raw_version = safe_string(payload.get("firmwareVersion"))
+        data = event.get("data") or {}
         ota_events.append(
             {
                 "date": safe_string(event.get("createdAt")),
-                "version": normalize_version(raw_version),
-                "version_code": payload.get("newVersionCode"),
+                "version": normalize_version(safe_string(data.get("firmwareVersion"))),
+                "version_code": data.get("newVersionCode"),
             }
         )
-
     # Sort newest-first by date string (ISO-8601 sorts lexicographically).
     ota_events.sort(key=lambda e: e.get("date", ""), reverse=True)
     return ota_events[:10]
+
+
+def extract_startup_version(events: list[dict[str, Any]]) -> str:
+    """Firmware version from the newest SYSTEM_STARTUP event (eventType code 100).
+
+    SYSTEM_STARTUP fires after both OTA and cable updates; the version lives at
+    event["data"]["firmwareVersion"].  Returns "" when no such event is present.
+    """
+    candidates: list[tuple[str, str]] = []
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        event_type = event.get("eventType") if isinstance(event.get("eventType"), dict) else {}
+        if _event_code(event) != 100 and event_type.get("name") != "SYSTEM_STARTUP":
+            continue
+        version = safe_string((event.get("data") or {}).get("firmwareVersion"))
+        if version:
+            candidates.append((safe_string(event.get("createdAt")), version))
+    if not candidates:
+        return ""
+    # Newest first (ISO-8601 timestamps sort lexicographically).
+    candidates.sort(key=lambda item: item[0], reverse=True)
+    return normalize_version(candidates[0][1])
+
+
+def fetch_ota_history(api_base: str, mac: str, headers: dict[str, str]) -> list[dict[str, Any]]:
+    """OTA history (code-119 events) for a device, newest-first, max 10."""
+    return extract_ota_history(fetch_device_events(api_base, mac, headers))
 
 
 def derive_pending_ota(
@@ -505,42 +533,8 @@ def fetch_console_device_id(api_base: str, mac: str, headers: dict[str, str]) ->
 
 
 def fetch_latest_startup_version(api_base: str, mac: str, headers: dict[str, str]) -> str:
-    """Return the firmware version from the device's latest SYSTEM_STARTUP event.
-
-    The firmware version is only emitted on SYSTEM_STARTUP events (eventType
-    code 100), which fire after both OTA and cable updates.  GET
-    /devices/{mac}/events returns a {"events": [...]} wrapper; the version lives
-    at event["data"]["firmwareVersion"].  This endpoint requires a Bearer token
-    (it does not accept Basic auth).  Returns "" on any failure.
-    """
-    if not api_base or not mac:
-        return ""
-    try:
-        data = fetch_json(f"{api_base}/devices/{quote(mac, safe='')}/events", headers)
-    except (HTTPError, URLError):
-        return ""
-    events = data.get("events") if isinstance(data, dict) else data
-    if not isinstance(events, list):
-        return ""
-    candidates: list[tuple[str, str]] = []
-    for event in events:
-        if not isinstance(event, dict):
-            continue
-        event_type = event.get("eventType")
-        if isinstance(event_type, dict):
-            code, name = event_type.get("code"), event_type.get("name")
-        else:
-            code, name = event.get("code"), None
-        if code != 100 and name != "SYSTEM_STARTUP":
-            continue
-        version = safe_string((event.get("data") or {}).get("firmwareVersion"))
-        if version:
-            candidates.append((safe_string(event.get("createdAt")), version))
-    if not candidates:
-        return ""
-    # Newest first (ISO-8601 timestamps sort lexicographically).
-    candidates.sort(key=lambda item: item[0], reverse=True)
-    return normalize_version(candidates[0][1])
+    """Reported version from the device's latest SYSTEM_STARTUP event ("" if none)."""
+    return extract_startup_version(fetch_device_events(api_base, mac, headers))
 
 
 def build_repo_device_summaries(
@@ -587,7 +581,10 @@ def build_repo_device_summaries(
         api_mac = safe_string(registry_entry.get("mac")) or safe_string(version_data.get("mac_address"))
         api_headers = headers or {}
         device_id = fetch_console_device_id(api_base, api_mac, api_headers)
-        reported_version = fetch_latest_startup_version(api_base, api_mac, api_headers)
+        # One events call yields both the reported version and the OTA history.
+        events = fetch_device_events(api_base, api_mac, api_headers)
+        reported_version = extract_startup_version(events)
+        ota_history = extract_ota_history(events)
         # Effective version: reported (device truth) beats registry.
         if reported_version:
             version = reported_version
@@ -618,7 +615,7 @@ def build_repo_device_summaries(
                 "pending_ota_version": registry_pending,
                 "pending_ota_source": "registry" if registry_pending else "",
                 "pending_ota_created": entry_value(registry_entry, "pending_ota_created", "pendingOtaCreated"),
-                "ota_history": [],
+                "ota_history": ota_history,
                 "sensor_summary": entry_value(registry_entry, "sensor_summary") or safe_string(version_data.get("sensor_summary")),
                 "notes": entry_value(registry_entry, "notes") or safe_string(version_data.get("notes")),
                 "track": track.get("id", ""),
@@ -872,6 +869,13 @@ def fetch_device_summary(
     reported_version = normalize_version(raw_reported) if raw_reported else ""
     battery_level: float | None = last_log.get("batteryLevel") if isinstance(last_log.get("batteryLevel"), (int, float)) else None
 
+    # Events (Bearer-only) supply the OTA history and, since firmwareVersion is
+    # emitted only on SYSTEM_STARTUP events, the reported version when the latest
+    # log carries none.
+    events = fetch_device_events(api_base, mac, headers)
+    if not reported_version:
+        reported_version = extract_startup_version(events)
+
     # Console device UUID (links the OTA pill to the firmware config page).
     device_id = safe_string(dir_entry.get("id")) or safe_string(device_data.get("id"))
 
@@ -913,7 +917,7 @@ def fetch_device_summary(
     ota_capable = hw_cap_fields.get("ota_capable")
 
     # --- OTA audit trail (Task 2) ---
-    ota_history = fetch_ota_history(api_base, mac, headers)
+    ota_history = extract_ota_history(events)
 
     # --- Derive pending OTA (Task 2) ---
     latest_firmware_version = track.get("latest_version", "")
