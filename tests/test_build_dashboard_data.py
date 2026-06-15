@@ -302,6 +302,132 @@ class TestRepoDeviceSummariesDeviceId(unittest.TestCase):
         self.assertEqual(result[0]["device_id"], "")
 
 
+class TestFetchLatestStartupVersion(unittest.TestCase):
+    """fetch_latest_startup_version parses the events wrapper and SYSTEM_STARTUP."""
+
+    def _events(self, *triples):
+        # triples: (createdAt, code, firmwareVersion)
+        return {
+            "events": [
+                {
+                    "createdAt": ts,
+                    "eventType": {"code": code, "name": "SYSTEM_STARTUP" if code == 100 else "OTHER"},
+                    "data": {"firmwareVersion": fw} if fw is not None else {},
+                }
+                for ts, code, fw in triples
+            ],
+            "page": 1,
+            "totalResults": len(triples),
+        }
+
+    def test_returns_newest_startup_version_normalized(self) -> None:
+        events = self._events(
+            ("2026-05-01T00:00:00", 100, "3.16.4"),
+            ("2026-06-15T10:10:48", 100, "3.22.1"),  # newest startup
+            ("2026-06-15T11:00:00", 117, None),       # newer but not a startup
+        )
+        with patch.object(bdd, "fetch_json", return_value=events):
+            v = bdd.fetch_latest_startup_version("https://api", "3C:0F:02:C7:EB:90", {})
+        self.assertEqual(v, "v3.22.1")
+
+    def test_returns_empty_when_no_startup_events(self) -> None:
+        events = {"events": [{"createdAt": "x", "eventType": {"code": 117}, "data": {}}]}
+        with patch.object(bdd, "fetch_json", return_value=events):
+            v = bdd.fetch_latest_startup_version("https://api", "aa:bb", {})
+        self.assertEqual(v, "")
+
+    def test_returns_empty_on_http_error(self) -> None:
+        def boom(url, headers):
+            raise HTTPError(url, 401, "Unauthorized", {}, None)
+
+        with patch.object(bdd, "fetch_json", side_effect=boom):
+            v = bdd.fetch_latest_startup_version("https://api", "aa:bb", {})
+        self.assertEqual(v, "")
+
+    def test_returns_empty_without_api_base(self) -> None:
+        self.assertEqual(bdd.fetch_latest_startup_version("", "aa:bb", {}), "")
+
+
+class TestRepoDeviceSummariesReportedVersion(unittest.TestCase):
+    """The repo path adopts the reported SYSTEM_STARTUP version over the registry."""
+
+    MAC = "3C:0F:02:C7:EB:90"
+    UUID = "9d1234ee-e518-4b2f-930f-1d564ab86279"
+
+    def _make_repo(self, tmp: str) -> Path:
+        device_dir = Path(tmp) / "devices" / "vent"
+        device_dir.mkdir(parents=True)
+        (device_dir / "config.json").write_text(json.dumps({"device": {"name": "Vent"}}), encoding="utf-8")
+        (device_dir / "version.json").write_text(
+            json.dumps({"mac_address": self.MAC, "installed_firmware_version": "v3.16.4"}), encoding="utf-8"
+        )
+        return Path(tmp)
+
+    def _registry_map(self) -> dict:
+        return {
+            bdd.normalize_mac(self.MAC): {
+                "mac": self.MAC,
+                "label": "Vent",
+                "track": "sensor-hub",
+                "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+                "installed_firmware_version": "v3.16.4",
+            }
+        }
+
+    def test_reported_version_beats_registry(self) -> None:
+        events = {
+            "events": [
+                {
+                    "createdAt": "2026-06-15T10:10:48",
+                    "eventType": {"code": 100, "name": "SYSTEM_STARTUP"},
+                    "data": {"firmwareVersion": "3.22.1"},
+                }
+            ]
+        }
+
+        def fake_fetch(url: str, headers: dict):
+            if url.endswith("/events"):
+                return events
+            if url.endswith("/devices/" + bdd.quote(self.MAC, safe="")):
+                return {"id": self.UUID, "macAddress": self.MAC}
+            raise HTTPError(url, 404, "Not Found", {}, None)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._make_repo(tmp)
+            with patch.object(bdd, "fetch_json", side_effect=fake_fetch):
+                result = bdd.build_repo_device_summaries(
+                    repo, _make_track("v3.22.1"), CAPABILITIES, self._registry_map(),
+                    api_base="https://api.example.com", headers={"Authorization": "Bearer x"},
+                )
+        dev = result[0]
+        self.assertEqual(dev["version"], "v3.22.1")
+        self.assertEqual(dev["version_source"], "reported")
+        self.assertEqual(dev["reported_version"], "v3.22.1")
+        self.assertEqual(dev["declared_deployment_version"], "v3.16.4")
+        self.assertTrue(dev["version_mismatch"])
+
+    def test_falls_back_to_registry_when_no_startup(self) -> None:
+        def fake_fetch(url: str, headers: dict):
+            if url.endswith("/events"):
+                return {"events": []}
+            if url.endswith("/devices/" + bdd.quote(self.MAC, safe="")):
+                return {"id": self.UUID, "macAddress": self.MAC}
+            raise HTTPError(url, 404, "Not Found", {}, None)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._make_repo(tmp)
+            with patch.object(bdd, "fetch_json", side_effect=fake_fetch):
+                result = bdd.build_repo_device_summaries(
+                    repo, _make_track("v3.22.1"), CAPABILITIES, self._registry_map(),
+                    api_base="https://api.example.com", headers={"Authorization": "Bearer x"},
+                )
+        dev = result[0]
+        self.assertEqual(dev["version"], "v3.16.4")
+        self.assertEqual(dev["version_source"], "registry")
+        self.assertEqual(dev["reported_version"], "")
+        self.assertFalse(dev["version_mismatch"])
+
+
 class TestDeviceListFetchFallback(unittest.TestCase):
     """When directory fetch fails, per-device /logs/latest is tried."""
 

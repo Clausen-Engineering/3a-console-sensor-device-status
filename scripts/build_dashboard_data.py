@@ -504,6 +504,45 @@ def fetch_console_device_id(api_base: str, mac: str, headers: dict[str, str]) ->
     return safe_string(data.get("id")) if isinstance(data, dict) else ""
 
 
+def fetch_latest_startup_version(api_base: str, mac: str, headers: dict[str, str]) -> str:
+    """Return the firmware version from the device's latest SYSTEM_STARTUP event.
+
+    The firmware version is only emitted on SYSTEM_STARTUP events (eventType
+    code 100), which fire after both OTA and cable updates.  GET
+    /devices/{mac}/events returns a {"events": [...]} wrapper; the version lives
+    at event["data"]["firmwareVersion"].  This endpoint requires a Bearer token
+    (it does not accept Basic auth).  Returns "" on any failure.
+    """
+    if not api_base or not mac:
+        return ""
+    try:
+        data = fetch_json(f"{api_base}/devices/{quote(mac, safe='')}/events", headers)
+    except (HTTPError, URLError):
+        return ""
+    events = data.get("events") if isinstance(data, dict) else data
+    if not isinstance(events, list):
+        return ""
+    candidates: list[tuple[str, str]] = []
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        event_type = event.get("eventType")
+        if isinstance(event_type, dict):
+            code, name = event_type.get("code"), event_type.get("name")
+        else:
+            code, name = event.get("code"), None
+        if code != 100 and name != "SYSTEM_STARTUP":
+            continue
+        version = safe_string((event.get("data") or {}).get("firmwareVersion"))
+        if version:
+            candidates.append((safe_string(event.get("createdAt")), version))
+    if not candidates:
+        return ""
+    # Newest first (ISO-8601 timestamps sort lexicographically).
+    candidates.sort(key=lambda item: item[0], reverse=True)
+    return normalize_version(candidates[0][1])
+
+
 def build_repo_device_summaries(
     repo_path: Path,
     track: dict[str, Any],
@@ -541,23 +580,36 @@ def build_repo_device_summaries(
         installed_version = entry_version(registry_entry) or choose_repo_device_version(version_data)
 
         registry_pending = entry_version_field(registry_entry, "pending_ota_version", "pendingOtaVersion")
-        # Per-device console UUID (links the OTA pill to the firmware config page).
-        # The repo path makes no live-telemetry call, so fetch the id explicitly
-        # via the per-device endpoint (works with the device-scoped Basic creds).
+        # The repo path makes no live-telemetry call, so query the per-device
+        # endpoints explicitly.  device_id comes from GET /devices/{mac} (accepts
+        # Basic or Bearer); the reported version comes from the latest
+        # SYSTEM_STARTUP event (Bearer only).  Both degrade to "" on failure.
         api_mac = safe_string(registry_entry.get("mac")) or safe_string(version_data.get("mac_address"))
-        device_id = fetch_console_device_id(api_base, api_mac, headers or {})
+        api_headers = headers or {}
+        device_id = fetch_console_device_id(api_base, api_mac, api_headers)
+        reported_version = fetch_latest_startup_version(api_base, api_mac, api_headers)
+        # Effective version: reported (device truth) beats registry.
+        if reported_version:
+            version = reported_version
+            version_source = "reported"
+        else:
+            version = installed_version
+            version_source = "registry" if installed_version else ""
+        version_mismatch = bool(
+            reported_version and installed_version and reported_version != installed_version
+        )
         output.append(
             {
                 "name": safe_string(registry_entry.get("label")) or safe_string(device_meta.get("name")) or humanize_slug(device_dir.name),
                 "mac": mac,
                 "device_id": device_id,
-                "version": installed_version,
+                "version": version,
                 "components": configured_components or extract_components_from_config(config_data),
                 "hardware": hardware,
-                **hardware_capability_fields(registry_entry, hardware, capabilities, installed_version, track.get("latest_version", "")),
-                "reported_version": "",
-                "version_source": "registry" if installed_version else "",
-                "version_mismatch": False,
+                **hardware_capability_fields(registry_entry, hardware, capabilities, version, track.get("latest_version", "")),
+                "reported_version": reported_version,
+                "version_source": version_source,
+                "version_mismatch": version_mismatch,
                 "battery_level": None,
                 "location": entry_value(registry_entry, "location") or safe_string(version_data.get("deployment_location")),
                 "last_deployed": entry_last_firmware_update(registry_entry) or safe_string(version_data.get("deployment_date")),
