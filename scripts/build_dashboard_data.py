@@ -877,7 +877,8 @@ def fetch_device_summary(
         reported_version = extract_startup_version(events)
 
     # Console device UUID (links the OTA pill to the firmware config page).
-    device_id = safe_string(dir_entry.get("id")) or safe_string(device_data.get("id"))
+    # Registry entry's device_id is a manual fallback for devices the API omits.
+    device_id = safe_string(dir_entry.get("id")) or safe_string(device_data.get("id")) or safe_string(entry.get("device_id"))
 
     # --- Version resolution (reported beats registry beats firmware API) ---
     registry_version = entry_version(entry)
@@ -1001,7 +1002,7 @@ def build_failure_device(
     return {
         "name": label or mac,
         "mac": mac,
-        "device_id": "",
+        "device_id": safe_string(entry.get("device_id")),
         "version": registry_version,
         "components": components,
         "hardware": hardware,

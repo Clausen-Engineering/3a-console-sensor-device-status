@@ -4587,13 +4587,13 @@
                   </div>
                   <div class="device-card__section">
                     <h3>Components</h3>
-                    <div class="component-tags">${generateComponentTags(device.components)}</div>
                     <div class="device-card__footer">
-                      <div class="table-subtle">${footerSignal ? escapeHtml(footerSignal) : ""}</div>
+                      <div class="component-tags">${generateComponentTags(device.components)}</div>
                       <button type="button" class="device-card__open" data-device-key="${escapeHtml(device.deviceKey)}">
                         <i class="bi bi-arrow-up-right-circle"></i> Open device room
                       </button>
                     </div>
+                    ${footerSignal ? `<div class="table-subtle" style="margin-top:0.35rem">${escapeHtml(footerSignal)}</div>` : ""}
                   </div>
                 </article>
               </div>

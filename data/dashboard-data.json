@@ -2238,7 +2238,7 @@
         {
           "name": "Sauna Floor Temperature",
           "mac": "68:fe:71:16:86:78",
-          "device_id": "",
+          "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
           "version": "v3.7.2",
           "components": [
             "core",
