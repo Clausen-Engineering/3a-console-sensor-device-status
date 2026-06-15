@@ -596,10 +596,15 @@
 
       .device-card__footer {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 0.75rem;
         margin-top: 0.55rem;
+      }
+
+      .device-card__footer .table-subtle {
+        flex: 1 1 auto;
+        min-width: 0;
       }
 
       .risk-pill {
@@ -2122,6 +2127,11 @@
         color: var(--primary);
         font-weight: 600;
         font-size: 0.88rem;
+      }
+
+      .device-card__open {
+        flex-shrink: 0;
+        white-space: nowrap;
       }
 
       .device-card__open:hover,
