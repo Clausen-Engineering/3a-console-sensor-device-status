@@ -1,5 +1,3 @@
-data\version-changes.json
-
 # Python
 __pycache__/
 *.py[cod]

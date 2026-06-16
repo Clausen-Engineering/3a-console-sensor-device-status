@@ -10,7 +10,7 @@
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.22.1"
+      "description": "Fix console deviceDisplay not applied at boot"
     },
     {
       "version": "v3.22.0",
