@@ -6200,9 +6200,14 @@
         }
         // Check if device version is already at or above the target
         const deviceStatus = getUpdateStatus(device.version, targetVersion, device);
+        // Only genuinely up-to-date devices count as at-or-above target.
+        if (deviceStatus === "Up to date") {
+          return "current";
+        }
         const isBehind = deviceStatus === "Needs update" || deviceStatus === "Patch available";
         if (!isBehind) {
-          return "current";
+          // Unknown / Not deployed / In development — no verifiable version, no known update path.
+          return "unknown";
         }
         // Device is behind — classify by update path
         if (device.otaCapable === true) {
