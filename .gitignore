@@ -3,3 +3,6 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
+
+# Claude Code (per-user local settings)
+.claude/settings.local.json
