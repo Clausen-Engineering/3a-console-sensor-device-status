@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-15 20:51:36",
+  "last_updated": "2026-06-16 03:39:35",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.1",
       "latest_version_label": "v3.22.1",
       "last_commit_date": "2026-06-15 11:40:31",
-      "last_updated": "2026-06-15 20:51:36",
+      "last_updated": "2026-06-16 03:39:35",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -1996,7 +1996,7 @@
           "name": "Emergency Button Monitor",
           "mac": "e0:72:a1:f5:0d:cc",
           "device_id": "691984c5-941e-43c9-bddb-d03dec97b689",
-          "version": "v3.16.6",
+          "version": "v3.22.1",
           "components": [
             "core",
             "digital"
@@ -2005,9 +2005,9 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "v3.16.6",
+          "reported_version": "v3.22.1",
           "version_source": "reported",
-          "version_mismatch": false,
+          "version_mismatch": true,
           "battery_level": null,
           "location": "Landgang ind",
           "last_deployed": "2026-05-16T20:12:00",
@@ -2017,6 +2017,11 @@
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-06-16T01:31:05.803569",
+              "version": "",
+              "version_code": 3220100
+            },
             {
               "date": "2026-05-16T18:12:47.224135",
               "version": "",
@@ -2036,11 +2041,6 @@
               "date": "2026-05-11T06:11:06.531255",
               "version": "",
               "version_code": 3160200
-            },
-            {
-              "date": "2026-05-07T18:10:36.949012",
-              "version": "",
-              "version_code": 3160100
             }
           ],
           "sensor_summary": "Digital emergency button monitor",
@@ -2542,7 +2542,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-15 20:51:36",
+      "last_updated": "2026-06-16 03:39:35",
       "tracks": [
         {
           "id": "heat-controller",
@@ -3781,7 +3781,7 @@
       "name": "Emergency Button Monitor",
       "mac": "e0:72:a1:f5:0d:cc",
       "device_id": "691984c5-941e-43c9-bddb-d03dec97b689",
-      "version": "v3.16.6",
+      "version": "v3.22.1",
       "components": [
         "core",
         "digital"
@@ -3790,9 +3790,9 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "v3.16.6",
+      "reported_version": "v3.22.1",
       "version_source": "reported",
-      "version_mismatch": false,
+      "version_mismatch": true,
       "battery_level": null,
       "location": "Landgang ind",
       "last_deployed": "2026-05-16T20:12:00",
@@ -3802,6 +3802,11 @@
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-06-16T01:31:05.803569",
+          "version": "",
+          "version_code": 3220100
+        },
         {
           "date": "2026-05-16T18:12:47.224135",
           "version": "",
@@ -3821,11 +3826,6 @@
           "date": "2026-05-11T06:11:06.531255",
           "version": "",
           "version_code": 3160200
-        },
-        {
-          "date": "2026-05-07T18:10:36.949012",
-          "version": "",
-          "version_code": 3160100
         }
       ],
       "sensor_summary": "Digital emergency button monitor",
