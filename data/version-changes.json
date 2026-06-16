@@ -1,14 +1,22 @@
 {
-  "latest_version": "v3.22.1",
+  "latest_version": "v3.22.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-06-15 11:40:31",
-  "last_updated": "2026-06-15 22:18:47",
+  "last_commit_date": "2026-06-16 14:37:33",
+  "last_updated": "2026-06-16 12:37:42",
   "version_changes": [
+    {
+      "version": "v3.22.2",
+      "date": "2026-06-16",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.22.2"
+    },
     {
       "version": "v3.22.1",
       "date": "2026-06-15",
       "components": [
-        "core"
+        "virtual"
       ],
       "description": "Fix console deviceDisplay not applied at boot"
     },
