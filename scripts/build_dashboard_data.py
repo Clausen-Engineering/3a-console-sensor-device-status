@@ -580,7 +580,9 @@ def build_repo_device_summaries(
         # SYSTEM_STARTUP event (Bearer only).  Both degrade to "" on failure.
         api_mac = safe_string(registry_entry.get("mac")) or safe_string(version_data.get("mac_address"))
         api_headers = headers or {}
-        device_id = fetch_console_device_id(api_base, api_mac, api_headers)
+        # Live console lookup first; fall back to the registry's manual UUID so
+        # offline devices (no GET /devices/{mac} hit) still get a device_id.
+        device_id = fetch_console_device_id(api_base, api_mac, api_headers) or safe_string(registry_entry.get("device_id"))
         # One events call yields both the reported version and the OTA history.
         events = fetch_device_events(api_base, api_mac, api_headers)
         reported_version = extract_startup_version(events)

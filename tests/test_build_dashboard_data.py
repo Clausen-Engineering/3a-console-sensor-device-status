@@ -301,6 +301,24 @@ class TestRepoDeviceSummariesDeviceId(unittest.TestCase):
                 )
         self.assertEqual(result[0]["device_id"], "")
 
+    def test_device_id_falls_back_to_registry_when_api_unavailable(self) -> None:
+        # API yields nothing (offline device), but the registry carries a manual
+        # UUID -> device_id falls back to it so the console link still resolves.
+        registry = self._registry_map()
+        next(iter(registry.values()))["device_id"] = self.UUID
+
+        def fake_fetch(url: str, headers: dict) -> dict:
+            raise HTTPError(url, 404, "Not Found", {}, None)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._make_repo(tmp)
+            with patch.object(bdd, "fetch_json", side_effect=fake_fetch):
+                result = bdd.build_repo_device_summaries(
+                    repo, _make_track("v3.22.1"), CAPABILITIES, registry,
+                    api_base="https://api.example.com", headers={"Authorization": "Basic x"},
+                )
+        self.assertEqual(result[0]["device_id"], self.UUID)
+
 
 class TestFetchLatestStartupVersion(unittest.TestCase):
     """fetch_latest_startup_version parses the events wrapper and SYSTEM_STARTUP."""
