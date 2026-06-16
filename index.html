@@ -1863,13 +1863,14 @@
       }
 
       .timeline-track {
-        --timeline-rail: rgba(200, 170, 130, 0.22);
-        --timeline-arrow: rgba(212, 160, 66, 0.56);
+        --timeline-curve: rgba(212, 160, 66, 0.46);
         position: relative;
         display: flex;
         flex-direction: column;
         gap: 0;
-        padding: 1rem 0.75rem;
+        /* extra horizontal padding leaves room for the snake U-turns to
+           curve clear of the border with a blank gap */
+        padding: 1rem 2.5rem;
         border-radius: var(--radius-lg);
         border: 1px solid rgba(200, 170, 130, 0.12);
         background: rgba(33, 26, 19, 0.88);
@@ -1889,89 +1890,30 @@
       .timeline-row::before {
         content: "";
         position: absolute;
-        top: calc(0.6rem + 0.375rem);
+        top: calc(0.35rem + 0.375rem);
         left: 0;
         right: 0;
         height: 2px;
-        background: repeating-linear-gradient(
-          90deg,
-          var(--timeline-rail) 0 0.7rem,
-          transparent 0.7rem 1.35rem
-        );
-        opacity: 0.72;
+        background: rgba(200, 170, 130, 0.16);
         z-index: 1;
       }
 
-      .timeline-row::after {
-        content: "";
-        position: absolute;
-        top: calc(0.6rem + 0.375rem - 0.27rem);
-        right: -0.05rem;
-        width: 0.48rem;
-        height: 0.48rem;
-        border-top: 2px solid var(--timeline-arrow);
-        border-right: 2px solid var(--timeline-arrow);
-        transform: rotate(45deg);
-        opacity: 0.82;
-        z-index: 3;
-      }
-
-      .timeline-row.reverse::after {
-        right: auto;
-        left: -0.05rem;
-        transform: rotate(-135deg);
-      }
-
+      /* Vertical spacer between rows; the snake U-turn (drawn as an SVG
+         overlay) curves through this gap. */
       .timeline-bend {
-        height: 2.2rem;
-        margin: -0.25rem 0;
+        height: 1.4rem;
+        margin: -0.2rem 0;
         position: relative;
       }
 
-      .timeline-bend::before {
-        content: "";
+      /* Dashed serpentine connector overlay, drawn from row geometry. */
+      .timeline-snake {
         position: absolute;
         top: 0;
-        bottom: 0;
-        width: 2px;
-        height: 100%;
-        background: repeating-linear-gradient(
-          180deg,
-          var(--timeline-rail) 0 0.46rem,
-          transparent 0.46rem 0.88rem
-        );
-        opacity: 0.72;
-        border-radius: 999px;
-      }
-
-      .timeline-bend.bend-right::before {
-        right: 0;
-      }
-
-      .timeline-bend.bend-left::before {
         left: 0;
-      }
-
-      .timeline-bend::after {
-        content: "";
-        position: absolute;
-        bottom: 0.1rem;
-        width: 0.45rem;
-        height: 0.45rem;
-        border-right: 2px solid var(--timeline-arrow);
-        border-bottom: 2px solid var(--timeline-arrow);
-        opacity: 0.82;
-        z-index: 3;
-      }
-
-      .timeline-bend.bend-right::after {
-        right: -0.18rem;
-        transform: rotate(45deg);
-      }
-
-      .timeline-bend.bend-left::after {
-        left: -0.18rem;
-        transform: rotate(45deg);
+        overflow: visible;
+        pointer-events: none;
+        z-index: 0;
       }
 
       .timeline-node {
@@ -1981,7 +1923,7 @@
         align-items: center;
         flex: 1 1 0;
         min-width: 0;
-        padding: 0.6rem 0.3rem 0.7rem;
+        padding: 0.35rem 0.3rem 0.4rem;
         border: none;
         background: transparent;
         text-align: center;
@@ -4822,6 +4764,93 @@
         bindDeviceDetailTriggers(tbody);
       }
 
+      // Draws the faded dashed serpentine connector over the version
+      // timeline: each solid horizontal row rail is joined to the next by a
+      // tight 180deg dashed U-turn at the alternating row ends, so the path
+      // reads as one continuous snake winding down the releases.
+      function drawTimelineSnake(track) {
+        const SVG_NS = "http://www.w3.org/2000/svg";
+        const rows = Array.from(track.querySelectorAll(".timeline-row"));
+        let svg = track.querySelector(".timeline-snake");
+
+        if (rows.length < 2) {
+          if (svg) svg.remove();
+          return;
+        }
+
+        const trackRect = track.getBoundingClientRect();
+        const width = track.clientWidth;
+        const height = track.clientHeight;
+        if (!width || !height) return; // not laid out yet (hidden tab)
+
+        // Rail vertical center matches .timeline-row::before:
+        // top = (0.35rem + 0.375rem), height 2px -> center = offset + 1px.
+        const rootFont = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+        const railOffset = rootFont * (0.35 + 0.375) + 1;
+
+        // Per-row rail geometry: left/right ends and the rail's vertical center.
+        const geom = rows.map((row) => {
+          const rr = row.getBoundingClientRect();
+          return {
+            left: rr.left - trackRect.left,
+            right: rr.right - trackRect.left,
+            cy: rr.top - trackRect.top + railOffset,
+          };
+        });
+
+        const rx = 16; // horizontal reach of each U-turn (stays inside padding)
+        let d = "";
+        const arrows = [];
+        for (let i = 0; i < geom.length - 1; i++) {
+          const a = geom[i];
+          const b = geom[i + 1];
+          const ry = Math.max(2, (b.cy - a.cy) / 2);
+          // Even rows run left->right and turn at the right edge; odd rows
+          // (reversed) turn at the left edge. sweep flag bulges outward.
+          const midY = (a.cy + b.cy) / 2;
+          if (i % 2 === 0) {
+            d += `M ${a.right} ${a.cy} A ${rx} ${ry} 0 0 1 ${b.right} ${b.cy} `;
+            // arrow at the curve apex (outermost point), pointing down with flow
+            arrows.push(arrowPoints(a.right + rx, midY));
+          } else {
+            d += `M ${a.left} ${a.cy} A ${rx} ${ry} 0 0 0 ${b.left} ${b.cy} `;
+            arrows.push(arrowPoints(a.left - rx, midY));
+          }
+        }
+
+        if (!svg) {
+          svg = document.createElementNS(SVG_NS, "svg");
+          svg.classList.add("timeline-snake");
+          svg.setAttribute("aria-hidden", "true");
+          track.appendChild(svg);
+        }
+        svg.setAttribute("width", width);
+        svg.setAttribute("height", height);
+        svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        const polys = arrows
+          .map((p) => `<polygon points="${p}" fill="var(--timeline-curve)" opacity="0.85" />`)
+          .join("");
+        svg.innerHTML =
+          `<path d="${d}" fill="none" stroke="var(--timeline-curve)" ` +
+          `stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round" ` +
+          `opacity="0.7" />` + polys;
+      }
+
+      // Upward-pointing arrowhead triangle centered at (x, y).
+      function arrowPoints(x, y) {
+        const len = 9;
+        const half = 4.5;
+        return `${x},${y - len * 0.5} ${x - half},${y + len * 0.5} ${x + half},${y + len * 0.5}`;
+      }
+
+      // Redraw the snake when the timeline gains size (tab shown) or resizes.
+      let timelineSnakeObserver = null;
+      function ensureTimelineSnakeObserver(track) {
+        if (timelineSnakeObserver || typeof ResizeObserver === "undefined") return;
+        timelineSnakeObserver = new ResizeObserver(() => drawTimelineSnake(track));
+        timelineSnakeObserver.observe(track);
+      }
+
       function renderVersionHistory() {
         const container = document.getElementById("version-changes-list");
         const popover = document.getElementById("timeline-popover");
@@ -4995,6 +5024,12 @@
         }
 
         container.innerHTML = html;
+
+        // Draw the dashed serpentine connector as an SVG overlay computed
+        // from the rendered row geometry: a 180deg U-turn at alternating
+        // row ends links each solid row rail down to the next.
+        drawTimelineSnake(container);
+        ensureTimelineSnakeObserver(container);
 
         // Hover popover logic
         let hideTimeout = null;
