@@ -1896,8 +1896,8 @@
       }
 
       .timeline-bend {
-        display: flex;
-        height: 1.6rem;
+        height: 1.9rem;
+        margin: -0.15rem 0;
         position: relative;
       }
 
@@ -1905,39 +1905,40 @@
         content: "";
         position: absolute;
         top: 0;
+        bottom: 0;
         width: 2px;
         height: 100%;
         background: rgba(200, 170, 130, 0.16);
+        border-radius: 999px;
       }
 
       .timeline-bend.bend-right::before {
-        right: calc(0.5rem + 50% / var(--cols));
+        right: 0;
       }
 
       .timeline-bend.bend-left::before {
-        left: calc(0.5rem + 50% / var(--cols));
+        left: 0;
       }
 
-      .timeline-bend__chevron {
+      .timeline-bend::after {
+        content: "";
         position: absolute;
-        top: 50%;
-        transform: translate(50%, -50%);
-        font-size: 1.05rem;
-        line-height: 1;
-        color: var(--accent);
-        opacity: 0.65;
-        background: rgba(33, 26, 19, 0.88);
-        border-radius: 999px;
-        z-index: 2;
+        bottom: 0.2rem;
+        width: 0.45rem;
+        height: 0.45rem;
+        border-right: 2px solid rgba(212, 160, 66, 0.58);
+        border-bottom: 2px solid rgba(212, 160, 66, 0.58);
+        z-index: 3;
       }
 
-      .timeline-bend.bend-right .timeline-bend__chevron {
-        right: calc(0.5rem + 50% / var(--cols));
+      .timeline-bend.bend-right::after {
+        right: -0.18rem;
+        transform: rotate(45deg);
       }
 
-      .timeline-bend.bend-left .timeline-bend__chevron {
-        left: calc(0.5rem + 50% / var(--cols));
-        transform: translate(-50%, -50%);
+      .timeline-bend.bend-left::after {
+        left: -0.18rem;
+        transform: rotate(45deg);
       }
 
       .timeline-node {
@@ -4955,7 +4956,7 @@
 
             if (rowIndex < rows.length - 1) {
               const bendSide = isReverse ? "bend-left" : "bend-right";
-              html += `<div class="timeline-bend ${bendSide}"><i class="bi bi-arrow-down-short timeline-bend__chevron"></i></div>`;
+              html += `<div class="timeline-bend ${bendSide}" aria-hidden="true"></div>`;
             }
           });
         }
