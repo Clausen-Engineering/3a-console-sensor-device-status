@@ -36,9 +36,9 @@
           "hardware": "ESP32-S3 DevKit",
           "components": ["digital", "core"],
           "location": "Landgang ind",
-          "last_firmware_update": "2026-05-16T20:12:00",
+          "last_firmware_update": "2026-06-16T01:31:05",
           "first_installed": "2025-08-25",
-          "installed_firmware_version": "v3.16.6",
+          "installed_firmware_version": "v3.22.1",
           "sensor_summary": "Digital emergency button monitor"
         },
         {
