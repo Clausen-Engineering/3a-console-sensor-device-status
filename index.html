@@ -783,6 +783,11 @@
         font-weight: 700;
       }
 
+      /* Top blank space above card title should match the card's left padding */
+      .device-card__title {
+        margin-top: 0;
+      }
+
       .section-heading h2 {
         font-family: "Fraunces", serif;
         font-weight: 600;
@@ -1640,6 +1645,38 @@
         color: #F0D090;
         font-family: "JetBrains Mono", monospace;
         font-size: 0.85rem;
+      }
+
+      /* Green badge when installed version is aligned with the track target */
+      .version-badge.is-up-to-date {
+        background: rgba(93, 200, 150, 0.12);
+        border-color: rgba(93, 200, 150, 0.22);
+        color: #8eedc7;
+      }
+
+      /* Link to the device's page on the 3A console (drawer hero) */
+      .drawer-console-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0 0.7rem;
+        min-height: 1.9rem;
+        border-radius: var(--radius-sm);
+        background: rgba(122, 171, 232, 0.12);
+        border: 1px solid rgba(122, 171, 232, 0.22);
+        color: #aac8f0;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background 0.15s ease, border-color 0.15s ease;
+      }
+
+      .drawer-console-link:hover,
+      .drawer-console-link:focus-visible {
+        background: rgba(122, 171, 232, 0.2);
+        border-color: rgba(122, 171, 232, 0.4);
+        color: #cfe0fa;
       }
 
       /* Amber dot on version badge when reported vs registry values differ */
@@ -3212,6 +3249,7 @@
               </div>
               <div class="device-drawer__hero-side">
                 <span id="device-drawer-status" class="status-pill patch-available">Status</span>
+                <a id="device-drawer-console-link" class="drawer-console-link" target="_blank" rel="noopener" hidden><i class="bi bi-box-arrow-up-right"></i> View on 3A Console</a>
               </div>
             </div>
             <div class="device-drawer__grid">
@@ -4561,8 +4599,11 @@
             // The footer signal restates the version delta for version-gap statuses,
             // which already appears under "Installed version" — drop the duplicate.
             const primarySignal = risk.primarySignal || "";
+            // Up-to-date alignment is now conveyed by the green version badge,
+            // so drop the redundant "Aligned with target." footer line.
             const footerSignal =
-              versionDelta && primarySignal.replace(/\.\s*$/, "").trim() === versionDelta.trim()
+              device.calculatedStatus === "Up to date" ||
+              (versionDelta && primarySignal.replace(/\.\s*$/, "").trim() === versionDelta.trim())
                 ? ""
                 : primarySignal;
             const staggerDelay = Math.min(index * staggerStep, staggerCap);
@@ -5491,6 +5532,16 @@
         statusBadge.className = `status-pill ${STATUS_LABELS[device.calculatedStatus]}`;
         statusBadge.textContent = device.calculatedStatus;
 
+        // Link to the device's page on the 3A console (only when its UUID is known)
+        const consoleLink = document.getElementById("device-drawer-console-link");
+        if (hasValue(device.deviceId)) {
+          consoleLink.href = `${CONSOLE_FIRMWARE_BASE}/${encodeURIComponent(device.deviceId)}`;
+          consoleLink.hidden = false;
+        } else {
+          consoleLink.removeAttribute("href");
+          consoleLink.hidden = true;
+        }
+
         // Version display: show versionDisplay text; if versionMismatch, add amber hint + dot
         document.getElementById("device-drawer-version").textContent = device.versionDisplay || "Unknown";
         const mismatchHint = document.getElementById("device-drawer-version-mismatch");
@@ -6175,7 +6226,8 @@
           const tip = escapeHtml(`Version mismatch — device reports ${device.versionDisplay || "unknown"}, registry says ${device.declaredDeploymentVersion}`);
           return `<span class="version-badge" title="${tip}">${label}<span class="version-mismatch-dot" aria-hidden="true"></span></span>`;
         }
-        return `<span class="version-badge">${label}</span>`;
+        const upToDateClass = device.calculatedStatus === "Up to date" ? " is-up-to-date" : "";
+        return `<span class="version-badge${upToDateClass}">${label}</span>`;
       }
 
       function renderPendingOtaBadge(device) {
