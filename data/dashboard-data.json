@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-16 16:43:11",
+  "last_updated": "2026-06-16 20:45:49",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.2",
       "latest_version_label": "v3.22.2",
       "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-06-16 16:43:11",
+      "last_updated": "2026-06-16 20:45:49",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2573,7 +2573,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-16 16:43:11",
+      "last_updated": "2026-06-16 20:45:49",
       "tracks": [
         {
           "id": "heat-controller",
