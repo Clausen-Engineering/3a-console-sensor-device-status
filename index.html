@@ -1740,6 +1740,38 @@
         font-size: 0.92rem;
       }
 
+      .timeline-intro__right {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-shrink: 0;
+      }
+
+      .timeline-direction {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+        border: 1px solid rgba(200, 170, 130, 0.16);
+        background: rgba(33, 26, 19, 0.6);
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+        cursor: help;
+      }
+
+      .timeline-direction__badge {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .timeline-direction .bi {
+        font-size: 0.9rem;
+        opacity: 0.7;
+      }
+
       .version-migration-panel {
         display: grid;
         gap: 0.85rem;
@@ -1886,6 +1918,28 @@
         left: calc(0.5rem + 50% / var(--cols));
       }
 
+      .timeline-bend__chevron {
+        position: absolute;
+        top: 50%;
+        transform: translate(50%, -50%);
+        font-size: 1.05rem;
+        line-height: 1;
+        color: var(--accent);
+        opacity: 0.65;
+        background: rgba(33, 26, 19, 0.88);
+        border-radius: 999px;
+        z-index: 2;
+      }
+
+      .timeline-bend.bend-right .timeline-bend__chevron {
+        right: calc(0.5rem + 50% / var(--cols));
+      }
+
+      .timeline-bend.bend-left .timeline-bend__chevron {
+        left: calc(0.5rem + 50% / var(--cols));
+        transform: translate(-50%, -50%);
+      }
+
       .timeline-node {
         position: relative;
         display: flex;
@@ -1976,6 +2030,33 @@
         color: #1e6b40;
         font-size: 0.6rem;
         font-weight: 700;
+      }
+
+      .timeline-node__endpoint {
+        position: absolute;
+        top: -0.7rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.08rem 0.45rem;
+        border-radius: 999px;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        z-index: 4;
+      }
+
+      .timeline-node__endpoint.is-latest {
+        color: var(--bg);
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        box-shadow: 0 0 0 2px rgba(158, 27, 31, 0.18);
+      }
+
+      .timeline-node__endpoint.is-oldest {
+        color: var(--muted);
+        background: rgba(33, 26, 19, 0.92);
+        border: 1px solid rgba(200, 170, 130, 0.22);
       }
 
       .timeline-month-marker {
@@ -3205,7 +3286,14 @@
           <div class="surface timeline-shell">
             <div class="timeline-intro">
               <span id="timeline-summary">Loading release timeline...</span>
-              <span id="timeline-count" class="section-badge">0 releases</span>
+              <span class="timeline-intro__right">
+                <span class="timeline-direction" title="Newest release is top-left; the timeline snakes down to the oldest">
+                  <span class="timeline-direction__badge">Newest</span>
+                  <i class="bi bi-arrow-right"></i>
+                  <span class="timeline-direction__label">Oldest</span>
+                </span>
+                <span id="timeline-count" class="section-badge">0 releases</span>
+              </span>
             </div>
             <div class="version-migration-panel">
               <div class="version-migration-panel__head">
@@ -4840,6 +4928,12 @@
                   ? `<span class="timeline-node__in-use-badge" title="${deviceCount} device${deviceCount !== 1 ? "s" : ""} on this version">${deviceCount}</span>`
                   : "";
 
+                const endpointBadge = idx === 0
+                  ? `<span class="timeline-node__endpoint is-latest">Latest</span>`
+                  : idx === totalCount - 1
+                    ? `<span class="timeline-node__endpoint is-oldest">Oldest</span>`
+                    : "";
+
                 html += `
                   <button
                     type="button"
@@ -4848,6 +4942,7 @@
                     style="opacity:${opacity.toFixed(2)}"
                   >
                     <span class="timeline-node__dot"></span>
+                    ${endpointBadge}
                     <span class="timeline-node__version mono">${escapeHtml(version.version || "Unknown")}</span>
                     <span class="timeline-node__date relative-time" title="${escapeHtml(formatAbsoluteDateTime(version.date))}">${escapeHtml(formatTimelineDate(version.date))}</span>
                     <div class="timeline-node__scope">${scopePips}</div>
@@ -4860,7 +4955,7 @@
 
             if (rowIndex < rows.length - 1) {
               const bendSide = isReverse ? "bend-left" : "bend-right";
-              html += `<div class="timeline-bend ${bendSide}"></div>`;
+              html += `<div class="timeline-bend ${bendSide}"><i class="bi bi-arrow-down-short timeline-bend__chevron"></i></div>`;
             }
           });
         }
