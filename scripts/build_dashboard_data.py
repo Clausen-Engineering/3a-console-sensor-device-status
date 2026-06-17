@@ -979,7 +979,10 @@ def fetch_device_summary(
     ota_history = extract_ota_history(events)
 
     # --- Derive pending OTA (Task 2) ---
-    latest_firmware_version = track.get("latest_version", "")
+    # API-derived pending must use the device-scoped firmware endpoint, not the
+    # fleet track target. A track can advance before a firmware is uploaded for
+    # every individual device.
+    latest_firmware_version = api_firmware_version
     api_derived_pending = derive_pending_ota(version, latest_firmware_version, ota_capable)
 
     # Registry fallback: use registry pending if API derivation came up empty.

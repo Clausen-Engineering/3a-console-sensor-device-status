@@ -759,6 +759,7 @@ class TestPendingOtaDerivedWhenLatestFirmwareNewer(unittest.TestCase):
         latest_firmware: str,
         registry_pending: str = "",
         ota_capable_override: bool | None = True,
+        track_latest: str | None = None,
     ) -> dict:
         mac = "aa:bb:cc:dd:ee:ff"
         entry = _make_entry(mac=mac, installed="v3.16.6", pending=registry_pending)
@@ -772,7 +773,7 @@ class TestPendingOtaDerivedWhenLatestFirmwareNewer(unittest.TestCase):
                 "createdAt": "2026-06-13T08:00:00Z",
             },
         }
-        track_map = {"sensor-hub": _make_track(latest_firmware)}
+        track_map = {"sensor-hub": _make_track(track_latest or latest_firmware)}
 
         ota_events = [
             {
@@ -805,6 +806,17 @@ class TestPendingOtaDerivedWhenLatestFirmwareNewer(unittest.TestCase):
         result = self._run_summary("3.16.6", "v3.20.0", ota_capable_override=True)
         self.assertEqual(result["pending_ota_version"], "v3.20.0")
         self.assertEqual(result["pending_ota_source"], "api")
+
+    def test_pending_ota_uses_device_scoped_firmware_not_track_target(self) -> None:
+        result = self._run_summary(
+            "3.22.1",
+            "v3.22.1",
+            ota_capable_override=True,
+            track_latest="v3.22.2",
+        )
+        self.assertEqual(result["version"], "v3.22.1")
+        self.assertEqual(result["target_version"], "v3.22.2")
+        self.assertEqual(result["pending_ota_version"], "")
 
     def test_pending_ota_not_derived_when_not_ota_capable(self) -> None:
         result = self._run_summary("3.16.6", "v3.20.0", ota_capable_override=False)

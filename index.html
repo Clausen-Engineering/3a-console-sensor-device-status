@@ -792,6 +792,7 @@
       /* Align the pill stack to the top of the card, level with the title */
       .device-card__top {
         align-items: flex-start;
+        min-width: 0;
       }
 
       .section-heading h2 {
@@ -2549,6 +2550,8 @@
         display: inline-flex;
         align-items: center;
         gap: 0.35rem;
+        max-width: 100%;
+        min-width: 0;
         min-height: 2rem;
         padding: 0 0.6rem;
         border-radius: var(--radius-sm);
@@ -2558,7 +2561,9 @@
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        white-space: nowrap;
+        line-height: 1.15;
+        white-space: normal;
+        overflow-wrap: anywhere;
         text-decoration: none;
       }
 
@@ -2599,6 +2604,8 @@
         justify-content: flex-end;
         gap: 0.35rem;
         flex-shrink: 0;
+        max-width: 100%;
+        min-width: 0;
       }
 
       .update-plan-grid {
@@ -6407,8 +6414,12 @@
         const created = hasValue(device.pendingOtaCreated)
           ? ` Created ${formatAbsoluteDateTime(device.pendingOtaCreated)}.`
           : "";
-        const title = `OTA firmware ${device.pendingOtaVersion} has been queued, but this dashboard has not marked it as installed yet.${created}`;
-        return `<span class="ota-pill ota-pill--muted" title="${escapeHtml(title)}"><i class="bi bi-cloud-arrow-up"></i>Pending ${escapeHtml(device.pendingOtaVersion)}</span>`;
+        const isApiDerived = device.pendingOtaSource === "api";
+        const title = isApiDerived
+          ? `Device-scoped OTA firmware ${device.pendingOtaVersion} is available and newer than the device-reported version.${created}`
+          : `OTA firmware ${device.pendingOtaVersion} has been queued, but this dashboard has not marked it as installed yet.${created}`;
+        const label = isApiDerived ? "Available" : "Pending";
+        return `<span class="ota-pill ota-pill--muted" title="${escapeHtml(title)}"><i class="bi bi-cloud-arrow-up"></i>${label} ${escapeHtml(device.pendingOtaVersion)}</span>`;
       }
 
       // Classify a single device against an explicit targetVersion string.
