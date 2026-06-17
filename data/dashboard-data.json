@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-17 03:39:04",
+  "last_updated": "2026-06-17 10:14:04",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.2",
       "latest_version_label": "v3.22.2",
       "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-06-17 03:39:04",
+      "last_updated": "2026-06-17 10:14:04",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2037,29 +2037,54 @@
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-06-16T01:31:05.803569",
+              "date": "2026-06-17T01:45:45.873464",
               "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-16T01:45:46.619785",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-16T01:31:05.803569",
+              "version": "v3.22.1",
               "version_code": 3220100
             },
             {
-              "date": "2026-05-16T18:12:47.224135",
+              "date": "2026-06-15T20:45:04.242139",
               "version": "",
-              "version_code": 3160601
+              "version_code": null
             },
             {
-              "date": "2026-05-16T12:12:07.507991",
+              "date": "2026-06-14T20:30:07.555703",
               "version": "",
-              "version_code": 3160501
+              "version_code": null
             },
             {
-              "date": "2026-05-11T18:11:42.108352",
+              "date": "2026-06-13T20:15:09.727564",
               "version": "",
-              "version_code": 3160400
+              "version_code": null
             },
             {
-              "date": "2026-05-11T06:11:06.531255",
+              "date": "2026-06-12T20:00:13.181967",
               "version": "",
-              "version_code": 3160200
+              "version_code": null
+            },
+            {
+              "date": "2026-06-11T19:45:14.877541",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-11T00:41:18.447968",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-10T00:26:20.376345",
+              "version": "",
+              "version_code": null
             }
           ],
           "sensor_summary": "Digital emergency button monitor",
@@ -2083,20 +2108,65 @@
           "hardware_max_firmware": "",
           "reported_version": "v3.22.1",
           "version_source": "reported",
-          "version_mismatch": true,
+          "version_mismatch": false,
           "battery_level": null,
           "location": "Pool house",
-          "last_deployed": "2026-05-01",
+          "last_deployed": "2026-06-16",
           "initial_deployed": "2026-04-30",
-          "declared_deployment_version": "v3.19.0",
+          "declared_deployment_version": "v3.22.1",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-06-16T14:23:14.291659",
+              "date": "2026-06-16T14:37:50.603334",
               "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-16T14:23:14.291659",
+              "version": "v3.22.1",
               "version_code": 3220100
+            },
+            {
+              "date": "2026-06-16T10:22:05.526923",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-15T10:07:05.382952",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-14T09:52:05.081235",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-13T09:37:07.910059",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-12T09:37:04.388163",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-11T09:37:03.937238",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-10T09:37:03.484570",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-09T09:22:03.042898",
+              "version": "",
+              "version_code": null
             }
           ],
           "sensor_summary": "Pool platform movement tracking",
@@ -2261,37 +2331,6 @@
           "target_version": "v3.22.2"
         },
         {
-          "name": "Sauna Floor Temperature",
-          "mac": "68:fe:71:16:86:78",
-          "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-          "version": "v3.7.2",
-          "components": [
-            "core",
-            "onewire"
-          ],
-          "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
-          "ota_capable": true,
-          "hardware_eol": false,
-          "hardware_max_firmware": "",
-          "reported_version": "",
-          "version_source": "registry",
-          "version_mismatch": false,
-          "battery_level": null,
-          "location": "Crawl space",
-          "last_deployed": "2026-03-22",
-          "initial_deployed": "2026-03-22",
-          "declared_deployment_version": "v3.7.2",
-          "pending_ota_version": "",
-          "pending_ota_source": "",
-          "pending_ota_created": "",
-          "ota_history": [],
-          "sensor_summary": "1-Wire floor temperature sensors",
-          "notes": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
-        },
-        {
           "name": "Sauna Power Consumption",
           "mac": "3c:84:27:ae:eb:e0",
           "device_id": "f3c66d29-9b28-4dcb-9ae6-59ba86adc3bf",
@@ -2379,14 +2418,54 @@
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-06-15T10:10:43.530115",
+              "date": "2026-06-16T10:40:25.064686",
               "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-15T10:25:26.167482",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-15T10:10:43.530115",
+              "version": "v3.22.1",
               "version_code": 3220100
             },
             {
-              "date": "2026-06-15T08:14:16.444356",
+              "date": "2026-06-15T08:28:57.498584",
               "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-15T08:14:16.444356",
+              "version": "v3.22.0",
               "version_code": 3220000
+            },
+            {
+              "date": "2026-06-14T10:17:10.041652",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-13T10:02:09.555748",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-12T10:02:09.030619",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-11T20:19:33.333447",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-11T09:33:09.034234",
+              "version": "",
+              "version_code": null
             }
           ],
           "sensor_summary": "Ventilation boost action button",
@@ -2473,20 +2552,65 @@
           "hardware_max_firmware": "",
           "reported_version": "v3.22.1",
           "version_source": "reported",
-          "version_mismatch": true,
+          "version_mismatch": false,
           "battery_level": null,
           "location": "Technician room",
           "last_deployed": "2026-06-16",
           "initial_deployed": "2026-05-29",
-          "declared_deployment_version": "v3.19.0",
+          "declared_deployment_version": "v3.22.1",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-06-16T12:23:10.886153",
+              "date": "2026-06-16T12:37:51.211742",
               "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-16T12:23:10.886153",
+              "version": "v3.22.1",
               "version_code": 3220100
+            },
+            {
+              "date": "2026-06-16T06:52:09.742802",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-15T06:37:10.479747",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-14T20:43:12.255550",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-13T20:28:10.193613",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-12T20:13:11.286869",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-11T20:13:12.815116",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-11T12:05:05.235157",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-10T11:50:05.318681",
+              "version": "",
+              "version_code": null
             }
           ],
           "sensor_summary": "1-Wire water system temperatures with virtual sensors",
@@ -2522,6 +2646,88 @@
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "1-Wire water tank temperatures with virtual sensors",
+          "notes": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.22.2"
+        },
+        {
+          "name": "Sauna Floor Temperature",
+          "mac": "10:20:ba:39:8f:ac",
+          "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
+          "version": "v3.22.1",
+          "components": [
+            "core",
+            "onewire"
+          ],
+          "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+          "ota_capable": true,
+          "hardware_eol": false,
+          "hardware_max_firmware": "",
+          "reported_version": "v3.22.1",
+          "version_source": "reported",
+          "version_mismatch": false,
+          "battery_level": null,
+          "location": "Crawl space",
+          "last_deployed": "2026-06-16",
+          "initial_deployed": "2026-03-22",
+          "declared_deployment_version": "v3.22.1",
+          "pending_ota_version": "v3.22.2",
+          "pending_ota_source": "api",
+          "pending_ota_created": "",
+          "ota_history": [
+            {
+              "date": "2026-06-17T02:13:46.200025",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-16T02:13:43.341581",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-15T20:42:57.080304",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-14T20:27:56.880061",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-13T20:12:56.567372",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-12T19:57:56.537492",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-11T19:57:56.115899",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-11T10:50:20.803256",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-10T10:35:20.856819",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-09T10:35:19.295380",
+              "version": "",
+              "version_code": null
+            }
+          ],
+          "sensor_summary": "1-Wire floor temperature sensors",
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
@@ -2568,7 +2774,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-17 03:39:04",
+      "last_updated": "2026-06-17 10:14:04",
       "tracks": [
         {
           "id": "heat-controller",
@@ -3840,29 +4046,54 @@
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-06-16T01:31:05.803569",
+          "date": "2026-06-17T01:45:45.873464",
           "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-16T01:45:46.619785",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-16T01:31:05.803569",
+          "version": "v3.22.1",
           "version_code": 3220100
         },
         {
-          "date": "2026-05-16T18:12:47.224135",
+          "date": "2026-06-15T20:45:04.242139",
           "version": "",
-          "version_code": 3160601
+          "version_code": null
         },
         {
-          "date": "2026-05-16T12:12:07.507991",
+          "date": "2026-06-14T20:30:07.555703",
           "version": "",
-          "version_code": 3160501
+          "version_code": null
         },
         {
-          "date": "2026-05-11T18:11:42.108352",
+          "date": "2026-06-13T20:15:09.727564",
           "version": "",
-          "version_code": 3160400
+          "version_code": null
         },
         {
-          "date": "2026-05-11T06:11:06.531255",
+          "date": "2026-06-12T20:00:13.181967",
           "version": "",
-          "version_code": 3160200
+          "version_code": null
+        },
+        {
+          "date": "2026-06-11T19:45:14.877541",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-11T00:41:18.447968",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-10T00:26:20.376345",
+          "version": "",
+          "version_code": null
         }
       ],
       "sensor_summary": "Digital emergency button monitor",
@@ -3886,20 +4117,65 @@
       "hardware_max_firmware": "",
       "reported_version": "v3.22.1",
       "version_source": "reported",
-      "version_mismatch": true,
+      "version_mismatch": false,
       "battery_level": null,
       "location": "Pool house",
-      "last_deployed": "2026-05-01",
+      "last_deployed": "2026-06-16",
       "initial_deployed": "2026-04-30",
-      "declared_deployment_version": "v3.19.0",
+      "declared_deployment_version": "v3.22.1",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-06-16T14:23:14.291659",
+          "date": "2026-06-16T14:37:50.603334",
           "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-16T14:23:14.291659",
+          "version": "v3.22.1",
           "version_code": 3220100
+        },
+        {
+          "date": "2026-06-16T10:22:05.526923",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-15T10:07:05.382952",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-14T09:52:05.081235",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-13T09:37:07.910059",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-12T09:37:04.388163",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-11T09:37:03.937238",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-10T09:37:03.484570",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-09T09:22:03.042898",
+          "version": "",
+          "version_code": null
         }
       ],
       "sensor_summary": "Pool platform movement tracking",
@@ -4064,37 +4340,6 @@
       "target_version": "v3.22.2"
     },
     {
-      "name": "Sauna Floor Temperature",
-      "mac": "68:fe:71:16:86:78",
-      "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-      "version": "v3.7.2",
-      "components": [
-        "core",
-        "onewire"
-      ],
-      "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
-      "ota_capable": true,
-      "hardware_eol": false,
-      "hardware_max_firmware": "",
-      "reported_version": "",
-      "version_source": "registry",
-      "version_mismatch": false,
-      "battery_level": null,
-      "location": "Crawl space",
-      "last_deployed": "2026-03-22",
-      "initial_deployed": "2026-03-22",
-      "declared_deployment_version": "v3.7.2",
-      "pending_ota_version": "",
-      "pending_ota_source": "",
-      "pending_ota_created": "",
-      "ota_history": [],
-      "sensor_summary": "1-Wire floor temperature sensors",
-      "notes": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
-    },
-    {
       "name": "Sauna Power Consumption",
       "mac": "3c:84:27:ae:eb:e0",
       "device_id": "f3c66d29-9b28-4dcb-9ae6-59ba86adc3bf",
@@ -4182,14 +4427,54 @@
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-06-15T10:10:43.530115",
+          "date": "2026-06-16T10:40:25.064686",
           "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-15T10:25:26.167482",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-15T10:10:43.530115",
+          "version": "v3.22.1",
           "version_code": 3220100
         },
         {
-          "date": "2026-06-15T08:14:16.444356",
+          "date": "2026-06-15T08:28:57.498584",
           "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-15T08:14:16.444356",
+          "version": "v3.22.0",
           "version_code": 3220000
+        },
+        {
+          "date": "2026-06-14T10:17:10.041652",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-13T10:02:09.555748",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-12T10:02:09.030619",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-11T20:19:33.333447",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-11T09:33:09.034234",
+          "version": "",
+          "version_code": null
         }
       ],
       "sensor_summary": "Ventilation boost action button",
@@ -4276,20 +4561,65 @@
       "hardware_max_firmware": "",
       "reported_version": "v3.22.1",
       "version_source": "reported",
-      "version_mismatch": true,
+      "version_mismatch": false,
       "battery_level": null,
       "location": "Technician room",
       "last_deployed": "2026-06-16",
       "initial_deployed": "2026-05-29",
-      "declared_deployment_version": "v3.19.0",
+      "declared_deployment_version": "v3.22.1",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-06-16T12:23:10.886153",
+          "date": "2026-06-16T12:37:51.211742",
           "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-16T12:23:10.886153",
+          "version": "v3.22.1",
           "version_code": 3220100
+        },
+        {
+          "date": "2026-06-16T06:52:09.742802",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-15T06:37:10.479747",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-14T20:43:12.255550",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-13T20:28:10.193613",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-12T20:13:11.286869",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-11T20:13:12.815116",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-11T12:05:05.235157",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-10T11:50:05.318681",
+          "version": "",
+          "version_code": null
         }
       ],
       "sensor_summary": "1-Wire water system temperatures with virtual sensors",
@@ -4325,6 +4655,88 @@
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "1-Wire water tank temperatures with virtual sensors",
+      "notes": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.22.2"
+    },
+    {
+      "name": "Sauna Floor Temperature",
+      "mac": "10:20:ba:39:8f:ac",
+      "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
+      "version": "v3.22.1",
+      "components": [
+        "core",
+        "onewire"
+      ],
+      "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+      "ota_capable": true,
+      "hardware_eol": false,
+      "hardware_max_firmware": "",
+      "reported_version": "v3.22.1",
+      "version_source": "reported",
+      "version_mismatch": false,
+      "battery_level": null,
+      "location": "Crawl space",
+      "last_deployed": "2026-06-16",
+      "initial_deployed": "2026-03-22",
+      "declared_deployment_version": "v3.22.1",
+      "pending_ota_version": "v3.22.2",
+      "pending_ota_source": "api",
+      "pending_ota_created": "",
+      "ota_history": [
+        {
+          "date": "2026-06-17T02:13:46.200025",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-16T02:13:43.341581",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-15T20:42:57.080304",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-14T20:27:56.880061",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-13T20:12:56.567372",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-12T19:57:56.537492",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-11T19:57:56.115899",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-11T10:50:20.803256",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-10T10:35:20.856819",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-09T10:35:19.295380",
+          "version": "",
+          "version_code": null
+        }
+      ],
+      "sensor_summary": "1-Wire floor temperature sensors",
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
