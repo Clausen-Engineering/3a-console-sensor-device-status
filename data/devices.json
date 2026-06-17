@@ -2,17 +2,40 @@
   "default_section": "sensor-hub",
   "hardware_capabilities": {
     "_note": "OTA needs both firmware and hardware: 'ota_min_firmware' is the first firmware release with an OTA client that builds for this board (absent = no release ever shipped OTA for it). 'max_firmware' is the highest release the board can run (absent = supported by the latest line; v3.0.0 dropped C3/WROOM-32/Feather Reverse, v3.6.0 dropped Feather TFT). Per-device 'ota_override' on a device entry wins over the derived value.",
-    "Sensor hub v1.2 / Adafruit TFT Feather Reverse": { "max_firmware": "v2.16.1" },
-    "Sensor hub v1.3 / ESP32-WROOM-32E dev board": { "max_firmware": "v2.16.1" },
-    "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16": { "ota_min_firmware": "v3.4.0" },
-    "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16": { "ota_min_firmware": "v3.4.0" },
-    "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8": { "ota_min_firmware": "v3.4.0" },
-    "ESP32-S3 / Sensor hub 1.5": { "ota_min_firmware": "v3.4.0" },
-    "ESP32-S3 DevKit": { "ota_min_firmware": "v3.4.0" },
-    "GPIO breakout board / ESP32-C3 Super Mini": { "max_firmware": "v2.16.1" },
-    "ESP32-C3 Super Mini (no sensor board)": { "max_firmware": "v2.16.1" },
-    "Adafruit Feather ESP32-S3 TFT": { "ota_min_firmware": "v3.4.0", "max_firmware": "v3.5.2" },
-    "ESP32-C3 DevKitM-1": { "max_firmware": "v2.16.1" },
+    "Sensor hub v1.2 / Adafruit TFT Feather Reverse": {
+      "max_firmware": "v2.16.1"
+    },
+    "Sensor hub v1.3 / ESP32-WROOM-32E dev board": {
+      "max_firmware": "v2.16.1"
+    },
+    "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16": {
+      "ota_min_firmware": "v3.4.0"
+    },
+    "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16": {
+      "ota_min_firmware": "v3.4.0"
+    },
+    "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8": {
+      "ota_min_firmware": "v3.4.0"
+    },
+    "ESP32-S3 / Sensor hub 1.5": {
+      "ota_min_firmware": "v3.4.0"
+    },
+    "ESP32-S3 DevKit": {
+      "ota_min_firmware": "v3.4.0"
+    },
+    "GPIO breakout board / ESP32-C3 Super Mini": {
+      "max_firmware": "v2.16.1"
+    },
+    "ESP32-C3 Super Mini (no sensor board)": {
+      "max_firmware": "v2.16.1"
+    },
+    "Adafruit Feather ESP32-S3 TFT": {
+      "ota_min_firmware": "v3.4.0",
+      "max_firmware": "v3.5.2"
+    },
+    "ESP32-C3 DevKitM-1": {
+      "max_firmware": "v2.16.1"
+    },
     "Unknown": {}
   },
   "sections": [
@@ -34,11 +57,14 @@
           "label": "Emergency Button Monitor",
           "track": "sensor-hub",
           "hardware": "ESP32-S3 DevKit",
-          "components": ["digital", "core"],
+          "components": [
+            "digital",
+            "core"
+          ],
           "location": "Landgang ind",
-          "last_firmware_update": "2026-06-16T01:31:05",
+          "last_firmware_update": "2026-06-17",
           "first_installed": "2025-08-25",
-          "installed_firmware_version": "v3.22.1",
+          "installed_firmware_version": "v3.22.2",
           "sensor_summary": "Digital emergency button monitor"
         },
         {
@@ -46,7 +72,10 @@
           "label": "Floating Platform Motion",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
-          "components": ["lsm9ds1_motion", "core"],
+          "components": [
+            "lsm9ds1_motion",
+            "core"
+          ],
           "location": "Pool house",
           "last_firmware_update": "2026-06-16",
           "first_installed": "2026-04-30",
@@ -58,7 +87,10 @@
           "label": "Lounge Floor Temperature",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
-          "components": ["modbus", "core"],
+          "components": [
+            "modbus",
+            "core"
+          ],
           "location": "Lounge",
           "first_installed": "2025-12-19",
           "installed_firmware_version": "",
@@ -69,7 +101,10 @@
           "label": "Main Power In",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
-          "components": ["modbus", "core"],
+          "components": [
+            "modbus",
+            "core"
+          ],
           "location": "Cleaning basement",
           "last_firmware_update": "2025-08-21",
           "first_installed": "2025-03-18",
@@ -81,7 +116,10 @@
           "label": "MOG Tank Water Sensor",
           "track": "sensor-hub",
           "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
-          "components": ["digital", "core"],
+          "components": [
+            "digital",
+            "core"
+          ],
           "location": "Crawl space",
           "last_firmware_update": "2025-05-14",
           "first_installed": "2025-03-28",
@@ -93,7 +131,10 @@
           "label": "Hallway CO2 Pressure",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
-          "components": ["analog", "core"],
+          "components": [
+            "analog",
+            "core"
+          ],
           "location": "Hallway",
           "first_installed": "2026-02-03",
           "installed_firmware_version": "",
@@ -104,7 +145,10 @@
           "label": "Lounge CO2 Pressure",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
-          "components": ["analog", "core"],
+          "components": [
+            "analog",
+            "core"
+          ],
           "location": "Lounge",
           "first_installed": "2025-10-08",
           "installed_firmware_version": "",
@@ -115,12 +159,15 @@
           "label": "Sauna Floor Temperature",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
-          "components": ["onewire", "core"],
+          "components": [
+            "onewire",
+            "core"
+          ],
           "location": "Crawl space",
           "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-          "last_firmware_update": "2026-06-16",
+          "last_firmware_update": "2026-06-17",
           "first_installed": "2026-03-22",
-          "installed_firmware_version": "v3.22.1",
+          "installed_firmware_version": "v3.22.2",
           "sensor_summary": "1-Wire floor temperature sensors"
         },
         {
@@ -128,7 +175,10 @@
           "label": "Sauna Power Consumption",
           "track": "sensor-hub",
           "hardware": "GPIO breakout board / ESP32-C3 Super Mini",
-          "components": ["modbus", "core"],
+          "components": [
+            "modbus",
+            "core"
+          ],
           "location": "Basement (left side) - Rear electrical box",
           "last_firmware_update": "2025-08-21",
           "first_installed": "2025-03-18",
@@ -140,7 +190,10 @@
           "label": "Sauna Temperature and Humidity",
           "track": "sensor-hub",
           "hardware": "ESP32-C3 Super Mini (no sensor board)",
-          "components": ["modbus", "core"],
+          "components": [
+            "modbus",
+            "core"
+          ],
           "location": "Basement (left side) - On top of box next to fridge",
           "last_firmware_update": "2025-08-21",
           "first_installed": "2025-03-18",
@@ -152,7 +205,10 @@
           "label": "Ventilation Boost Button",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
-          "components": ["action_button", "core"],
+          "components": [
+            "action_button",
+            "core"
+          ],
           "location": "Under lounge table",
           "last_firmware_update": "2026-06-15",
           "first_installed": "2026-05-04",
@@ -164,7 +220,10 @@
           "label": "Water Heater Power",
           "track": "sensor-hub",
           "hardware": "Unknown",
-          "components": ["modbus", "core"],
+          "components": [
+            "modbus",
+            "core"
+          ],
           "location": "Technician room",
           "installed_firmware_version": "",
           "sensor_summary": "Modbus water heater power monitoring"
@@ -174,7 +233,10 @@
           "label": "Water Heater Power Consumption",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.2 / Adafruit TFT Feather Reverse",
-          "components": ["modbus", "core"],
+          "components": [
+            "modbus",
+            "core"
+          ],
           "location": "Technician room - Inside electrical box next to power meter for heaters",
           "last_firmware_update": "2025-08-21",
           "first_installed": "2025-03-18",
@@ -186,7 +248,10 @@
           "label": "Water Meter",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
-          "components": ["digital", "core"],
+          "components": [
+            "digital",
+            "core"
+          ],
           "location": "Technician room",
           "first_installed": "2025-12-08",
           "installed_firmware_version": "",
@@ -197,11 +262,15 @@
           "label": "Water System Temperatures",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
-          "components": ["onewire", "virtual", "core"],
+          "components": [
+            "onewire",
+            "virtual",
+            "core"
+          ],
           "location": "Technician room",
-          "last_firmware_update": "2026-06-16",
+          "last_firmware_update": "2026-06-17",
           "first_installed": "2026-05-29",
-          "installed_firmware_version": "v3.22.1",
+          "installed_firmware_version": "v3.22.2",
           "sensor_summary": "1-Wire water system temperatures with virtual sensors"
         },
         {
@@ -209,7 +278,11 @@
           "label": "Water Tank Temperatures",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
-          "components": ["onewire", "virtual", "core"],
+          "components": [
+            "onewire",
+            "virtual",
+            "core"
+          ],
           "location": "Technician room",
           "last_firmware_update": "2025-12-02",
           "first_installed": "2025-03-28",
@@ -243,7 +316,11 @@
           "track": "heat-controller",
           "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16",
           "ota_override": true,
-          "components": ["control", "heat", "cooling"],
+          "components": [
+            "control",
+            "heat",
+            "cooling"
+          ],
           "location": "Technician room",
           "last_firmware_update": "2026-06-12",
           "first_installed": "2026-06-12",
@@ -255,7 +332,11 @@
           "label": "Glaecier #1 Sauna/roof humidity controller",
           "track": "humidity-controller",
           "hardware": "ESP32-C3 DevKitM-1",
-          "components": ["control", "humidity", "ventilation"],
+          "components": [
+            "control",
+            "humidity",
+            "ventilation"
+          ],
           "location": "Next to sauna ovens",
           "installed_firmware_version": "",
           "sensor_summary": "Sauna/roof humidity and ventilation controller"

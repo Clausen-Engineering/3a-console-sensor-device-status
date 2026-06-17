@@ -468,6 +468,70 @@ class TestRepoDeviceSummariesReportedVersion(unittest.TestCase):
         self.assertEqual(dev["reported_version"], "")
         self.assertFalse(dev["version_mismatch"])
 
+    def test_pending_ota_derived_from_console_firmware_record(self) -> None:
+        """Repo path derives pending from /firmwares/latest, not registry pending."""
+        events = {
+            "events": [
+                {
+                    "createdAt": "2026-06-15T10:10:48",
+                    "eventType": {"code": 100, "name": "SYSTEM_STARTUP"},
+                    "data": {"firmwareVersion": "3.16.4"},
+                }
+            ]
+        }
+
+        def fake_fetch(url: str, headers: dict):
+            if url.endswith("/events"):
+                return events
+            if "/firmwares/latest" in url:
+                return {"version": "3.20.0"}  # console has a newer build for this device
+            if url.endswith("/devices/" + bdd.quote(self.MAC, safe="")):
+                return {"id": self.UUID, "macAddress": self.MAC}
+            raise HTTPError(url, 404, "Not Found", {}, None)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._make_repo(tmp)
+            with patch.object(bdd, "fetch_json", side_effect=fake_fetch):
+                result = bdd.build_repo_device_summaries(
+                    repo, _make_track("v3.22.1"), CAPABILITIES, self._registry_map(),
+                    api_base="https://api.example.com", headers={"Authorization": "Bearer x"},
+                )
+        dev = result[0]
+        self.assertEqual(dev["pending_ota_version"], "v3.20.0")
+        self.assertEqual(dev["pending_ota_source"], "api")
+
+    def test_pending_cleared_once_device_reports_target(self) -> None:
+        """No pending when the device already reports the console's latest build."""
+        events = {
+            "events": [
+                {
+                    "createdAt": "2026-06-15T10:10:48",
+                    "eventType": {"code": 100, "name": "SYSTEM_STARTUP"},
+                    "data": {"firmwareVersion": "3.20.0"},
+                }
+            ]
+        }
+
+        def fake_fetch(url: str, headers: dict):
+            if url.endswith("/events"):
+                return events
+            if "/firmwares/latest" in url:
+                return {"version": "3.20.0"}
+            if url.endswith("/devices/" + bdd.quote(self.MAC, safe="")):
+                return {"id": self.UUID, "macAddress": self.MAC}
+            raise HTTPError(url, 404, "Not Found", {}, None)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._make_repo(tmp)
+            with patch.object(bdd, "fetch_json", side_effect=fake_fetch):
+                result = bdd.build_repo_device_summaries(
+                    repo, _make_track("v3.22.1"), CAPABILITIES, self._registry_map(),
+                    api_base="https://api.example.com", headers={"Authorization": "Bearer x"},
+                )
+        dev = result[0]
+        self.assertEqual(dev["pending_ota_version"], "")
+        self.assertEqual(dev["pending_ota_source"], "")
+
 
 class TestDeviceListFetchFallback(unittest.TestCase):
     """When directory fetch fails, per-device /logs/latest is tried."""
@@ -823,8 +887,12 @@ class TestPendingOtaDerivedWhenLatestFirmwareNewer(unittest.TestCase):
         # ota_capable=False → no derived pending
         self.assertEqual(result["pending_ota_version"], "")
 
-    def test_pending_ota_registry_fallback_when_events_unavailable(self) -> None:
-        """When events endpoint is 401, fall back to registry pending_ota_version."""
+    def test_registry_pending_is_ignored_console_is_sole_source(self) -> None:
+        """Registry pending_ota is no longer a source: console firmware record only.
+
+        Even with a stale registry pending and no API firmware record (404),
+        pending must resolve to empty rather than echo the registry value.
+        """
         mac = "aa:bb:cc:dd:ee:ff"
         entry = _make_entry(mac=mac, installed="v3.16.6", pending="v3.18.0")
         entry["ota_override"] = True
@@ -857,9 +925,9 @@ class TestPendingOtaDerivedWhenLatestFirmwareNewer(unittest.TestCase):
                 directory_entry=dir_entry,
             )
 
-        # latest == reported → API derive_pending_ota returns "" → fall back to registry
-        self.assertEqual(result["pending_ota_version"], "v3.18.0")
-        self.assertEqual(result["pending_ota_source"], "registry")
+        # No console firmware record + registry pending ignored → empty.
+        self.assertEqual(result["pending_ota_version"], "")
+        self.assertEqual(result["pending_ota_source"], "")
 
     def test_pending_cleared_when_reported_version_already_at_pending(self) -> None:
         """Device already received the OTA → pending cleared."""
@@ -911,6 +979,107 @@ class TestOtaHistoryInDeviceSummary(unittest.TestCase):
         self.assertIn("ota_history", result)
         self.assertEqual(len(result["ota_history"]), 1)
         self.assertEqual(result["ota_history"][0]["version"], "v3.16.6")
+
+
+class TestReconcileRegistryFromTelemetry(unittest.TestCase):
+    """reconcile_registry_from_telemetry advances installed version from telemetry."""
+
+    def _registry(self, **overrides) -> dict:
+        entry = {
+            "mac": "AA:BB:CC:DD:EE:FF",
+            "label": "Test Device",
+            "track": "sensor-hub",
+            "installed_firmware_version": "v3.22.1",
+            "last_firmware_update": "2026-06-16",
+        }
+        entry.update(overrides)
+        return {"sections": [{"id": "sensor-hub", "devices": [entry]}]}
+
+    def _output(self, **overrides) -> list[dict]:
+        device = {
+            "mac": "AA:BB:CC:DD:EE:FF",
+            "reported_version": "v3.22.2",
+            "version_source": "reported",
+            "version_mismatch": True,
+            "declared_deployment_version": "v3.22.1",
+            "last_deployed": "2026-06-16",
+            "pending_ota_version": "",
+            "pending_ota_source": "",
+            "pending_ota_created": "",
+            "ota_history": [{"date": "2026-06-17T12:05:00.000Z", "version": "v3.22.2"}],
+        }
+        device.update(overrides)
+        return [{"id": "sensor-hub", "devices": [device]}]
+
+    def test_advances_installed_version_and_stamps_ota_date(self) -> None:
+        registry = self._registry()
+        output = self._output()
+        changed = bdd.reconcile_registry_from_telemetry(registry, output, "2026-06-18")
+        self.assertTrue(changed)
+        entry = registry["sections"][0]["devices"][0]
+        self.assertEqual(entry["installed_firmware_version"], "v3.22.2")
+        # Date taken from the matching OTA-completed event, not `today`.
+        self.assertEqual(entry["last_firmware_update"], "2026-06-17")
+        # Output patched so this run is immediately consistent.
+        self.assertFalse(output[0]["devices"][0]["version_mismatch"])
+        self.assertEqual(output[0]["devices"][0]["declared_deployment_version"], "v3.22.2")
+
+    def test_falls_back_to_today_without_ota_event(self) -> None:
+        registry = self._registry()
+        output = self._output(ota_history=[])
+        changed = bdd.reconcile_registry_from_telemetry(registry, output, "2026-06-18")
+        self.assertTrue(changed)
+        self.assertEqual(
+            registry["sections"][0]["devices"][0]["last_firmware_update"], "2026-06-18"
+        )
+
+    def test_drops_obsolete_pending_fields(self) -> None:
+        registry = self._registry(
+            pending_ota_version="v3.22.2", pending_ota_created="2026-06-17T12:02:22.000Z"
+        )
+        changed = bdd.reconcile_registry_from_telemetry(registry, self._output(), "2026-06-18")
+        self.assertTrue(changed)
+        entry = registry["sections"][0]["devices"][0]
+        self.assertNotIn("pending_ota_version", entry)
+        self.assertNotIn("pending_ota_created", entry)
+
+    def test_clears_stale_pending_when_already_in_sync(self) -> None:
+        registry = self._registry(
+            installed_firmware_version="v3.22.2",
+            pending_ota_version="v3.22.2",
+            pending_ota_created="2026-06-17T12:02:22.000Z",
+        )
+        output = self._output(declared_deployment_version="v3.22.2", version_mismatch=False)
+        changed = bdd.reconcile_registry_from_telemetry(registry, output, "2026-06-18")
+        self.assertTrue(changed)
+        entry = registry["sections"][0]["devices"][0]
+        self.assertEqual(entry["installed_firmware_version"], "v3.22.2")
+        self.assertNotIn("pending_ota_version", entry)
+
+    def test_no_change_when_registry_already_matches_and_no_pending(self) -> None:
+        registry = self._registry(installed_firmware_version="v3.22.2")
+        output = self._output(declared_deployment_version="v3.22.2", version_mismatch=False)
+        changed = bdd.reconcile_registry_from_telemetry(registry, output, "2026-06-18")
+        self.assertFalse(changed)
+
+    def test_ignores_non_reported_version_source(self) -> None:
+        registry = self._registry()
+        # Version came from registry/firmware-API echo, not the device itself.
+        output = self._output(version_source="registry")
+        changed = bdd.reconcile_registry_from_telemetry(registry, output, "2026-06-18")
+        self.assertFalse(changed)
+        self.assertEqual(
+            registry["sections"][0]["devices"][0]["installed_firmware_version"], "v3.22.1"
+        )
+
+    def test_never_downgrades_when_device_reports_older(self) -> None:
+        registry = self._registry(installed_firmware_version="v3.22.5")
+        output = self._output(reported_version="v3.22.2")
+        changed = bdd.reconcile_registry_from_telemetry(registry, output, "2026-06-18")
+        self.assertFalse(changed)
+        self.assertEqual(
+            registry["sections"][0]["devices"][0]["installed_firmware_version"], "v3.22.5"
+        )
 
 
 if __name__ == "__main__":

@@ -407,10 +407,6 @@ def entry_version(entry: dict[str, Any]) -> str:
     )
 
 
-def entry_version_field(entry: dict[str, Any], *field_names: str) -> str:
-    return normalize_version(entry_value(entry, *field_names))
-
-
 def entry_last_firmware_update(entry: dict[str, Any]) -> str:
     return entry_value(entry, "last_firmware_update", "last_deployed", "deployment_date")
 
@@ -593,6 +589,27 @@ def fetch_latest_startup_version(api_base: str, mac: str, headers: dict[str, str
     return extract_startup_version(fetch_device_events(api_base, mac, headers))
 
 
+def fetch_latest_firmware_version(api_base: str, mac: str, headers: dict[str, str]) -> str:
+    """Newest firmware version uploaded to the console for this device.
+
+    Reads GET /firmwares/latest?deviceMac={mac}. This is the device-scoped OTA
+    target the console will push next; comparing it to the reported version is
+    how pending OTA is derived. Returns "" on any failure (auth/404/network).
+    """
+    if not api_base or not mac:
+        return ""
+    url = f"{api_base}/firmwares/latest?deviceMac={quote(mac, safe='')}"
+    try:
+        data = fetch_json(url, headers)
+    except HTTPError as error:
+        if error.code not in (401, 403, 404):
+            raise
+        return ""
+    except URLError:
+        return ""
+    return normalize_version(data.get("version")) if isinstance(data, dict) else ""
+
+
 def build_repo_device_summaries(
     repo_path: Path,
     track: dict[str, Any],
@@ -629,7 +646,6 @@ def build_repo_device_summaries(
         configured_components = extract_components(registry_entry, registry_entry) if registry_entry else []
         installed_version = entry_version(registry_entry) or choose_repo_device_version(version_data)
 
-        registry_pending = entry_version_field(registry_entry, "pending_ota_version", "pendingOtaVersion")
         # The repo path makes no live-telemetry call, so query the per-device
         # endpoints explicitly.  device_id comes from GET /devices/{mac} (accepts
         # Basic or Bearer); the reported version comes from the latest
@@ -653,6 +669,16 @@ def build_repo_device_summaries(
         version_mismatch = bool(
             reported_version and installed_version and reported_version != installed_version
         )
+        # Pending OTA from the console firmware record (device-scoped), mirroring
+        # the live-API path. The registry no longer stores pending — the console
+        # is the single source of truth for what will be pushed next.
+        hw_cap_fields = hardware_capability_fields(
+            registry_entry, hardware, capabilities, version, track.get("latest_version", "")
+        )
+        latest_firmware_version = fetch_latest_firmware_version(api_base, api_mac, api_headers)
+        api_derived_pending = derive_pending_ota(
+            version, latest_firmware_version, hw_cap_fields.get("ota_capable")
+        )
         output.append(
             {
                 "name": safe_string(registry_entry.get("label")) or safe_string(device_meta.get("name")) or humanize_slug(device_dir.name),
@@ -661,7 +687,7 @@ def build_repo_device_summaries(
                 "version": version,
                 "components": configured_components or extract_components_from_config(config_data),
                 "hardware": hardware,
-                **hardware_capability_fields(registry_entry, hardware, capabilities, version, track.get("latest_version", "")),
+                **hw_cap_fields,
                 "reported_version": reported_version,
                 "version_source": version_source,
                 "version_mismatch": version_mismatch,
@@ -670,9 +696,9 @@ def build_repo_device_summaries(
                 "last_deployed": entry_last_firmware_update(registry_entry) or safe_string(version_data.get("deployment_date")),
                 "initial_deployed": entry_first_installed(registry_entry) or safe_string(version_data.get("initial_deployment_date")),
                 "declared_deployment_version": installed_version,
-                "pending_ota_version": registry_pending,
-                "pending_ota_source": "registry" if registry_pending else "",
-                "pending_ota_created": entry_value(registry_entry, "pending_ota_created", "pendingOtaCreated"),
+                "pending_ota_version": api_derived_pending,
+                "pending_ota_source": "api" if api_derived_pending else "",
+                "pending_ota_created": "",
                 "ota_history": ota_history,
                 "sensor_summary": entry_value(registry_entry, "sensor_summary") or safe_string(version_data.get("sensor_summary")),
                 "notes": entry_value(registry_entry, "notes") or safe_string(version_data.get("notes")),
@@ -979,35 +1005,15 @@ def fetch_device_summary(
     ota_history = extract_ota_history(events)
 
     # --- Derive pending OTA (Task 2) ---
-    # API-derived pending must use the device-scoped firmware endpoint, not the
-    # fleet track target. A track can advance before a firmware is uploaded for
-    # every individual device.
+    # The console firmware record (device-scoped) is the single source of truth
+    # for what gets pushed next, not the fleet track target: a track can advance
+    # before a firmware is uploaded for every individual device. derive_pending_ota
+    # already returns "" once the device has caught up (reported >= latest).
     latest_firmware_version = api_firmware_version
     api_derived_pending = derive_pending_ota(version, latest_firmware_version, ota_capable)
-
-    # Registry fallback: use registry pending if API derivation came up empty.
-    registry_pending = entry_version_field(entry, "pending_ota_version", "pendingOtaVersion")
-
     if api_derived_pending:
-        # Clear if device has already received this update.
-        reported_t = version_tuple(version)
-        pending_t = version_tuple(api_derived_pending)
-        if reported_t is not None and pending_t is not None and reported_t >= pending_t:
-            pending_ota_version = ""
-            pending_ota_source = ""
-        else:
-            pending_ota_version = api_derived_pending
-            pending_ota_source = "api"
-    elif registry_pending:
-        # Clear registry pending if device is already at or above it.
-        reported_t = version_tuple(version)
-        pending_t = version_tuple(registry_pending)
-        if reported_t is not None and pending_t is not None and reported_t >= pending_t:
-            pending_ota_version = ""
-            pending_ota_source = ""
-        else:
-            pending_ota_version = registry_pending
-            pending_ota_source = "registry"
+        pending_ota_version = api_derived_pending
+        pending_ota_source = "api"
     else:
         pending_ota_version = ""
         pending_ota_source = ""
@@ -1030,7 +1036,7 @@ def fetch_device_summary(
         "declared_deployment_version": registry_version,
         "pending_ota_version": pending_ota_version,
         "pending_ota_source": pending_ota_source,
-        "pending_ota_created": entry_value(entry, "pending_ota_created", "pendingOtaCreated"),
+        "pending_ota_created": "",
         "ota_history": ota_history,
         "sensor_summary": safe_string(entry.get("sensor_summary")),
         "notes": safe_string(entry.get("notes")),
@@ -1038,6 +1044,96 @@ def fetch_device_summary(
         "track_label": track.get("label", track_id),
         "target_version": track.get("latest_version", ""),
     }
+
+
+def _ota_completion_date(device: dict[str, Any], version: str) -> str:
+    """Date of the OTA-completed event matching `version` (date part), or ""."""
+    target = version_tuple(version)
+    if target is None:
+        return ""
+    for record in device.get("ota_history", []) or []:
+        if not isinstance(record, dict):
+            continue
+        if version_tuple(normalize_version(record.get("version"))) == target:
+            date = safe_string(record.get("date"))
+            if date:
+                return date.split("T")[0]
+    return ""
+
+
+def _drop_pending_fields(entry: dict[str, Any]) -> bool:
+    """Remove obsolete registry pending_ota_* fields. Returns True if any removed."""
+    removed = False
+    for field in ("pending_ota_version", "pending_ota_created"):
+        if field in entry:
+            del entry[field]
+            removed = True
+    return removed
+
+
+def reconcile_registry_from_telemetry(
+    device_registry: dict[str, Any],
+    output_sections: list[dict[str, Any]],
+    today: str,
+) -> bool:
+    """Advance registry installed version to match confirmed device telemetry.
+
+    Devices report their running firmware via the API; that is the source of
+    truth. When a device reports a version newer than the registry's recorded
+    installed_firmware_version, the OTA (or cable) update has landed: update the
+    registry, stamp last_firmware_update from the matching OTA-completed event
+    (else today), and drop any now-obsolete pending_ota_* fields. The current
+    run's output device is patched in place so the dashboard is immediately
+    consistent (no stale version_mismatch for one cycle). Returns True when the
+    registry changed (caller persists devices.json).
+    """
+    output_by_mac: dict[str, dict[str, Any]] = {}
+    for section in output_sections:
+        for device in section.get("devices", []) or []:
+            if isinstance(device, dict):
+                mac = normalize_mac(device.get("mac"))
+                if mac:
+                    output_by_mac[mac] = device
+
+    changed = False
+    for section in device_registry.get("sections", []) or []:
+        if not isinstance(section, dict):
+            continue
+        for entry in section.get("devices", []) or []:
+            if not isinstance(entry, dict):
+                continue
+            device = output_by_mac.get(normalize_mac(entry.get("mac")))
+            if not device:
+                continue
+            reported = normalize_version(device.get("reported_version"))
+            reported_t = version_tuple(reported)
+            # Only trust device-reported telemetry, not registry/firmware-API echoes.
+            if not reported or reported_t is None or device.get("version_source") != "reported":
+                continue
+            installed_t = version_tuple(entry_version(entry))
+
+            # Registry already at/ahead of the device: leave manual data alone,
+            # but clear any pending the device has already surpassed.
+            if installed_t is not None and reported_t <= installed_t:
+                if _drop_pending_fields(entry):
+                    changed = True
+                continue
+
+            # Device is running a newer build than the registry records: catch up.
+            entry["installed_firmware_version"] = reported
+            entry["last_firmware_update"] = _ota_completion_date(device, reported) or today
+            _drop_pending_fields(entry)
+            changed = True
+
+            # Keep this run's output consistent with the reconciled registry.
+            device["declared_deployment_version"] = reported
+            device["version_mismatch"] = False
+            device["last_deployed"] = entry["last_firmware_update"]
+            device["pending_ota_version"] = ""
+            device["pending_ota_source"] = ""
+            device["pending_ota_created"] = ""
+
+    return changed
 
 
 def build_failure_device(
@@ -1076,9 +1172,11 @@ def build_failure_device(
         "last_deployed": entry_last_firmware_update(entry),
         "initial_deployed": entry_first_installed(entry),
         "declared_deployment_version": registry_version,
-        "pending_ota_version": entry_version_field(entry, "pending_ota_version", "pendingOtaVersion"),
-        "pending_ota_source": "registry" if entry_version_field(entry, "pending_ota_version", "pendingOtaVersion") else "",
-        "pending_ota_created": entry_value(entry, "pending_ota_created", "pendingOtaCreated"),
+        # Offline/unreachable device: no telemetry and no console firmware read,
+        # so pending OTA is unknowable here. Surface as empty rather than guess.
+        "pending_ota_version": "",
+        "pending_ota_source": "",
+        "pending_ota_created": "",
         "ota_history": [],
         "sensor_summary": safe_string(entry.get("sensor_summary")),
         "notes": safe_string(entry.get("notes")),
@@ -1290,6 +1388,12 @@ def main() -> int:
         print("No dashboard sections were produced", file=sys.stderr)
         return 1
 
+    # Catch the registry up to confirmed device telemetry before emitting output,
+    # so a completed OTA does not leave a permanent version_mismatch.
+    registry_changed = reconcile_registry_from_telemetry(
+        device_registry, output_sections, datetime.now(timezone.utc).date().isoformat()
+    )
+
     default_section_data = next(
         (section for section in output_sections if section["id"] == default_section),
         output_sections[0],
@@ -1310,6 +1414,9 @@ def main() -> int:
 
     OUTPUT_PATH.write_text(json.dumps(output, indent=2), encoding="utf-8")
     print(f"Wrote {OUTPUT_PATH}")
+    if registry_changed:
+        DEVICES_PATH.write_text(json.dumps(device_registry, indent=2) + "\n", encoding="utf-8")
+        print(f"Reconciled device registry {DEVICES_PATH}")
     upsert_version_history_snapshot(output_sections, datetime.now(timezone.utc).date().isoformat())
 
     if failures:
