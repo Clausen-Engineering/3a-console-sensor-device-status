@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-17 16:12:11",
+  "last_updated": "2026-06-17 20:07:58",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.2",
       "latest_version_label": "v3.22.2",
       "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-06-17 16:12:11",
+      "last_updated": "2026-06-17 20:07:58",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2026,7 +2026,7 @@
           "hardware_max_firmware": "",
           "reported_version": "v3.22.2",
           "version_source": "reported",
-          "version_mismatch": true,
+          "version_mismatch": false,
           "battery_level": null,
           "location": "Landgang ind",
           "last_deployed": "2026-06-17",
@@ -2418,6 +2418,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-17T16:26:05.341685",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-17T16:11:22.702830",
               "version": "v3.22.2",
               "version_code": 3220200
@@ -2459,11 +2464,6 @@
             },
             {
               "date": "2026-06-13T10:02:09.555748",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-12T10:02:09.030619",
               "version": "",
               "version_code": null
             }
@@ -2552,7 +2552,7 @@
           "hardware_max_firmware": "",
           "reported_version": "v3.22.2",
           "version_source": "reported",
-          "version_mismatch": true,
+          "version_mismatch": false,
           "battery_level": null,
           "location": "Technician room",
           "last_deployed": "2026-06-17",
@@ -2666,7 +2666,7 @@
           "hardware_max_firmware": "",
           "reported_version": "v3.22.2",
           "version_source": "reported",
-          "version_mismatch": true,
+          "version_mismatch": false,
           "battery_level": null,
           "location": "Crawl space",
           "last_deployed": "2026-06-17",
@@ -2774,7 +2774,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-17 16:12:11",
+      "last_updated": "2026-06-17 20:07:58",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4035,7 +4035,7 @@
       "hardware_max_firmware": "",
       "reported_version": "v3.22.2",
       "version_source": "reported",
-      "version_mismatch": true,
+      "version_mismatch": false,
       "battery_level": null,
       "location": "Landgang ind",
       "last_deployed": "2026-06-17",
@@ -4427,6 +4427,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-17T16:26:05.341685",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-17T16:11:22.702830",
           "version": "v3.22.2",
           "version_code": 3220200
@@ -4468,11 +4473,6 @@
         },
         {
           "date": "2026-06-13T10:02:09.555748",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-12T10:02:09.030619",
           "version": "",
           "version_code": null
         }
@@ -4561,7 +4561,7 @@
       "hardware_max_firmware": "",
       "reported_version": "v3.22.2",
       "version_source": "reported",
-      "version_mismatch": true,
+      "version_mismatch": false,
       "battery_level": null,
       "location": "Technician room",
       "last_deployed": "2026-06-17",
@@ -4675,7 +4675,7 @@
       "hardware_max_firmware": "",
       "reported_version": "v3.22.2",
       "version_source": "reported",
-      "version_mismatch": true,
+      "version_mismatch": false,
       "battery_level": null,
       "location": "Crawl space",
       "last_deployed": "2026-06-17",
