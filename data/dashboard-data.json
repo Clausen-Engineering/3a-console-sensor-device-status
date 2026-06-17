@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-16 20:45:49",
+  "last_updated": "2026-06-17 03:39:04",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.2",
       "latest_version_label": "v3.22.2",
       "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-06-16 20:45:49",
+      "last_updated": "2026-06-17 03:39:04",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2387,11 +2387,6 @@
               "date": "2026-06-15T08:14:16.444356",
               "version": "",
               "version_code": 3220000
-            },
-            {
-              "date": "2026-05-11T18:10:05.188426",
-              "version": "",
-              "version_code": 3160400
             }
           ],
           "sensor_summary": "Ventilation boost action button",
@@ -2573,7 +2568,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-16 20:45:49",
+      "last_updated": "2026-06-17 03:39:04",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4195,11 +4190,6 @@
           "date": "2026-06-15T08:14:16.444356",
           "version": "",
           "version_code": 3220000
-        },
-        {
-          "date": "2026-05-11T18:10:05.188426",
-          "version": "",
-          "version_code": 3160400
         }
       ],
       "sensor_summary": "Ventilation boost action button",
