@@ -43,7 +43,7 @@ Environment variables for scripts:
 1. **Live Telemetry (every 6 hours):** GitHub Actions → `scripts/build_dashboard_data.py`
    - Fetches device list from `GET /devices?limit=500` (device-reported version, battery_level)
    - Falls back to per-device `GET /devices/{mac}/logs/latest` if list fetch fails
-   - Fetches OTA history from `GET /devices/{mac}/events` and filters client-side for code 119 (successful OTA updates)
+   - Fetches OTA history from `GET /devices/{mac}/events` and filters client-side for OTA-completed events (current API code 117; older fixtures used 119)
    - Merges with `data/devices.json` registry (fallback for offline/unknown devices)
    - Outputs `data/dashboard-data.json` with per-device telemetry, capabilities, and version state
 
@@ -91,7 +91,7 @@ Base: `https://monitoring-api.3aentreprise.com`
 **Device telemetry:**
 - `GET /devices?limit=500` — device list with lastLog (firmwareVersion, createdAt, batteryLevel), isOnline, lastReportedAt
 - `GET /devices/{mac}/logs/latest` — latest log for one device (fallback if list fails)
-- `GET /devices/{mac}/events` — event history (returns `{events: [...]}` or a bare list; Bearer token required, rejects Basic). Filtered client-side: code 119 = OTA Update Completed, SYSTEM_STARTUP = reported version
+- `GET /devices/{mac}/events` — event history (returns `{events: [...]}` or a bare list; Bearer token required, rejects Basic). Filtered client-side: OTA Update Completed = OTA history, System Startup = reported version
 
 **Firmware management:**
 - `GET /firmwares/latest?deviceMac={mac}` — latest available firmware for device

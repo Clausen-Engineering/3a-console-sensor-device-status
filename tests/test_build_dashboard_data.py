@@ -62,6 +62,15 @@ CAPABILITIES: dict = {
 class TestBuildAuth(unittest.TestCase):
     """build_auth() tries POST /auth/token; falls back to Basic on failure."""
 
+    def test_env_bearer_token_wins(self) -> None:
+        with (
+            patch.dict("os.environ", {"MONITORING_API_BEARER_TOKEN": "jwt-direct"}, clear=True),
+            patch.object(bdd, "post_form") as mock_post,
+        ):
+            headers = bdd.build_auth("https://api.example.com")
+        mock_post.assert_not_called()
+        self.assertEqual(headers.get("Authorization"), "Bearer jwt-direct")
+
     def test_returns_bearer_on_success(self) -> None:
         with (
             patch.dict("os.environ", {"API_USERNAME": "user", "API_PASSWORD": "pass"}),
@@ -348,6 +357,20 @@ class TestFetchLatestStartupVersion(unittest.TestCase):
             v = bdd.fetch_latest_startup_version("https://api", "3C:0F:02:C7:EB:90", {})
         self.assertEqual(v, "v3.22.1")
 
+    def test_uses_ota_completed_version_code_when_firmware_version_missing(self) -> None:
+        events = {
+            "events": [
+                {
+                    "createdAt": "2026-06-16T12:23:10",
+                    "eventType": {"code": 117, "name": "OTA Update Completed"},
+                    "data": {"versionCode": 3220100},
+                }
+            ]
+        }
+        with patch.object(bdd, "fetch_json", return_value=events):
+            v = bdd.fetch_latest_startup_version("https://api", "3C:0F:02:C7:BC:48", {})
+        self.assertEqual(v, "v3.22.1")
+
     def test_returns_empty_when_no_startup_events(self) -> None:
         events = {"events": [{"createdAt": "x", "eventType": {"code": 117}, "data": {}}]}
         with patch.object(bdd, "fetch_json", return_value=events):
@@ -604,7 +627,7 @@ class TestBuildFailureDeviceNewFields(unittest.TestCase):
 
 
 class TestOtaHistoryExtraction(unittest.TestCase):
-    """fetch_ota_history keeps only code-119, newest first, max 10."""
+    """fetch_ota_history keeps OTA-completed events, newest first, max 10."""
 
     def _make_event(self, code: int, date: str, version: str, version_code: int, use_nested: bool = False) -> dict:
         if use_nested:
@@ -619,10 +642,10 @@ class TestOtaHistoryExtraction(unittest.TestCase):
             "data": {"firmwareVersion": version, "newVersionCode": version_code},
         }
 
-    def test_filters_to_code_119_only(self) -> None:
+    def test_filters_to_ota_completed_events_only(self) -> None:
         events = [
             self._make_event(100, "2026-05-01T00:00:00Z", "3.16.0", 3160000),
-            self._make_event(119, "2026-05-16T20:12:00Z", "3.16.6", 3160600),
+            self._make_event(117, "2026-05-16T20:12:00Z", "3.16.6", 3160600),
             self._make_event(200, "2026-05-17T00:00:00Z", "3.16.6", 3160600),
         ]
         with patch.object(bdd, "fetch_json", return_value=events):
@@ -633,7 +656,7 @@ class TestOtaHistoryExtraction(unittest.TestCase):
 
     def test_handles_nested_event_type_code(self) -> None:
         events = [
-            self._make_event(119, "2026-05-16T20:12:00Z", "3.16.6", 3160600, use_nested=True),
+            self._make_event(117, "2026-05-16T20:12:00Z", "3.16.6", 3160600, use_nested=True),
         ]
         with patch.object(bdd, "fetch_json", return_value=events):
             result = bdd.fetch_ota_history("https://api.example.com", "aa:bb:cc:dd:ee:ff", {})
@@ -641,16 +664,31 @@ class TestOtaHistoryExtraction(unittest.TestCase):
 
     def test_handles_events_wrapper(self) -> None:
         # Real API shape: {"events": [...]} with the version under "data".
-        wrapper = {"events": [self._make_event(119, "2026-05-16T20:12:00Z", "3.16.6", 3160600, use_nested=True)]}
+        wrapper = {"events": [self._make_event(117, "2026-05-16T20:12:00Z", "3.16.6", 3160600, use_nested=True)]}
         with patch.object(bdd, "fetch_json", return_value=wrapper):
             result = bdd.fetch_ota_history("https://api.example.com", "aa:bb:cc:dd:ee:ff", {})
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]["version"], "v3.16.6")
         self.assertEqual(result[0]["version_code"], 3160600)
 
+    def test_uses_version_code_when_ota_event_lacks_firmware_version(self) -> None:
+        wrapper = {
+            "events": [
+                {
+                    "eventType": {"code": 117, "name": "OTA Update Completed"},
+                    "createdAt": "2026-06-16T20:12:00Z",
+                    "data": {"versionCode": 3220100},
+                }
+            ]
+        }
+        with patch.object(bdd, "fetch_json", return_value=wrapper):
+            result = bdd.fetch_ota_history("https://api.example.com", "aa:bb:cc:dd:ee:ff", {})
+        self.assertEqual(result[0]["version"], "v3.22.1")
+        self.assertEqual(result[0]["version_code"], 3220100)
+
     def test_newest_first_max_10(self) -> None:
         events = [
-            self._make_event(119, f"2026-0{(i % 9) + 1}-{(i % 28) + 1:02d}T00:00:00Z", f"3.{i}.0", i * 10000)
+            self._make_event(117, f"2026-0{(i % 9) + 1}-{(i % 28) + 1:02d}T00:00:00Z", f"3.{i}.0", i * 10000)
             for i in range(1, 15)  # 14 events
         ]
         with patch.object(bdd, "fetch_json", return_value=events):

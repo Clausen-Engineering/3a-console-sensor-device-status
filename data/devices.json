@@ -48,9 +48,9 @@
           "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
           "components": ["lsm9ds1_motion", "core"],
           "location": "Pool house",
-          "last_firmware_update": "2026-05-01",
+          "last_firmware_update": "2026-06-16",
           "first_installed": "2026-04-30",
-          "installed_firmware_version": "v3.19.0",
+          "installed_firmware_version": "v3.22.1",
           "sensor_summary": "Pool platform movement tracking"
         },
         {
@@ -111,16 +111,16 @@
           "sensor_summary": "Analog 4-20mA CO2 tank pressure sensor"
         },
         {
-          "mac": "68:FE:71:16:86:78",
+          "mac": "10:20:BA:39:8F:AC",
           "label": "Sauna Floor Temperature",
           "track": "sensor-hub",
           "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
           "components": ["onewire", "core"],
           "location": "Crawl space",
           "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-          "last_firmware_update": "2026-03-22",
+          "last_firmware_update": "2026-06-16",
           "first_installed": "2026-03-22",
-          "installed_firmware_version": "v3.7.2",
+          "installed_firmware_version": "v3.22.1",
           "sensor_summary": "1-Wire floor temperature sensors"
         },
         {
@@ -199,8 +199,9 @@
           "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
           "components": ["onewire", "virtual", "core"],
           "location": "Technician room",
+          "last_firmware_update": "2026-06-16",
           "first_installed": "2026-05-29",
-          "installed_firmware_version": "v3.19.0",
+          "installed_firmware_version": "v3.22.1",
           "sensor_summary": "1-Wire water system temperatures with virtual sensors"
         },
         {

@@ -94,15 +94,20 @@ def post_form(url: str, fields: dict[str, str], headers: dict[str, str]) -> Any:
 def build_auth(api_base: str) -> dict[str, str]:
     """Return auth headers, preferring Bearer JWT; falls back to Basic.
 
-    Tries POST {api_base}/auth/token with form fields username/password from
-    env API_USERNAME/API_PASSWORD.  On any failure returns the same Basic-auth
-    headers that build_headers() would produce (or an empty dict when no
-    credentials are configured).
+    Uses env MONITORING_API_BEARER_TOKEN when provided. Otherwise tries POST
+    {api_base}/auth/token with form fields username/password from env
+    API_USERNAME/API_PASSWORD. On any failure returns the same Basic-auth headers
+    that build_headers() would produce (or an empty dict when no credentials are
+    configured).
     """
     base_headers: dict[str, str] = {
         "Accept": "application/json",
         "User-Agent": "3a-console-sensor-device-status-builder/2.0",
     }
+    bearer_token = os.getenv("MONITORING_API_BEARER_TOKEN", "").strip()
+    if bearer_token:
+        return {**base_headers, "Authorization": f"Bearer {bearer_token.removeprefix('Bearer ').strip()}"}
+
     username = os.getenv("API_USERNAME", "").strip()
     password = os.getenv("API_PASSWORD", "").strip()
     if not username or not password:
@@ -177,21 +182,33 @@ def _event_code(event: dict[str, Any]) -> Any:
     return event.get("code")
 
 
-def extract_ota_history(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Code-119 (OTA_UPDATE_COMPLETED) events, newest-first, max 10.
+def _event_name(event: dict[str, Any]) -> str:
+    event_type = event.get("eventType")
+    raw_name = event_type.get("name") if isinstance(event_type, dict) else event.get("name")
+    return safe_string(raw_name).replace("_", " ").lower()
 
-    The version payload lives under event["data"].
+
+def is_ota_completed_event(event: dict[str, Any]) -> bool:
+    return _event_code(event) in (117, 119) or _event_name(event) == "ota update completed"
+
+
+def extract_ota_history(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """OTA_UPDATE_COMPLETED events, newest-first, max 10.
+
+    The API currently reports code 117; older docs/test fixtures used 119.
+    Version payloads live under event["data"] when provided.
     """
     ota_events: list[dict[str, Any]] = []
     for event in events:
-        if not isinstance(event, dict) or _event_code(event) != 119:
+        if not isinstance(event, dict) or not is_ota_completed_event(event):
             continue
         data = event.get("data") or {}
+        version_code = event_version_code(data)
         ota_events.append(
             {
                 "date": safe_string(event.get("createdAt")),
-                "version": normalize_version(safe_string(data.get("firmwareVersion"))),
-                "version_code": data.get("newVersionCode"),
+                "version": event_firmware_version(data),
+                "version_code": version_code,
             }
         )
     # Sort newest-first by date string (ISO-8601 sorts lexicographically).
@@ -200,19 +217,21 @@ def extract_ota_history(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def extract_startup_version(events: list[dict[str, Any]]) -> str:
-    """Firmware version from the newest SYSTEM_STARTUP event (eventType code 100).
+    """Firmware version from the newest firmware-bearing event.
 
-    SYSTEM_STARTUP fires after both OTA and cable updates; the version lives at
-    event["data"]["firmwareVersion"].  Returns "" when no such event is present.
+    SYSTEM_STARTUP fires after both OTA and cable updates. Some OTA-related
+    events carry only a version code, so use that as a fallback when the direct
+    firmwareVersion field is absent.
     """
     candidates: list[tuple[str, str]] = []
     for event in events:
         if not isinstance(event, dict):
             continue
-        event_type = event.get("eventType") if isinstance(event.get("eventType"), dict) else {}
-        if _event_code(event) != 100 and event_type.get("name") != "SYSTEM_STARTUP":
+        code = _event_code(event)
+        name = _event_name(event)
+        if code != 100 and name != "system startup" and not is_ota_completed_event(event):
             continue
-        version = safe_string((event.get("data") or {}).get("firmwareVersion"))
+        version = event_firmware_version(event.get("data") or {})
         if version:
             candidates.append((safe_string(event.get("createdAt")), version))
     if not candidates:
@@ -222,8 +241,45 @@ def extract_startup_version(events: list[dict[str, Any]]) -> str:
     return normalize_version(candidates[0][1])
 
 
+def event_firmware_version(data: Any) -> str:
+    if not isinstance(data, dict):
+        return ""
+    direct = normalize_version(safe_string(data.get("firmwareVersion")))
+    if direct:
+        return direct
+    for field in ("newVersionCode", "versionCode", "availableVersionCode"):
+        version = version_code_to_version(data.get(field))
+        if version:
+            return version
+    return ""
+
+
+def event_version_code(data: Any) -> Any:
+    if not isinstance(data, dict):
+        return None
+    for field in ("newVersionCode", "versionCode", "availableVersionCode"):
+        if data.get(field) is not None:
+            return data.get(field)
+    return None
+
+
+def version_code_to_version(raw_code: Any) -> str:
+    try:
+        code = int(raw_code)
+    except (TypeError, ValueError):
+        return ""
+    if code <= 0:
+        return ""
+    major = code // 1_000_000
+    minor = (code % 1_000_000) // 10_000
+    patch = (code % 10_000) // 100
+    if major <= 0:
+        return ""
+    return f"v{major}.{minor}.{patch}"
+
+
 def fetch_ota_history(api_base: str, mac: str, headers: dict[str, str]) -> list[dict[str, Any]]:
-    """OTA history (code-119 events) for a device, newest-first, max 10."""
+    """OTA history for a device, newest-first, max 10."""
     return extract_ota_history(fetch_device_events(api_base, mac, headers))
 
 
