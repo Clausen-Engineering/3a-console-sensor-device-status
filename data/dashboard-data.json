@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-17 10:48:21",
+  "last_updated": "2026-06-17 14:20:26",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.2",
       "latest_version_label": "v3.22.2",
       "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-06-17 10:48:21",
+      "last_updated": "2026-06-17 14:20:26",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2015,7 +2015,7 @@
           "name": "Emergency Button Monitor",
           "mac": "e0:72:a1:f5:0d:cc",
           "device_id": "691984c5-941e-43c9-bddb-d03dec97b689",
-          "version": "v3.22.1",
+          "version": "v3.22.2",
           "components": [
             "core",
             "digital"
@@ -2024,9 +2024,9 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "v3.22.1",
+          "reported_version": "v3.22.2",
           "version_source": "reported",
-          "version_mismatch": false,
+          "version_mismatch": true,
           "battery_level": null,
           "location": "Landgang ind",
           "last_deployed": "2026-06-16T01:31:05",
@@ -2036,6 +2036,16 @@
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-06-17T13:46:48.547220",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-17T13:32:07.645389",
+              "version": "v3.22.2",
+              "version_code": 3220200
+            },
             {
               "date": "2026-06-17T01:45:45.873464",
               "version": "",
@@ -2073,16 +2083,6 @@
             },
             {
               "date": "2026-06-11T19:45:14.877541",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-11T00:41:18.447968",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-10T00:26:20.376345",
               "version": "",
               "version_code": null
             }
@@ -2240,7 +2240,7 @@
         {
           "name": "MOG Tank Water Sensor",
           "mac": "18:8b:0e:2f:d6:a0",
-          "device_id": "5a30dc05-bc96-4213-9a2e-c6562dc016f2",
+          "device_id": "",
           "version": "v2.2.0",
           "components": [
             "core",
@@ -2540,7 +2540,7 @@
           "name": "Water System Temperatures",
           "mac": "3c:0f:02:c7:bc:48",
           "device_id": "2399e27e-f9ef-487f-99e0-47f49f53e377",
-          "version": "v3.22.1",
+          "version": "v3.22.2",
           "components": [
             "core",
             "onewire",
@@ -2550,9 +2550,9 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "v3.22.1",
+          "reported_version": "v3.22.2",
           "version_source": "reported",
-          "version_mismatch": false,
+          "version_mismatch": true,
           "battery_level": null,
           "location": "Technician room",
           "last_deployed": "2026-06-16",
@@ -2562,6 +2562,16 @@
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-06-17T12:38:45.267466",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-17T12:24:04.847127",
+              "version": "v3.22.2",
+              "version_code": 3220200
+            },
             {
               "date": "2026-06-16T12:37:51.211742",
               "version": "",
@@ -2599,16 +2609,6 @@
             },
             {
               "date": "2026-06-11T20:13:12.815116",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-11T12:05:05.235157",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-10T11:50:05.318681",
               "version": "",
               "version_code": null
             }
@@ -2655,7 +2655,7 @@
           "name": "Sauna Floor Temperature",
           "mac": "10:20:ba:39:8f:ac",
           "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-          "version": "v3.22.1",
+          "version": "v3.22.2",
           "components": [
             "core",
             "onewire"
@@ -2664,9 +2664,9 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "v3.22.1",
+          "reported_version": "v3.22.2",
           "version_source": "reported",
-          "version_mismatch": false,
+          "version_mismatch": true,
           "battery_level": null,
           "location": "Crawl space",
           "last_deployed": "2026-06-16",
@@ -2676,6 +2676,16 @@
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-06-17T14:14:23.487901",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-17T13:59:36.096019",
+              "version": "v3.22.2",
+              "version_code": 3220200
+            },
             {
               "date": "2026-06-17T02:13:46.200025",
               "version": "",
@@ -2713,16 +2723,6 @@
             },
             {
               "date": "2026-06-11T10:50:20.803256",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-10T10:35:20.856819",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-09T10:35:19.295380",
               "version": "",
               "version_code": null
             }
@@ -2774,7 +2774,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-17 10:48:21",
+      "last_updated": "2026-06-17 14:20:26",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4024,7 +4024,7 @@
       "name": "Emergency Button Monitor",
       "mac": "e0:72:a1:f5:0d:cc",
       "device_id": "691984c5-941e-43c9-bddb-d03dec97b689",
-      "version": "v3.22.1",
+      "version": "v3.22.2",
       "components": [
         "core",
         "digital"
@@ -4033,9 +4033,9 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "v3.22.1",
+      "reported_version": "v3.22.2",
       "version_source": "reported",
-      "version_mismatch": false,
+      "version_mismatch": true,
       "battery_level": null,
       "location": "Landgang ind",
       "last_deployed": "2026-06-16T01:31:05",
@@ -4045,6 +4045,16 @@
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-06-17T13:46:48.547220",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-17T13:32:07.645389",
+          "version": "v3.22.2",
+          "version_code": 3220200
+        },
         {
           "date": "2026-06-17T01:45:45.873464",
           "version": "",
@@ -4082,16 +4092,6 @@
         },
         {
           "date": "2026-06-11T19:45:14.877541",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-11T00:41:18.447968",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-10T00:26:20.376345",
           "version": "",
           "version_code": null
         }
@@ -4249,7 +4249,7 @@
     {
       "name": "MOG Tank Water Sensor",
       "mac": "18:8b:0e:2f:d6:a0",
-      "device_id": "5a30dc05-bc96-4213-9a2e-c6562dc016f2",
+      "device_id": "",
       "version": "v2.2.0",
       "components": [
         "core",
@@ -4549,7 +4549,7 @@
       "name": "Water System Temperatures",
       "mac": "3c:0f:02:c7:bc:48",
       "device_id": "2399e27e-f9ef-487f-99e0-47f49f53e377",
-      "version": "v3.22.1",
+      "version": "v3.22.2",
       "components": [
         "core",
         "onewire",
@@ -4559,9 +4559,9 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "v3.22.1",
+      "reported_version": "v3.22.2",
       "version_source": "reported",
-      "version_mismatch": false,
+      "version_mismatch": true,
       "battery_level": null,
       "location": "Technician room",
       "last_deployed": "2026-06-16",
@@ -4571,6 +4571,16 @@
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-06-17T12:38:45.267466",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-17T12:24:04.847127",
+          "version": "v3.22.2",
+          "version_code": 3220200
+        },
         {
           "date": "2026-06-16T12:37:51.211742",
           "version": "",
@@ -4608,16 +4618,6 @@
         },
         {
           "date": "2026-06-11T20:13:12.815116",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-11T12:05:05.235157",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-10T11:50:05.318681",
           "version": "",
           "version_code": null
         }
@@ -4664,7 +4664,7 @@
       "name": "Sauna Floor Temperature",
       "mac": "10:20:ba:39:8f:ac",
       "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-      "version": "v3.22.1",
+      "version": "v3.22.2",
       "components": [
         "core",
         "onewire"
@@ -4673,9 +4673,9 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "v3.22.1",
+      "reported_version": "v3.22.2",
       "version_source": "reported",
-      "version_mismatch": false,
+      "version_mismatch": true,
       "battery_level": null,
       "location": "Crawl space",
       "last_deployed": "2026-06-16",
@@ -4685,6 +4685,16 @@
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-06-17T14:14:23.487901",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-17T13:59:36.096019",
+          "version": "v3.22.2",
+          "version_code": 3220200
+        },
         {
           "date": "2026-06-17T02:13:46.200025",
           "version": "",
@@ -4722,16 +4732,6 @@
         },
         {
           "date": "2026-06-11T10:50:20.803256",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-10T10:35:20.856819",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-09T10:35:19.295380",
           "version": "",
           "version_code": null
         }
