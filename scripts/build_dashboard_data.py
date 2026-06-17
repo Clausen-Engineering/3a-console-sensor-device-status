@@ -94,7 +94,8 @@ def post_form(url: str, fields: dict[str, str], headers: dict[str, str]) -> Any:
 def build_auth(api_base: str) -> dict[str, str]:
     """Return auth headers, preferring Bearer JWT; falls back to Basic.
 
-    Uses env MONITORING_API_BEARER_TOKEN when provided. Otherwise tries POST
+    Uses env MONITORING_API_BEARER_TOKEN (or API_BEARER_TOKEN) when provided.
+    Otherwise tries POST
     {api_base}/auth/token with form fields username/password from env
     API_USERNAME/API_PASSWORD. On any failure returns the same Basic-auth headers
     that build_headers() would produce (or an empty dict when no credentials are
@@ -104,7 +105,10 @@ def build_auth(api_base: str) -> dict[str, str]:
         "Accept": "application/json",
         "User-Agent": "3a-console-sensor-device-status-builder/2.0",
     }
-    bearer_token = os.getenv("MONITORING_API_BEARER_TOKEN", "").strip()
+    bearer_token = (
+        os.getenv("MONITORING_API_BEARER_TOKEN", "").strip()
+        or os.getenv("API_BEARER_TOKEN", "").strip()
+    )
     if bearer_token:
         return {**base_headers, "Authorization": f"Bearer {bearer_token.removeprefix('Bearer ').strip()}"}
 
