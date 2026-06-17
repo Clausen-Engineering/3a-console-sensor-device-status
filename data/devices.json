@@ -210,9 +210,9 @@
             "core"
           ],
           "location": "Under lounge table",
-          "last_firmware_update": "2026-06-15",
+          "last_firmware_update": "2026-06-17",
           "first_installed": "2026-05-04",
-          "installed_firmware_version": "v3.22.1",
+          "installed_firmware_version": "v3.22.2",
           "sensor_summary": "Ventilation boost action button"
         },
         {
