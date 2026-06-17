@@ -65,8 +65,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--last-firmware-update")
     parser.add_argument("--first-installed-if-empty")
     parser.add_argument("--location")
-    parser.add_argument("--pending-ota-version")
-    parser.add_argument("--pending-ota-created")
     parser.add_argument("--clear-pending-ota", action="store_true")
     return parser.parse_args()
 
@@ -98,10 +96,6 @@ def main() -> int:
     if args.clear_pending_ota:
         device.pop("pending_ota_version", None)
         device.pop("pending_ota_created", None)
-    elif safe_string(args.pending_ota_version):
-        device["pending_ota_version"] = normalize_version(args.pending_ota_version)
-        if safe_string(args.pending_ota_created):
-            device["pending_ota_created"] = safe_string(args.pending_ota_created)
 
     prune_empty_optional_fields(device)
 

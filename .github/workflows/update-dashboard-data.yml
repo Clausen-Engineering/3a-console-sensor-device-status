@@ -42,7 +42,11 @@ jobs:
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git add data/dashboard-data.json data/version-history.json
+          # devices.json is included so the registry reconciliation in
+          # build_dashboard_data.py (installed version advanced from confirmed
+          # device telemetry) persists across runs instead of being re-derived
+          # and discarded every cycle.
+          git add data/dashboard-data.json data/version-history.json data/devices.json
           if git diff --cached --quiet; then
             echo "No dashboard data changes to commit."
             exit 0
