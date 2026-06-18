@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-18 10:15:07",
+  "last_updated": "2026-06-18 14:58:44",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.2",
       "latest_version_label": "v3.22.2",
       "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-06-18 10:15:07",
+      "last_updated": "2026-06-18 14:58:44",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2037,6 +2037,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-18T14:30:14.944848",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-17T13:46:48.547220",
               "version": "",
               "version_code": null
@@ -2080,11 +2085,6 @@
               "date": "2026-06-12T20:00:13.181967",
               "version": "",
               "version_code": null
-            },
-            {
-              "date": "2026-06-11T19:45:14.877541",
-              "version": "",
-              "version_code": null
             }
           ],
           "sensor_summary": "Digital emergency button monitor",
@@ -2097,7 +2097,7 @@
           "name": "Floating Platform Motion",
           "mac": "3c:0f:02:c7:eb:cc",
           "device_id": "6b2f4f34-389a-424a-997b-d5b288f572d4",
-          "version": "v3.22.1",
+          "version": "v3.22.2",
           "components": [
             "core",
             "lsm9ds1_motion"
@@ -2106,18 +2106,28 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "v3.22.1",
+          "reported_version": "v3.22.2",
           "version_source": "reported",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Pool house",
-          "last_deployed": "2026-06-16",
+          "last_deployed": "2026-06-18",
           "initial_deployed": "2026-04-30",
-          "declared_deployment_version": "v3.22.1",
+          "declared_deployment_version": "v3.22.2",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-06-18T14:31:07.561274",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-18T14:16:30.804828",
+              "version": "v3.22.2",
+              "version_code": 3220200
+            },
             {
               "date": "2026-06-17T14:37:51.784900",
               "version": "",
@@ -2155,16 +2165,6 @@
             },
             {
               "date": "2026-06-12T09:37:04.388163",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-11T09:37:03.937238",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-10T09:37:03.484570",
               "version": "",
               "version_code": null
             }
@@ -2418,6 +2418,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-18T14:30:17.945929",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-17T16:26:05.341685",
               "version": "",
               "version_code": null
@@ -2459,11 +2464,6 @@
             },
             {
               "date": "2026-06-14T10:17:10.041652",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-13T10:02:09.555748",
               "version": "",
               "version_code": null
             }
@@ -2563,6 +2563,16 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-18T14:30:30.741712",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-06-18T12:38:45.779628",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-17T12:38:45.267466",
               "version": "",
               "version_code": null
@@ -2599,16 +2609,6 @@
             },
             {
               "date": "2026-06-13T20:28:10.193613",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-12T20:13:11.286869",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-11T20:13:12.815116",
               "version": "",
               "version_code": null
             }
@@ -2677,6 +2677,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-18T14:30:17.838487",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-17T14:14:23.487901",
               "version": "",
               "version_code": null
@@ -2718,11 +2723,6 @@
             },
             {
               "date": "2026-06-11T19:57:56.115899",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-11T10:50:20.803256",
               "version": "",
               "version_code": null
             }
@@ -2774,7 +2774,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-18 10:15:07",
+      "last_updated": "2026-06-18 14:58:44",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4046,6 +4046,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-18T14:30:14.944848",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-17T13:46:48.547220",
           "version": "",
           "version_code": null
@@ -4089,11 +4094,6 @@
           "date": "2026-06-12T20:00:13.181967",
           "version": "",
           "version_code": null
-        },
-        {
-          "date": "2026-06-11T19:45:14.877541",
-          "version": "",
-          "version_code": null
         }
       ],
       "sensor_summary": "Digital emergency button monitor",
@@ -4106,7 +4106,7 @@
       "name": "Floating Platform Motion",
       "mac": "3c:0f:02:c7:eb:cc",
       "device_id": "6b2f4f34-389a-424a-997b-d5b288f572d4",
-      "version": "v3.22.1",
+      "version": "v3.22.2",
       "components": [
         "core",
         "lsm9ds1_motion"
@@ -4115,18 +4115,28 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "v3.22.1",
+      "reported_version": "v3.22.2",
       "version_source": "reported",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Pool house",
-      "last_deployed": "2026-06-16",
+      "last_deployed": "2026-06-18",
       "initial_deployed": "2026-04-30",
-      "declared_deployment_version": "v3.22.1",
+      "declared_deployment_version": "v3.22.2",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-06-18T14:31:07.561274",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-18T14:16:30.804828",
+          "version": "v3.22.2",
+          "version_code": 3220200
+        },
         {
           "date": "2026-06-17T14:37:51.784900",
           "version": "",
@@ -4164,16 +4174,6 @@
         },
         {
           "date": "2026-06-12T09:37:04.388163",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-11T09:37:03.937238",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-10T09:37:03.484570",
           "version": "",
           "version_code": null
         }
@@ -4427,6 +4427,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-18T14:30:17.945929",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-17T16:26:05.341685",
           "version": "",
           "version_code": null
@@ -4468,11 +4473,6 @@
         },
         {
           "date": "2026-06-14T10:17:10.041652",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-13T10:02:09.555748",
           "version": "",
           "version_code": null
         }
@@ -4572,6 +4572,16 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-18T14:30:30.741712",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-06-18T12:38:45.779628",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-17T12:38:45.267466",
           "version": "",
           "version_code": null
@@ -4608,16 +4618,6 @@
         },
         {
           "date": "2026-06-13T20:28:10.193613",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-12T20:13:11.286869",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-11T20:13:12.815116",
           "version": "",
           "version_code": null
         }
@@ -4686,6 +4686,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-18T14:30:17.838487",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-17T14:14:23.487901",
           "version": "",
           "version_code": null
@@ -4727,11 +4732,6 @@
         },
         {
           "date": "2026-06-11T19:57:56.115899",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-11T10:50:20.803256",
           "version": "",
           "version_code": null
         }

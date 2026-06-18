@@ -77,9 +77,9 @@
             "core"
           ],
           "location": "Pool house",
-          "last_firmware_update": "2026-06-16",
+          "last_firmware_update": "2026-06-18",
           "first_installed": "2026-04-30",
-          "installed_firmware_version": "v3.22.1",
+          "installed_firmware_version": "v3.22.2",
           "sensor_summary": "Pool platform movement tracking"
         },
         {
