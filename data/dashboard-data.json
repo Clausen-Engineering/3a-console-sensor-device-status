@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-22 11:45:52",
+  "last_updated": "2026-06-22 16:48:19",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.2",
       "latest_version_label": "v3.22.2",
       "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-06-22 11:45:52",
+      "last_updated": "2026-06-22 16:48:19",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2037,6 +2037,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-22T15:28:39.520885",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-21T15:13:42.208309",
               "version": "",
               "version_code": null
@@ -2080,11 +2085,6 @@
               "date": "2026-06-16T01:31:05.803569",
               "version": "v3.22.1",
               "version_code": 3220100
-            },
-            {
-              "date": "2026-06-15T20:45:04.242139",
-              "version": "",
-              "version_code": null
             }
           ],
           "sensor_summary": "Digital emergency button monitor",
@@ -2118,6 +2118,11 @@
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-06-22T14:46:09.421280",
+              "version": "",
+              "version_code": null
+            },
             {
               "date": "2026-06-21T14:31:09.319926",
               "version": "",
@@ -2160,11 +2165,6 @@
             },
             {
               "date": "2026-06-16T10:22:05.526923",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-15T10:07:05.382952",
               "version": "",
               "version_code": null
             }
@@ -2418,6 +2418,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-22T14:45:19.367161",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-21T14:45:18.576260",
               "version": "",
               "version_code": null
@@ -2461,11 +2466,6 @@
               "date": "2026-06-15T10:25:26.167482",
               "version": "",
               "version_code": null
-            },
-            {
-              "date": "2026-06-15T10:10:43.530115",
-              "version": "v3.22.1",
-              "version_code": 3220100
             }
           ],
           "sensor_summary": "Ventilation boost action button",
@@ -2677,6 +2677,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-22T15:15:18.355725",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-21T15:00:18.413644",
               "version": "",
               "version_code": null
@@ -2718,11 +2723,6 @@
             },
             {
               "date": "2026-06-15T20:42:57.080304",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-14T20:27:56.880061",
               "version": "",
               "version_code": null
             }
@@ -2774,7 +2774,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-22 11:45:52",
+      "last_updated": "2026-06-22 16:48:19",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4046,6 +4046,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-22T15:28:39.520885",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-21T15:13:42.208309",
           "version": "",
           "version_code": null
@@ -4089,11 +4094,6 @@
           "date": "2026-06-16T01:31:05.803569",
           "version": "v3.22.1",
           "version_code": 3220100
-        },
-        {
-          "date": "2026-06-15T20:45:04.242139",
-          "version": "",
-          "version_code": null
         }
       ],
       "sensor_summary": "Digital emergency button monitor",
@@ -4127,6 +4127,11 @@
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-06-22T14:46:09.421280",
+          "version": "",
+          "version_code": null
+        },
         {
           "date": "2026-06-21T14:31:09.319926",
           "version": "",
@@ -4169,11 +4174,6 @@
         },
         {
           "date": "2026-06-16T10:22:05.526923",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-15T10:07:05.382952",
           "version": "",
           "version_code": null
         }
@@ -4427,6 +4427,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-22T14:45:19.367161",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-21T14:45:18.576260",
           "version": "",
           "version_code": null
@@ -4470,11 +4475,6 @@
           "date": "2026-06-15T10:25:26.167482",
           "version": "",
           "version_code": null
-        },
-        {
-          "date": "2026-06-15T10:10:43.530115",
-          "version": "v3.22.1",
-          "version_code": 3220100
         }
       ],
       "sensor_summary": "Ventilation boost action button",
@@ -4686,6 +4686,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-22T15:15:18.355725",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-21T15:00:18.413644",
           "version": "",
           "version_code": null
@@ -4727,11 +4732,6 @@
         },
         {
           "date": "2026-06-15T20:42:57.080304",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-14T20:27:56.880061",
           "version": "",
           "version_code": null
         }
