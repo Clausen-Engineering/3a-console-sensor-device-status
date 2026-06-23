@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-06-23 14:39:59",
+  "last_updated": "2026-06-23 19:55:40",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.2",
       "latest_version_label": "v3.22.2",
       "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-06-23 14:39:59",
+      "last_updated": "2026-06-23 19:55:40",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2037,6 +2037,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-23T15:28:37.016367",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-22T15:28:39.520885",
               "version": "",
               "version_code": null
@@ -2080,11 +2085,6 @@
               "date": "2026-06-16T01:45:46.619785",
               "version": "",
               "version_code": null
-            },
-            {
-              "date": "2026-06-16T01:31:05.803569",
-              "version": "v3.22.1",
-              "version_code": 3220100
             }
           ],
           "sensor_summary": "Digital emergency button monitor",
@@ -2118,6 +2118,11 @@
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-06-23T14:46:10.082197",
+              "version": "",
+              "version_code": null
+            },
             {
               "date": "2026-06-22T14:46:09.421280",
               "version": "",
@@ -2162,11 +2167,6 @@
               "date": "2026-06-16T14:23:14.291659",
               "version": "v3.22.1",
               "version_code": 3220100
-            },
-            {
-              "date": "2026-06-16T10:22:05.526923",
-              "version": "",
-              "version_code": null
             }
           ],
           "sensor_summary": "Pool platform movement tracking",
@@ -2418,6 +2418,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-23T14:45:19.950227",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-22T14:45:19.367161",
               "version": "",
               "version_code": null
@@ -2459,11 +2464,6 @@
             },
             {
               "date": "2026-06-16T10:40:25.064686",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-15T10:25:26.167482",
               "version": "",
               "version_code": null
             }
@@ -2677,6 +2677,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-06-23T15:15:18.809879",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-22T15:15:18.355725",
               "version": "",
               "version_code": null
@@ -2718,11 +2723,6 @@
             },
             {
               "date": "2026-06-16T02:13:43.341581",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-15T20:42:57.080304",
               "version": "",
               "version_code": null
             }
@@ -2774,7 +2774,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-06-23 14:39:59",
+      "last_updated": "2026-06-23 19:55:40",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4046,6 +4046,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-23T15:28:37.016367",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-22T15:28:39.520885",
           "version": "",
           "version_code": null
@@ -4089,11 +4094,6 @@
           "date": "2026-06-16T01:45:46.619785",
           "version": "",
           "version_code": null
-        },
-        {
-          "date": "2026-06-16T01:31:05.803569",
-          "version": "v3.22.1",
-          "version_code": 3220100
         }
       ],
       "sensor_summary": "Digital emergency button monitor",
@@ -4127,6 +4127,11 @@
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-06-23T14:46:10.082197",
+          "version": "",
+          "version_code": null
+        },
         {
           "date": "2026-06-22T14:46:09.421280",
           "version": "",
@@ -4171,11 +4176,6 @@
           "date": "2026-06-16T14:23:14.291659",
           "version": "v3.22.1",
           "version_code": 3220100
-        },
-        {
-          "date": "2026-06-16T10:22:05.526923",
-          "version": "",
-          "version_code": null
         }
       ],
       "sensor_summary": "Pool platform movement tracking",
@@ -4427,6 +4427,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-23T14:45:19.950227",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-22T14:45:19.367161",
           "version": "",
           "version_code": null
@@ -4468,11 +4473,6 @@
         },
         {
           "date": "2026-06-16T10:40:25.064686",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-15T10:25:26.167482",
           "version": "",
           "version_code": null
         }
@@ -4686,6 +4686,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-06-23T15:15:18.809879",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-22T15:15:18.355725",
           "version": "",
           "version_code": null
@@ -4727,11 +4732,6 @@
         },
         {
           "date": "2026-06-16T02:13:43.341581",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-15T20:42:57.080304",
           "version": "",
           "version_code": null
         }
