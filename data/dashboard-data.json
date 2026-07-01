@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-07-01 09:38:43",
+  "last_updated": "2026-07-01 14:26:10",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.22.2",
       "latest_version_label": "v3.22.2",
       "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-07-01 09:38:43",
+      "last_updated": "2026-07-01 14:26:10",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2563,6 +2563,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-07-01T12:42:18.459774",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-06-30T12:42:17.735708",
               "version": "",
               "version_code": null
@@ -2604,11 +2609,6 @@
             },
             {
               "date": "2026-06-23T00:00:03.234623",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-21T23:45:02.620205",
               "version": "",
               "version_code": null
             }
@@ -2774,7 +2774,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-07-01 09:38:43",
+      "last_updated": "2026-07-01 14:26:10",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4572,6 +4572,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-07-01T12:42:18.459774",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-06-30T12:42:17.735708",
           "version": "",
           "version_code": null
@@ -4613,11 +4618,6 @@
         },
         {
           "date": "2026-06-23T00:00:03.234623",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-21T23:45:02.620205",
           "version": "",
           "version_code": null
         }
