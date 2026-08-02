@@ -1,25 +1,24 @@
 {
   "latest_version": "v3.23.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-08-02 17:22:29",
-  "last_updated": "2026-08-02 15:24:36",
+  "last_commit_date": "2026-07-31 16:30:07",
+  "last_updated": "2026-08-02 15:24:47",
   "version_changes": [
     {
       "version": "v3.23.0",
       "date": "2026-08-02",
       "components": [
-        "core"
+        "OneWire"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.23.0"
+      "description": "Harden OneWire reads on marginal DS18B20 buses: SKIP ROM broadcast conversion, held-low bus detection, confirmed-resolution timing, scratchpad retries and per-sensor init error reporting; fix the deviceDisplayHash NVS key exceeding the 15-character limit"
     },
     {
       "version": "v3.22.3",
       "date": "2026-07-31",
       "components": [
-        "OneWire",
         "OneWire"
       ],
-      "description": "Fix OneWire startup watchdog: verify fixed-address probes with a scratchpad read and drop the blocking boot-time bus scan; add the standalone onewire-scan firmware"
+      "description": "Fix OneWire startup watchdog"
     },
     {
       "version": "v3.22.2",
