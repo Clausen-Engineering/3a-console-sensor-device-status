@@ -19,13 +19,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      # GitHub does not allow secrets directly in `if` expressions. Publish only
+      # whether the optional PAT exists so later steps can branch without making
+      # the credential available to the dashboard scripts.
+      - name: Detect sensorhub repository credentials
+        id: sensorhub_token
+        env:
+          SENSORHUB_REPO_PAT: ${{ secrets.SENSORHUB_REPO_PAT }}
+        run: |
+          if [[ -n "$SENSORHUB_REPO_PAT" ]]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout sensorhub data collector
+        if: ${{ steps.sensorhub_token.outputs.available == 'true' }}
         uses: actions/checkout@v5
         with:
           repository: Glaecier-Development/glaecier-sensorhub-data-collector
           ref: main
           token: ${{ secrets.SENSORHUB_REPO_PAT }}
           path: sensorhub-data-collector
+
+      - name: Note unavailable sensorhub repository metadata
+        if: ${{ steps.sensorhub_token.outputs.available != 'true' }}
+        run: echo "::notice::SENSORHUB_REPO_PAT is not configured; building from the committed registry and monitoring API."
 
       - name: Set up Python
         uses: actions/setup-python@v6
