@@ -1,31 +1,64 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-07-13 14:24:28",
+  "last_updated": "2026-09-02 10:50:27",
   "sections": [
     {
       "id": "sensor-hub",
       "label": "Sensor Hub",
       "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
       "repo_name": "glaecier-sensorhub-data-collector",
-      "latest_version": "v3.22.2",
-      "latest_version_label": "v3.22.2",
-      "last_commit_date": "2026-06-16 14:37:33",
-      "last_updated": "2026-07-13 14:24:28",
+      "latest_version": "v3.23.2",
+      "latest_version_label": "v3.23.2",
+      "last_commit_date": "2026-09-01 16:22:34",
+      "last_updated": "2026-09-02 10:50:27",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
-          "latest_version": "v3.22.2",
-          "last_commit_date": "2026-06-16 14:37:33",
+          "latest_version": "v3.23.2",
+          "last_commit_date": "2026-09-01 16:22:34",
           "version_changes": [
+            {
+              "version": "v3.23.2",
+              "date": "2026-09-01",
+              "components": [
+                "core"
+              ],
+              "description": "Bump FIRMWARE_VERSION to 3.23.2"
+            },
+            {
+              "version": "v3.23.1",
+              "date": "2026-08-02",
+              "components": [
+                "OneWire"
+              ],
+              "description": "Onewire patch, UI enhancement and auto fetch token for deployment script[ when expired using deployment script"
+            },
+            {
+              "version": "v3.23.0",
+              "date": "2026-08-02",
+              "components": [
+                "OneWire"
+              ],
+              "description": "Harden OneWire reads on marginal DS18B20 buses: SKIP ROM broadcast conversion, held-low bus detection, confirmed-resolution timing, scratchpad retries and per-sensor init error reporting; fix the deviceDisplayHash NVS key exceeding the 15-character limit"
+            },
+            {
+              "version": "v3.22.3",
+              "date": "2026-07-31",
+              "components": [
+                "OneWire",
+                "OneWire"
+              ],
+              "description": "Fix OneWire startup watchdog: verify fixed-address probes with a scratchpad read and drop the blocking boot-time bus scan; add the standalone onewire-scan firmware"
+            },
             {
               "version": "v3.22.2",
               "date": "2026-06-16",
               "components": [
                 "core"
               ],
-              "description": "Bump FIRMWARE_VERSION to 3.22.2"
+              "description": "Fix type-registration guard to retry on partial failure; re-register new event codes"
             },
             {
               "version": "v3.22.1",
@@ -861,12 +894,57 @@
       ],
       "version_changes": [
         {
+          "version": "v3.23.2",
+          "date": "2026-09-01",
+          "components": [
+            "core"
+          ],
+          "description": "Bump FIRMWARE_VERSION to 3.23.2",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.23.1",
+          "date": "2026-08-02",
+          "components": [
+            "OneWire"
+          ],
+          "description": "Onewire patch, UI enhancement and auto fetch token for deployment script[ when expired using deployment script",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.23.0",
+          "date": "2026-08-02",
+          "components": [
+            "OneWire"
+          ],
+          "description": "Harden OneWire reads on marginal DS18B20 buses: SKIP ROM broadcast conversion, held-low bus detection, confirmed-resolution timing, scratchpad retries and per-sensor init error reporting; fix the deviceDisplayHash NVS key exceeding the 15-character limit",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.22.3",
+          "date": "2026-07-31",
+          "components": [
+            "OneWire",
+            "OneWire"
+          ],
+          "description": "Fix OneWire startup watchdog: verify fixed-address probes with a scratchpad read and drop the blocking boot-time bus scan; add the standalone onewire-scan firmware",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
           "version": "v3.22.2",
           "date": "2026-06-16",
           "components": [
             "core"
           ],
-          "description": "Bump FIRMWARE_VERSION to 3.22.2",
+          "description": "Fix type-registration guard to retry on partial failure; re-register new event codes",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -2037,52 +2115,52 @@
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-07-13T12:34:40.019871",
+              "date": "2026-09-01T17:23:44.091047",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-12T12:34:38.909576",
+              "date": "2026-08-31T17:08:45.965271",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-11T12:19:41.186039",
+              "date": "2026-08-30T16:53:49.274476",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-10T12:19:43.075148",
+              "date": "2026-08-29T16:38:50.956203",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-09T12:19:45.110873",
+              "date": "2026-08-28T16:23:53.893693",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-08T12:04:48.081792",
+              "date": "2026-08-27T16:08:55.211702",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-07T11:49:50.502750",
+              "date": "2026-08-26T16:08:57.690209",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-06T17:23:10.573064",
+              "date": "2026-08-25T15:54:00.071611",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-05T17:08:13.239389",
+              "date": "2026-08-24T15:39:02.368624",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-04T16:53:15.561353",
+              "date": "2026-08-23T15:24:05.637477",
               "version": "",
               "version_code": null
             }
@@ -2091,12 +2169,12 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Floating Platform Motion",
           "mac": "3c:0f:02:c7:eb:cc",
-          "device_id": "6b2f4f34-389a-424a-997b-d5b288f572d4",
+          "device_id": "4be406b2-5fec-471c-8ea4-8ed15696833d",
           "version": "v3.22.2",
           "components": [
             "core",
@@ -2106,8 +2184,8 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "v3.22.2",
-          "version_source": "reported",
+          "reported_version": "",
+          "version_source": "registry",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Pool house",
@@ -2117,69 +2195,18 @@
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
-          "ota_history": [
-            {
-              "date": "2026-06-26T15:16:12.138037",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-25T15:01:11.340677",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-24T15:01:10.853308",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-23T14:46:10.082197",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-22T14:46:09.421280",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-21T14:31:09.319926",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-20T14:31:08.595405",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-19T14:31:07.932402",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-18T14:31:07.561274",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-06-18T14:16:30.804828",
-              "version": "v3.22.2",
-              "version_code": 3220200
-            }
-          ],
+          "ota_history": [],
           "sensor_summary": "Pool platform movement tracking",
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Lounge Floor Temperature",
           "mac": "68:fe:71:16:a9:78",
           "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
-          "version": "v2.11.2",
+          "version": "",
           "components": [
             "core",
             "modbus"
@@ -2189,22 +2216,22 @@
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
           "reported_version": "",
-          "version_source": "registry",
+          "version_source": "",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Lounge",
           "last_deployed": "",
           "initial_deployed": "2025-12-19",
-          "declared_deployment_version": "v2.11.2",
+          "declared_deployment_version": "",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "Modbus floor temperature sensor",
-          "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
+          "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Main Power In",
@@ -2235,11 +2262,11 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "MOG Tank Water Sensor",
-          "mac": "18:8b:0e:2f:d6:a0",
+          "mac": "18:8B:0E:2F:D6:A0",
           "device_id": "",
           "version": "v2.2.0",
           "components": [
@@ -2251,7 +2278,7 @@
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
           "reported_version": "",
-          "version_source": "registry",
+          "version_source": "",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Crawl space",
@@ -2263,10 +2290,10 @@
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "Digital MOG tank cycle counter / water sensor",
-          "notes": "Old registry label was 'MOG Tank Cycle Count'.",
+          "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Hallway CO2 Pressure",
@@ -2294,10 +2321,10 @@
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "Analog 4-20mA CO2 tank pressure sensor",
-          "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
+          "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Lounge CO2 Pressure",
@@ -2325,10 +2352,92 @@
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "Analog 4-20mA CO2 tank pressure sensor",
-          "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
+          "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
+        },
+        {
+          "name": "Sauna Floor Temperature",
+          "mac": "10:20:ba:39:8f:ac",
+          "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
+          "version": "v3.22.2",
+          "components": [
+            "core",
+            "onewire"
+          ],
+          "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+          "ota_capable": true,
+          "hardware_eol": false,
+          "hardware_max_firmware": "",
+          "reported_version": "v3.22.2",
+          "version_source": "reported",
+          "version_mismatch": false,
+          "battery_level": null,
+          "location": "Crawl space",
+          "last_deployed": "2026-06-17",
+          "initial_deployed": "2026-03-22",
+          "declared_deployment_version": "v3.22.2",
+          "pending_ota_version": "",
+          "pending_ota_source": "",
+          "pending_ota_created": "",
+          "ota_history": [
+            {
+              "date": "2026-09-01T17:53:14.628134",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-31T17:38:14.316681",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-30T17:23:14.085832",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-29T17:23:13.666482",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-28T17:08:13.621646",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-27T16:53:16.211676",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-26T16:38:15.975356",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-25T16:23:15.697153",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-24T16:23:12.568091",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-23T16:08:15.077575",
+              "version": "",
+              "version_code": null
+            }
+          ],
+          "sensor_summary": "1-Wire floor temperature sensors",
+          "notes": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.23.2"
         },
         {
           "name": "Sauna Power Consumption",
@@ -2359,7 +2468,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Sauna Temperature and Humidity",
@@ -2390,7 +2499,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Ventilation Boost Button",
@@ -2418,52 +2527,52 @@
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-07-12T18:15:33.368180",
+              "date": "2026-09-01T19:45:19.744645",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-11T18:00:31.926150",
+              "date": "2026-08-31T19:30:19.423724",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-10T17:45:31.111708",
+              "date": "2026-08-30T19:30:18.805863",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-09T17:30:30.167640",
+              "date": "2026-08-29T19:19:17.779159",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-08T17:15:33.543195",
+              "date": "2026-08-28T19:04:16.943933",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-07T17:15:29.744883",
+              "date": "2026-08-27T18:49:16.372646",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-06T17:00:28.451095",
+              "date": "2026-08-26T18:34:15.790476",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-05T16:45:28.096494",
+              "date": "2026-08-25T18:19:15.054185",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-04T16:30:27.651010",
+              "date": "2026-08-24T18:04:14.374293",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-03T16:15:27.708718",
+              "date": "2026-08-23T18:04:13.746684",
               "version": "",
               "version_code": null
             }
@@ -2472,7 +2581,38 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
+        },
+        {
+          "name": "Water Heater Power",
+          "mac": "64:E8:33:88:C3:E4",
+          "device_id": "",
+          "version": "",
+          "components": [
+            "core",
+            "modbus"
+          ],
+          "hardware": "Unknown",
+          "ota_capable": null,
+          "hardware_eol": null,
+          "hardware_max_firmware": "",
+          "reported_version": "",
+          "version_source": "",
+          "version_mismatch": false,
+          "battery_level": null,
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "declared_deployment_version": "",
+          "pending_ota_version": "",
+          "pending_ota_source": "",
+          "pending_ota_created": "",
+          "ota_history": [],
+          "sensor_summary": "Modbus water heater power monitoring",
+          "notes": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.23.2"
         },
         {
           "name": "Water Heater Power Consumption",
@@ -2503,13 +2643,13 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Water Meter",
           "mac": "68:fe:71:16:bf:60",
           "device_id": "39cbbf52-07fb-46fb-ab11-28847d8da462",
-          "version": "v2.11.2",
+          "version": "",
           "components": [
             "core",
             "digital"
@@ -2519,28 +2659,28 @@
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
           "reported_version": "",
-          "version_source": "registry",
+          "version_source": "",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Technician room",
           "last_deployed": "",
           "initial_deployed": "2025-12-08",
-          "declared_deployment_version": "v2.11.2",
+          "declared_deployment_version": "",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "Digital water flow meter",
-          "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
+          "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Water System Temperatures",
           "mac": "3c:0f:02:c7:bc:48",
-          "device_id": "2399e27e-f9ef-487f-99e0-47f49f53e377",
-          "version": "v3.22.2",
+          "device_id": "a6b7582c-3975-4f08-b988-afa8353dfad9",
+          "version": "v3.23.1",
           "components": [
             "core",
             "onewire",
@@ -2550,65 +2690,65 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "v3.22.2",
+          "reported_version": "v3.23.1",
           "version_source": "reported",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Technician room",
-          "last_deployed": "2026-06-17",
+          "last_deployed": "2026-09-02",
           "initial_deployed": "2026-05-29",
-          "declared_deployment_version": "v3.22.2",
+          "declared_deployment_version": "v3.23.1",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-07-13T09:49:53.371692",
+              "date": "2026-09-01T11:10:48.473750",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-12T09:49:51.867407",
+              "date": "2026-08-31T10:55:47.944807",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-11T09:49:49.975300",
+              "date": "2026-08-30T10:40:47.068930",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-10T09:34:51.444201",
+              "date": "2026-08-29T10:40:46.358005",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-09T09:19:51.079385",
+              "date": "2026-08-28T10:40:45.579356",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-08T09:19:48.809687",
+              "date": "2026-08-27T10:25:44.909026",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-07T12:18:11.741837",
+              "date": "2026-08-26T18:50:43.274593",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-06T12:03:12.085369",
+              "date": "2026-08-25T18:50:42.567642",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-05T11:48:08.609722",
+              "date": "2026-08-24T18:35:42.204148",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-07-04T11:33:13.414805",
+              "date": "2026-08-23T18:20:41.225269",
               "version": "",
               "version_code": null
             }
@@ -2617,7 +2757,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         },
         {
           "name": "Water Tank Temperatures",
@@ -2649,120 +2789,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
-        },
-        {
-          "name": "Sauna Floor Temperature",
-          "mac": "10:20:ba:39:8f:ac",
-          "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-          "version": "v3.22.2",
-          "components": [
-            "core",
-            "onewire"
-          ],
-          "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
-          "ota_capable": true,
-          "hardware_eol": false,
-          "hardware_max_firmware": "",
-          "reported_version": "v3.22.2",
-          "version_source": "reported",
-          "version_mismatch": false,
-          "battery_level": null,
-          "location": "Crawl space",
-          "last_deployed": "2026-06-17",
-          "initial_deployed": "2026-03-22",
-          "declared_deployment_version": "v3.22.2",
-          "pending_ota_version": "",
-          "pending_ota_source": "",
-          "pending_ota_created": "",
-          "ota_history": [
-            {
-              "date": "2026-07-12T17:45:26.070584",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-07-11T17:45:23.021975",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-07-10T17:45:22.770159",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-07-09T17:30:22.886588",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-07-08T17:30:21.998380",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-07-07T17:15:22.280880",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-07-06T17:00:24.871884",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-07-05T17:00:21.908702",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-07-04T16:45:21.692793",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-07-03T16:45:21.543664",
-              "version": "",
-              "version_code": null
-            }
-          ],
-          "sensor_summary": "1-Wire floor temperature sensors",
-          "notes": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
-        },
-        {
-          "name": "Water Heater Power",
-          "mac": "64:E8:33:88:C3:E4",
-          "device_id": "",
-          "version": "",
-          "components": [
-            "core",
-            "modbus"
-          ],
-          "hardware": "Unknown",
-          "ota_capable": null,
-          "hardware_eol": null,
-          "hardware_max_firmware": "",
-          "reported_version": "",
-          "version_source": "",
-          "version_mismatch": false,
-          "battery_level": null,
-          "location": "Technician room",
-          "last_deployed": "",
-          "initial_deployed": "",
-          "declared_deployment_version": "",
-          "pending_ota_version": "",
-          "pending_ota_source": "",
-          "pending_ota_created": "",
-          "ota_history": [],
-          "sensor_summary": "Modbus water heater power monitoring",
-          "notes": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.22.2"
+          "target_version": "v3.23.2"
         }
       ]
     },
@@ -2774,7 +2801,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-07-13 14:24:28",
+      "last_updated": "2026-09-02 10:50:27",
       "tracks": [
         {
           "id": "heat-controller",
@@ -2864,18 +2891,63 @@
       ]
     }
   ],
-  "latest_version": "v3.22.2",
-  "latest_version_label": "v3.22.2",
+  "latest_version": "v3.23.2",
+  "latest_version_label": "v3.23.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-06-16 14:37:33",
+  "last_commit_date": "2026-09-01 16:22:34",
   "version_changes": [
+    {
+      "version": "v3.23.2",
+      "date": "2026-09-01",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.23.2",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.23.1",
+      "date": "2026-08-02",
+      "components": [
+        "OneWire"
+      ],
+      "description": "Onewire patch, UI enhancement and auto fetch token for deployment script[ when expired using deployment script",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.23.0",
+      "date": "2026-08-02",
+      "components": [
+        "OneWire"
+      ],
+      "description": "Harden OneWire reads on marginal DS18B20 buses: SKIP ROM broadcast conversion, held-low bus detection, confirmed-resolution timing, scratchpad retries and per-sensor init error reporting; fix the deviceDisplayHash NVS key exceeding the 15-character limit",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.22.3",
+      "date": "2026-07-31",
+      "components": [
+        "OneWire",
+        "OneWire"
+      ],
+      "description": "Fix OneWire startup watchdog: verify fixed-address probes with a scratchpad read and drop the blocking boot-time bus scan; add the standalone onewire-scan firmware",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
     {
       "version": "v3.22.2",
       "date": "2026-06-16",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.22.2",
+      "description": "Fix type-registration guard to retry on partial failure; re-register new event codes",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
@@ -4046,52 +4118,52 @@
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-07-13T12:34:40.019871",
+          "date": "2026-09-01T17:23:44.091047",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-12T12:34:38.909576",
+          "date": "2026-08-31T17:08:45.965271",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-11T12:19:41.186039",
+          "date": "2026-08-30T16:53:49.274476",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-10T12:19:43.075148",
+          "date": "2026-08-29T16:38:50.956203",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-09T12:19:45.110873",
+          "date": "2026-08-28T16:23:53.893693",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-08T12:04:48.081792",
+          "date": "2026-08-27T16:08:55.211702",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-07T11:49:50.502750",
+          "date": "2026-08-26T16:08:57.690209",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-06T17:23:10.573064",
+          "date": "2026-08-25T15:54:00.071611",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-05T17:08:13.239389",
+          "date": "2026-08-24T15:39:02.368624",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-04T16:53:15.561353",
+          "date": "2026-08-23T15:24:05.637477",
           "version": "",
           "version_code": null
         }
@@ -4100,12 +4172,12 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Floating Platform Motion",
       "mac": "3c:0f:02:c7:eb:cc",
-      "device_id": "6b2f4f34-389a-424a-997b-d5b288f572d4",
+      "device_id": "4be406b2-5fec-471c-8ea4-8ed15696833d",
       "version": "v3.22.2",
       "components": [
         "core",
@@ -4115,8 +4187,8 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "v3.22.2",
-      "version_source": "reported",
+      "reported_version": "",
+      "version_source": "registry",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Pool house",
@@ -4126,69 +4198,18 @@
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
-      "ota_history": [
-        {
-          "date": "2026-06-26T15:16:12.138037",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-25T15:01:11.340677",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-24T15:01:10.853308",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-23T14:46:10.082197",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-22T14:46:09.421280",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-21T14:31:09.319926",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-20T14:31:08.595405",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-19T14:31:07.932402",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-18T14:31:07.561274",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-06-18T14:16:30.804828",
-          "version": "v3.22.2",
-          "version_code": 3220200
-        }
-      ],
+      "ota_history": [],
       "sensor_summary": "Pool platform movement tracking",
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Lounge Floor Temperature",
       "mac": "68:fe:71:16:a9:78",
       "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
-      "version": "v2.11.2",
+      "version": "",
       "components": [
         "core",
         "modbus"
@@ -4198,22 +4219,22 @@
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
       "reported_version": "",
-      "version_source": "registry",
+      "version_source": "",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Lounge",
       "last_deployed": "",
       "initial_deployed": "2025-12-19",
-      "declared_deployment_version": "v2.11.2",
+      "declared_deployment_version": "",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "Modbus floor temperature sensor",
-      "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
+      "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Main Power In",
@@ -4244,11 +4265,11 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "MOG Tank Water Sensor",
-      "mac": "18:8b:0e:2f:d6:a0",
+      "mac": "18:8B:0E:2F:D6:A0",
       "device_id": "",
       "version": "v2.2.0",
       "components": [
@@ -4260,7 +4281,7 @@
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
       "reported_version": "",
-      "version_source": "registry",
+      "version_source": "",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Crawl space",
@@ -4272,10 +4293,10 @@
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "Digital MOG tank cycle counter / water sensor",
-      "notes": "Old registry label was 'MOG Tank Cycle Count'.",
+      "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Hallway CO2 Pressure",
@@ -4303,10 +4324,10 @@
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "Analog 4-20mA CO2 tank pressure sensor",
-      "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
+      "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Lounge CO2 Pressure",
@@ -4334,10 +4355,92 @@
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "Analog 4-20mA CO2 tank pressure sensor",
-      "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
+      "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
+    },
+    {
+      "name": "Sauna Floor Temperature",
+      "mac": "10:20:ba:39:8f:ac",
+      "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
+      "version": "v3.22.2",
+      "components": [
+        "core",
+        "onewire"
+      ],
+      "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+      "ota_capable": true,
+      "hardware_eol": false,
+      "hardware_max_firmware": "",
+      "reported_version": "v3.22.2",
+      "version_source": "reported",
+      "version_mismatch": false,
+      "battery_level": null,
+      "location": "Crawl space",
+      "last_deployed": "2026-06-17",
+      "initial_deployed": "2026-03-22",
+      "declared_deployment_version": "v3.22.2",
+      "pending_ota_version": "",
+      "pending_ota_source": "",
+      "pending_ota_created": "",
+      "ota_history": [
+        {
+          "date": "2026-09-01T17:53:14.628134",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-31T17:38:14.316681",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-30T17:23:14.085832",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-29T17:23:13.666482",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-28T17:08:13.621646",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-27T16:53:16.211676",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-26T16:38:15.975356",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-25T16:23:15.697153",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-24T16:23:12.568091",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-23T16:08:15.077575",
+          "version": "",
+          "version_code": null
+        }
+      ],
+      "sensor_summary": "1-Wire floor temperature sensors",
+      "notes": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.23.2"
     },
     {
       "name": "Sauna Power Consumption",
@@ -4368,7 +4471,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Sauna Temperature and Humidity",
@@ -4399,7 +4502,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Ventilation Boost Button",
@@ -4427,52 +4530,52 @@
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-07-12T18:15:33.368180",
+          "date": "2026-09-01T19:45:19.744645",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-11T18:00:31.926150",
+          "date": "2026-08-31T19:30:19.423724",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-10T17:45:31.111708",
+          "date": "2026-08-30T19:30:18.805863",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-09T17:30:30.167640",
+          "date": "2026-08-29T19:19:17.779159",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-08T17:15:33.543195",
+          "date": "2026-08-28T19:04:16.943933",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-07T17:15:29.744883",
+          "date": "2026-08-27T18:49:16.372646",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-06T17:00:28.451095",
+          "date": "2026-08-26T18:34:15.790476",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-05T16:45:28.096494",
+          "date": "2026-08-25T18:19:15.054185",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-04T16:30:27.651010",
+          "date": "2026-08-24T18:04:14.374293",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-03T16:15:27.708718",
+          "date": "2026-08-23T18:04:13.746684",
           "version": "",
           "version_code": null
         }
@@ -4481,7 +4584,38 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
+    },
+    {
+      "name": "Water Heater Power",
+      "mac": "64:E8:33:88:C3:E4",
+      "device_id": "",
+      "version": "",
+      "components": [
+        "core",
+        "modbus"
+      ],
+      "hardware": "Unknown",
+      "ota_capable": null,
+      "hardware_eol": null,
+      "hardware_max_firmware": "",
+      "reported_version": "",
+      "version_source": "",
+      "version_mismatch": false,
+      "battery_level": null,
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": "",
+      "declared_deployment_version": "",
+      "pending_ota_version": "",
+      "pending_ota_source": "",
+      "pending_ota_created": "",
+      "ota_history": [],
+      "sensor_summary": "Modbus water heater power monitoring",
+      "notes": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.23.2"
     },
     {
       "name": "Water Heater Power Consumption",
@@ -4512,13 +4646,13 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Water Meter",
       "mac": "68:fe:71:16:bf:60",
       "device_id": "39cbbf52-07fb-46fb-ab11-28847d8da462",
-      "version": "v2.11.2",
+      "version": "",
       "components": [
         "core",
         "digital"
@@ -4528,28 +4662,28 @@
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
       "reported_version": "",
-      "version_source": "registry",
+      "version_source": "",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Technician room",
       "last_deployed": "",
       "initial_deployed": "2025-12-08",
-      "declared_deployment_version": "v2.11.2",
+      "declared_deployment_version": "",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "Digital water flow meter",
-      "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
+      "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Water System Temperatures",
       "mac": "3c:0f:02:c7:bc:48",
-      "device_id": "2399e27e-f9ef-487f-99e0-47f49f53e377",
-      "version": "v3.22.2",
+      "device_id": "a6b7582c-3975-4f08-b988-afa8353dfad9",
+      "version": "v3.23.1",
       "components": [
         "core",
         "onewire",
@@ -4559,65 +4693,65 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "v3.22.2",
+      "reported_version": "v3.23.1",
       "version_source": "reported",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Technician room",
-      "last_deployed": "2026-06-17",
+      "last_deployed": "2026-09-02",
       "initial_deployed": "2026-05-29",
-      "declared_deployment_version": "v3.22.2",
+      "declared_deployment_version": "v3.23.1",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-07-13T09:49:53.371692",
+          "date": "2026-09-01T11:10:48.473750",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-12T09:49:51.867407",
+          "date": "2026-08-31T10:55:47.944807",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-11T09:49:49.975300",
+          "date": "2026-08-30T10:40:47.068930",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-10T09:34:51.444201",
+          "date": "2026-08-29T10:40:46.358005",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-09T09:19:51.079385",
+          "date": "2026-08-28T10:40:45.579356",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-08T09:19:48.809687",
+          "date": "2026-08-27T10:25:44.909026",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-07T12:18:11.741837",
+          "date": "2026-08-26T18:50:43.274593",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-06T12:03:12.085369",
+          "date": "2026-08-25T18:50:42.567642",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-05T11:48:08.609722",
+          "date": "2026-08-24T18:35:42.204148",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-07-04T11:33:13.414805",
+          "date": "2026-08-23T18:20:41.225269",
           "version": "",
           "version_code": null
         }
@@ -4626,7 +4760,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     },
     {
       "name": "Water Tank Temperatures",
@@ -4658,120 +4792,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
-    },
-    {
-      "name": "Sauna Floor Temperature",
-      "mac": "10:20:ba:39:8f:ac",
-      "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-      "version": "v3.22.2",
-      "components": [
-        "core",
-        "onewire"
-      ],
-      "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
-      "ota_capable": true,
-      "hardware_eol": false,
-      "hardware_max_firmware": "",
-      "reported_version": "v3.22.2",
-      "version_source": "reported",
-      "version_mismatch": false,
-      "battery_level": null,
-      "location": "Crawl space",
-      "last_deployed": "2026-06-17",
-      "initial_deployed": "2026-03-22",
-      "declared_deployment_version": "v3.22.2",
-      "pending_ota_version": "",
-      "pending_ota_source": "",
-      "pending_ota_created": "",
-      "ota_history": [
-        {
-          "date": "2026-07-12T17:45:26.070584",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-07-11T17:45:23.021975",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-07-10T17:45:22.770159",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-07-09T17:30:22.886588",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-07-08T17:30:21.998380",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-07-07T17:15:22.280880",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-07-06T17:00:24.871884",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-07-05T17:00:21.908702",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-07-04T16:45:21.692793",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-07-03T16:45:21.543664",
-          "version": "",
-          "version_code": null
-        }
-      ],
-      "sensor_summary": "1-Wire floor temperature sensors",
-      "notes": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
-    },
-    {
-      "name": "Water Heater Power",
-      "mac": "64:E8:33:88:C3:E4",
-      "device_id": "",
-      "version": "",
-      "components": [
-        "core",
-        "modbus"
-      ],
-      "hardware": "Unknown",
-      "ota_capable": null,
-      "hardware_eol": null,
-      "hardware_max_firmware": "",
-      "reported_version": "",
-      "version_source": "",
-      "version_mismatch": false,
-      "battery_level": null,
-      "location": "Technician room",
-      "last_deployed": "",
-      "initial_deployed": "",
-      "declared_deployment_version": "",
-      "pending_ota_version": "",
-      "pending_ota_source": "",
-      "pending_ota_created": "",
-      "ota_history": [],
-      "sensor_summary": "Modbus water heater power monitoring",
-      "notes": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.22.2"
+      "target_version": "v3.23.2"
     }
   ]
 }
