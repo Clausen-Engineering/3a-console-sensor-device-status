@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-09-02 10:50:27",
+  "last_updated": "2026-09-02 15:52:01",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.23.2",
       "latest_version_label": "v3.23.2",
       "last_commit_date": "2026-09-01 16:22:34",
-      "last_updated": "2026-09-02 10:50:27",
+      "last_updated": "2026-09-02 15:52:01",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2203,41 +2203,93 @@
           "target_version": "v3.23.2"
         },
         {
-          "name": "Lounge Floor Temperature",
-          "mac": "68:fe:71:16:a9:78",
-          "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
-          "version": "",
+          "name": "Water System Temperatures",
+          "mac": "3c:0f:02:c7:bc:48",
+          "device_id": "a6b7582c-3975-4f08-b988-afa8353dfad9",
+          "version": "v3.23.1",
           "components": [
             "core",
-            "modbus"
+            "onewire",
+            "virtual"
           ],
-          "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
-          "ota_capable": false,
-          "hardware_eol": true,
-          "hardware_max_firmware": "v2.16.1",
-          "reported_version": "",
-          "version_source": "",
+          "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
+          "ota_capable": true,
+          "hardware_eol": false,
+          "hardware_max_firmware": "",
+          "reported_version": "v3.23.1",
+          "version_source": "reported",
           "version_mismatch": false,
           "battery_level": null,
-          "location": "Lounge",
-          "last_deployed": "",
-          "initial_deployed": "2025-12-19",
-          "declared_deployment_version": "",
+          "location": "Technician room",
+          "last_deployed": "2026-09-02",
+          "initial_deployed": "2026-05-29",
+          "declared_deployment_version": "v3.23.1",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
-          "ota_history": [],
-          "sensor_summary": "Modbus floor temperature sensor",
+          "ota_history": [
+            {
+              "date": "2026-09-02T11:25:50.478053",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-09-01T11:10:48.473750",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-31T10:55:47.944807",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-30T10:40:47.068930",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-29T10:40:46.358005",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-28T10:40:45.579356",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-27T10:25:44.909026",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-26T18:50:43.274593",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-25T18:50:42.567642",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-24T18:35:42.204148",
+              "version": "",
+              "version_code": null
+            }
+          ],
+          "sensor_summary": "1-Wire water system temperatures with virtual sensors",
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.23.2"
         },
         {
-          "name": "Main Power In",
-          "mac": "64:e8:33:74:76:fc",
-          "device_id": "798730a8-a5a1-4731-ab30-2ac620abd1cb",
-          "version": "v2.6.3",
+          "name": "Lounge Floor Temperature",
+          "mac": "68:fe:71:16:a9:78",
+          "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
+          "version": "v2.11.2",
           "components": [
             "core",
             "modbus"
@@ -2250,23 +2302,23 @@
           "version_source": "registry",
           "version_mismatch": false,
           "battery_level": null,
-          "location": "Cleaning basement",
-          "last_deployed": "2025-08-21",
-          "initial_deployed": "2025-03-18",
-          "declared_deployment_version": "v2.6.3",
+          "location": "Lounge",
+          "last_deployed": "",
+          "initial_deployed": "2025-12-19",
+          "declared_deployment_version": "v2.11.2",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [],
-          "sensor_summary": "Modbus main power monitoring",
-          "notes": "",
+          "sensor_summary": "Modbus floor temperature sensor",
+          "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.23.2"
         },
         {
           "name": "MOG Tank Water Sensor",
-          "mac": "18:8B:0E:2F:D6:A0",
+          "mac": "18:8b:0e:2f:d6:a0",
           "device_id": "",
           "version": "v2.2.0",
           "components": [
@@ -2278,7 +2330,7 @@
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
           "reported_version": "",
-          "version_source": "",
+          "version_source": "registry",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Crawl space",
@@ -2290,6 +2342,37 @@
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "Digital MOG tank cycle counter / water sensor",
+          "notes": "Old registry label was 'MOG Tank Cycle Count'.",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.23.2"
+        },
+        {
+          "name": "Floating Platform Motion",
+          "mac": "3c:0f:02:c7:eb:cc",
+          "device_id": "4be406b2-5fec-471c-8ea4-8ed15696833d",
+          "version": "v3.22.2",
+          "components": [
+            "core",
+            "lsm9ds1_motion"
+          ],
+          "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
+          "ota_capable": true,
+          "hardware_eol": false,
+          "hardware_max_firmware": "",
+          "reported_version": "",
+          "version_source": "registry",
+          "version_mismatch": false,
+          "battery_level": null,
+          "location": "Pool house",
+          "last_deployed": "2026-06-18",
+          "initial_deployed": "2026-04-30",
+          "declared_deployment_version": "v3.22.2",
+          "pending_ota_version": "",
+          "pending_ota_source": "",
+          "pending_ota_created": "",
+          "ota_history": [],
+          "sensor_summary": "Pool platform movement tracking",
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
@@ -2321,7 +2404,7 @@
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "Analog 4-20mA CO2 tank pressure sensor",
-          "notes": "",
+          "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.23.2"
@@ -2352,89 +2435,7 @@
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "Analog 4-20mA CO2 tank pressure sensor",
-          "notes": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.23.2"
-        },
-        {
-          "name": "Sauna Floor Temperature",
-          "mac": "10:20:ba:39:8f:ac",
-          "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-          "version": "v3.22.2",
-          "components": [
-            "core",
-            "onewire"
-          ],
-          "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
-          "ota_capable": true,
-          "hardware_eol": false,
-          "hardware_max_firmware": "",
-          "reported_version": "v3.22.2",
-          "version_source": "reported",
-          "version_mismatch": false,
-          "battery_level": null,
-          "location": "Crawl space",
-          "last_deployed": "2026-06-17",
-          "initial_deployed": "2026-03-22",
-          "declared_deployment_version": "v3.22.2",
-          "pending_ota_version": "",
-          "pending_ota_source": "",
-          "pending_ota_created": "",
-          "ota_history": [
-            {
-              "date": "2026-09-01T17:53:14.628134",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-31T17:38:14.316681",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-30T17:23:14.085832",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-29T17:23:13.666482",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-28T17:08:13.621646",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-27T16:53:16.211676",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-26T16:38:15.975356",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-25T16:23:15.697153",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-24T16:23:12.568091",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-23T16:08:15.077575",
-              "version": "",
-              "version_code": null
-            }
-          ],
-          "sensor_summary": "1-Wire floor temperature sensors",
-          "notes": "",
+          "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.23.2"
@@ -2584,37 +2585,6 @@
           "target_version": "v3.23.2"
         },
         {
-          "name": "Water Heater Power",
-          "mac": "64:E8:33:88:C3:E4",
-          "device_id": "",
-          "version": "",
-          "components": [
-            "core",
-            "modbus"
-          ],
-          "hardware": "Unknown",
-          "ota_capable": null,
-          "hardware_eol": null,
-          "hardware_max_firmware": "",
-          "reported_version": "",
-          "version_source": "",
-          "version_mismatch": false,
-          "battery_level": null,
-          "location": "Technician room",
-          "last_deployed": "",
-          "initial_deployed": "",
-          "declared_deployment_version": "",
-          "pending_ota_version": "",
-          "pending_ota_source": "",
-          "pending_ota_created": "",
-          "ota_history": [],
-          "sensor_summary": "Modbus water heater power monitoring",
-          "notes": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.23.2"
-        },
-        {
           "name": "Water Heater Power Consumption",
           "mac": "64:e8:33:74:74:48",
           "device_id": "879e2e9d-35e7-4619-841c-c1010077eee0",
@@ -2649,7 +2619,7 @@
           "name": "Water Meter",
           "mac": "68:fe:71:16:bf:60",
           "device_id": "39cbbf52-07fb-46fb-ab11-28847d8da462",
-          "version": "",
+          "version": "v2.11.2",
           "components": [
             "core",
             "digital"
@@ -2659,102 +2629,19 @@
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
           "reported_version": "",
-          "version_source": "",
+          "version_source": "registry",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Technician room",
           "last_deployed": "",
           "initial_deployed": "2025-12-08",
-          "declared_deployment_version": "",
+          "declared_deployment_version": "v2.11.2",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "Digital water flow meter",
-          "notes": "",
-          "track": "sensor-hub",
-          "track_label": "Sensor Hub",
-          "target_version": "v3.23.2"
-        },
-        {
-          "name": "Water System Temperatures",
-          "mac": "3c:0f:02:c7:bc:48",
-          "device_id": "a6b7582c-3975-4f08-b988-afa8353dfad9",
-          "version": "v3.23.1",
-          "components": [
-            "core",
-            "onewire",
-            "virtual"
-          ],
-          "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
-          "ota_capable": true,
-          "hardware_eol": false,
-          "hardware_max_firmware": "",
-          "reported_version": "v3.23.1",
-          "version_source": "reported",
-          "version_mismatch": false,
-          "battery_level": null,
-          "location": "Technician room",
-          "last_deployed": "2026-09-02",
-          "initial_deployed": "2026-05-29",
-          "declared_deployment_version": "v3.23.1",
-          "pending_ota_version": "",
-          "pending_ota_source": "",
-          "pending_ota_created": "",
-          "ota_history": [
-            {
-              "date": "2026-09-01T11:10:48.473750",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-31T10:55:47.944807",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-30T10:40:47.068930",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-29T10:40:46.358005",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-28T10:40:45.579356",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-27T10:25:44.909026",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-26T18:50:43.274593",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-25T18:50:42.567642",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-24T18:35:42.204148",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-23T18:20:41.225269",
-              "version": "",
-              "version_code": null
-            }
-          ],
-          "sensor_summary": "1-Wire water system temperatures with virtual sensors",
-          "notes": "",
+          "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "target_version": "v3.23.2"
@@ -2786,6 +2673,150 @@
           "pending_ota_created": "",
           "ota_history": [],
           "sensor_summary": "1-Wire water tank temperatures with virtual sensors",
+          "notes": "Sensor ID prefixes: PH = Pre Heater tank (virtual 0), MH = Main Heater tank (virtual 1).",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.23.2"
+        },
+        {
+          "name": "Main Power In",
+          "mac": "64:e8:33:74:76:fc",
+          "device_id": "798730a8-a5a1-4731-ab30-2ac620abd1cb",
+          "version": "v2.6.3",
+          "components": [
+            "core",
+            "modbus"
+          ],
+          "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+          "ota_capable": false,
+          "hardware_eol": true,
+          "hardware_max_firmware": "v2.16.1",
+          "reported_version": "",
+          "version_source": "registry",
+          "version_mismatch": false,
+          "battery_level": null,
+          "location": "Cleaning basement",
+          "last_deployed": "2025-08-21",
+          "initial_deployed": "2025-03-18",
+          "declared_deployment_version": "v2.6.3",
+          "pending_ota_version": "",
+          "pending_ota_source": "",
+          "pending_ota_created": "",
+          "ota_history": [],
+          "sensor_summary": "Modbus main power monitoring",
+          "notes": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.23.2"
+        },
+        {
+          "name": "Sauna Floor Temperature",
+          "mac": "10:20:ba:39:8f:ac",
+          "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
+          "version": "v3.22.2",
+          "components": [
+            "core",
+            "onewire"
+          ],
+          "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+          "ota_capable": true,
+          "hardware_eol": false,
+          "hardware_max_firmware": "",
+          "reported_version": "v3.22.2",
+          "version_source": "reported",
+          "version_mismatch": false,
+          "battery_level": null,
+          "location": "Crawl space",
+          "last_deployed": "2026-06-17",
+          "initial_deployed": "2026-03-22",
+          "declared_deployment_version": "v3.22.2",
+          "pending_ota_version": "",
+          "pending_ota_source": "",
+          "pending_ota_created": "",
+          "ota_history": [
+            {
+              "date": "2026-09-01T17:53:14.628134",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-31T17:38:14.316681",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-30T17:23:14.085832",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-29T17:23:13.666482",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-28T17:08:13.621646",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-27T16:53:16.211676",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-26T16:38:15.975356",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-25T16:23:15.697153",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-24T16:23:12.568091",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-08-23T16:08:15.077575",
+              "version": "",
+              "version_code": null
+            }
+          ],
+          "sensor_summary": "1-Wire floor temperature sensors",
+          "notes": "",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "target_version": "v3.23.2"
+        },
+        {
+          "name": "Water Heater Power",
+          "mac": "64:E8:33:88:C3:E4",
+          "device_id": "",
+          "version": "",
+          "components": [
+            "core",
+            "modbus"
+          ],
+          "hardware": "Unknown",
+          "ota_capable": null,
+          "hardware_eol": null,
+          "hardware_max_firmware": "",
+          "reported_version": "",
+          "version_source": "",
+          "version_mismatch": false,
+          "battery_level": null,
+          "location": "Technician room",
+          "last_deployed": "",
+          "initial_deployed": "",
+          "declared_deployment_version": "",
+          "pending_ota_version": "",
+          "pending_ota_source": "",
+          "pending_ota_created": "",
+          "ota_history": [],
+          "sensor_summary": "Modbus water heater power monitoring",
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
@@ -2801,7 +2832,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-09-02 10:50:27",
+      "last_updated": "2026-09-02 15:52:01",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4206,41 +4237,93 @@
       "target_version": "v3.23.2"
     },
     {
-      "name": "Lounge Floor Temperature",
-      "mac": "68:fe:71:16:a9:78",
-      "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
-      "version": "",
+      "name": "Water System Temperatures",
+      "mac": "3c:0f:02:c7:bc:48",
+      "device_id": "a6b7582c-3975-4f08-b988-afa8353dfad9",
+      "version": "v3.23.1",
       "components": [
         "core",
-        "modbus"
+        "onewire",
+        "virtual"
       ],
-      "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
-      "ota_capable": false,
-      "hardware_eol": true,
-      "hardware_max_firmware": "v2.16.1",
-      "reported_version": "",
-      "version_source": "",
+      "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
+      "ota_capable": true,
+      "hardware_eol": false,
+      "hardware_max_firmware": "",
+      "reported_version": "v3.23.1",
+      "version_source": "reported",
       "version_mismatch": false,
       "battery_level": null,
-      "location": "Lounge",
-      "last_deployed": "",
-      "initial_deployed": "2025-12-19",
-      "declared_deployment_version": "",
+      "location": "Technician room",
+      "last_deployed": "2026-09-02",
+      "initial_deployed": "2026-05-29",
+      "declared_deployment_version": "v3.23.1",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
-      "ota_history": [],
-      "sensor_summary": "Modbus floor temperature sensor",
+      "ota_history": [
+        {
+          "date": "2026-09-02T11:25:50.478053",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-09-01T11:10:48.473750",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-31T10:55:47.944807",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-30T10:40:47.068930",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-29T10:40:46.358005",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-28T10:40:45.579356",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-27T10:25:44.909026",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-26T18:50:43.274593",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-25T18:50:42.567642",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-24T18:35:42.204148",
+          "version": "",
+          "version_code": null
+        }
+      ],
+      "sensor_summary": "1-Wire water system temperatures with virtual sensors",
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.23.2"
     },
     {
-      "name": "Main Power In",
-      "mac": "64:e8:33:74:76:fc",
-      "device_id": "798730a8-a5a1-4731-ab30-2ac620abd1cb",
-      "version": "v2.6.3",
+      "name": "Lounge Floor Temperature",
+      "mac": "68:fe:71:16:a9:78",
+      "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
+      "version": "v2.11.2",
       "components": [
         "core",
         "modbus"
@@ -4253,23 +4336,23 @@
       "version_source": "registry",
       "version_mismatch": false,
       "battery_level": null,
-      "location": "Cleaning basement",
-      "last_deployed": "2025-08-21",
-      "initial_deployed": "2025-03-18",
-      "declared_deployment_version": "v2.6.3",
+      "location": "Lounge",
+      "last_deployed": "",
+      "initial_deployed": "2025-12-19",
+      "declared_deployment_version": "v2.11.2",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [],
-      "sensor_summary": "Modbus main power monitoring",
-      "notes": "",
+      "sensor_summary": "Modbus floor temperature sensor",
+      "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.23.2"
     },
     {
       "name": "MOG Tank Water Sensor",
-      "mac": "18:8B:0E:2F:D6:A0",
+      "mac": "18:8b:0e:2f:d6:a0",
       "device_id": "",
       "version": "v2.2.0",
       "components": [
@@ -4281,7 +4364,7 @@
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
       "reported_version": "",
-      "version_source": "",
+      "version_source": "registry",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Crawl space",
@@ -4293,6 +4376,37 @@
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "Digital MOG tank cycle counter / water sensor",
+      "notes": "Old registry label was 'MOG Tank Cycle Count'.",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.23.2"
+    },
+    {
+      "name": "Floating Platform Motion",
+      "mac": "3c:0f:02:c7:eb:cc",
+      "device_id": "4be406b2-5fec-471c-8ea4-8ed15696833d",
+      "version": "v3.22.2",
+      "components": [
+        "core",
+        "lsm9ds1_motion"
+      ],
+      "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
+      "ota_capable": true,
+      "hardware_eol": false,
+      "hardware_max_firmware": "",
+      "reported_version": "",
+      "version_source": "registry",
+      "version_mismatch": false,
+      "battery_level": null,
+      "location": "Pool house",
+      "last_deployed": "2026-06-18",
+      "initial_deployed": "2026-04-30",
+      "declared_deployment_version": "v3.22.2",
+      "pending_ota_version": "",
+      "pending_ota_source": "",
+      "pending_ota_created": "",
+      "ota_history": [],
+      "sensor_summary": "Pool platform movement tracking",
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
@@ -4324,7 +4438,7 @@
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "Analog 4-20mA CO2 tank pressure sensor",
-      "notes": "",
+      "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.23.2"
@@ -4355,89 +4469,7 @@
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "Analog 4-20mA CO2 tank pressure sensor",
-      "notes": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.23.2"
-    },
-    {
-      "name": "Sauna Floor Temperature",
-      "mac": "10:20:ba:39:8f:ac",
-      "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-      "version": "v3.22.2",
-      "components": [
-        "core",
-        "onewire"
-      ],
-      "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
-      "ota_capable": true,
-      "hardware_eol": false,
-      "hardware_max_firmware": "",
-      "reported_version": "v3.22.2",
-      "version_source": "reported",
-      "version_mismatch": false,
-      "battery_level": null,
-      "location": "Crawl space",
-      "last_deployed": "2026-06-17",
-      "initial_deployed": "2026-03-22",
-      "declared_deployment_version": "v3.22.2",
-      "pending_ota_version": "",
-      "pending_ota_source": "",
-      "pending_ota_created": "",
-      "ota_history": [
-        {
-          "date": "2026-09-01T17:53:14.628134",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-31T17:38:14.316681",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-30T17:23:14.085832",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-29T17:23:13.666482",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-28T17:08:13.621646",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-27T16:53:16.211676",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-26T16:38:15.975356",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-25T16:23:15.697153",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-24T16:23:12.568091",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-23T16:08:15.077575",
-          "version": "",
-          "version_code": null
-        }
-      ],
-      "sensor_summary": "1-Wire floor temperature sensors",
-      "notes": "",
+      "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.23.2"
@@ -4587,37 +4619,6 @@
       "target_version": "v3.23.2"
     },
     {
-      "name": "Water Heater Power",
-      "mac": "64:E8:33:88:C3:E4",
-      "device_id": "",
-      "version": "",
-      "components": [
-        "core",
-        "modbus"
-      ],
-      "hardware": "Unknown",
-      "ota_capable": null,
-      "hardware_eol": null,
-      "hardware_max_firmware": "",
-      "reported_version": "",
-      "version_source": "",
-      "version_mismatch": false,
-      "battery_level": null,
-      "location": "Technician room",
-      "last_deployed": "",
-      "initial_deployed": "",
-      "declared_deployment_version": "",
-      "pending_ota_version": "",
-      "pending_ota_source": "",
-      "pending_ota_created": "",
-      "ota_history": [],
-      "sensor_summary": "Modbus water heater power monitoring",
-      "notes": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.23.2"
-    },
-    {
       "name": "Water Heater Power Consumption",
       "mac": "64:e8:33:74:74:48",
       "device_id": "879e2e9d-35e7-4619-841c-c1010077eee0",
@@ -4652,7 +4653,7 @@
       "name": "Water Meter",
       "mac": "68:fe:71:16:bf:60",
       "device_id": "39cbbf52-07fb-46fb-ab11-28847d8da462",
-      "version": "",
+      "version": "v2.11.2",
       "components": [
         "core",
         "digital"
@@ -4662,102 +4663,19 @@
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
       "reported_version": "",
-      "version_source": "",
+      "version_source": "registry",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Technician room",
       "last_deployed": "",
       "initial_deployed": "2025-12-08",
-      "declared_deployment_version": "",
+      "declared_deployment_version": "v2.11.2",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "Digital water flow meter",
-      "notes": "",
-      "track": "sensor-hub",
-      "track_label": "Sensor Hub",
-      "target_version": "v3.23.2"
-    },
-    {
-      "name": "Water System Temperatures",
-      "mac": "3c:0f:02:c7:bc:48",
-      "device_id": "a6b7582c-3975-4f08-b988-afa8353dfad9",
-      "version": "v3.23.1",
-      "components": [
-        "core",
-        "onewire",
-        "virtual"
-      ],
-      "hardware": "Sensor hub v1.5 / ESP32-S3-WROOM-1U-N16R8",
-      "ota_capable": true,
-      "hardware_eol": false,
-      "hardware_max_firmware": "",
-      "reported_version": "v3.23.1",
-      "version_source": "reported",
-      "version_mismatch": false,
-      "battery_level": null,
-      "location": "Technician room",
-      "last_deployed": "2026-09-02",
-      "initial_deployed": "2026-05-29",
-      "declared_deployment_version": "v3.23.1",
-      "pending_ota_version": "",
-      "pending_ota_source": "",
-      "pending_ota_created": "",
-      "ota_history": [
-        {
-          "date": "2026-09-01T11:10:48.473750",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-31T10:55:47.944807",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-30T10:40:47.068930",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-29T10:40:46.358005",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-28T10:40:45.579356",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-27T10:25:44.909026",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-26T18:50:43.274593",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-25T18:50:42.567642",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-24T18:35:42.204148",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-23T18:20:41.225269",
-          "version": "",
-          "version_code": null
-        }
-      ],
-      "sensor_summary": "1-Wire water system temperatures with virtual sensors",
-      "notes": "",
+      "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "target_version": "v3.23.2"
@@ -4789,6 +4707,150 @@
       "pending_ota_created": "",
       "ota_history": [],
       "sensor_summary": "1-Wire water tank temperatures with virtual sensors",
+      "notes": "Sensor ID prefixes: PH = Pre Heater tank (virtual 0), MH = Main Heater tank (virtual 1).",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.23.2"
+    },
+    {
+      "name": "Main Power In",
+      "mac": "64:e8:33:74:76:fc",
+      "device_id": "798730a8-a5a1-4731-ab30-2ac620abd1cb",
+      "version": "v2.6.3",
+      "components": [
+        "core",
+        "modbus"
+      ],
+      "hardware": "Sensor hub v1.3 / ESP32-WROOM-32E dev board",
+      "ota_capable": false,
+      "hardware_eol": true,
+      "hardware_max_firmware": "v2.16.1",
+      "reported_version": "",
+      "version_source": "registry",
+      "version_mismatch": false,
+      "battery_level": null,
+      "location": "Cleaning basement",
+      "last_deployed": "2025-08-21",
+      "initial_deployed": "2025-03-18",
+      "declared_deployment_version": "v2.6.3",
+      "pending_ota_version": "",
+      "pending_ota_source": "",
+      "pending_ota_created": "",
+      "ota_history": [],
+      "sensor_summary": "Modbus main power monitoring",
+      "notes": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.23.2"
+    },
+    {
+      "name": "Sauna Floor Temperature",
+      "mac": "10:20:ba:39:8f:ac",
+      "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
+      "version": "v3.22.2",
+      "components": [
+        "core",
+        "onewire"
+      ],
+      "hardware": "Sensor hub v1.4 / ESP32-S3-WROOM-1U-N16",
+      "ota_capable": true,
+      "hardware_eol": false,
+      "hardware_max_firmware": "",
+      "reported_version": "v3.22.2",
+      "version_source": "reported",
+      "version_mismatch": false,
+      "battery_level": null,
+      "location": "Crawl space",
+      "last_deployed": "2026-06-17",
+      "initial_deployed": "2026-03-22",
+      "declared_deployment_version": "v3.22.2",
+      "pending_ota_version": "",
+      "pending_ota_source": "",
+      "pending_ota_created": "",
+      "ota_history": [
+        {
+          "date": "2026-09-01T17:53:14.628134",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-31T17:38:14.316681",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-30T17:23:14.085832",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-29T17:23:13.666482",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-28T17:08:13.621646",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-27T16:53:16.211676",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-26T16:38:15.975356",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-25T16:23:15.697153",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-24T16:23:12.568091",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-08-23T16:08:15.077575",
+          "version": "",
+          "version_code": null
+        }
+      ],
+      "sensor_summary": "1-Wire floor temperature sensors",
+      "notes": "",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "target_version": "v3.23.2"
+    },
+    {
+      "name": "Water Heater Power",
+      "mac": "64:E8:33:88:C3:E4",
+      "device_id": "",
+      "version": "",
+      "components": [
+        "core",
+        "modbus"
+      ],
+      "hardware": "Unknown",
+      "ota_capable": null,
+      "hardware_eol": null,
+      "hardware_max_firmware": "",
+      "reported_version": "",
+      "version_source": "",
+      "version_mismatch": false,
+      "battery_level": null,
+      "location": "Technician room",
+      "last_deployed": "",
+      "initial_deployed": "",
+      "declared_deployment_version": "",
+      "pending_ota_version": "",
+      "pending_ota_source": "",
+      "pending_ota_created": "",
+      "ota_history": [],
+      "sensor_summary": "Modbus water heater power monitoring",
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
