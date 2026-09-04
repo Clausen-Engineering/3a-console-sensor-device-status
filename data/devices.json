@@ -268,9 +268,9 @@
             "core"
           ],
           "location": "Technician room",
-          "last_firmware_update": "2026-09-02",
+          "last_firmware_update": "2026-09-04",
           "first_installed": "2026-05-29",
-          "installed_firmware_version": "v3.23.1",
+          "installed_firmware_version": "v3.24.0",
           "sensor_summary": "1-Wire water system temperatures with virtual sensors"
         },
         {

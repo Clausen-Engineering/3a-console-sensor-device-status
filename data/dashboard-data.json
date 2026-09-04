@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-09-04 09:35:41",
+  "last_updated": "2026-09-04 10:27:35",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.24.0",
       "latest_version_label": "v3.24.0",
       "last_commit_date": "2026-09-04 08:40:17",
-      "last_updated": "2026-09-04 09:35:41",
+      "last_updated": "2026-09-04 10:27:35",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2225,7 +2225,7 @@
           "name": "Water System Temperatures",
           "mac": "3c:0f:02:c7:bc:48",
           "device_id": "a6b7582c-3975-4f08-b988-afa8353dfad9",
-          "version": "v3.23.1",
+          "version": "v3.24.0",
           "components": [
             "core",
             "onewire",
@@ -2235,18 +2235,23 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "v3.23.1",
+          "reported_version": "v3.24.0",
           "version_source": "reported",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Technician room",
-          "last_deployed": "2026-09-02",
+          "last_deployed": "2026-09-04",
           "initial_deployed": "2026-05-29",
-          "declared_deployment_version": "v3.23.1",
-          "pending_ota_version": "v3.24.0",
-          "pending_ota_source": "api",
+          "declared_deployment_version": "v3.24.0",
+          "pending_ota_version": "",
+          "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-09-04T10:26:41.379188",
+              "version": "",
+              "version_code": null
+            },
             {
               "date": "2026-09-03T11:25:49.586975",
               "version": "",
@@ -2289,11 +2294,6 @@
             },
             {
               "date": "2026-08-26T18:50:43.274593",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-25T18:50:42.567642",
               "version": "",
               "version_code": null
             }
@@ -2851,7 +2851,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-09-04 09:35:41",
+      "last_updated": "2026-09-04 10:27:35",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4270,7 +4270,7 @@
       "name": "Water System Temperatures",
       "mac": "3c:0f:02:c7:bc:48",
       "device_id": "a6b7582c-3975-4f08-b988-afa8353dfad9",
-      "version": "v3.23.1",
+      "version": "v3.24.0",
       "components": [
         "core",
         "onewire",
@@ -4280,18 +4280,23 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "v3.23.1",
+      "reported_version": "v3.24.0",
       "version_source": "reported",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Technician room",
-      "last_deployed": "2026-09-02",
+      "last_deployed": "2026-09-04",
       "initial_deployed": "2026-05-29",
-      "declared_deployment_version": "v3.23.1",
-      "pending_ota_version": "v3.24.0",
-      "pending_ota_source": "api",
+      "declared_deployment_version": "v3.24.0",
+      "pending_ota_version": "",
+      "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-09-04T10:26:41.379188",
+          "version": "",
+          "version_code": null
+        },
         {
           "date": "2026-09-03T11:25:49.586975",
           "version": "",
@@ -4334,11 +4339,6 @@
         },
         {
           "date": "2026-08-26T18:50:43.274593",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-25T18:50:42.567642",
           "version": "",
           "version_code": null
         }
