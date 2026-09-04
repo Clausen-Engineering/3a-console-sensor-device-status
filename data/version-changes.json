@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.23.2",
+  "latest_version": "v3.24.0",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-09-01 16:22:34",
-  "last_updated": "2026-09-01 14:23:05",
+  "last_commit_date": "2026-09-04 08:40:17",
+  "last_updated": "2026-09-04 06:40:56",
   "version_changes": [
+    {
+      "version": "v3.24.0",
+      "date": "2026-09-04",
+      "components": [
+        "core"
+      ],
+      "description": "Improve firmware reliability and recovery"
+    },
     {
       "version": "v3.23.2",
       "date": "2026-09-01",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.23.2"
+      "description": "Dedupe WiFi network-visibility scan into scanAndLogVisibleNetworks"
     },
     {
       "version": "v3.23.1",
