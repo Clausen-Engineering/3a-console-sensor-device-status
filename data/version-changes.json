@@ -1,16 +1,17 @@
 {
   "latest_version": "v3.24.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-09-08 13:53:45",
-  "last_updated": "2026-09-08 15:34:33",
+  "last_commit_date": "2026-09-08 13:57:41",
+  "last_updated": "2026-09-08 15:36:23",
   "version_changes": [
     {
       "version": "v3.24.2",
       "date": "2026-09-08",
       "components": [
-        "core"
+        "MODBUS",
+        "OneWire"
       ],
-      "description": "Track firmware 3.24.2 for current sensor hub profiles"
+      "description": "Show per-sensor read failures and stale-reading ages; include failing sensors in diagnostics; validate deployment profiles, prevent extra OneWire/Modbus display polling, pair USB firmware with same-port SPIFFS uploads, and record firmware/config hashes and pending OTA status."
     },
     {
       "version": "v3.24.1",
