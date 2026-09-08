@@ -1,16 +1,28 @@
 {
-  "latest_version": "v3.24.1",
+  "latest_version": "v3.24.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-09-08 13:28:18",
-  "last_updated": "2026-09-08 11:28:52",
+  "last_commit_date": "2026-09-08 13:53:45",
+  "last_updated": "2026-09-08 11:54:14",
   "version_changes": [
     {
-      "version": "v3.24.1",
+      "version": "v3.24.2",
       "date": "2026-09-08",
       "components": [
         "core"
       ],
-      "description": "Track firmware 3.24.1 for current sensor hub profiles"
+      "description": "Track firmware 3.24.2 for current sensor hub profiles"
+    },
+    {
+      "version": "v3.24.1",
+      "date": "2026-09-08",
+      "components": [
+        "MODBUS",
+        "analog",
+        "core",
+        "digital",
+        "switch"
+      ],
+      "description": "Patch release: core reliability, OTA recovery and concurrency, durable telemetry, recoverable configuration, analog and Modbus validity, digital pulse persistence, diagnostic acknowledgements, digital switch scheduling, and console re-registration fixes."
     },
     {
       "version": "v3.24.0",
