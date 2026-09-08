@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-09-08 15:53:33",
+  "last_updated": "2026-09-08 20:37:31",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.24.2",
       "latest_version_label": "v3.24.2",
       "last_commit_date": "2026-09-08 13:57:41",
-      "last_updated": "2026-09-08 15:53:33",
+      "last_updated": "2026-09-08 20:37:31",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2184,6 +2184,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-09-08T19:10:39.010619",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-09-07T18:55:41.441675",
               "version": "",
               "version_code": null
@@ -2227,11 +2232,6 @@
               "date": "2026-08-31T17:08:45.965271",
               "version": "",
               "version_code": null
-            },
-            {
-              "date": "2026-08-30T16:53:49.274476",
-              "version": "",
-              "version_code": null
             }
           ],
           "sensor_summary": "Digital emergency button monitor",
@@ -2261,7 +2261,7 @@
           "last_deployed": "2026-06-18",
           "initial_deployed": "2026-04-30",
           "declared_deployment_version": "v3.22.2",
-          "pending_ota_version": "v3.24.0",
+          "pending_ota_version": "v3.24.2",
           "pending_ota_source": "api",
           "pending_ota_created": "",
           "ota_history": [],
@@ -2437,7 +2437,7 @@
           "last_deployed": "2026-06-18",
           "initial_deployed": "2026-04-30",
           "declared_deployment_version": "v3.22.2",
-          "pending_ota_version": "v3.24.0",
+          "pending_ota_version": "v3.24.2",
           "pending_ota_source": "api",
           "pending_ota_created": "",
           "ota_history": [],
@@ -2804,6 +2804,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-09-08T18:53:16.190397",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-09-07T18:38:16.222534",
               "version": "",
               "version_code": null
@@ -2845,11 +2850,6 @@
             },
             {
               "date": "2026-08-30T17:23:14.085832",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-29T17:23:13.666482",
               "version": "",
               "version_code": null
             }
@@ -2901,7 +2901,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-09-08 15:53:33",
+      "last_updated": "2026-09-08 20:37:31",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4257,6 +4257,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-09-08T19:10:39.010619",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-09-07T18:55:41.441675",
           "version": "",
           "version_code": null
@@ -4300,11 +4305,6 @@
           "date": "2026-08-31T17:08:45.965271",
           "version": "",
           "version_code": null
-        },
-        {
-          "date": "2026-08-30T16:53:49.274476",
-          "version": "",
-          "version_code": null
         }
       ],
       "sensor_summary": "Digital emergency button monitor",
@@ -4334,7 +4334,7 @@
       "last_deployed": "2026-06-18",
       "initial_deployed": "2026-04-30",
       "declared_deployment_version": "v3.22.2",
-      "pending_ota_version": "v3.24.0",
+      "pending_ota_version": "v3.24.2",
       "pending_ota_source": "api",
       "pending_ota_created": "",
       "ota_history": [],
@@ -4510,7 +4510,7 @@
       "last_deployed": "2026-06-18",
       "initial_deployed": "2026-04-30",
       "declared_deployment_version": "v3.22.2",
-      "pending_ota_version": "v3.24.0",
+      "pending_ota_version": "v3.24.2",
       "pending_ota_source": "api",
       "pending_ota_created": "",
       "ota_history": [],
@@ -4877,6 +4877,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-09-08T18:53:16.190397",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-09-07T18:38:16.222534",
           "version": "",
           "version_code": null
@@ -4918,11 +4923,6 @@
         },
         {
           "date": "2026-08-30T17:23:14.085832",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-29T17:23:13.666482",
           "version": "",
           "version_code": null
         }
