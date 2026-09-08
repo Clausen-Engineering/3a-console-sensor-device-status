@@ -2,7 +2,7 @@
   "latest_version": "v3.24.2",
   "repo_name": "glaecier-sensorhub-data-collector",
   "last_commit_date": "2026-09-08 13:53:45",
-  "last_updated": "2026-09-08 11:54:14",
+  "last_updated": "2026-09-08 15:34:33",
   "version_changes": [
     {
       "version": "v3.24.2",
@@ -28,9 +28,10 @@
       "version": "v3.24.0",
       "date": "2026-09-04",
       "components": [
-        "core"
+        "MODBUS",
+        "digital"
       ],
-      "description": "Improve sensor recovery, diagnostics, and delivery reliability"
+      "description": "Retry complete Modbus samples with RS485 bus recovery and register-level fault details; add interrupt-based digital pulse counting, sensor reinitialization, queued event/error retries, and acknowledged restart/OTA failure reporting."
     },
     {
       "version": "v3.23.2",
