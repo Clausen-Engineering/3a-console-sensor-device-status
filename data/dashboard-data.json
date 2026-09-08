@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-09-08 15:25:15",
+  "last_updated": "2026-09-08 15:53:33",
   "sections": [
     {
       "id": "sensor-hub",
@@ -9,23 +9,24 @@
       "repo_name": "glaecier-sensorhub-data-collector",
       "latest_version": "v3.24.2",
       "latest_version_label": "v3.24.2",
-      "last_commit_date": "2026-09-08 13:53:45",
-      "last_updated": "2026-09-08 15:25:15",
+      "last_commit_date": "2026-09-08 13:57:41",
+      "last_updated": "2026-09-08 15:53:33",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
           "latest_version": "v3.24.2",
-          "last_commit_date": "2026-09-08 13:53:45",
+          "last_commit_date": "2026-09-08 13:57:41",
           "version_changes": [
             {
               "version": "v3.24.2",
               "date": "2026-09-08",
               "components": [
-                "core"
+                "MODBUS",
+                "OneWire"
               ],
-              "description": "Track firmware 3.24.2 for current sensor hub profiles"
+              "description": "Show per-sensor read failures and stale-reading ages; include failing sensors in diagnostics; validate deployment profiles, prevent extra OneWire/Modbus display polling, pair USB firmware with same-port SPIFFS uploads, and record firmware/config hashes and pending OTA status."
             },
             {
               "version": "v3.24.1",
@@ -43,9 +44,10 @@
               "version": "v3.24.0",
               "date": "2026-09-04",
               "components": [
-                "core"
+                "MODBUS",
+                "digital"
               ],
-              "description": "Improve sensor recovery, diagnostics, and delivery reliability"
+              "description": "Retry complete Modbus samples with RS485 bus recovery and register-level fault details; add interrupt-based digital pulse counting, sensor reinitialization, queued event/error retries, and acknowledged restart/OTA failure reporting."
             },
             {
               "version": "v3.23.2",
@@ -925,9 +927,10 @@
           "version": "v3.24.2",
           "date": "2026-09-08",
           "components": [
-            "core"
+            "MODBUS",
+            "OneWire"
           ],
-          "description": "Track firmware 3.24.2 for current sensor hub profiles",
+          "description": "Show per-sensor read failures and stale-reading ages; include failing sensors in diagnostics; validate deployment profiles, prevent extra OneWire/Modbus display polling, pair USB firmware with same-port SPIFFS uploads, and record firmware/config hashes and pending OTA status.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -951,9 +954,10 @@
           "version": "v3.24.0",
           "date": "2026-09-04",
           "components": [
-            "core"
+            "MODBUS",
+            "digital"
           ],
-          "description": "Improve sensor recovery, diagnostics, and delivery reliability",
+          "description": "Retry complete Modbus samples with RS485 bus recovery and register-level fault details; add interrupt-based digital pulse counting, sensor reinitialization, queued event/error retries, and acknowledged restart/OTA failure reporting.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -2897,7 +2901,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-09-08 15:25:15",
+      "last_updated": "2026-09-08 15:53:33",
       "tracks": [
         {
           "id": "heat-controller",
@@ -2990,15 +2994,16 @@
   "latest_version": "v3.24.2",
   "latest_version_label": "v3.24.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-09-08 13:53:45",
+  "last_commit_date": "2026-09-08 13:57:41",
   "version_changes": [
     {
       "version": "v3.24.2",
       "date": "2026-09-08",
       "components": [
-        "core"
+        "MODBUS",
+        "OneWire"
       ],
-      "description": "Track firmware 3.24.2 for current sensor hub profiles",
+      "description": "Show per-sensor read failures and stale-reading ages; include failing sensors in diagnostics; validate deployment profiles, prevent extra OneWire/Modbus display polling, pair USB firmware with same-port SPIFFS uploads, and record firmware/config hashes and pending OTA status.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
@@ -3022,9 +3027,10 @@
       "version": "v3.24.0",
       "date": "2026-09-04",
       "components": [
-        "core"
+        "MODBUS",
+        "digital"
       ],
-      "description": "Improve sensor recovery, diagnostics, and delivery reliability",
+      "description": "Retry complete Modbus samples with RS485 bus recovery and register-level fault details; add interrupt-based digital pulse counting, sensor reinitialization, queued event/error retries, and acknowledged restart/OTA failure reporting.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
