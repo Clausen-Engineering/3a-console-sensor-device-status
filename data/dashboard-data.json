@@ -1,31 +1,51 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-09-08 10:29:02",
+  "last_updated": "2026-09-08 15:25:15",
   "sections": [
     {
       "id": "sensor-hub",
       "label": "Sensor Hub",
       "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
       "repo_name": "glaecier-sensorhub-data-collector",
-      "latest_version": "v3.24.0",
-      "latest_version_label": "v3.24.0",
-      "last_commit_date": "2026-09-04 08:40:17",
-      "last_updated": "2026-09-08 10:29:02",
+      "latest_version": "v3.24.2",
+      "latest_version_label": "v3.24.2",
+      "last_commit_date": "2026-09-08 13:53:45",
+      "last_updated": "2026-09-08 15:25:15",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
-          "latest_version": "v3.24.0",
-          "last_commit_date": "2026-09-04 08:40:17",
+          "latest_version": "v3.24.2",
+          "last_commit_date": "2026-09-08 13:53:45",
           "version_changes": [
+            {
+              "version": "v3.24.2",
+              "date": "2026-09-08",
+              "components": [
+                "core"
+              ],
+              "description": "Track firmware 3.24.2 for current sensor hub profiles"
+            },
+            {
+              "version": "v3.24.1",
+              "date": "2026-09-08",
+              "components": [
+                "MODBUS",
+                "analog",
+                "core",
+                "digital",
+                "switch"
+              ],
+              "description": "Patch release: core reliability, OTA recovery and concurrency, durable telemetry, recoverable configuration, analog and Modbus validity, digital pulse persistence, diagnostic acknowledgements, digital switch scheduling, and console re-registration fixes."
+            },
             {
               "version": "v3.24.0",
               "date": "2026-09-04",
               "components": [
                 "core"
               ],
-              "description": "Improve firmware reliability and recovery"
+              "description": "Improve sensor recovery, diagnostics, and delivery reliability"
             },
             {
               "version": "v3.23.2",
@@ -902,12 +922,38 @@
       ],
       "version_changes": [
         {
+          "version": "v3.24.2",
+          "date": "2026-09-08",
+          "components": [
+            "core"
+          ],
+          "description": "Track firmware 3.24.2 for current sensor hub profiles",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.24.1",
+          "date": "2026-09-08",
+          "components": [
+            "MODBUS",
+            "analog",
+            "core",
+            "digital",
+            "switch"
+          ],
+          "description": "Patch release: core reliability, OTA recovery and concurrency, durable telemetry, recoverable configuration, analog and Modbus validity, digital pulse persistence, diagnostic acknowledgements, digital switch scheduling, and console re-registration fixes.",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
           "version": "v3.24.0",
           "date": "2026-09-04",
           "components": [
             "core"
           ],
-          "description": "Improve firmware reliability and recovery",
+          "description": "Improve sensor recovery, diagnostics, and delivery reliability",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -2188,7 +2234,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Floating Platform Motion",
@@ -2219,7 +2265,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Water System Temperatures",
@@ -2247,6 +2293,11 @@
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-09-08T11:11:46.859169",
+              "version": "",
+              "version_code": null
+            },
             {
               "date": "2026-09-07T11:11:43.371404",
               "version": "",
@@ -2291,18 +2342,13 @@
               "date": "2026-08-30T10:40:47.068930",
               "version": "",
               "version_code": null
-            },
-            {
-              "date": "2026-08-29T10:40:46.358005",
-              "version": "",
-              "version_code": null
             }
           ],
           "sensor_summary": "1-Wire water system temperatures with virtual sensors",
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Lounge Floor Temperature",
@@ -2333,7 +2379,7 @@
           "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "MOG Tank Water Sensor",
@@ -2364,7 +2410,7 @@
           "notes": "Old registry label was 'MOG Tank Cycle Count'.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Floating Platform Motion",
@@ -2395,7 +2441,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Hallway CO2 Pressure",
@@ -2426,7 +2472,7 @@
           "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Lounge CO2 Pressure",
@@ -2457,7 +2503,7 @@
           "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Sauna Power Consumption",
@@ -2488,7 +2534,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Sauna Temperature and Humidity",
@@ -2519,7 +2565,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Ventilation Boost Button",
@@ -2546,6 +2592,11 @@
           "pending_ota_source": "",
           "pending_ota_created": "",
           "ota_history": [
+            {
+              "date": "2026-09-08T13:03:21.222300",
+              "version": "",
+              "version_code": null
+            },
             {
               "date": "2026-09-07T12:48:20.078884",
               "version": "",
@@ -2590,18 +2641,13 @@
               "date": "2026-08-30T19:30:18.805863",
               "version": "",
               "version_code": null
-            },
-            {
-              "date": "2026-08-29T19:19:17.779159",
-              "version": "",
-              "version_code": null
             }
           ],
           "sensor_summary": "Ventilation boost action button",
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Water Heater Power Consumption",
@@ -2632,7 +2678,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Water Meter",
@@ -2663,7 +2709,7 @@
           "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Water Tank Temperatures",
@@ -2695,7 +2741,7 @@
           "notes": "Sensor ID prefixes: PH = Pre Heater tank (virtual 0), MH = Main Heater tank (virtual 1).",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Main Power In",
@@ -2726,7 +2772,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Sauna Floor Temperature",
@@ -2808,7 +2854,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         },
         {
           "name": "Water Heater Power",
@@ -2839,7 +2885,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.24.0"
+          "target_version": "v3.24.2"
         }
       ]
     },
@@ -2851,7 +2897,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-09-08 10:29:02",
+      "last_updated": "2026-09-08 15:25:15",
       "tracks": [
         {
           "id": "heat-controller",
@@ -2941,18 +2987,44 @@
       ]
     }
   ],
-  "latest_version": "v3.24.0",
-  "latest_version_label": "v3.24.0",
+  "latest_version": "v3.24.2",
+  "latest_version_label": "v3.24.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-09-04 08:40:17",
+  "last_commit_date": "2026-09-08 13:53:45",
   "version_changes": [
+    {
+      "version": "v3.24.2",
+      "date": "2026-09-08",
+      "components": [
+        "core"
+      ],
+      "description": "Track firmware 3.24.2 for current sensor hub profiles",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.24.1",
+      "date": "2026-09-08",
+      "components": [
+        "MODBUS",
+        "analog",
+        "core",
+        "digital",
+        "switch"
+      ],
+      "description": "Patch release: core reliability, OTA recovery and concurrency, durable telemetry, recoverable configuration, analog and Modbus validity, digital pulse persistence, diagnostic acknowledgements, digital switch scheduling, and console re-registration fixes.",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
     {
       "version": "v3.24.0",
       "date": "2026-09-04",
       "components": [
         "core"
       ],
-      "description": "Improve firmware reliability and recovery",
+      "description": "Improve sensor recovery, diagnostics, and delivery reliability",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
@@ -4233,7 +4305,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Floating Platform Motion",
@@ -4264,7 +4336,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Water System Temperatures",
@@ -4292,6 +4364,11 @@
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-09-08T11:11:46.859169",
+          "version": "",
+          "version_code": null
+        },
         {
           "date": "2026-09-07T11:11:43.371404",
           "version": "",
@@ -4336,18 +4413,13 @@
           "date": "2026-08-30T10:40:47.068930",
           "version": "",
           "version_code": null
-        },
-        {
-          "date": "2026-08-29T10:40:46.358005",
-          "version": "",
-          "version_code": null
         }
       ],
       "sensor_summary": "1-Wire water system temperatures with virtual sensors",
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Lounge Floor Temperature",
@@ -4378,7 +4450,7 @@
       "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "MOG Tank Water Sensor",
@@ -4409,7 +4481,7 @@
       "notes": "Old registry label was 'MOG Tank Cycle Count'.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Floating Platform Motion",
@@ -4440,7 +4512,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Hallway CO2 Pressure",
@@ -4471,7 +4543,7 @@
       "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Lounge CO2 Pressure",
@@ -4502,7 +4574,7 @@
       "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Sauna Power Consumption",
@@ -4533,7 +4605,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Sauna Temperature and Humidity",
@@ -4564,7 +4636,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Ventilation Boost Button",
@@ -4591,6 +4663,11 @@
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-09-08T13:03:21.222300",
+          "version": "",
+          "version_code": null
+        },
         {
           "date": "2026-09-07T12:48:20.078884",
           "version": "",
@@ -4635,18 +4712,13 @@
           "date": "2026-08-30T19:30:18.805863",
           "version": "",
           "version_code": null
-        },
-        {
-          "date": "2026-08-29T19:19:17.779159",
-          "version": "",
-          "version_code": null
         }
       ],
       "sensor_summary": "Ventilation boost action button",
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Water Heater Power Consumption",
@@ -4677,7 +4749,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Water Meter",
@@ -4708,7 +4780,7 @@
       "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Water Tank Temperatures",
@@ -4740,7 +4812,7 @@
       "notes": "Sensor ID prefixes: PH = Pre Heater tank (virtual 0), MH = Main Heater tank (virtual 1).",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Main Power In",
@@ -4771,7 +4843,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Sauna Floor Temperature",
@@ -4853,7 +4925,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     },
     {
       "name": "Water Heater Power",
@@ -4884,7 +4956,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.24.0"
+      "target_version": "v3.24.2"
     }
   ]
 }
