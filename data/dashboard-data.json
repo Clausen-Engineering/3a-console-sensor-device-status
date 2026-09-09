@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-09-09 10:40:21",
+  "last_updated": "2026-09-09 15:49:15",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.24.2",
       "latest_version_label": "v3.24.2",
       "last_commit_date": "2026-09-08 13:57:41",
-      "last_updated": "2026-09-09 10:40:21",
+      "last_updated": "2026-09-09 15:49:15",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2298,6 +2298,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-09-09T11:26:44.822385",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-09-08T11:11:46.859169",
               "version": "",
               "version_code": null
@@ -2341,11 +2346,6 @@
               "date": "2026-08-31T10:55:47.944807",
               "version": "",
               "version_code": null
-            },
-            {
-              "date": "2026-08-30T10:40:47.068930",
-              "version": "",
-              "version_code": null
             }
           ],
           "sensor_summary": "1-Wire water system temperatures with virtual sensors",
@@ -2358,7 +2358,7 @@
           "name": "Lounge Floor Temperature",
           "mac": "68:fe:71:16:a9:78",
           "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
-          "version": "v2.11.2",
+          "version": "v3.25.0",
           "components": [
             "core",
             "modbus"
@@ -2374,7 +2374,7 @@
           "location": "Lounge",
           "last_deployed": "",
           "initial_deployed": "2025-12-19",
-          "declared_deployment_version": "v2.11.2",
+          "declared_deployment_version": "v3.25.0",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
@@ -2451,7 +2451,7 @@
           "name": "Hallway CO2 Pressure",
           "mac": "64:e8:33:74:70:8c",
           "device_id": "3507a218-e2e7-406c-9ef4-9921d8c6f30f",
-          "version": "",
+          "version": "v3.25.0",
           "components": [
             "analog",
             "core"
@@ -2461,13 +2461,13 @@
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
           "reported_version": "",
-          "version_source": "",
+          "version_source": "registry",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Hallway",
           "last_deployed": "",
           "initial_deployed": "2026-02-03",
-          "declared_deployment_version": "",
+          "declared_deployment_version": "v3.25.0",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
@@ -2482,7 +2482,7 @@
           "name": "Lounge CO2 Pressure",
           "mac": "b8:f8:62:d5:d0:88",
           "device_id": "5c2ca1dc-59bd-4740-8f46-75a6c9780d8e",
-          "version": "",
+          "version": "v3.25.0",
           "components": [
             "analog",
             "core"
@@ -2492,13 +2492,13 @@
           "hardware_eol": true,
           "hardware_max_firmware": "v2.16.1",
           "reported_version": "",
-          "version_source": "",
+          "version_source": "registry",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Lounge",
           "last_deployed": "",
           "initial_deployed": "2025-10-08",
-          "declared_deployment_version": "",
+          "declared_deployment_version": "v3.25.0",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
@@ -2597,6 +2597,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-09-09T13:03:25.405787",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-09-08T13:03:21.222300",
               "version": "",
               "version_code": null
@@ -2638,11 +2643,6 @@
             },
             {
               "date": "2026-08-31T19:30:19.423724",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-08-30T19:30:18.805863",
               "version": "",
               "version_code": null
             }
@@ -2688,7 +2688,7 @@
           "name": "Water Meter",
           "mac": "68:fe:71:16:bf:60",
           "device_id": "39cbbf52-07fb-46fb-ab11-28847d8da462",
-          "version": "v2.11.2",
+          "version": "v3.25.0",
           "components": [
             "core",
             "digital"
@@ -2704,7 +2704,7 @@
           "location": "Technician room",
           "last_deployed": "",
           "initial_deployed": "2025-12-08",
-          "declared_deployment_version": "v2.11.2",
+          "declared_deployment_version": "v3.25.0",
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
@@ -2901,7 +2901,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-09-09 10:40:21",
+      "last_updated": "2026-09-09 15:49:15",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4371,6 +4371,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-09-09T11:26:44.822385",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-09-08T11:11:46.859169",
           "version": "",
           "version_code": null
@@ -4414,11 +4419,6 @@
           "date": "2026-08-31T10:55:47.944807",
           "version": "",
           "version_code": null
-        },
-        {
-          "date": "2026-08-30T10:40:47.068930",
-          "version": "",
-          "version_code": null
         }
       ],
       "sensor_summary": "1-Wire water system temperatures with virtual sensors",
@@ -4431,7 +4431,7 @@
       "name": "Lounge Floor Temperature",
       "mac": "68:fe:71:16:a9:78",
       "device_id": "ca1a83c6-f7fc-4182-858c-0ef7ea281946",
-      "version": "v2.11.2",
+      "version": "v3.25.0",
       "components": [
         "core",
         "modbus"
@@ -4447,7 +4447,7 @@
       "location": "Lounge",
       "last_deployed": "",
       "initial_deployed": "2025-12-19",
-      "declared_deployment_version": "v2.11.2",
+      "declared_deployment_version": "v3.25.0",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
@@ -4524,7 +4524,7 @@
       "name": "Hallway CO2 Pressure",
       "mac": "64:e8:33:74:70:8c",
       "device_id": "3507a218-e2e7-406c-9ef4-9921d8c6f30f",
-      "version": "",
+      "version": "v3.25.0",
       "components": [
         "analog",
         "core"
@@ -4534,13 +4534,13 @@
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
       "reported_version": "",
-      "version_source": "",
+      "version_source": "registry",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Hallway",
       "last_deployed": "",
       "initial_deployed": "2026-02-03",
-      "declared_deployment_version": "",
+      "declared_deployment_version": "v3.25.0",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
@@ -4555,7 +4555,7 @@
       "name": "Lounge CO2 Pressure",
       "mac": "b8:f8:62:d5:d0:88",
       "device_id": "5c2ca1dc-59bd-4740-8f46-75a6c9780d8e",
-      "version": "",
+      "version": "v3.25.0",
       "components": [
         "analog",
         "core"
@@ -4565,13 +4565,13 @@
       "hardware_eol": true,
       "hardware_max_firmware": "v2.16.1",
       "reported_version": "",
-      "version_source": "",
+      "version_source": "registry",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Lounge",
       "last_deployed": "",
       "initial_deployed": "2025-10-08",
-      "declared_deployment_version": "",
+      "declared_deployment_version": "v3.25.0",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
@@ -4670,6 +4670,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-09-09T13:03:25.405787",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-09-08T13:03:21.222300",
           "version": "",
           "version_code": null
@@ -4711,11 +4716,6 @@
         },
         {
           "date": "2026-08-31T19:30:19.423724",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-08-30T19:30:18.805863",
           "version": "",
           "version_code": null
         }
@@ -4761,7 +4761,7 @@
       "name": "Water Meter",
       "mac": "68:fe:71:16:bf:60",
       "device_id": "39cbbf52-07fb-46fb-ab11-28847d8da462",
-      "version": "v2.11.2",
+      "version": "v3.25.0",
       "components": [
         "core",
         "digital"
@@ -4777,7 +4777,7 @@
       "location": "Technician room",
       "last_deployed": "",
       "initial_deployed": "2025-12-08",
-      "declared_deployment_version": "v2.11.2",
+      "declared_deployment_version": "v3.25.0",
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
