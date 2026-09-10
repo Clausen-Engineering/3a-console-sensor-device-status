@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-09-10 10:28:40",
+  "last_updated": "2026-09-10 15:44:28",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.24.2",
       "latest_version_label": "v3.24.2",
       "last_commit_date": "2026-09-08 13:57:41",
-      "last_updated": "2026-09-10 10:28:40",
+      "last_updated": "2026-09-10 15:44:28",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2184,52 +2184,52 @@
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-09-09T19:25:37.319855",
+              "date": "2026-09-09T19:25:37.319855Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-08T19:10:39.010619",
+              "date": "2026-09-08T19:10:39.010619Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-07T18:55:41.441675",
+              "date": "2026-09-07T18:55:41.441675Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-06T18:40:43.786359",
+              "date": "2026-09-06T18:40:43.786359Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-05T18:40:46.239963",
+              "date": "2026-09-05T18:40:46.239963Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-04T18:31:54.908468",
+              "date": "2026-09-04T18:31:54.908468Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-04T15:03:20.744358",
+              "date": "2026-09-04T15:03:20.744358Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-03T17:38:38.378948",
+              "date": "2026-09-03T17:38:38.378948Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-02T17:38:40.645269",
+              "date": "2026-09-02T17:38:40.645269Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-01T17:23:44.091047",
+              "date": "2026-09-01T17:23:44.091047Z",
               "version": "",
               "version_code": null
             }
@@ -2298,52 +2298,52 @@
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-09-09T11:26:44.822385",
+              "date": "2026-09-10T11:26:48.715346Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-08T11:11:46.859169",
+              "date": "2026-09-09T11:26:44.822385Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-07T11:11:43.371404",
+              "date": "2026-09-08T11:11:46.859169Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-06T10:56:43.027232",
+              "date": "2026-09-07T11:11:43.371404Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-05T10:41:42.106866",
+              "date": "2026-09-06T10:56:43.027232Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-04T10:26:41.379188",
+              "date": "2026-09-05T10:41:42.106866Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-03T11:25:49.586975",
+              "date": "2026-09-04T10:26:41.379188Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-02T11:25:50.478053",
+              "date": "2026-09-03T11:25:49.586975Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-01T11:10:48.473750",
+              "date": "2026-09-02T11:25:50.478053Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-08-31T10:55:47.944807",
+              "date": "2026-09-01T11:10:48.473750Z",
               "version": "",
               "version_code": null
             }
@@ -2597,52 +2597,52 @@
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-09-09T13:03:25.405787",
+              "date": "2026-09-10T13:18:23.064713Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-08T13:03:21.222300",
+              "date": "2026-09-09T13:03:25.405787Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-07T12:48:20.078884",
+              "date": "2026-09-08T13:03:21.222300Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-06T12:33:19.385761",
+              "date": "2026-09-07T12:48:20.078884Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-05T12:33:18.439244",
+              "date": "2026-09-06T12:33:19.385761Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-04T12:18:17.742982",
+              "date": "2026-09-05T12:33:18.439244Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-03T20:09:25.997703",
+              "date": "2026-09-04T12:18:17.742982Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-02T19:54:50.230234",
+              "date": "2026-09-03T20:09:25.997703Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-01T19:45:19.744645",
+              "date": "2026-09-02T19:54:50.230234Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-08-31T19:30:19.423724",
+              "date": "2026-09-01T19:45:19.744645Z",
               "version": "",
               "version_code": null
             }
@@ -2804,52 +2804,52 @@
           "pending_ota_created": "",
           "ota_history": [
             {
-              "date": "2026-09-10T00:58:34.722458",
+              "date": "2026-09-10T00:58:34.722458Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-09T00:58:34.141110",
+              "date": "2026-09-09T00:58:34.141110Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-08T18:53:16.190397",
+              "date": "2026-09-08T18:53:16.190397Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-07T18:38:16.222534",
+              "date": "2026-09-07T18:38:16.222534Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-06T18:38:16.040818",
+              "date": "2026-09-06T18:38:16.040818Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-05T18:23:18.671137",
+              "date": "2026-09-05T18:23:18.671137Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-04T18:08:15.411220",
+              "date": "2026-09-04T18:08:15.411220Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-03T17:53:15.383538",
+              "date": "2026-09-03T17:53:15.383538Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-02T17:53:14.692737",
+              "date": "2026-09-02T17:53:14.692737Z",
               "version": "",
               "version_code": null
             },
             {
-              "date": "2026-09-01T17:53:14.628134",
+              "date": "2026-09-01T17:53:14.628134Z",
               "version": "",
               "version_code": null
             }
@@ -2901,7 +2901,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-09-10 10:28:40",
+      "last_updated": "2026-09-10 15:44:28",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4257,52 +4257,52 @@
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-09-09T19:25:37.319855",
+          "date": "2026-09-09T19:25:37.319855Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-08T19:10:39.010619",
+          "date": "2026-09-08T19:10:39.010619Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-07T18:55:41.441675",
+          "date": "2026-09-07T18:55:41.441675Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-06T18:40:43.786359",
+          "date": "2026-09-06T18:40:43.786359Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-05T18:40:46.239963",
+          "date": "2026-09-05T18:40:46.239963Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-04T18:31:54.908468",
+          "date": "2026-09-04T18:31:54.908468Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-04T15:03:20.744358",
+          "date": "2026-09-04T15:03:20.744358Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-03T17:38:38.378948",
+          "date": "2026-09-03T17:38:38.378948Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-02T17:38:40.645269",
+          "date": "2026-09-02T17:38:40.645269Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-01T17:23:44.091047",
+          "date": "2026-09-01T17:23:44.091047Z",
           "version": "",
           "version_code": null
         }
@@ -4371,52 +4371,52 @@
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-09-09T11:26:44.822385",
+          "date": "2026-09-10T11:26:48.715346Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-08T11:11:46.859169",
+          "date": "2026-09-09T11:26:44.822385Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-07T11:11:43.371404",
+          "date": "2026-09-08T11:11:46.859169Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-06T10:56:43.027232",
+          "date": "2026-09-07T11:11:43.371404Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-05T10:41:42.106866",
+          "date": "2026-09-06T10:56:43.027232Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-04T10:26:41.379188",
+          "date": "2026-09-05T10:41:42.106866Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-03T11:25:49.586975",
+          "date": "2026-09-04T10:26:41.379188Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-02T11:25:50.478053",
+          "date": "2026-09-03T11:25:49.586975Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-01T11:10:48.473750",
+          "date": "2026-09-02T11:25:50.478053Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-08-31T10:55:47.944807",
+          "date": "2026-09-01T11:10:48.473750Z",
           "version": "",
           "version_code": null
         }
@@ -4670,52 +4670,52 @@
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-09-09T13:03:25.405787",
+          "date": "2026-09-10T13:18:23.064713Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-08T13:03:21.222300",
+          "date": "2026-09-09T13:03:25.405787Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-07T12:48:20.078884",
+          "date": "2026-09-08T13:03:21.222300Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-06T12:33:19.385761",
+          "date": "2026-09-07T12:48:20.078884Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-05T12:33:18.439244",
+          "date": "2026-09-06T12:33:19.385761Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-04T12:18:17.742982",
+          "date": "2026-09-05T12:33:18.439244Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-03T20:09:25.997703",
+          "date": "2026-09-04T12:18:17.742982Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-02T19:54:50.230234",
+          "date": "2026-09-03T20:09:25.997703Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-01T19:45:19.744645",
+          "date": "2026-09-02T19:54:50.230234Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-08-31T19:30:19.423724",
+          "date": "2026-09-01T19:45:19.744645Z",
           "version": "",
           "version_code": null
         }
@@ -4877,52 +4877,52 @@
       "pending_ota_created": "",
       "ota_history": [
         {
-          "date": "2026-09-10T00:58:34.722458",
+          "date": "2026-09-10T00:58:34.722458Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-09T00:58:34.141110",
+          "date": "2026-09-09T00:58:34.141110Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-08T18:53:16.190397",
+          "date": "2026-09-08T18:53:16.190397Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-07T18:38:16.222534",
+          "date": "2026-09-07T18:38:16.222534Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-06T18:38:16.040818",
+          "date": "2026-09-06T18:38:16.040818Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-05T18:23:18.671137",
+          "date": "2026-09-05T18:23:18.671137Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-04T18:08:15.411220",
+          "date": "2026-09-04T18:08:15.411220Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-03T17:53:15.383538",
+          "date": "2026-09-03T17:53:15.383538Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-02T17:53:14.692737",
+          "date": "2026-09-02T17:53:14.692737Z",
           "version": "",
           "version_code": null
         },
         {
-          "date": "2026-09-01T17:53:14.628134",
+          "date": "2026-09-01T17:53:14.628134Z",
           "version": "",
           "version_code": null
         }
