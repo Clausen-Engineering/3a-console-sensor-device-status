@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-09-24 11:00:18",
+  "last_updated": "2026-09-24 16:22:57",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.24.2",
       "latest_version_label": "v3.24.2",
       "last_commit_date": "2026-09-08 13:57:41",
-      "last_updated": "2026-09-24 11:00:18",
+      "last_updated": "2026-09-24 16:22:57",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2298,6 +2298,16 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-09-24T12:10:02.258750Z",
+              "version": "",
+              "version_code": null
+            },
+            {
+              "date": "2026-09-24T11:39:08.125315Z",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-09-23T14:09:18.848868Z",
               "version": "",
               "version_code": null
@@ -2334,16 +2344,6 @@
             },
             {
               "date": "2026-09-17T12:11:51.266257Z",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-09-16T12:11:53.137535Z",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-09-15T12:11:49.885276Z",
               "version": "",
               "version_code": null
             }
@@ -2597,6 +2597,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-09-24T15:01:05.524847Z",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-09-23T14:46:04.824257Z",
               "version": "",
               "version_code": null
@@ -2638,11 +2643,6 @@
             },
             {
               "date": "2026-09-15T13:48:26.121784Z",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-09-14T13:48:25.366777Z",
               "version": "",
               "version_code": null
             }
@@ -2901,7 +2901,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-09-24 11:00:18",
+      "last_updated": "2026-09-24 16:22:57",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4371,6 +4371,16 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-09-24T12:10:02.258750Z",
+          "version": "",
+          "version_code": null
+        },
+        {
+          "date": "2026-09-24T11:39:08.125315Z",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-09-23T14:09:18.848868Z",
           "version": "",
           "version_code": null
@@ -4407,16 +4417,6 @@
         },
         {
           "date": "2026-09-17T12:11:51.266257Z",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-09-16T12:11:53.137535Z",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-09-15T12:11:49.885276Z",
           "version": "",
           "version_code": null
         }
@@ -4670,6 +4670,11 @@
       "pending_ota_created": "",
       "ota_history": [
         {
+          "date": "2026-09-24T15:01:05.524847Z",
+          "version": "",
+          "version_code": null
+        },
+        {
           "date": "2026-09-23T14:46:04.824257Z",
           "version": "",
           "version_code": null
@@ -4711,11 +4716,6 @@
         },
         {
           "date": "2026-09-15T13:48:26.121784Z",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-09-14T13:48:25.366777Z",
           "version": "",
           "version_code": null
         }
