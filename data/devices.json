@@ -62,9 +62,9 @@
             "core"
           ],
           "location": "Landgang ind",
-          "last_firmware_update": "2026-06-17",
+          "last_firmware_update": "2026-09-29",
           "first_installed": "2025-08-25",
-          "installed_firmware_version": "v3.22.2",
+          "installed_firmware_version": "v3.26.0",
           "sensor_summary": "Digital emergency button monitor"
         },
         {
@@ -165,9 +165,9 @@
           ],
           "location": "Crawl space",
           "device_id": "6e8baac5-1e12-4e2b-a7c2-47e397e8f9b2",
-          "last_firmware_update": "2026-06-17",
+          "last_firmware_update": "2026-09-29",
           "first_installed": "2026-03-22",
-          "installed_firmware_version": "v3.22.2",
+          "installed_firmware_version": "v3.26.0",
           "sensor_summary": "1-Wire floor temperature sensors"
         },
         {
@@ -210,9 +210,9 @@
             "core"
           ],
           "location": "Under lounge table",
-          "last_firmware_update": "2026-09-04",
+          "last_firmware_update": "2026-09-29",
           "first_installed": "2026-05-04",
-          "installed_firmware_version": "v3.24.0",
+          "installed_firmware_version": "v3.26.0",
           "sensor_summary": "Ventilation boost action button"
         },
         {
@@ -268,9 +268,9 @@
             "core"
           ],
           "location": "Technician room",
-          "last_firmware_update": "2026-09-04",
+          "last_firmware_update": "2026-09-29",
           "first_installed": "2026-05-29",
-          "installed_firmware_version": "v3.24.0",
+          "installed_firmware_version": "v3.26.0",
           "sensor_summary": "1-Wire water system temperatures with virtual sensors"
         },
         {
