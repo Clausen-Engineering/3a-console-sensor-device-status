@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.26.2",
+  "latest_version": "v3.26.3",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-09-30 11:19:54",
-  "last_updated": "2026-09-30 09:20:10",
+  "last_commit_date": "2026-09-30 11:50:12",
+  "last_updated": "2026-09-30 09:51:01",
   "version_changes": [
+    {
+      "version": "v3.26.3",
+      "date": "2026-09-30",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.26.3"
+    },
     {
       "version": "v3.26.2",
       "date": "2026-09-30",
       "components": [
         "core"
       ],
-      "description": "Release 3.26.2: accept disabled display without pages and fix settings-sync handling"
+      "description": "Accept disabled display settings without pages; treat unchanged master-settings hash as sync success and fail settings load when apply fails; clear config-load error after successful Console config apply; add validation detail and path to config-load error 'validation_failed'; extend display-config tests and MSVC fallback; queue 3.26.2 OTA for heat-pump profiles."
     },
     {
       "version": "v3.26.1",
