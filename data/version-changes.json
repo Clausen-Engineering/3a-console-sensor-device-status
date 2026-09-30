@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.26.1",
+  "latest_version": "v3.26.2",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-09-29 17:17:58",
-  "last_updated": "2026-09-29 15:19:17",
+  "last_commit_date": "2026-09-30 11:19:54",
+  "last_updated": "2026-09-30 09:20:10",
   "version_changes": [
+    {
+      "version": "v3.26.2",
+      "date": "2026-09-30",
+      "components": [
+        "core"
+      ],
+      "description": "Release 3.26.2: accept disabled display without pages and fix settings-sync handling"
+    },
     {
       "version": "v3.26.1",
       "date": "2026-09-29",
       "components": [
-        "core"
+        "digital"
       ],
-      "description": "Simplify switch settings and remove migration leftovers"
+      "description": "Simplify digital-switch settings to enabled and active_level; standardize boolean enabled/previous state events and reject legacy switch fields; update the heat-pump profile while preserving active-low GPIO21 control; remove one-time migration scripts, old settings snapshots and duplicate documentation; consolidate Console profile consistency checks into deployment tests."
     },
     {
       "version": "v3.26.0",
