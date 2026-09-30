@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.26.3",
+  "latest_version": "v3.26.4",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-09-30 11:50:12",
-  "last_updated": "2026-09-30 09:51:01",
+  "last_commit_date": "2026-09-30 13:18:22",
+  "last_updated": "2026-09-30 11:18:36",
   "version_changes": [
+    {
+      "version": "v3.26.4",
+      "date": "2026-09-30",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.26.4"
+    },
     {
       "version": "v3.26.3",
       "date": "2026-09-30",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.26.3"
+      "description": "Fetch Console settings before device and type registration; schedule settings sync immediately after startup; add configuration error source, sensor identity and startup/health diagnostics for heat-pump recovery."
     },
     {
       "version": "v3.26.2",
