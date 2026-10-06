@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-10-06 04:33:54",
+  "last_updated": "2026-10-06 12:39:21",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.26.4",
       "latest_version_label": "v3.26.4",
       "last_commit_date": "2026-09-30 13:18:22",
-      "last_updated": "2026-10-06 04:33:54",
+      "last_updated": "2026-10-06 12:39:21",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2382,8 +2382,8 @@
           "ota_capable": true,
           "hardware_eol": false,
           "hardware_max_firmware": "",
-          "reported_version": "v3.26.4",
-          "version_source": "reported",
+          "reported_version": "",
+          "version_source": "registry",
           "version_mismatch": false,
           "battery_level": null,
           "location": "Technician room",
@@ -2393,18 +2393,7 @@
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
-          "ota_history": [
-            {
-              "date": "2026-10-05T18:35:14.563802Z",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-10-05T18:30:48.956439Z",
-              "version": "",
-              "version_code": null
-            }
-          ],
+          "ota_history": [],
           "sensor_summary": "1-Wire water system temperatures with virtual sensors",
           "notes": "",
           "track": "sensor-hub",
@@ -2958,7 +2947,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-10-06 04:33:54",
+      "last_updated": "2026-10-06 12:39:21",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4471,8 +4460,8 @@
       "ota_capable": true,
       "hardware_eol": false,
       "hardware_max_firmware": "",
-      "reported_version": "v3.26.4",
-      "version_source": "reported",
+      "reported_version": "",
+      "version_source": "registry",
       "version_mismatch": false,
       "battery_level": null,
       "location": "Technician room",
@@ -4482,18 +4471,7 @@
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
-      "ota_history": [
-        {
-          "date": "2026-10-05T18:35:14.563802Z",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-10-05T18:30:48.956439Z",
-          "version": "",
-          "version_code": null
-        }
-      ],
+      "ota_history": [],
       "sensor_summary": "1-Wire water system temperatures with virtual sensors",
       "notes": "",
       "track": "sensor-hub",
