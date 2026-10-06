@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-10-05 23:38:54",
+  "last_updated": "2026-10-06 04:33:54",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.26.4",
       "latest_version_label": "v3.26.4",
       "last_commit_date": "2026-09-30 13:18:22",
-      "last_updated": "2026-10-05 23:38:54",
+      "last_updated": "2026-10-06 04:33:54",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2403,11 +2403,6 @@
               "date": "2026-10-05T18:30:48.956439Z",
               "version": "",
               "version_code": null
-            },
-            {
-              "date": "2026-09-30T09:17:51.348544Z",
-              "version": "v3.26.2",
-              "version_code": 3260200
             }
           ],
           "sensor_summary": "1-Wire water system temperatures with virtual sensors",
@@ -2963,7 +2958,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-10-05 23:38:54",
+      "last_updated": "2026-10-06 04:33:54",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4497,11 +4492,6 @@
           "date": "2026-10-05T18:30:48.956439Z",
           "version": "",
           "version_code": null
-        },
-        {
-          "date": "2026-09-30T09:17:51.348544Z",
-          "version": "v3.26.2",
-          "version_code": 3260200
         }
       ],
       "sensor_summary": "1-Wire water system temperatures with virtual sensors",
