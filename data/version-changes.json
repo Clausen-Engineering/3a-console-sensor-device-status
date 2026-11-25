@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.28.0",
+  "latest_version": "v3.28.1",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-11-25 15:00:44",
-  "last_updated": "2026-11-25 14:05:25",
+  "last_commit_date": "2026-11-25 15:31:39",
+  "last_updated": "2026-11-25 14:52:16",
   "version_changes": [
+    {
+      "version": "v3.28.1",
+      "date": "2026-11-25",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.28.1"
+    },
     {
       "version": "v3.28.0",
       "date": "2026-11-25",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.28.0"
+      "description": "Add ADS1115 420 mA current-loop inputs and a Sensor Hub v1.6 production target; include the chlorine-alarm and pool-room gyroscope profiles."
     },
     {
       "version": "v3.27.2",
