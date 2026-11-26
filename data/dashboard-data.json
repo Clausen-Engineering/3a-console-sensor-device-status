@@ -1,6 +1,6 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-11-25 16:42:00",
+  "last_updated": "2026-11-26 01:28:31",
   "sections": [
     {
       "id": "sensor-hub",
@@ -10,7 +10,7 @@
       "latest_version": "v3.28.2",
       "latest_version_label": "v3.28.2",
       "last_commit_date": "2026-11-25 15:54:00",
-      "last_updated": "2026-11-25 16:42:00",
+      "last_updated": "2026-11-26 01:28:31",
       "tracks": [
         {
           "id": "sensor-hub",
@@ -2528,6 +2528,11 @@
           "pending_ota_created": "",
           "ota_history": [
             {
+              "date": "2026-11-25T20:44:44.986197Z",
+              "version": "",
+              "version_code": null
+            },
+            {
               "date": "2026-11-24T20:42:14.331825Z",
               "version": "",
               "version_code": null
@@ -3091,7 +3096,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-11-25 16:42:00",
+      "last_updated": "2026-11-26 01:28:31",
       "tracks": [
         {
           "id": "heat-controller",
@@ -4693,6 +4698,11 @@
       "pending_ota_source": "",
       "pending_ota_created": "",
       "ota_history": [
+        {
+          "date": "2026-11-25T20:44:44.986197Z",
+          "version": "",
+          "version_code": null
+        },
         {
           "date": "2026-11-24T20:42:14.331825Z",
           "version": "",
