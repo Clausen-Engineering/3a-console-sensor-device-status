@@ -1,31 +1,55 @@
 {
   "default_section": "sensor-hub",
-  "last_updated": "2026-11-26 01:28:31",
+  "last_updated": "2026-11-26 16:15:42",
   "sections": [
     {
       "id": "sensor-hub",
       "label": "Sensor Hub",
       "description": "ESP32 sensor-hub fleet based on glaecier-sensorhub-data-collector.",
       "repo_name": "glaecier-sensorhub-data-collector",
-      "latest_version": "v3.28.2",
-      "latest_version_label": "v3.28.2",
-      "last_commit_date": "2026-11-25 15:54:00",
-      "last_updated": "2026-11-26 01:28:31",
+      "latest_version": "v3.28.5",
+      "latest_version_label": "v3.28.5",
+      "last_commit_date": "2026-11-26 15:12:39",
+      "last_updated": "2026-11-26 16:15:42",
       "tracks": [
         {
           "id": "sensor-hub",
           "label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector",
-          "latest_version": "v3.28.2",
-          "last_commit_date": "2026-11-25 15:54:00",
+          "latest_version": "v3.28.5",
+          "last_commit_date": "2026-11-26 15:12:39",
           "version_changes": [
+            {
+              "version": "v3.28.5",
+              "date": "2026-11-26",
+              "components": [
+                "core"
+              ],
+              "description": "Bump FIRMWARE_VERSION to 3.28.5"
+            },
+            {
+              "version": "v3.28.4",
+              "date": "2026-11-26",
+              "components": [
+                "core"
+              ],
+              "description": "Show test hub run-complete, critical-limit and identify feedback on the status LED (v1.6 has no buzzer); send all 13 JSY meter readings as regular data from a test-hub-owned register map; record a restart reason after guided setup is saved; send daily connection health event 117 from test hubs; hide the MAC override serial command on test hubs."
+            },
+            {
+              "version": "v3.28.3",
+              "date": "2026-11-26",
+              "components": [
+                "core"
+              ],
+              "description": "Disable OTA and sensor recovery restarts on test hubs; register only relevant event and error types on test hubs; retry test hub Wi-Fi every 60 s without limit; stop polling saved-test state during runs; require a 10 s minimum measurement interval; delay the setup hotspot during runs; show enrollment refusals on the hub screen; build test hub firmware once and flash several hubs; preserve test hub settings during firmware updates."
+            },
             {
               "version": "v3.28.2",
               "date": "2026-11-25",
               "components": [
                 "core"
               ],
-              "description": "Merge pull request #8 from Glaecier-Development/codex/reset-test-hub-setup"
+              "description": "Reset guided test hub sensor setup from Hardware Testing; clear paired sensors and the phone setup draft; preserve hub enrollment and previous test results."
             },
             {
               "version": "v3.28.1",
@@ -1021,12 +1045,45 @@
       ],
       "version_changes": [
         {
+          "version": "v3.28.5",
+          "date": "2026-11-26",
+          "components": [
+            "core"
+          ],
+          "description": "Bump FIRMWARE_VERSION to 3.28.5",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.28.4",
+          "date": "2026-11-26",
+          "components": [
+            "core"
+          ],
+          "description": "Show test hub run-complete, critical-limit and identify feedback on the status LED (v1.6 has no buzzer); send all 13 JSY meter readings as regular data from a test-hub-owned register map; record a restart reason after guided setup is saved; send daily connection health event 117 from test hubs; hide the MAC override serial command on test hubs.",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
+          "version": "v3.28.3",
+          "date": "2026-11-26",
+          "components": [
+            "core"
+          ],
+          "description": "Disable OTA and sensor recovery restarts on test hubs; register only relevant event and error types on test hubs; retry test hub Wi-Fi every 60 s without limit; stop polling saved-test state during runs; require a 10 s minimum measurement interval; delay the setup hotspot during runs; show enrollment refusals on the hub screen; build test hub firmware once and flash several hubs; preserve test hub settings during firmware updates.",
+          "track": "sensor-hub",
+          "track_label": "Sensor Hub",
+          "repo_name": "glaecier-sensorhub-data-collector"
+        },
+        {
           "version": "v3.28.2",
           "date": "2026-11-25",
           "components": [
             "core"
           ],
-          "description": "Merge pull request #8 from Glaecier-Development/codex/reset-test-hub-setup",
+          "description": "Reset guided test hub sensor setup from Hardware Testing; clear paired sensors and the phone setup draft; preserve hub enrollment and previous test results.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
           "repo_name": "glaecier-sensorhub-data-collector"
@@ -2468,7 +2525,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Floating Platform Motion",
@@ -2499,7 +2556,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Water System Temperatures",
@@ -2526,28 +2583,12 @@
           "pending_ota_version": "",
           "pending_ota_source": "",
           "pending_ota_created": "",
-          "ota_history": [
-            {
-              "date": "2026-11-25T20:44:44.986197Z",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-11-24T20:42:14.331825Z",
-              "version": "",
-              "version_code": null
-            },
-            {
-              "date": "2026-11-23T20:39:49.369679Z",
-              "version": "",
-              "version_code": null
-            }
-          ],
+          "ota_history": [],
           "sensor_summary": "1-Wire water system temperatures with virtual sensors",
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Lounge Floor Temperature",
@@ -2578,7 +2619,7 @@
           "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "MOG Tank Water Sensor",
@@ -2609,7 +2650,7 @@
           "notes": "Old registry label was 'MOG Tank Cycle Count'.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Floating Platform Motion",
@@ -2640,7 +2681,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Hallway CO2 Pressure",
@@ -2671,7 +2712,7 @@
           "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Lounge CO2 Pressure",
@@ -2702,7 +2743,7 @@
           "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Sauna Power Consumption",
@@ -2733,7 +2774,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Sauna Temperature and Humidity",
@@ -2764,7 +2805,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Ventilation Boost Button",
@@ -2846,7 +2887,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Water Heater Power Consumption",
@@ -2877,7 +2918,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Water Meter",
@@ -2908,7 +2949,7 @@
           "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Water Tank Temperatures",
@@ -2940,7 +2981,7 @@
           "notes": "Sensor ID prefixes: PH = Pre Heater tank (virtual 0), MH = Main Heater tank (virtual 1).",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Main Power In",
@@ -2971,7 +3012,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Sauna Floor Temperature",
@@ -3053,7 +3094,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         },
         {
           "name": "Water Heater Power",
@@ -3084,7 +3125,7 @@
           "notes": "",
           "track": "sensor-hub",
           "track_label": "Sensor Hub",
-          "target_version": "v3.28.2"
+          "target_version": "v3.28.5"
         }
       ]
     },
@@ -3096,7 +3137,7 @@
       "latest_version": "",
       "latest_version_label": "Multiple tracks",
       "last_commit_date": "",
-      "last_updated": "2026-11-26 01:28:31",
+      "last_updated": "2026-11-26 16:15:42",
       "tracks": [
         {
           "id": "heat-controller",
@@ -3186,18 +3227,51 @@
       ]
     }
   ],
-  "latest_version": "v3.28.2",
-  "latest_version_label": "v3.28.2",
+  "latest_version": "v3.28.5",
+  "latest_version_label": "v3.28.5",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-11-25 15:54:00",
+  "last_commit_date": "2026-11-26 15:12:39",
   "version_changes": [
+    {
+      "version": "v3.28.5",
+      "date": "2026-11-26",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.28.5",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.28.4",
+      "date": "2026-11-26",
+      "components": [
+        "core"
+      ],
+      "description": "Show test hub run-complete, critical-limit and identify feedback on the status LED (v1.6 has no buzzer); send all 13 JSY meter readings as regular data from a test-hub-owned register map; record a restart reason after guided setup is saved; send daily connection health event 117 from test hubs; hide the MAC override serial command on test hubs.",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
+    {
+      "version": "v3.28.3",
+      "date": "2026-11-26",
+      "components": [
+        "core"
+      ],
+      "description": "Disable OTA and sensor recovery restarts on test hubs; register only relevant event and error types on test hubs; retry test hub Wi-Fi every 60 s without limit; stop polling saved-test state during runs; require a 10 s minimum measurement interval; delay the setup hotspot during runs; show enrollment refusals on the hub screen; build test hub firmware once and flash several hubs; preserve test hub settings during firmware updates.",
+      "track": "sensor-hub",
+      "track_label": "Sensor Hub",
+      "repo_name": "glaecier-sensorhub-data-collector"
+    },
     {
       "version": "v3.28.2",
       "date": "2026-11-25",
       "components": [
         "core"
       ],
-      "description": "Merge pull request #8 from Glaecier-Development/codex/reset-test-hub-setup",
+      "description": "Reset guided test hub sensor setup from Hardware Testing; clear paired sensors and the phone setup draft; preserve hub enrollment and previous test results.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
       "repo_name": "glaecier-sensorhub-data-collector"
@@ -4639,7 +4713,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Floating Platform Motion",
@@ -4670,7 +4744,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Water System Temperatures",
@@ -4697,28 +4771,12 @@
       "pending_ota_version": "",
       "pending_ota_source": "",
       "pending_ota_created": "",
-      "ota_history": [
-        {
-          "date": "2026-11-25T20:44:44.986197Z",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-11-24T20:42:14.331825Z",
-          "version": "",
-          "version_code": null
-        },
-        {
-          "date": "2026-11-23T20:39:49.369679Z",
-          "version": "",
-          "version_code": null
-        }
-      ],
+      "ota_history": [],
       "sensor_summary": "1-Wire water system temperatures with virtual sensors",
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Lounge Floor Temperature",
@@ -4749,7 +4807,7 @@
       "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "MOG Tank Water Sensor",
@@ -4780,7 +4838,7 @@
       "notes": "Old registry label was 'MOG Tank Cycle Count'.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Floating Platform Motion",
@@ -4811,7 +4869,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Hallway CO2 Pressure",
@@ -4842,7 +4900,7 @@
       "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Lounge CO2 Pressure",
@@ -4873,7 +4931,7 @@
       "notes": "MAC recovered from the device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Sauna Power Consumption",
@@ -4904,7 +4962,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Sauna Temperature and Humidity",
@@ -4935,7 +4993,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Ventilation Boost Button",
@@ -5017,7 +5075,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Water Heater Power Consumption",
@@ -5048,7 +5106,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Water Meter",
@@ -5079,7 +5137,7 @@
       "notes": "MAC recovered from the old device registry. Deployment dates and installed version are still missing.",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Water Tank Temperatures",
@@ -5111,7 +5169,7 @@
       "notes": "Sensor ID prefixes: PH = Pre Heater tank (virtual 0), MH = Main Heater tank (virtual 1).",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Main Power In",
@@ -5142,7 +5200,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Sauna Floor Temperature",
@@ -5224,7 +5282,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     },
     {
       "name": "Water Heater Power",
@@ -5255,7 +5313,7 @@
       "notes": "",
       "track": "sensor-hub",
       "track_label": "Sensor Hub",
-      "target_version": "v3.28.2"
+      "target_version": "v3.28.5"
     }
   ]
 }
