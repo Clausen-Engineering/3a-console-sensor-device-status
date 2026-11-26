@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.28.4",
+  "latest_version": "v3.28.5",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-11-26 13:31:48",
-  "last_updated": "2026-11-26 12:32:02",
+  "last_commit_date": "2026-11-26 15:12:39",
+  "last_updated": "2026-11-26 14:12:54",
   "version_changes": [
+    {
+      "version": "v3.28.5",
+      "date": "2026-11-26",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.28.5"
+    },
     {
       "version": "v3.28.4",
       "date": "2026-11-26",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.28.4"
+      "description": "Show test hub run-complete, critical-limit and identify feedback on the status LED (v1.6 has no buzzer); send all 13 JSY meter readings as regular data from a test-hub-owned register map; record a restart reason after guided setup is saved; send daily connection health event 117 from test hubs; hide the MAC override serial command on test hubs."
     },
     {
       "version": "v3.28.3",
