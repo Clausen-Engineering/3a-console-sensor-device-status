@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.28.3",
+  "latest_version": "v3.28.4",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-11-26 11:35:03",
-  "last_updated": "2026-11-26 11:24:19",
+  "last_commit_date": "2026-11-26 13:31:48",
+  "last_updated": "2026-11-26 12:32:02",
   "version_changes": [
+    {
+      "version": "v3.28.4",
+      "date": "2026-11-26",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.28.4"
+    },
     {
       "version": "v3.28.3",
       "date": "2026-11-26",
       "components": [
         "core"
       ],
-      "description": "Bump FIRMWARE_VERSION to 3.28.3"
+      "description": "Disable OTA and sensor recovery restarts on test hubs; register only relevant event and error types on test hubs; retry test hub Wi-Fi every 60 s without limit; stop polling saved-test state during runs; require a 10 s minimum measurement interval; delay the setup hotspot during runs; show enrollment refusals on the hub screen; build test hub firmware once and flash several hubs; preserve test hub settings during firmware updates."
     },
     {
       "version": "v3.28.2",
