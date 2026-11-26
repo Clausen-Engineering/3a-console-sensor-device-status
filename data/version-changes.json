@@ -1,16 +1,24 @@
 {
-  "latest_version": "v3.28.2",
+  "latest_version": "v3.28.3",
   "repo_name": "glaecier-sensorhub-data-collector",
-  "last_commit_date": "2026-11-25 15:54:00",
-  "last_updated": "2026-11-25 14:56:18",
+  "last_commit_date": "2026-11-26 11:35:03",
+  "last_updated": "2026-11-26 11:24:19",
   "version_changes": [
+    {
+      "version": "v3.28.3",
+      "date": "2026-11-26",
+      "components": [
+        "core"
+      ],
+      "description": "Bump FIRMWARE_VERSION to 3.28.3"
+    },
     {
       "version": "v3.28.2",
       "date": "2026-11-25",
       "components": [
         "core"
       ],
-      "description": "Merge pull request #8 from Glaecier-Development/codex/reset-test-hub-setup"
+      "description": "Reset guided test hub sensor setup from Hardware Testing; clear paired sensors and the phone setup draft; preserve hub enrollment and previous test results."
     },
     {
       "version": "v3.28.1",
